@@ -198,7 +198,30 @@ En el siguiente cuadro se describe las acciones realizadas y enunciados de concl
 
 ### 1.1.1. Descripción de la Startup
 
+Kntro-Soft es una startup tecnológica peruana dedicada a la innovación en ingeniería de software mediante el uso de Inteligencia Artificial Generativa y procesamiento de lenguaje natural en tiempo real.
+Nuestra misión es potenciar la productividad de los equipos de desarrollo y analistas de sistemas, eliminando la pérdida de información durante el levantamiento de requisitos, asegurando que cada necesidad del cliente se convierta en una historia de usuario precisa y completa.
+
+**Propuesta de Valor**
+
+* Documentación Instantánea: Generación automática de User Stories con criterios de aceptación en formato Gherkin mediante LLMs de última generación
+* Asistencia Consultiva en Vivo: Sugerencias inteligentes de preguntas durante las reuniones para evitar vacíos de información y considerar casos de borde
+* Contexto Inteligente (RAG): Integración con el historial del proyecto para detectar duplicados y asegurar que los nuevos requisitos sean consistentes con la arquitectura existente
+* Privacidad Empresarial: Arquitectura multitenancy robusta con Row Level Security, garantizando que los datos y el conocimiento de cada organización permanezcan estrictamente aislados
+
+**Visión**
+
+Convertirnos en la plataforma estándar de gestión de requisitos para empresas de software en Latinoamérica, liderando la transición hacia un desarrollo de software asistido por IA que sea transparente, eficiente y libre de errores de comunicación.
+
+**Valores**
+
+* Precisión Técnica: Compromiso con la entrega de requisitos listos para el desarrollo.
+* Agilidad: Reducción drástica del tiempo entre la reunión y el inicio de la codificación.
+* Seguridad: Protección absoluta de la propiedad intelectual de nuestros clientes.
+* Innovación Adaptativa: Evolución constante de nuestros modelos para entender los dialectos y modismos técnicos de la región.
+
 ### 1.1.2. Perfiles de integrantes del equipo
+
+
 
 ## 1.2. Solution Profile
 
