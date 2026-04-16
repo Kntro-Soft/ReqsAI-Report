@@ -247,13 +247,76 @@ Esta sección analiza la desconexión entre la captura de información y la ejec
 
 ### 1.2.2. Lean UX Process
 
+Esta sección aplica el Proceso Lean UX para estructurar la visión del negocio del proyecto WasteTrack. Se inicia con la formulación del problema, se desglosan las suposiciones fundamentales que sostienen el modelo de negocio y de producto, y finalmente se traducen estas suposiciones en hipótesis comprobables que guiarán el ciclo de desarrollo y validación.
+
 #### 1.2.2.1. Lean UX Problem Statements
+
+El estado actual de la ingeniería de requisitos en el desarrollo de software depende principalmente en la captura pasiva de información a través de grabaciones de video y transcripciones automáticas, las cuales funcionan como una memoria histórica para que el analista de sistemas revise el contenido después de la reunión.
+
+Lo que los servicios y flujos de trabajo existentes no logran abordar es el desafío del razonamiento y la validación en tiempo real. Actualmente, el analista suele descubrir ambigüedades, casos de borde no considerados y vacíos de lógica recién cuando procesa la grabación horas o días después. Esto genera un ciclo ineficiente de reuniones de seguimiento para aclarar dudas que pudieron resolverse en el momento si se hubiera contado con un soporte analítico inmediato.
+
+Nuestro producto, Reqs-AI, abordará esta brecha mediante un motor de inteligencia artificial que procesa el audio en vivo para generar historias de usuario estructuradas mientras la reunión ocurre. Su valor diferencial reside en un asistente de consulta activa que proporciona sugerencias de preguntas críticas al analista en tiempo real, asegurando que toda duda técnica o de negocio sea resuelta mientras el cliente aún está presente.
+
+Nuestro enfoque inicial serán las Startups tecnológicas y empresas de desarrollo de software que operan bajo metodologías ágiles y necesitan una transición inmediata y sin errores desde la fase de descubrimiento hasta el inicio de la codificación.
+
+Sabremos que hemos tenido éxito cuando observemos una reducción del 40% en las reuniones de seguimiento para aclaración de requisitos, una disminución significativa en el tiempo que el analista dedica al post-procesamiento de la información y una tasa de aceptación de historias de usuario superior al 80% en la primera iteración de revisión con el equipo de desarrollo.
+
 
 #### 1.2.2.2. Lean UX Assumptions
 
+Esta sección presenta las suposiciones fundamentales del proyecto Reqs-AI, estructuradas bajo el marco de Lean UX. Aquí definimos los resultados de negocio esperados, los perfiles de usuario que enfrentan el problema y los beneficios tangibles que estos obtendrán al utilizar nuestra solución.
+
+**Business Outcomes (Resultados de Negocio):**
+
+Utilizamos el framework AARRR (Pirate Metrics) para cuantificar el impacto estratégico de Reqs-AI en el mercado de startups y empresas:
+* Acquisition (Adquisición): El 25% de las empresas contactadas se registrarán para una prueba gratuita de 14 días.
+* Activation (Activación): El 40% de los usuarios registrados procesará al menos 3 reuniones reales y generará un set de User Stories en su primera semana.
+* Retention (Retención): El 60% de las Startups que completen la prueba gratuita optarán por una suscripción mensual activa.
+* Revenue (Ingresos): Se proyecta un Ingreso Mensual Recurrente (MRR) promedio de $49 por Startup y contratos anuales de 4,000+ para Empresas.
+* Referral (Recomendación): 1 de cada 4 usuarios activos recomendará la herramienta a otros colegas en comunidades de Product Management o Ingeniería.
+
+**Users (Usuarios)**
+Hemos identificado dos perfiles clave que enfrentan el reto de transformar la voz del cliente en código, adaptados a la realidad de una Startup y una organización corporativa:
+
+| Usuario                           | Perfil                                              | Objetivos                                                                                             | Obstáculos                                                                                              |
+|:----------------------------------|:----------------------------------------------------|:------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------|
+| **Alex (Startup Lead)**           | 28 años, Developer Full-stack que hace de Analista. | Mapear el MVP rápidamente, no olvidar *edge cases*, pasar de la reunión al código sin fricción.       | Tiempo limitado, falta de experiencia formal en análisis, cambios constantes de prioridad.              |
+| **Claudia (Analista Enterprise)** | 35 años, Business Analyst en una corporación.       | Estandarizar requisitos en Gherkin, asegurar que nada quede ambiguo, cumplir con normas de seguridad. | Reuniones largas y densas, dificultad para procesar horas de grabación, burocracia en la documentación. |
+
+**User Outcomes (Resultados de Usuario)**
+Estos son los resultados esperados por nuestros usuarios, divididos según el valor que perciben al usar Reqs-AI:
+
+* Startup Lead:
+Funcional: Obtener historias de usuario listas para el backlog ni bien termina la llamada.
+Emocional: Sentir seguridad de que no "se le pasó nada" técnico durante la conversación.
+Aspiracional: Ser reconocido por su rapidez y capacidad de entrega (delivery) de alta calidad.
+
+* Analista Enterprise:
+Funcional: Eliminar el trabajo manual de transcribir grabaciones y redactar Gherkin desde cero.
+Emocional: Sentirse empoderada durante la reunión al recibir sugerencias de preguntas que exponen    vacíos de lógica del cliente.
+Aspiracional: Posicionarse como una analista estratégica que garantiza la precisión del proyecto, reduciendo el retrabajo del equipo.
+
 #### 1.2.2.3. Lean UX Hypothesis Statements
 
+**Test (Alto valor, alto riesgo)**
+
+* Hipótesis 1 (Riesgo de Valor y Comportamiento):
+El equipo cree que proporcionar sugerencias automáticas de preguntas sobre casos de borde en tiempo real para el Analista de Sistemas logrará una captura de requisitos exhaustiva durante la primera interacción. Se sabrá que esto es cierto cuando el analista plantee al menos el 60% de las sugerencias generadas por la IA durante la sesión en vivo con el cliente, reduciendo la necesidad de reuniones de aclaración posteriores.
+
+* Hipótesis 2 (Riesgo de Confianza Técnica):
+El equipo cree que la generación instantánea de historias de usuario en formato Gherkin utilizando contexto previo (RAG) para el Líder Técnico de una Startup logrará acelerar el ciclo de inicio del desarrollo (discovery-to-delivery). Se sabrá que esto es cierto cuando el tiempo promedio dedicado por el rol a la edición y corrección manual de las historias generadas sea menor a 15 minutos por sesión.
+
+**Ship & Measure (Alto valor, bajo riesgo)**
+
+* Hipótesis 3 (Riesgo de Adopción Funcional):
+El equipo cree que la integración de un botón de exportación directa hacia herramientas de gestión para el Líder Técnico de una Startup logrará una mayor retención de uso de la plataforma. Se sabrá que esto es cierto cuando el 80% de las historias de usuario validadas en Reqs-AI sean sincronizadas con el backlog del proyecto en los primeros 10 minutos posteriores al cierre de la reunión.
+
+* Hipótesis 4 (Riesgo de Cumplimiento y Seguridad):
+El equipo cree que la implementación de una arquitectura de aislamiento de datos mediante Row Level Security (RLS) para el Analista de Sistemas Enterprise logrará mitigar las preocupaciones de privacidad de la información corporativa. Se sabrá que esto es cierto cuando las organizaciones interesadas completen el proceso de registro y configuración del perfil organizacional tras revisar la documentación de seguridad y multitenancy del sistema.
+
 #### 1.2.2.4. Lean UX Canvas
+
+![lean-ux-canvas](assets/1.introduction/1.2.solution-profile/1.2.2.lean-ux-process/LEAN-UX-CANVAS-Reqs-AI.png)
 
 ## 1.3. Segmentos objetivos
 
