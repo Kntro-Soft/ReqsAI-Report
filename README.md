@@ -364,6 +364,236 @@ Deben asegurar que cada requerimiento del cliente esté perfectamente documentad
 
 ### 2.1.1. Análisis competitivo
 
+<table border="1" cellspacing="0" cellpadding="10" style="border-collapse: collapse; width: 100%; text-align: left;">
+  <thead>
+    <tr>
+      <th>Aspecto</th>
+      <th>KinestEduAI (Propuesta)</th>
+      <th>EndeavorRx</th>
+      <th>Atenxia</th>
+      <th>Joon</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>¿Por qué llevar a cabo este análisis?</strong></td>
+      <td colspan="4">
+        Identificar cómo la propuesta puede diferenciarse de las soluciones actuales para niños con TDAH,
+        especialmente al integrar ejercicios de concentración, habilidades psicomotrices e inteligencia artificial
+        dentro de una plataforma web accesible y orientada al contexto educativo y terapéutico.
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Nombre</strong></td>
+      <td>KinestEduAI</td>
+      <td>EndeavorRx</td>
+      <td>Atenxia</td>
+      <td>Joon</td>
+    </tr>
+    <tr>
+      <td><strong>Logo</strong></td>
+      <td>[Logo propio]</td>
+      <td>[Logo EndeavorRx]</td>
+      <td>[Logo Atenxia]</td>
+      <td>[Logo Joon]</td>
+    </tr>
+    <tr>
+      <td><strong>Overview</strong></td>
+      <td>
+        Sistema web interactivo orientado a niños de 6 a 8 años con TDAH, enfocado en fortalecer
+        la concentración y las habilidades psicomotrices mediante actividades gamificadas y apoyo de IA.
+      </td>
+      <td>
+        Terapia digital en formato de videojuego para mejorar la función de atención en niños con TDAH;
+        está orientada a pacientes pediátricos y se usa bajo prescripción profesional.
+      </td>
+      <td>
+        Plataforma basada en inteligencia artificial orientada a la mejora de habilidades atencionales
+        en niños en edad escolar, incluyendo casos relacionados con TDAH y dislexia.
+      </td>
+      <td>
+        Aplicación gamificada que ayuda a niños a cumplir rutinas y tareas diarias, reforzando hábitos,
+        organización y seguimiento conductual con apoyo familiar.
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Ventaja competitiva</strong></td>
+      <td>
+        Integra en una sola solución: concentración, psicomotricidad, gamificación e IA,
+        con una propuesta web más accesible para instituciones educativas, familias y especialistas.
+      </td>
+      <td>
+        Respaldo clínico y posicionamiento como terapia digital especializada para TDAH,
+        con enfoque claro en atención sostenida.
+      </td>
+      <td>
+        Uso de IA aplicado a dificultades atencionales y de aprendizaje en población infantil escolar.
+      </td>
+      <td>
+        Fuerte enfoque en motivación infantil y cumplimiento de rutinas mediante mecánicas de juego.
+      </td>
+    </tr>
+    <tr>
+      <td><strong>¿Qué valor ofrece a los clientes?</strong></td>
+      <td>
+        Permite trabajar de manera integral la atención y la coordinación motriz en niños,
+        ofreciendo seguimiento de desempeño, personalización y apoyo digital para docentes, padres o terapeutas.
+      </td>
+      <td>
+        Ofrece una intervención digital específica para mejorar atención en niños con TDAH,
+        con respaldo profesional y uso en el hogar.
+      </td>
+      <td>
+        Brinda una solución tecnológica para reforzar habilidades atencionales en entornos educativos y terapéuticos.
+      </td>
+      <td>
+        Ayuda a padres a motivar a sus hijos en tareas diarias y mejorar adherencia a rutinas.
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Mercado objetivo</strong></td>
+      <td>
+        Niños de 6 a 8 años con TDAH, padres de familia, docentes, psicólogos y centros educativos o terapéuticos.
+      </td>
+      <td>
+        Niños con TDAH dentro del rango pediátrico indicado y profesionales de salud que prescriben tratamiento.
+      </td>
+      <td>
+        Profesionales, docentes e instituciones interesadas en mejorar habilidades atencionales en niños.
+      </td>
+      <td>
+        Familias con niños de 6 a 12 años que necesitan apoyo conductual y motivación para rutinas.
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Estrategias de marketing</strong></td>
+      <td>
+        Enfoque B2B2C: colegios, especialistas y familias; posicionamiento por impacto educativo,
+        accesibilidad y personalización mediante IA.
+      </td>
+      <td>
+        Posicionamiento clínico y validación terapéutica dirigida a profesionales y familias.
+      </td>
+      <td>
+        Comunicación orientada a instituciones educativas y profesionales que buscan apoyo con IA.
+      </td>
+      <td>
+        Marketing dirigido a padres de familia mediante beneficios prácticos en hábitos y comportamiento.
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Productos y servicios</strong></td>
+      <td>
+        Plataforma web con minijuegos de atención y motricidad, panel de seguimiento, analítica de progreso
+        y módulos de personalización mediante inteligencia artificial.
+      </td>
+      <td>
+        Videojuego terapéutico digital para atención en niños con TDAH.
+      </td>
+      <td>
+        Plataforma de apoyo basada en IA para habilidades atencionales y aprendizaje.
+      </td>
+      <td>
+        App gamificada para rutinas, tareas y refuerzo conductual.
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Precios y costos</strong></td>
+      <td>
+        Modelo potencial de suscripción accesible para familias o licenciamiento para instituciones educativas
+        y centros terapéuticos.
+      </td>
+      <td>
+        Modelo especializado asociado al entorno clínico y tratamiento digital prescrito.
+      </td>
+      <td>
+        Acceso tipo plataforma digital para usuarios profesionales o institucionales.
+      </td>
+      <td>
+        Modelo de aplicación por suscripción/familia enfocado en uso doméstico.
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Canales de distribución</strong></td>
+      <td>
+        Plataforma web responsiva, acceso desde navegador, posible uso en colegios, hogares y centros de apoyo.
+      </td>
+      <td>
+        Aplicación digital en dispositivos móviles, dentro de un contexto terapéutico.
+      </td>
+      <td>
+        Plataforma en línea para profesionales, docentes o instituciones.
+      </td>
+      <td>
+        Aplicación móvil orientada a padres e hijos.
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Fortalezas</strong></td>
+      <td>
+        Enfoque integral en atención y psicomotricidad; personalización con IA; orientación a edad temprana;
+        posibilidad de adaptación al contexto peruano y educativo.
+      </td>
+      <td>
+        Alta especialización, reconocimiento clínico y foco claro en mejora de atención.
+      </td>
+      <td>
+        Uso de IA en población infantil escolar y orientación a habilidades atencionales.
+      </td>
+      <td>
+        Experiencia atractiva para niños y buena propuesta para adherencia a rutinas.
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Oportunidades</strong></td>
+      <td>
+        Crecimiento de soluciones edtech y healthtech, mayor interés por atención temprana,
+        necesidad de herramientas accesibles para TDAH en contextos escolares latinoamericanos.
+      </td>
+      <td>
+        Expansión internacional de terapias digitales y mayor aceptación de salud digital.
+      </td>
+      <td>
+        Mayor demanda de plataformas con IA para apoyo educativo y neurodesarrollo.
+      </td>
+      <td>
+        Crecimiento del mercado de apps familiares y herramientas de apoyo conductual.
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Debilidades</strong></td>
+      <td>
+        Requiere validación con usuarios reales, evidencia de impacto y posicionamiento frente a marcas ya conocidas.
+      </td>
+      <td>
+        Su foco principal está en atención; no prioriza directamente habilidades psicomotrices.
+      </td>
+      <td>
+        Su propuesta no se centra exclusivamente en psicomotricidad ni necesariamente en el rango específico de 6 a 8 años.
+      </td>
+      <td>
+        Se orienta más a hábitos y conducta que a entrenamiento cognitivo o psicomotor especializado.
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Amenazas</strong></td>
+      <td>
+        Competencia de apps ya posicionadas, resistencia institucional a nuevas tecnologías,
+        necesidad de confianza académica o terapéutica para adopción formal.
+      </td>
+      <td>
+        Aparición de soluciones más accesibles o integrales en mercados emergentes.
+      </td>
+      <td>
+        Competidores con mayor validación clínica o mayor especialización en TDAH.
+      </td>
+      <td>
+        Saturación del mercado de apps infantiles y baja diferenciación en herramientas de conducta.
+      </td>
+    </tr>
+</tbody>
+</table>
+
 ### 2.1.2. Estrategias y tácticas frente a competidores
 
 ## 2.2. Entrevistas
@@ -377,6 +607,8 @@ Deben asegurar que cada requerimiento del cliente esté perfectamente documentad
 ## 2.3. Need finding
 
 ### 2.3.1. User personas
+
+
 
 ### 2.3.2. User Task Matrix
 
