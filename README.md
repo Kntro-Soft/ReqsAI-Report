@@ -374,6 +374,7 @@ Deben asegurar que cada requerimiento del cliente esté perfectamente documentad
       <th>Joon</th>
     </tr>
   </thead>
+
   <tbody>
     <tr>
       <td><strong>¿Por qué llevar a cabo este análisis?</strong></td>
@@ -393,11 +394,17 @@ Deben asegurar que cada requerimiento del cliente esté perfectamente documentad
     <tr>
       <td><strong>Logo</strong></td>
       <td>
-        <img src="assets/logos/Logo-Reqs-AI.png" alt="Reqs-AI" />
-    </td>
-      <td>[Logo EndeavorRx]</td>
-      <td>[Logo Atenxia]</td>
-      <td>[Logo Joon]</td>
+        <img src="./assets/logos/Logo-Reqs-AI.png" alt="KinestEduAI Logo" width="120">
+      </td>
+      <td>
+        <img src="./assets/logos/EndeavorRx-Logo.png" alt="EndeavorRx Logo" width="120">
+      </td>
+      <td>
+        <img src="./assets/logos/Logo-Atenxia.png" alt="Atenxia Logo" width="120">
+      </td>
+      <td>
+        <img src="./assets/logos/Logo-Joon.png" alt="Joon Logo" width="120">
+      </td>
     </tr>
     <tr>
       <td><strong>Overview</strong></td>
@@ -593,7 +600,7 @@ Deben asegurar que cada requerimiento del cliente esté perfectamente documentad
         Saturación del mercado de apps infantiles y baja diferenciación en herramientas de conducta.
       </td>
     </tr>
-</tbody>
+  </tbody>
 </table>
 
 ### 2.1.2. Estrategias y tácticas frente a competidores
