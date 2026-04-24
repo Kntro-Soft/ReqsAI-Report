@@ -645,6 +645,11 @@ Deben asegurar que cada requerimiento del cliente esté perfectamente documentad
 
 En esta sección se detallan las estrategias y tácticas que Reqs-AI aplicará para establecer una ventaja competitiva frente a herramientas de gestión de proyectos, documentación colaborativa y plataformas con inteligencia artificial aplicadas al trabajo de equipos de software.
 
+#### Estrategias para afrontar las fortalezas de los competidores
+
+- Diferenciación por especialización en ingeniería de requisitos:
+Para enfrentar la fortaleza de herramientas como Jira, que cuenta con alta adopción en equipos ágiles y gestión de backlogs, Reqs-AI aplicará la táctica de “levantamiento inteligente de requisitos en tiempo real”. A diferencia de Jira, que se enfoca principalmente en administrar tareas, issues y sprints, Reqs-AI se centrará en la etapa previa: capturar, interpretar y transformar la información de reuniones con clientes en requisitos funcionales, historias de usuario y criterios de aceptación más claros.
+
 ## 2.2. Entrevistas
 
 ### 2.2.1. Diseño de entrevistas
