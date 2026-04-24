@@ -661,6 +661,9 @@ Ante competidores consolidados en colaboración visual como Miro AI, Reqs-AI apl
 - Táctica de preguntas consultivas durante la elicitación:
 Reqs-AI aprovechará la debilidad de herramientas generalistas que no guían activamente al analista durante una reunión. Para ello, incorporará una táctica de “asistente consultivo en vivo”, capaz de sugerir preguntas relevantes cuando detecte ambigüedad, información incompleta o falta de reglas de negocio. Esto permitirá mejorar la calidad del levantamiento de requisitos antes de que el equipo pase a la fase de desarrollo.
 
+#### Estrategia de reducción de retrabajo por requisitos incompletos:
+Muchas herramientas permiten documentar información, pero no necesariamente validan si un requisito está claro, completo o alineado con el contexto del proyecto. Reqs-AI aplicará la táctica de “validación semántica de requisitos”, identificando posibles inconsistencias, requisitos duplicados, criterios de aceptación incompletos o historias de usuario mal estructuradas. Con ello, se busca reducir errores de interpretación y retrabajo en etapas posteriores del proyecto.
+
 ## 2.2. Entrevistas
 
 ### 2.2.1. Diseño de entrevistas
