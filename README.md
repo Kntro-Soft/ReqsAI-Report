@@ -656,6 +656,10 @@ Frente a plataformas como Notion AI, que destacan por su flexibilidad para redac
 #### Estrategia de integración con el flujo ágil del equipo:
 Ante competidores consolidados en colaboración visual como Miro AI, Reqs-AI aplicará la táctica de “conversión de ideas en entregables técnicos”. Mientras Miro facilita la ideación y organización visual, Reqs-AI buscará convertir directamente los hallazgos de las reuniones en artefactos accionables para el equipo de desarrollo, como user stories, criterios Gherkin, épicas, funcionalidades priorizadas y preguntas pendientes para el cliente.
 
+#### Estrategias para aprovechar las debilidades de los competidores
+
+- Táctica de preguntas consultivas durante la elicitación:
+Reqs-AI aprovechará la debilidad de herramientas generalistas que no guían activamente al analista durante una reunión. Para ello, incorporará una táctica de “asistente consultivo en vivo”, capaz de sugerir preguntas relevantes cuando detecte ambigüedad, información incompleta o falta de reglas de negocio. Esto permitirá mejorar la calidad del levantamiento de requisitos antes de que el equipo pase a la fase de desarrollo.
 
 ## 2.2. Entrevistas
 
