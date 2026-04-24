@@ -664,6 +664,17 @@ Reqs-AI aprovechará la debilidad de herramientas generalistas que no guían act
 #### Estrategia de reducción de retrabajo por requisitos incompletos:
 Muchas herramientas permiten documentar información, pero no necesariamente validan si un requisito está claro, completo o alineado con el contexto del proyecto. Reqs-AI aplicará la táctica de “validación semántica de requisitos”, identificando posibles inconsistencias, requisitos duplicados, criterios de aceptación incompletos o historias de usuario mal estructuradas. Con ello, se busca reducir errores de interpretación y retrabajo en etapas posteriores del proyecto.
 
+- Táctica de trazabilidad entre reunión, requisito e historia de usuario:
+Reqs-AI aprovechará la falta de trazabilidad directa en herramientas de documentación general mediante la táctica de “registro trazable de decisiones”. Cada historia de usuario o criterio generado podrá vincularse con la información de origen de la reunión, permitiendo que analistas, product owners y desarrolladores comprendan de dónde proviene cada requerimiento y por qué fue definido.
+
+#### Contexto de oportunidades y amenazas
+
+- Oportunidades:
+Reqs-AI puede aprovechar el crecimiento del uso de inteligencia artificial generativa en equipos de software, la necesidad de acelerar procesos de documentación y la demanda de herramientas que reduzcan errores en la comunicación entre clientes y equipos técnicos. Además, existe una oportunidad importante en startups, consultoras y equipos ágiles que realizan reuniones frecuentes de descubrimiento, levantamiento de requisitos y refinamiento de backlog.
+
+- Amenazas:
+Una amenaza importante es que plataformas consolidadas como Jira, Notion o Miro incorporen funciones similares de IA para generación de requisitos. Para mitigar este riesgo, Reqs-AI deberá enfocarse en una especialización clara en ingeniería de requisitos, privacidad empresarial, precisión contextual y facilidad de integración con el flujo de trabajo ágil. Asimismo, será necesario construir confianza mediante pruebas con usuarios reales, casos de uso demostrables y resultados medibles en reducción de tiempo de documentación y mejora de calidad de requisitos.
+
 ## 2.2. Entrevistas
 
 ### 2.2.1. Diseño de entrevistas
