@@ -392,7 +392,9 @@ Deben asegurar que cada requerimiento del cliente esté perfectamente documentad
     </tr>
     <tr>
       <td><strong>Logo</strong></td>
-      <td>[Logo propio]</td>
+      <td>
+        <img src="assets/logos/Logo-Reqs-AI.png" alt="Reqs-AI" />
+    </td>
       <td>[Logo EndeavorRx]</td>
       <td>[Logo Atenxia]</td>
       <td>[Logo Joon]</td>
