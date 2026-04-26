@@ -759,8 +759,6 @@ El diseño de entrevistas se orienta a comprender en profundidad el trabajo real
 
 ### 2.3.1. User personas
 
-
-
 ### 2.3.2. User Task Matrix
 
 ### 2.3.3. User Journey Mapping
