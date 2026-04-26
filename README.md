@@ -694,7 +694,28 @@ Los user personas sintetizan patrones de comportamiento, objetivos, frustracione
 
 ### 2.3.2. User Task Matrix
 
+En este User Task Matrix se detallan las tareas que realizan los dos segmentos objetivo considerados en Reqs-AI: el Líder Técnico de Startup y el Analista de Sistemas Enterprise. Las tareas descritas corresponden al trabajo real de levantamiento, validación y transferencia de requisitos, y se ejecutan independientemente de la existencia de una herramienta de software.
+
+| **TAREA** | **Diego Alvarado (Líder Técnico de Startup) - Frecuencia** | **Diego Alvarado (Líder Técnico de Startup) - Importancia** | **Analista Enterprise Genérico (Analista de Sistemas Enterprise) - Frecuencia** | **Analista Enterprise Genérico (Analista de Sistemas Enterprise) - Importancia** |
+|---|:---:|:---:|:---:|:---:|
+| Agendar y preparar reuniones de levantamiento de requisitos con stakeholders | always | high | always | high |
+| Escuchar, sintetizar y registrar necesidades funcionales y reglas de negocio durante la reunión | always | high | always | high |
+| Identificar supuestos, restricciones, dependencias y casos de borde | always | high | always | high |
+| Formular preguntas de aclaración para reducir ambiguedad en tiempo real | always | high | always | high |
+| Transformar notas y acuerdos en historias de usuario y criterios de aceptación | always | high | always | high |
+| Estandarizar la redacción de criterios en formato estructurado (por ejemplo, Gherkin) | sometimes | high | always | high |
+| Validar entendimiento con desarrollo y QA antes de comprometer el sprint | always | high | always | high |
+| Gestionar cambios de alcance y negociar prioridades con negocio cuando aparecen nuevas condiciones | sometimes | high | always | high |
+| Mantener trazabilidad de acuerdos, versiones y decisiones para auditoría y control | sometimes | medium | always | high |
+| Revisar grabaciones/minutas y depurar documentación para cerrar vacíos de información | sometimes | medium | always | high |
+| Coordinar reuniones de seguimiento por dudas o contradicciones detectadas después del levantamiento | sometimes | medium | sometimes | high |
+
+
+La principal diferencia está en el enfoque operativo: el Líder Técnico de Startup prioriza velocidad de ejecución y alineación práctica para codificar cuanto antes, mientras que el Analista de Sistemas Enterprise prioriza estandarización, trazabilidad y control de riesgo. Por ello, en el segmento enterprise aumentan la frecuencia e importancia de actividades formales como redacción estructurada, revisión exhaustiva de evidencias y gestión de cambios bajo criterios de gobernanza.
+
 ### 2.3.3. User Journey Mapping
+
+
 
 ### 2.3.4. Empathy Mapping
 
