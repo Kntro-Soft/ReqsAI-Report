@@ -531,6 +531,40 @@ A través de este proceso analítico y evolutivo, el sistema quedó dividido arq
 
 ### 4.2.3.	Domain Message Flows Modeling
 
+En esta sección, explicamos y evidenciamos el proceso seguido para visualizar cómo deben colaborar los Bounded Contexts para resolver el caso principal del negocio. Para ello, aplicamos una variante técnica de Domain Storytelling enfocada en el flujo de mensajes. 
+
+Utilizamos una notación específica para modelar la interacción:
+*   **Actor:** Persona interactuando con el sistema.
+*   **Bounded Context:** Módulo lógico de nuestro dominio.
+*   **System:** Sistemas o dependencias externas.
+*   **Command:** Intención de hacer algo en color azul.
+*   **Event:** Hecho que ya ocurrió en color naranja.
+*   **Query:** Solicitud de información en color verde.
+*   **Direction of message:** Flecha que indica el flujo del emisor al receptor.
+
+A continuación, detallamos el paso a paso del diagrama elaborado para el flujo principal de Reqs-AI.
+
+#### Escenario Core: Captura de Sesión y Generación de Requerimientos
+
+Este flujo describe la colaboración desde que el usuario inicia la grabación hasta que se generan las historias de usuario estructuradas.
+
+1. **Inicio de Sesión:** El Actor **Analyst** utiliza el System **Website** para enviar el Command **Start Session** al Bounded Context **Meeting Capture**, el cual confirma el inicio emitiendo el Event **Recording Started**.
+2. **Procesamiento de Audio:** **Meeting Capture** delega la carga de trabajo enviando el Command **Divide Audio** al System **STT Service**, que retorna progresivamente el Event **Speech segments identified**.
+3. **Recopilación de Contexto:** Al finalizar, se emite el Command **Send Transcript** hacia **Requirement Generation**. Este contexto necesita el glosario del cliente, por lo que envía un Query **Request Project Data** a **Project Configuration**, recibiendo como respuesta el Event **Project data sent**.
+4. **Inferencia IA:** Con el texto y el contexto listos, **Requirement Generation** envía el Command **Generate User story** al System **LLM Service**. Una vez procesado, se consolida el flujo emitiendo el Event final **User story generated**.
+
+![Scenario1](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.3.Domain-Message-Flows-Modeling/Scenario1.jpg)
+
+#### Escenario: Creación de Organización y Suscripción
+
+Este flujo detalla el onboarding B2B, donde un líder técnico registra su empresa, realiza el pago de un plan Pro y el sistema prepara su entorno de trabajo inicial.
+
+1. **Creación del Espacio:** El Actor **Tech Lead** usa el System **Website** para enviar el Command **Create organization** al Bounded Context **Workspace**, el cual notifica el éxito de la operación con el Event **Organization Created**.
+2. **Gestión del Pago:** Para desbloquear los límites de IA, se emite el Command **Request Pro plan Upgrade** hacia **Billing & Subscription**. Este contexto se comunica con el System **Payment Gateway** mediante el Command **Start Payment** y espera el Event **Payment Validated**.
+3. **Activación y Onboarding:** Tras el pago exitoso, se notifica a Workspace con el Event **Upgraded to Pro plan**. Como parte del onboarding automático, Workspace envía el Command **Generate Demonstration Project** a **Project Configuration**, finalizando el flujo con el Event **Demonstration Project Generated**.
+
+![Scenario2](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.3.Domain-Message-Flows-Modeling/Scenario2.jpg)
+
 ### 4.2.4.	Bounded Context Canvases
 
 ### 4.2.5.	Context Mapping
