@@ -715,7 +715,15 @@ La principal diferencia está en el enfoque operativo: el Líder Técnico de Sta
 
 ### 2.3.3. User Journey Mapping
 
+A continuación, se presentan los User Journey Maps As-Is de cada User Persona. Estos mapas permiten visualizar el recorrido end-to-end de ambos segmentos durante el levantamiento y documentación de requisitos en su situación actual (sin la solución), identificando fricciones, puntos de dolor y oportunidades de mejora en cada etapa del proceso.
 
+* User Journey Map de Diego Alvarado (Líder Técnico de Startup):
+
+  ![User Journey Map del User Persona Diego Alvarado](assets/requirements/maps/journey-maps/tech-lead.png)
+
+* User Journey Map de Analista Enterprise Genérico (Analista de Sistemas Enterprise):
+
+  ![User Journey Map del User Persona Analista Enterprise Genérico](assets/requirements/maps/journey-maps/analyst.png)
 
 ### 2.3.4. Empathy Mapping
 
