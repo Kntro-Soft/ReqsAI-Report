@@ -368,233 +368,312 @@ Deben asegurar que cada requerimiento del cliente esté perfectamente documentad
   <thead>
     <tr>
       <th>Aspecto</th>
-      <th>KinestEduAI (Propuesta)</th>
-      <th>EndeavorRx</th>
-      <th>Atenxia</th>
-      <th>Joon</th>
+      <th>Reqs-AI</th>
+      <th>Jira + Atlassian Intelligence</th>
+      <th>Notion AI</th>
+      <th>Miro AI</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td><strong>¿Por qué llevar a cabo este análisis?</strong></td>
       <td colspan="4">
-        Identificar cómo la propuesta puede diferenciarse de las soluciones actuales para niños con TDAH,
-        especialmente al integrar ejercicios de concentración, habilidades psicomotrices e inteligencia artificial
-        dentro de una plataforma web accesible y orientada al contexto educativo y terapéutico.
+        Identificar cómo Reqs-AI puede diferenciarse de las herramientas actuales de documentación,
+        gestión de proyectos y colaboración asistida por inteligencia artificial, especialmente en el
+        proceso de levantamiento de requisitos, generación de historias de usuario y reducción de vacíos
+        de información durante reuniones con clientes.
       </td>
     </tr>
     <tr>
       <td><strong>Nombre</strong></td>
-      <td>KinestEduAI</td>
-      <td>EndeavorRx</td>
-      <td>Atenxia</td>
-      <td>Joon</td>
+      <td>Reqs-AI</td>
+      <td>Jira + Atlassian Intelligence</td>
+      <td>Notion AI</td>
+      <td>Miro AI</td>
     </tr>
     <tr>
       <td><strong>Logo</strong></td>
-      <td>[Logo propio]</td>
-      <td>[Logo EndeavorRx]</td>
-      <td>[Logo Atenxia]</td>
-      <td>[Logo Joon]</td>
+      <td>
+        <img src="./assets/logos/Reqs-AI-Logo.png" alt="Reqs-AI Logo" width="120">
+      </td>
+      <td>
+        <img src="./assets/logos/Logo-Jira.png" alt="Jira Logo" width="120">
+      </td>
+      <td>
+        <img src="./assets/logos/Logo-Notion.png" alt="Notion AI Logo" width="120">
+      </td>
+      <td>
+        <img src="./assets/logos/Logo-Miro.png" alt="Miro AI Logo" width="120">
+      </td>
     </tr>
     <tr>
       <td><strong>Overview</strong></td>
       <td>
-        Sistema web interactivo orientado a niños de 6 a 8 años con TDAH, enfocado en fortalecer
-        la concentración y las habilidades psicomotrices mediante actividades gamificadas y apoyo de IA.
+        Plataforma SaaS impulsada por inteligencia artificial generativa para asistir el levantamiento
+        de requisitos en tiempo real, generar historias de usuario, criterios de aceptación en formato
+        Gherkin y mantener consistencia con el contexto histórico del proyecto mediante RAG.
       </td>
       <td>
-        Terapia digital en formato de videojuego para mejorar la función de atención en niños con TDAH;
-        está orientada a pacientes pediátricos y se usa bajo prescripción profesional.
+        Herramienta de gestión de proyectos ágiles que permite administrar issues, épicas, sprints y
+        tableros Scrum/Kanban, incorporando capacidades de IA para resumir, generar contenido y apoyar
+        la productividad dentro del ecosistema Atlassian.
       </td>
       <td>
-        Plataforma basada en inteligencia artificial orientada a la mejora de habilidades atencionales
-        en niños en edad escolar, incluyendo casos relacionados con TDAH y dislexia.
+        Plataforma de documentación y organización de conocimiento que integra IA para resumir,
+        redactar, estructurar información y apoyar la creación de documentos colaborativos.
       </td>
       <td>
-        Aplicación gamificada que ayuda a niños a cumplir rutinas y tareas diarias, reforzando hábitos,
-        organización y seguimiento conductual con apoyo familiar.
+        Herramienta colaborativa de pizarras digitales que utiliza IA para organizar ideas, sintetizar
+        contenido, generar diagramas y apoyar dinámicas visuales de trabajo en equipo.
       </td>
     </tr>
     <tr>
       <td><strong>Ventaja competitiva</strong></td>
       <td>
-        Integra en una sola solución: concentración, psicomotricidad, gamificación e IA,
-        con una propuesta web más accesible para instituciones educativas, familias y especialistas.
+        Está especializada en el proceso de requirements elicitation, transformando reuniones en
+        requisitos accionables, historias de usuario y criterios de aceptación, además de sugerir
+        preguntas consultivas para evitar información incompleta.
       </td>
       <td>
-        Respaldo clínico y posicionamiento como terapia digital especializada para TDAH,
-        con enfoque claro en atención sostenida.
+        Tiene fuerte adopción en equipos ágiles y se integra con herramientas de desarrollo, seguimiento
+        de tareas, planificación de sprints y reportes de avance.
       </td>
       <td>
-        Uso de IA aplicado a dificultades atencionales y de aprendizaje en población infantil escolar.
+        Destaca por su flexibilidad para documentar información, organizar bases de conocimiento y crear
+        contenido con asistencia de IA en un entorno simple y colaborativo.
       </td>
       <td>
-        Fuerte enfoque en motivación infantil y cumplimiento de rutinas mediante mecánicas de juego.
+        Es fuerte en colaboración visual, ideación, workshops, mapas mentales, diagramas y sesiones
+        remotas de descubrimiento de producto.
       </td>
     </tr>
     <tr>
       <td><strong>¿Qué valor ofrece a los clientes?</strong></td>
       <td>
-        Permite trabajar de manera integral la atención y la coordinación motriz en niños,
-        ofreciendo seguimiento de desempeño, personalización y apoyo digital para docentes, padres o terapeutas.
+        Reduce la pérdida de información en reuniones con clientes, acelera la documentación de requisitos,
+        mejora la calidad de las historias de usuario y facilita que analistas, product owners y equipos
+        de desarrollo trabajen con información clara y trazable.
       </td>
       <td>
-        Ofrece una intervención digital específica para mejorar atención en niños con TDAH,
-        con respaldo profesional y uso en el hogar.
+        Permite gestionar el ciclo de trabajo ágil, priorizar tareas, asignar responsables, visualizar
+        avances y mantener seguimiento del backlog del producto.
       </td>
       <td>
-        Brinda una solución tecnológica para reforzar habilidades atencionales en entornos educativos y terapéuticos.
+        Ayuda a centralizar documentación, crear wikis, resumir información y mantener espacios
+        colaborativos para equipos de trabajo.
       </td>
       <td>
-        Ayuda a padres a motivar a sus hijos en tareas diarias y mejorar adherencia a rutinas.
+        Facilita sesiones colaborativas visuales para lluvia de ideas, mapeo de procesos, diagramación
+        y organización temprana de conceptos de producto.
       </td>
     </tr>
     <tr>
       <td><strong>Mercado objetivo</strong></td>
       <td>
-        Niños de 6 a 8 años con TDAH, padres de familia, docentes, psicólogos y centros educativos o terapéuticos.
+        Empresas de software, analistas de negocio, product owners, startups tecnológicas, consultoras
+        de desarrollo y equipos ágiles que realizan reuniones frecuentes de levantamiento de requisitos.
       </td>
       <td>
-        Niños con TDAH dentro del rango pediátrico indicado y profesionales de salud que prescriben tratamiento.
+        Equipos de desarrollo de software, áreas de producto, Scrum Masters, Project Managers y
+        organizaciones que gestionan proyectos ágiles.
       </td>
       <td>
-        Profesionales, docentes e instituciones interesadas en mejorar habilidades atencionales en niños.
+        Equipos que necesitan documentar información, organizar conocimiento interno, crear reportes,
+        wikis, notas de reuniones y espacios colaborativos.
       </td>
       <td>
-        Familias con niños de 6 a 12 años que necesitan apoyo conductual y motivación para rutinas.
+        Equipos de diseño, producto, innovación, UX, consultoría y facilitadores de workshops remotos
+        o presenciales.
       </td>
     </tr>
     <tr>
       <td><strong>Estrategias de marketing</strong></td>
       <td>
-        Enfoque B2B2C: colegios, especialistas y familias; posicionamiento por impacto educativo,
-        accesibilidad y personalización mediante IA.
+        Posicionamiento como solución especializada para requirements engineering asistido por IA,
+        enfocada en productividad, precisión técnica, reducción de retrabajo y privacidad empresarial
+        mediante arquitectura multitenancy.
       </td>
       <td>
-        Posicionamiento clínico y validación terapéutica dirigida a profesionales y familias.
+        Estrategia basada en ecosistema empresarial, integraciones con herramientas de desarrollo,
+        adopción ágil y presencia consolidada en compañías tecnológicas.
       </td>
       <td>
-        Comunicación orientada a instituciones educativas y profesionales que buscan apoyo con IA.
+        Estrategia centrada en productividad personal y de equipos, facilidad de uso, plantillas,
+        documentación flexible y adopción rápida.
       </td>
       <td>
-        Marketing dirigido a padres de familia mediante beneficios prácticos en hábitos y comportamiento.
+        Estrategia enfocada en colaboración visual, creatividad, workshops, innovación, diseño de
+        producto y trabajo remoto.
       </td>
     </tr>
     <tr>
       <td><strong>Productos y servicios</strong></td>
       <td>
-        Plataforma web con minijuegos de atención y motricidad, panel de seguimiento, analítica de progreso
-        y módulos de personalización mediante inteligencia artificial.
+        Plataforma web SaaS con transcripción o registro de reuniones, generación automática de user
+        stories, criterios de aceptación, sugerencias de preguntas, validación de duplicados y contexto
+        inteligente mediante RAG.
       </td>
       <td>
-        Videojuego terapéutico digital para atención en niños con TDAH.
+        Gestión de issues, backlogs, épicas, sprints, tableros ágiles, reportes, automatizaciones e
+        integración con herramientas del ecosistema Atlassian.
       </td>
       <td>
-        Plataforma de apoyo basada en IA para habilidades atencionales y aprendizaje.
+        Documentos colaborativos, wikis, bases de datos, plantillas, resúmenes automáticos y generación
+        asistida de contenido con IA.
       </td>
       <td>
-        App gamificada para rutinas, tareas y refuerzo conductual.
+        Pizarras colaborativas, diagramas, mapas mentales, plantillas de workshops, organización visual
+        de ideas y funciones de IA para sintetizar información.
       </td>
     </tr>
     <tr>
       <td><strong>Precios y costos</strong></td>
       <td>
-        Modelo potencial de suscripción accesible para familias o licenciamiento para instituciones educativas
-        y centros terapéuticos.
+        Modelo SaaS por suscripción, con planes para equipos pequeños, startups y organizaciones,
+        considerando diferenciación por número de usuarios, proyectos, almacenamiento y uso de IA.
       </td>
       <td>
-        Modelo especializado asociado al entorno clínico y tratamiento digital prescrito.
+        Modelo freemium y planes de pago por usuario, orientado a equipos que requieren gestión avanzada
+        de proyectos y escalabilidad empresarial.
       </td>
       <td>
-        Acceso tipo plataforma digital para usuarios profesionales o institucionales.
+        Modelo freemium con planes personales, de equipo y empresariales, con funciones adicionales de IA
+        bajo planes pagos.
       </td>
       <td>
-        Modelo de aplicación por suscripción/familia enfocado en uso doméstico.
+        Modelo freemium con planes para equipos, empresas y organizaciones que requieren colaboración
+        visual avanzada.
       </td>
     </tr>
     <tr>
       <td><strong>Canales de distribución</strong></td>
       <td>
-        Plataforma web responsiva, acceso desde navegador, posible uso en colegios, hogares y centros de apoyo.
+        Plataforma web accesible desde navegador, comercialización directa a empresas de software,
+        alianzas con consultoras tecnológicas y posible estrategia B2B SaaS para equipos ágiles.
       </td>
       <td>
-        Aplicación digital en dispositivos móviles, dentro de un contexto terapéutico.
+        Distribución mediante plataforma web, marketplace de Atlassian, ventas empresariales y adopción
+        por equipos de desarrollo.
       </td>
       <td>
-        Plataforma en línea para profesionales, docentes o instituciones.
+        Plataforma web y aplicación móvil/escritorio, con adopción directa por usuarios, equipos y empresas.
       </td>
       <td>
-        Aplicación móvil orientada a padres e hijos.
+        Plataforma web y aplicaciones colaborativas, orientada a equipos de producto, diseño e innovación.
       </td>
     </tr>
     <tr>
       <td><strong>Fortalezas</strong></td>
       <td>
-        Enfoque integral en atención y psicomotricidad; personalización con IA; orientación a edad temprana;
-        posibilidad de adaptación al contexto peruano y educativo.
+        Especialización en levantamiento de requisitos, generación estructurada de historias de usuario,
+        asistencia consultiva en vivo, contexto mediante RAG y enfoque en privacidad empresarial.
       </td>
       <td>
-        Alta especialización, reconocimiento clínico y foco claro en mejora de atención.
+        Alta adopción en la industria, integración con metodologías ágiles, ecosistema robusto y soporte
+        para gestión completa del backlog.
       </td>
       <td>
-        Uso de IA en población infantil escolar y orientación a habilidades atencionales.
+        Interfaz flexible, facilidad de uso, buena experiencia colaborativa y capacidades amplias para
+        documentación general.
       </td>
       <td>
-        Experiencia atractiva para niños y buena propuesta para adherencia a rutinas.
+        Gran capacidad visual, útil para workshops, ideación, diagramación y trabajo colaborativo remoto.
       </td>
     </tr>
     <tr>
       <td><strong>Oportunidades</strong></td>
       <td>
-        Crecimiento de soluciones edtech y healthtech, mayor interés por atención temprana,
-        necesidad de herramientas accesibles para TDAH en contextos escolares latinoamericanos.
+        Crecimiento del uso de IA generativa en procesos de software, necesidad de reducir retrabajo por
+        requisitos incompletos y oportunidad de posicionarse en Latinoamérica como solución especializada
+        para equipos de análisis y desarrollo.
       </td>
       <td>
-        Expansión internacional de terapias digitales y mayor aceptación de salud digital.
+        Mayor adopción de IA dentro de herramientas de gestión ágil y expansión en organizaciones que ya
+        utilizan el ecosistema Atlassian.
       </td>
       <td>
-        Mayor demanda de plataformas con IA para apoyo educativo y neurodesarrollo.
+        Crecimiento de la documentación inteligente y adopción de IA para mejorar productividad en equipos
+        multidisciplinarios.
       </td>
       <td>
-        Crecimiento del mercado de apps familiares y herramientas de apoyo conductual.
+        Mayor demanda de herramientas visuales para trabajo remoto, descubrimiento de producto y dinámicas
+        colaborativas.
       </td>
     </tr>
     <tr>
       <td><strong>Debilidades</strong></td>
       <td>
-        Requiere validación con usuarios reales, evidencia de impacto y posicionamiento frente a marcas ya conocidas.
+        Al ser una propuesta nueva, requiere validación con usuarios reales, construcción de confianza,
+        precisión en los resultados generados por IA y evidencia de impacto en proyectos de software.
       </td>
       <td>
-        Su foco principal está en atención; no prioriza directamente habilidades psicomotrices.
+        No está especializada en capturar requisitos desde reuniones ni en guiar al analista con preguntas
+        consultivas durante la elicitación.
       </td>
       <td>
-        Su propuesta no se centra exclusivamente en psicomotricidad ni necesariamente en el rango específico de 6 a 8 años.
+        Su IA es generalista y no está enfocada específicamente en ingeniería de requisitos, criterios
+        Gherkin o trazabilidad técnica.
       </td>
       <td>
-        Se orienta más a hábitos y conducta que a entrenamiento cognitivo o psicomotor especializado.
+        Es fuerte para ideación visual, pero no cubre de forma especializada la generación formal de
+        requisitos, historias de usuario o criterios de aceptación.
       </td>
     </tr>
     <tr>
       <td><strong>Amenazas</strong></td>
       <td>
-        Competencia de apps ya posicionadas, resistencia institucional a nuevas tecnologías,
-        necesidad de confianza académica o terapéutica para adopción formal.
+        Competencia de plataformas consolidadas que pueden incorporar funciones similares de IA,
+        resistencia de empresas a compartir información sensible en herramientas nuevas y necesidad de
+        demostrar seguridad, precisión y valor frente a soluciones ya adoptadas.
       </td>
       <td>
-        Aparición de soluciones más accesibles o integrales en mercados emergentes.
+        Puede expandir sus capacidades de IA hacia la generación de requisitos y reducir el espacio de
+        diferenciación de soluciones emergentes.
       </td>
       <td>
-        Competidores con mayor validación clínica o mayor especialización en TDAH.
+        Puede ser suficiente para equipos pequeños que solo necesitan documentación básica con IA.
       </td>
       <td>
-        Saturación del mercado de apps infantiles y baja diferenciación en herramientas de conducta.
+        Puede cubrir etapas iniciales de descubrimiento de producto y competir indirectamente en sesiones
+        de levantamiento colaborativo.
       </td>
     </tr>
-</tbody>
+  </tbody>
 </table>
 
 ### 2.1.2. Estrategias y tácticas frente a competidores
+
+En esta sección se detallan las estrategias y tácticas que Reqs-AI aplicará para establecer una ventaja competitiva frente a herramientas de gestión de proyectos, documentación colaborativa y plataformas con inteligencia artificial aplicadas al trabajo de equipos de software.
+
+#### Estrategias para afrontar las fortalezas de los competidores
+
+- Diferenciación por especialización en ingeniería de requisitos:
+Para enfrentar la fortaleza de herramientas como Jira, que cuenta con alta adopción en equipos ágiles y gestión de backlogs, Reqs-AI aplicará la táctica de “levantamiento inteligente de requisitos en tiempo real”. A diferencia de Jira, que se enfoca principalmente en administrar tareas, issues y sprints, Reqs-AI se centrará en la etapa previa: capturar, interpretar y transformar la información de reuniones con clientes en requisitos funcionales, historias de usuario y criterios de aceptación más claros.
+
+#### Estrategia de documentación asistida con contexto del proyecto:
+Frente a plataformas como Notion AI, que destacan por su flexibilidad para redactar y organizar información, Reqs-AI implementará la táctica de “generación contextual basada en RAG”. Esto permitirá que la IA no genere respuestas aisladas, sino que considere información histórica del proyecto, acuerdos anteriores, requisitos existentes y decisiones tomadas previamente, reduciendo duplicidades, contradicciones y vacíos en la documentación.
+
+#### Estrategia de integración con el flujo ágil del equipo:
+Ante competidores consolidados en colaboración visual como Miro AI, Reqs-AI aplicará la táctica de “conversión de ideas en entregables técnicos”. Mientras Miro facilita la ideación y organización visual, Reqs-AI buscará convertir directamente los hallazgos de las reuniones en artefactos accionables para el equipo de desarrollo, como user stories, criterios Gherkin, épicas, funcionalidades priorizadas y preguntas pendientes para el cliente.
+
+#### Estrategias para aprovechar las debilidades de los competidores
+
+- Táctica de preguntas consultivas durante la elicitación:
+Reqs-AI aprovechará la debilidad de herramientas generalistas que no guían activamente al analista durante una reunión. Para ello, incorporará una táctica de “asistente consultivo en vivo”, capaz de sugerir preguntas relevantes cuando detecte ambigüedad, información incompleta o falta de reglas de negocio. Esto permitirá mejorar la calidad del levantamiento de requisitos antes de que el equipo pase a la fase de desarrollo.
+
+#### Estrategia de reducción de retrabajo por requisitos incompletos:
+Muchas herramientas permiten documentar información, pero no necesariamente validan si un requisito está claro, completo o alineado con el contexto del proyecto. Reqs-AI aplicará la táctica de “validación semántica de requisitos”, identificando posibles inconsistencias, requisitos duplicados, criterios de aceptación incompletos o historias de usuario mal estructuradas. Con ello, se busca reducir errores de interpretación y retrabajo en etapas posteriores del proyecto.
+
+- Táctica de trazabilidad entre reunión, requisito e historia de usuario:
+Reqs-AI aprovechará la falta de trazabilidad directa en herramientas de documentación general mediante la táctica de “registro trazable de decisiones”. Cada historia de usuario o criterio generado podrá vincularse con la información de origen de la reunión, permitiendo que analistas, product owners y desarrolladores comprendan de dónde proviene cada requerimiento y por qué fue definido.
+
+#### Contexto de oportunidades y amenazas
+
+- Oportunidades:
+Reqs-AI puede aprovechar el crecimiento del uso de inteligencia artificial generativa en equipos de software, la necesidad de acelerar procesos de documentación y la demanda de herramientas que reduzcan errores en la comunicación entre clientes y equipos técnicos. Además, existe una oportunidad importante en startups, consultoras y equipos ágiles que realizan reuniones frecuentes de descubrimiento, levantamiento de requisitos y refinamiento de backlog.
+
+- Amenazas:
+Una amenaza importante es que plataformas consolidadas como Jira, Notion o Miro incorporen funciones similares de IA para generación de requisitos. Para mitigar este riesgo, Reqs-AI deberá enfocarse en una especialización clara en ingeniería de requisitos, privacidad empresarial, precisión contextual y facilidad de integración con el flujo de trabajo ágil. Asimismo, será necesario construir confianza mediante pruebas con usuarios reales, casos de uso demostrables y resultados medibles en reducción de tiempo de documentación y mejora de calidad de requisitos.
 
 ## 2.2. Entrevistas
 
