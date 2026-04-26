@@ -820,6 +820,31 @@ Se elaboraron los Empathy Maps para los dos User Personas priorizados: el Líder
 
 ## 2.4. Ubiquitous Language
 
+En esta sección se presenta el glosario del dominio de negocio de Reqs-AI, redactado con términos en inglés (y su equivalente en español) para mantener una comunicación consistente y sin ambigüedades entre analistas, líderes técnicos, negocio, QA y demás stakeholders. Este lenguaje ubicuo se centra en el proceso de levantamiento, validación y gobernanza de requisitos en entornos startup y enterprise.
+
+| Term | Equivalente | Definición |
+|---|---|---|
+| Stakeholder | Interesado / Parte interesada | Persona o área que influye, decide o se ve impactada por un requerimiento del proyecto. |
+| Requirement | Requerimiento | Necesidad del negocio o del usuario que debe quedar descrita de forma clara para guiar la implementación y validación. |
+| Requirement Elicitation | Levantamiento de requerimientos | Proceso de recopilar información con el cliente y actores clave para entender qué problema se debe resolver. |
+| Discovery Session | Sesión de descubrimiento | Reunión inicial en la que se explora el problema, objetivos, contexto y restricciones del requerimiento. |
+| Business Rule | Regla de negocio | Condición o política del negocio que determina cómo debe comportarse un proceso o una funcionalidad. |
+| Acceptance Criteria | Criterios de aceptación | Condiciones verificables que definen cuándo un requerimiento se considera correctamente cumplido. |
+| Edge Case | Caso borde | Situación excepcional o poco frecuente que puede afectar el resultado esperado y debe ser considerada en el análisis. |
+| Assumption | Supuesto | Condición que se da por cierta temporalmente cuando no existe confirmación explícita en la reunión. |
+| Dependency | Dependencia | Elemento externo (área, dato, aprobación o acceso) del cual depende la ejecución de un requerimiento. |
+| Constraint | Restricción | Límite de negocio, tiempo, regulación o presupuesto que condiciona cómo se puede ejecutar una solución. |
+| Scope | Alcance | Conjunto de entregables y límites funcionales acordados para una iniciativa o requerimiento. |
+| Scope Change | Cambio de alcance | Modificación posterior del alcance originalmente acordado que impacta tiempo, costo o prioridades. |
+| Decision Maker | Decisor | Stakeholder con autoridad final para aprobar, rechazar o redefinir un requerimiento. |
+| Approval | Aprobación | Confirmación formal de que un requerimiento y sus criterios están listos para pasar a ejecución. |
+| Requirement Traceability | Trazabilidad de requerimientos | Capacidad de seguir un requerimiento desde su origen hasta su validación final, incluyendo cambios y decisiones. |
+| Minutes of Meeting | Acta de reunión | Registro formal de acuerdos, pendientes y decisiones tomadas durante una sesión con stakeholders. |
+| Clarification Meeting | Reunión de aclaración | Reunión adicional convocada para resolver ambigüedades o contradicciones detectadas después del levantamiento inicial. |
+| Rework | Retrabajo | Esfuerzo adicional causado por requisitos incompletos, ambiguos o mal interpretados en etapas previas. |
+| Requirement Governance | Gobernanza de requerimientos | Conjunto de prácticas para asegurar estandarización, calidad, control de cambios y cumplimiento en la gestión de requerimientos. |
+| Business Alignment | Alineación de negocio | Grado en que todos los stakeholders comparten la misma interpretación sobre el problema y la solución esperada. |
+
 # Capítulo III: Requirements Specification
 
 ## 3.1. To-Be Scenario Mapping
