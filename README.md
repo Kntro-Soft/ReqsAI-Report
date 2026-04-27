@@ -861,6 +861,18 @@ En esta sección se presenta el glosario del dominio de negocio de Reqs-AI, reda
 
 ## 3.1. To-Be Scenario Mapping
 
+Para elaborar el To-Be Scenario Mapping, el equipo partió de los recorridos As-Is de ambos segmentos y proyectó un flujo mejorado con apoyo de Reqs-AI. El objetivo fue reducir ambigüedad, retrabajo y carga manual, manteniendo las mismas fases del proceso para comparar claramente los cambios en las filas Steps, Doing, Thinking y Feeling.
+
+El escenario To-Be propone sesiones de levantamiento con mayor validación en tiempo real, mejor estandarización de criterios de aceptación y trazabilidad más sólida para la transferencia hacia desarrollo y QA.
+
+**To-Be Scenario Mapping de Diego Alvarado (Líder Técnico de Startup)**
+
+![To-Be Scenario Mapping - Tech Lead](assets/requirements/maps/to-be-scenarios/tech-lead.png)
+
+**To-Be Scenario Mapping de Analista Enterprise Genérico (Analista de Sistemas Enterprise)**
+
+![To-Be Scenario Mapping - Analyst](assets/requirements/maps/to-be-scenarios/analyst.png)
+
 ## 3.2. User Stories
 
 ## 3.3. Product Backlog
