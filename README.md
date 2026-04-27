@@ -1034,7 +1034,7 @@ Esta priorización se rige por el **Valor de Negocio**: las funcionalidades que 
 Las historias de usuario, junto con sus estimaciones en Story Points, Criterios de Aceptación (BDD) e hitos (Sprints) se encuentran mapeadas y gestionadas en nuestro tablero ágil corporativo.
 
 **Enlace Público al Product Backlog:**  
-[https://kntro-soft.atlassian.net/jira/software/projects/REQSAI/boards/1/backlog](https://kntro-soft.atlassian.net/jira/software/projects/REQSAI/boards/1/backlog) *(Enlace de referencia de acceso público para evaluación).*
+[https://uni-ride.atlassian.net/jira/software/projects/REQ/boards/299/backlog](https://uni-ride.atlassian.net/jira/software/projects/REQ/boards/299/backlog) *(Enlace de acceso).*
 
 **Captura del Product Backlog (Priorizado):**  
 ![Product Backlog Jira Reference](assets/annexes/jira-backlog-prioritized.png)
