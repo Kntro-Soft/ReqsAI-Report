@@ -370,6 +370,78 @@ Deben asegurar que cada requerimiento del cliente esté perfectamente documentad
 
 ### 2.2.1. Diseño de entrevistas
 
+El diseño de entrevistas se orienta a comprender en profundidad el trabajo real de cada segmento: su contexto, decisiones, tareas, emociones y restricciones operativas. El guion se organiza de forma progresiva para conocer cómo viven hoy el proceso, qué valoran y dónde encuentran más dificultades.
+
+**Segmento 1: Líder Técnico de Startup**
+
+**Inicio y contexto profesional**
+1. ¿Cuál es tu rol actual dentro del equipo y qué nivel de participación tienes en reuniones de discovery con clientes?
+2. ¿Cómo está conformado tu equipo (roles, seniority y metodología) y cómo se reparte la responsabilidad del levantamiento de requisitos?
+3. ¿Qué tipo de proyectos desarrollan y qué restricciones de tiempo o presupuesto suelen condicionar sus decisiones?
+
+**Herramientas, ecosistema e influencias**
+4. ¿Qué stack tecnológico y equipos tecnológicos usan para coordinar reuniones, documentar decisiones y gestionar backlog?
+5. ¿Qué herramientas o marcas influyen más en tu forma de trabajar (por ejemplo Atlassian, Microsoft, AWS, GitHub, Notion) y por qué?
+6. ¿Qué referentes, comunidades, canales o personas influyen en tus decisiones sobre prácticas de análisis de requisitos?
+
+**Flujo actual de trabajo**
+7. Cuéntame paso a paso qué haces desde que se agenda una reunión con cliente hasta que una historia de usuario entra al sprint.
+8. ¿Qué tareas realizas tú, cuáles delegas y cuáles dependen de otros roles para cerrar un requerimiento?
+9. ¿Qué entradas usas en cada etapa (audio, notas, tickets, acuerdos) y qué entregables concretos produces al final?
+
+**Puntos de dolor y fricciones del proceso**
+10. ¿En qué momento del flujo se pierden más detalles críticos o aparecen ambiguedades?
+11. ¿Qué tipo de retrabajo se genera cuando una historia queda incompleta o mal definida?
+12. ¿Qué casos de borde o restricciones técnicas suelen omitirse en la primera conversación y por qué?
+13. ¿Cómo impactan esos errores en tiempo de sprint, esfuerzo del equipo y calidad del resultado?
+
+**Experiencia, motivaciones y expectativas**
+14. ¿Qué te motiva más de liderar esta etapa y qué resultado ideal te gustaría garantizar en cada sesión?
+15. ¿Qué situaciones te generan más frustración durante o después de las reuniones de levantamiento?
+16. Cuando el proceso sale bien, ¿qué te hace pensar "esta reunión sí fue productiva"?
+
+**Recorrido completo y validación de propuesta**
+17. Si describieras tu experiencia de principio a fin, ¿cuáles son tus "momentos críticos" (inicio, caos, decisión, cierre)?
+18. ¿En qué parte del recorrido actual sientes mayor carga mental o riesgo de cometer errores?
+19. Si durante la reunión recibieras sugerencias de preguntas en tiempo real, ¿en qué momento exacto del proceso te ayudaría más?
+20. Si al finalizar obtuvieras historias en Gherkin listas para backlog, ¿qué nivel de precisión y edición manual aceptarías?
+21. Si tuvieras que resumir tu experiencia actual en una frase textual, ¿qué dirías?
+
+**Segmento 2: Analista de Sistemas Enterprise**
+
+**Inicio y contexto profesional**
+1. ¿Cuál es tu responsabilidad principal en el ciclo de requisitos y con qué áreas debes coordinar (negocio, desarrollo, QA, seguridad)?
+2. ¿Qué estándares, políticas o marcos de cumplimiento condicionan la documentación que produces?
+3. ¿Qué tipo de proyectos y stakeholders manejas con mayor frecuencia y qué nivel de complejidad tienen sus sesiones?
+
+**Herramientas, ecosistema e influencias**
+4. ¿Qué plataformas, equipos tecnológicos e integraciones usas para registrar, validar y trazar requisitos?
+5. ¿Qué marcas o proveedores pesan más en la selección de herramientas dentro de tu organización?
+6. ¿Qué referentes internos o externos (comités, líderes, buenas prácticas) influyen en tus decisiones metodológicas?
+
+**Flujo actual de trabajo**
+7. Describe paso a paso tu proceso desde la convocatoria de una reunión hasta la aprobación final del requerimiento.
+8. ¿Qué tareas ejecutas tú directamente y cuáles requieren validación de terceros antes de cerrar un requisito?
+9. ¿Qué evidencias o artefactos debes generar en cada etapa para cumplir trazabilidad y auditoría?
+
+**Puntos de dolor y fricciones del proceso**
+10. ¿Dónde aparecen más errores o retrasos: captura inicial, redacción, validación, transferencia a desarrollo/QA o seguimiento?
+11. ¿Qué consecuencias operativas y de riesgo aparecen cuando hay ambiguedades en los requisitos?
+12. ¿Qué situaciones te obligan a convocar reuniones adicionales y cómo impactan en tus plazos?
+13. ¿Qué parte del proceso te demanda más esfuerzo manual y por qué?
+
+**Experiencia, motivaciones y expectativas**
+14. ¿Qué te motiva profesionalmente cuando logras una especificación clara, trazable y útil para todo el equipo?
+15. ¿Qué te frustra más del proceso actual, incluso cuando se cumplen los procedimientos formales?
+16. ¿Qué señales te indican que una entrevista con stakeholders realmente fue efectiva?
+
+**Recorrido completo y validación de propuesta**
+17. Si dibujaras tu recorrido completo de trabajo, ¿en qué momentos sientes más presión o incertidumbre?
+18. ¿Qué piensa, siente y teme tu área cuando se propone usar IA para asistir la documentación de requisitos?
+19. ¿Qué condiciones de seguridad, privacidad, control y auditoría serían indispensables para evaluar una solución como Reqs-AI?
+20. Si la herramienta sugiriera preguntas en vivo y redactara borradores en tiempo real, ¿qué criterios usarías para aprobar su adopción?
+21. Si tuvieras que dejar una frase textual que resuma tu experiencia actual en este proceso, ¿cuál sería?
+
 ### 2.2.2. Registro de entrevistas
 
 ### 2.2.3. Análisis de entrevistas
