@@ -363,278 +363,120 @@ Deben asegurar que cada requerimiento del cliente esté perfectamente documentad
 
 ### 2.1.1. Análisis competitivo
 
+Para este análisis, hemos seleccionado a los competidores más relevantes según el tipo de amenaza que representan para **Reqs-AI**: un competidor directo y especializado (Spinach.io), un competidor sustituto de uso masivo (Otter.ai / Fireflies.ai), y el incumbente o *Status Quo* de la industria (Jira + Atlassian Intelligence).
+
 <table border="1" cellspacing="0" cellpadding="10" style="border-collapse: collapse; width: 100%; text-align: left;">
   <thead>
     <tr>
       <th>Aspecto</th>
-      <th>Reqs-AI</th>
-      <th>Jira + Atlassian Intelligence</th>
-      <th>Notion AI</th>
-      <th>Miro AI</th>
+      <th>Reqs-AI (Nuestro Producto)</th>
+      <th>Spinach.io (Competidor Directo)</th>
+      <th>Otter.ai / Fireflies (Sustituto)</th>
+      <th>Jira + Atlassian AI (Incumbente)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>¿Por qué llevar a cabo este análisis?</strong></td>
+      <td><strong>¿Por qué se analiza?</strong></td>
       <td colspan="4">
-        Identificar cómo Reqs-AI puede diferenciarse de las herramientas actuales de documentación,
-        gestión de proyectos y colaboración asistida por inteligencia artificial, especialmente en el
-        proceso de levantamiento de requisitos, generación de historias de usuario y reducción de vacíos
-        de información durante reuniones con clientes.
+        Para identificar brechas de mercado entre los transcriptores genéricos, los asistentes ágiles y las herramientas de ticketing, posicionando a Reqs-AI como el único especialista en <strong>Ingeniería de Requisitos</strong>.
       </td>
-    </tr>
-    <tr>
-      <td><strong>Nombre</strong></td>
-      <td>Reqs-AI</td>
-      <td>Jira + Atlassian Intelligence</td>
-      <td>Notion AI</td>
-      <td>Miro AI</td>
     </tr>
     <tr>
       <td><strong>Logo</strong></td>
-      <td>
-        <img src="./assets/logos/Reqs-AI-Logo.png" alt="Reqs-AI Logo" width="120">
-      </td>
-      <td>
-        <img src="./assets/logos/Logo-Jira.png" alt="Jira Logo" width="120">
-      </td>
-      <td>
-        <img src="./assets/logos/Logo-Notion.png" alt="Notion AI Logo" width="120">
-      </td>
-      <td>
-        <img src="./assets/logos/Logo-Miro.png" alt="Miro AI Logo" width="120">
-      </td>
+      <td align="center"><img src="./assets/logos/Reqs-AI-Logo.png" alt="Reqs-AI" width="120"></td>
+      <td align="center"><img src="./assets/logos/Logo-Spinach.png" alt="Spinach.io" width="120"></td>
+      <td align="center"><img src="./assets/logos/Logo-Otter.png" alt="Otter.ai" width="120"></td>
+      <td align="center"><img src="./assets/logos/Logo-Jira.png" alt="Jira" width="120"></td>
     </tr>
     <tr>
       <td><strong>Overview</strong></td>
       <td>
-        Plataforma SaaS impulsada por inteligencia artificial generativa para asistir el levantamiento
-        de requisitos en tiempo real, generar historias de usuario, criterios de aceptación en formato
-        Gherkin y mantener consistencia con el contexto histórico del proyecto mediante RAG.
+        SaaS impulsado por IA especializado en <em>Requirements Elicitation</em>. Captura audio de reuniones, aplica RAG con documentos del proyecto y genera historias de usuario estructuradas (BDD/Gherkin).
       </td>
       <td>
-        Herramienta de gestión de proyectos ágiles que permite administrar issues, épicas, sprints y
-        tableros Scrum/Kanban, incorporando capacidades de IA para resumir, generar contenido y apoyar
-        la productividad dentro del ecosistema Atlassian.
+        "AI Scrum Master". Se une a las reuniones de Zoom/Meet, toma notas, resume stand-ups y crea tickets básicos en Jira.
       </td>
       <td>
-        Plataforma de documentación y organización de conocimiento que integra IA para resumir,
-        redactar, estructurar información y apoyar la creación de documentos colaborativos.
+        Asistentes de reuniones por IA de propósito general. Transcriben, hacen resúmenes ejecutivos y extraen "Action Items".
       </td>
       <td>
-        Herramienta colaborativa de pizarras digitales que utiliza IA para organizar ideas, sintetizar
-        contenido, generar diagramas y apoyar dinámicas visuales de trabajo en equipo.
+        La plataforma líder mundial en gestión ágil. Recientemente integró IA para ayudar a redactar y mejorar la gramática de los tickets directamente en su interfaz.
       </td>
     </tr>
     <tr>
       <td><strong>Ventaja competitiva</strong></td>
       <td>
-        Está especializada en el proceso de requirements elicitation, transformando reuniones en
-        requisitos accionables, historias de usuario y criterios de aceptación, además de sugerir
-        preguntas consultivas para evitar información incompleta.
+        <strong>Profundidad Técnica:</strong> No hace resúmenes, hace Ingeniería de Software. Detecta edge cases, sugiere preguntas al cliente en vivo y previene historias duplicadas.
       </td>
       <td>
-        Tiene fuerte adopción en equipos ágiles y se integra con herramientas de desarrollo, seguimiento
-        de tareas, planificación de sprints y reportes de avance.
+        <strong>Integración nativa:</strong> Se comporta como un bot que entra automáticamente a las videollamadas y se integra con múltiples CRMs.
       </td>
       <td>
-        Destaca por su flexibilidad para documentar información, organizar bases de conocimiento y crear
-        contenido con asistencia de IA en un entorno simple y colaborativo.
+        <strong>Adopción masiva:</strong> Son extremadamente fáciles de usar, baratos y sirven para cualquier industria (ventas, legal, educación).
       </td>
       <td>
-        Es fuerte en colaboración visual, ideación, workshops, mapas mentales, diagramas y sesiones
-        remotas de descubrimiento de producto.
-      </td>
-    </tr>
-    <tr>
-      <td><strong>¿Qué valor ofrece a los clientes?</strong></td>
-      <td>
-        Reduce la pérdida de información en reuniones con clientes, acelera la documentación de requisitos,
-        mejora la calidad de las historias de usuario y facilita que analistas, product owners y equipos
-        de desarrollo trabajen con información clara y trazable.
-      </td>
-      <td>
-        Permite gestionar el ciclo de trabajo ágil, priorizar tareas, asignar responsables, visualizar
-        avances y mantener seguimiento del backlog del producto.
-      </td>
-      <td>
-        Ayuda a centralizar documentación, crear wikis, resumir información y mantener espacios
-        colaborativos para equipos de trabajo.
-      </td>
-      <td>
-        Facilita sesiones colaborativas visuales para lluvia de ideas, mapeo de procesos, diagramación
-        y organización temprana de conceptos de producto.
+        <strong>Monopolio del dato:</strong> Los equipos ya viven en Jira. No necesitan salir de la plataforma para usar su IA.
       </td>
     </tr>
     <tr>
       <td><strong>Mercado objetivo</strong></td>
       <td>
-        Empresas de software, analistas de negocio, product owners, startups tecnológicas, consultoras
-        de desarrollo y equipos ágiles que realizan reuniones frecuentes de levantamiento de requisitos.
+        Business Analysts, Product Owners, y Software Factories que sufren por requerimientos ambiguos.
       </td>
       <td>
-        Equipos de desarrollo de software, áreas de producto, Scrum Masters, Project Managers y
-        organizaciones que gestionan proyectos ágiles.
+        Scrum Masters y Project Managers que quieren automatizar la burocracia de las ceremonias ágiles.
       </td>
       <td>
-        Equipos que necesitan documentar información, organizar conocimiento interno, crear reportes,
-        wikis, notas de reuniones y espacios colaborativos.
+        Profesionales de cualquier rubro que tienen demasiadas reuniones y necesitan recordar qué se habló.
       </td>
       <td>
-        Equipos de diseño, producto, innovación, UX, consultoría y facilitadores de workshops remotos
-        o presenciales.
+        Equipos de desarrollo de software y corporaciones que ya usan el ecosistema Atlassian.
       </td>
     </tr>
     <tr>
-      <td><strong>Estrategias de marketing</strong></td>
+      <td><strong>Estrategia de Marketing</strong></td>
       <td>
-        Posicionamiento como solución especializada para requirements engineering asistido por IA,
-        enfocada en productividad, precisión técnica, reducción de retrabajo y privacidad empresarial
-        mediante arquitectura multitenancy.
+        Nicho técnico: "Deja de codificar lo que no es. Reqs-AI convierte reuniones caóticas en requerimientos perfectos."
       </td>
       <td>
-        Estrategia basada en ecosistema empresarial, integraciones con herramientas de desarrollo,
-        adopción ágil y presencia consolidada en compañías tecnológicas.
+        Productividad ágil: "Tu asistente de IA que actualiza tu tablero Kanban por ti."
       </td>
       <td>
-        Estrategia centrada en productividad personal y de equipos, facilidad de uso, plantillas,
-        documentación flexible y adopción rápida.
+        Productividad general: "Nunca más tomes notas en una reunión."
       </td>
       <td>
-        Estrategia enfocada en colaboración visual, creatividad, workshops, innovación, diseño de
-        producto y trabajo remoto.
-      </td>
-    </tr>
-    <tr>
-      <td><strong>Productos y servicios</strong></td>
-      <td>
-        Plataforma web SaaS con transcripción o registro de reuniones, generación automática de user
-        stories, criterios de aceptación, sugerencias de preguntas, validación de duplicados y contexto
-        inteligente mediante RAG.
-      </td>
-      <td>
-        Gestión de issues, backlogs, épicas, sprints, tableros ágiles, reportes, automatizaciones e
-        integración con herramientas del ecosistema Atlassian.
-      </td>
-      <td>
-        Documentos colaborativos, wikis, bases de datos, plantillas, resúmenes automáticos y generación
-        asistida de contenido con IA.
-      </td>
-      <td>
-        Pizarras colaborativas, diagramas, mapas mentales, plantillas de workshops, organización visual
-        de ideas y funciones de IA para sintetizar información.
-      </td>
-    </tr>
-    <tr>
-      <td><strong>Precios y costos</strong></td>
-      <td>
-        Modelo SaaS por suscripción, con planes para equipos pequeños, startups y organizaciones,
-        considerando diferenciación por número de usuarios, proyectos, almacenamiento y uso de IA.
-      </td>
-      <td>
-        Modelo freemium y planes de pago por usuario, orientado a equipos que requieren gestión avanzada
-        de proyectos y escalabilidad empresarial.
-      </td>
-      <td>
-        Modelo freemium con planes personales, de equipo y empresariales, con funciones adicionales de IA
-        bajo planes pagos.
-      </td>
-      <td>
-        Modelo freemium con planes para equipos, empresas y organizaciones que requieren colaboración
-        visual avanzada.
-      </td>
-    </tr>
-    <tr>
-      <td><strong>Canales de distribución</strong></td>
-      <td>
-        Plataforma web accesible desde navegador, comercialización directa a empresas de software,
-        alianzas con consultoras tecnológicas y posible estrategia B2B SaaS para equipos ágiles.
-      </td>
-      <td>
-        Distribución mediante plataforma web, marketplace de Atlassian, ventas empresariales y adopción
-        por equipos de desarrollo.
-      </td>
-      <td>
-        Plataforma web y aplicación móvil/escritorio, con adopción directa por usuarios, equipos y empresas.
-      </td>
-      <td>
-        Plataforma web y aplicaciones colaborativas, orientada a equipos de producto, diseño e innovación.
+        Ecosistema cerrado: "Todo el poder de la IA, sin salir de tu entorno seguro de Jira."
       </td>
     </tr>
     <tr>
       <td><strong>Fortalezas</strong></td>
       <td>
-        Especialización en levantamiento de requisitos, generación estructurada de historias de usuario,
-        asistencia consultiva en vivo, contexto mediante RAG y enfoque en privacidad empresarial.
+        Generación de criterios de aceptación en Gherkin, entendimiento del contexto técnico (RAG con glosarios del cliente) y asistencia consultiva en tiempo real.
       </td>
       <td>
-        Alta adopción en la industria, integración con metodologías ágiles, ecosistema robusto y soporte
-        para gestión completa del backlog.
+        Cubre todo el ciclo Scrum (Plannings, Dailies, Retrospectives) no solo el levantamiento de requerimientos.
       </td>
       <td>
-        Interfaz flexible, facilidad de uso, buena experiencia colaborativa y capacidades amplias para
-        documentación general.
+        Transcripción casi perfecta, búsqueda global de palabras clave, reconocimiento de voz (diarización) excepcional.
       </td>
       <td>
-        Gran capacidad visual, útil para workshops, ideación, diagramación y trabajo colaborativo remoto.
-      </td>
-    </tr>
-    <tr>
-      <td><strong>Oportunidades</strong></td>
-      <td>
-        Crecimiento del uso de IA generativa en procesos de software, necesidad de reducir retrabajo por
-        requisitos incompletos y oportunidad de posicionarse en Latinoamérica como solución especializada
-        para equipos de análisis y desarrollo.
-      </td>
-      <td>
-        Mayor adopción de IA dentro de herramientas de gestión ágil y expansión en organizaciones que ya
-        utilizan el ecosistema Atlassian.
-      </td>
-      <td>
-        Crecimiento de la documentación inteligente y adopción de IA para mejorar productividad en equipos
-        multidisciplinarios.
-      </td>
-      <td>
-        Mayor demanda de herramientas visuales para trabajo remoto, descubrimiento de producto y dinámicas
-        colaborativas.
+        Confianza corporativa absoluta, seguridad empresarial (Compliance) y cero fricción de adopción para equipos actuales.
       </td>
     </tr>
     <tr>
       <td><strong>Debilidades</strong></td>
       <td>
-        Al ser una propuesta nueva, requiere validación con usuarios reales, construcción de confianza,
-        precisión en los resultados generados por IA y evidencia de impacto en proyectos de software.
+        Requiere cambiar el hábito del Analista (usar una herramienta externa antes de pasar a Jira). Marca nueva sin confianza corporativa aún.
       </td>
       <td>
-        No está especializada en capturar requisitos desde reuniones ni en guiar al analista con preguntas
-        consultivas durante la elicitación.
+        Sus Historias de Usuario son superficiales. Se enfocan en el "Qué" pero fallan gravemente en los detalles técnicos y reglas de negocio complejas.
       </td>
       <td>
-        Su IA es generalista y no está enfocada específicamente en ingeniería de requisitos, criterios
-        Gherkin o trazabilidad técnica.
+        No entienden de software. Un "Action Item" para Otter es "Hacer el login", pero no generará los criterios de aceptación técnicos para el desarrollador.
       </td>
       <td>
-        Es fuerte para ideación visual, pero no cubre de forma especializada la generación formal de
-        requisitos, historias de usuario o criterios de aceptación.
-      </td>
-    </tr>
-    <tr>
-      <td><strong>Amenazas</strong></td>
-      <td>
-        Competencia de plataformas consolidadas que pueden incorporar funciones similares de IA,
-        resistencia de empresas a compartir información sensible en herramientas nuevas y necesidad de
-        demostrar seguridad, precisión y valor frente a soluciones ya adoptadas.
-      </td>
-      <td>
-        Puede expandir sus capacidades de IA hacia la generación de requisitos y reducir el espacio de
-        diferenciación de soluciones emergentes.
-      </td>
-      <td>
-        Puede ser suficiente para equipos pequeños que solo necesitan documentación básica con IA.
-      </td>
-      <td>
-        Puede cubrir etapas iniciales de descubrimiento de producto y competir indirectamente en sesiones
-        de levantamiento colaborativo.
+        La IA de Jira reacciona a texto, no escucha. El Product Owner todavía tiene que tomar notas en la reunión y luego pedirle a la IA de Jira que las mejore.
       </td>
     </tr>
   </tbody>
@@ -642,37 +484,24 @@ Deben asegurar que cada requerimiento del cliente esté perfectamente documentad
 
 ### 2.1.2. Estrategias y tácticas frente a competidores
 
-En esta sección se detallan las estrategias y tácticas que Reqs-AI aplicará para establecer una ventaja competitiva frente a herramientas de gestión de proyectos, documentación colaborativa y plataformas con inteligencia artificial aplicadas al trabajo de equipos de software.
+Basados en el análisis anterior, **Reqs-AI** no competirá en el mercado de "tomadores de notas genéricos", sino que ejecutará una estrategia de nicho enfocada estrictamente en la Ingeniería de Requisitos y el Diseño de Producto.
 
-#### Estrategias para afrontar las fortalezas de los competidores
+**1. Frente a competidores directos (Spinach.io)**
+*   **Estrategia:** Diferenciación por Profundidad Técnica (Calidad vs. Cantidad).
+*   **Tácticas:** Mientras Spinach.io se posiciona como un "Scrum Master" que cubre muchas ceremonias superficialmente, Reqs-AI se posicionará como un **"Business Analyst Senior"**. Implementaremos validaciones semánticas de requisitos, detección de historias duplicadas y generación estricta de Criterios de Aceptación en formato *Behavior-Driven Development* (BDD/Gherkin). Demostraremos que un ticket de Spinach requiere refinamiento manual posterior, mientras que un ticket de Reqs-AI está listo para desarrollo (*Ready for Dev*).
 
-- Diferenciación por especialización en ingeniería de requisitos:
-Para enfrentar la fortaleza de herramientas como Jira, que cuenta con alta adopción en equipos ágiles y gestión de backlogs, Reqs-AI aplicará la táctica de “levantamiento inteligente de requisitos en tiempo real”. A diferencia de Jira, que se enfoca principalmente en administrar tareas, issues y sprints, Reqs-AI se centrará en la etapa previa: capturar, interpretar y transformar la información de reuniones con clientes en requisitos funcionales, historias de usuario y criterios de aceptación más claros.
+**2. Frente a sustitutos genéricos (Otter.ai / Fireflies.ai)**
+*   **Estrategia:** Especialización Vertical en Software.
+*   **Tácticas:** Estos bots son excelentes transcribiendo, pero carecen de contexto. Reqs-AI utilizará la arquitectura **RAG (Retrieval-Augmented Generation)**. Permitiremos a los usuarios subir documentos técnicos, glosarios y arquitecturas previas del cliente. Así, cuando el audio mencione "el sistema de pagos", Reqs-AI sabrá exactamente qué pasarela usa ese cliente y redactará la historia con ese contexto corporativo, algo que Otter.ai jamás podría hacer.
 
-#### Estrategia de documentación asistida con contexto del proyecto:
-Frente a plataformas como Notion AI, que destacan por su flexibilidad para redactar y organizar información, Reqs-AI implementará la táctica de “generación contextual basada en RAG”. Esto permitirá que la IA no genere respuestas aisladas, sino que considere información histórica del proyecto, acuerdos anteriores, requisitos existentes y decisiones tomadas previamente, reduciendo duplicidades, contradicciones y vacíos en la documentación.
+**3. Frente al Incumbente (Jira + Atlassian Intelligence)**
+*   **Estrategia:** Asociación y Pre-procesamiento (Complemento, no reemplazo).
+*   **Tácticas:** No intentaremos reemplazar a Jira; intentaremos ser su mejor "puerta de entrada". La debilidad de Jira es que el analista debe salir de la reunión con el cliente, abrir un ticket en blanco y tipear un borrador para que la IA de Jira lo mejore. La táctica de Reqs-AI será el **"One-Click Export a Jira"**. Nuestro valor residirá en procesar el audio *durante* el levantamiento en vivo y enviar la épica completamente armada al backlog de Jira a través de su Webhook (API REST).
 
-#### Estrategia de integración con el flujo ágil del equipo:
-Ante competidores consolidados en colaboración visual como Miro AI, Reqs-AI aplicará la táctica de “conversión de ideas en entregables técnicos”. Mientras Miro facilita la ideación y organización visual, Reqs-AI buscará convertir directamente los hallazgos de las reuniones en artefactos accionables para el equipo de desarrollo, como user stories, criterios Gherkin, épicas, funcionalidades priorizadas y preguntas pendientes para el cliente.
+**4. Contexto de Oportunidades y Amenazas (FODA Resumido)**
 
-#### Estrategias para aprovechar las debilidades de los competidores
-
-- Táctica de preguntas consultivas durante la elicitación:
-Reqs-AI aprovechará la debilidad de herramientas generalistas que no guían activamente al analista durante una reunión. Para ello, incorporará una táctica de “asistente consultivo en vivo”, capaz de sugerir preguntas relevantes cuando detecte ambigüedad, información incompleta o falta de reglas de negocio. Esto permitirá mejorar la calidad del levantamiento de requisitos antes de que el equipo pase a la fase de desarrollo.
-
-#### Estrategia de reducción de retrabajo por requisitos incompletos:
-Muchas herramientas permiten documentar información, pero no necesariamente validan si un requisito está claro, completo o alineado con el contexto del proyecto. Reqs-AI aplicará la táctica de “validación semántica de requisitos”, identificando posibles inconsistencias, requisitos duplicados, criterios de aceptación incompletos o historias de usuario mal estructuradas. Con ello, se busca reducir errores de interpretación y retrabajo en etapas posteriores del proyecto.
-
-- Táctica de trazabilidad entre reunión, requisito e historia de usuario:
-Reqs-AI aprovechará la falta de trazabilidad directa en herramientas de documentación general mediante la táctica de “registro trazable de decisiones”. Cada historia de usuario o criterio generado podrá vincularse con la información de origen de la reunión, permitiendo que analistas, product owners y desarrolladores comprendan de dónde proviene cada requerimiento y por qué fue definido.
-
-#### Contexto de oportunidades y amenazas
-
-- Oportunidades:
-Reqs-AI puede aprovechar el crecimiento del uso de inteligencia artificial generativa en equipos de software, la necesidad de acelerar procesos de documentación y la demanda de herramientas que reduzcan errores en la comunicación entre clientes y equipos técnicos. Además, existe una oportunidad importante en startups, consultoras y equipos ágiles que realizan reuniones frecuentes de descubrimiento, levantamiento de requisitos y refinamiento de backlog.
-
-- Amenazas:
-Una amenaza importante es que plataformas consolidadas como Jira, Notion o Miro incorporen funciones similares de IA para generación de requisitos. Para mitigar este riesgo, Reqs-AI deberá enfocarse en una especialización clara en ingeniería de requisitos, privacidad empresarial, precisión contextual y facilidad de integración con el flujo de trabajo ágil. Asimismo, será necesario construir confianza mediante pruebas con usuarios reales, casos de uso demostrables y resultados medibles en reducción de tiempo de documentación y mejora de calidad de requisitos.
+*   **La gran oportunidad:** Los equipos de desarrollo externalizado (Software Factories) pierden hasta un 30% de su rentabilidad por retrabajos causados por requerimientos ambiguos levantados en reuniones iniciales. Ninguna herramienta actual actúa como un "consultor" que interrumpa y diga: *«El cliente mencionó el módulo de reportes, pero no definió los filtros. Sugiérele preguntarlo ahora»*. Esta funcionalidad proactiva es el océano azul de Reqs-AI.
+*   **La mayor amenaza:** Que Atlassian (Jira) decida lanzar un bot de videollamadas nativo que escuche las reuniones y cree tickets directamente, cerrando la brecha. Para mitigar esto, Reqs-AI debe enfocarse en una Experiencia de Usuario (UX) exquisita para el Analista Funcional, creando un espacio de trabajo donde la reunión sea colaborativa y el cliente final pueda validar las historias generadas antes de enviarlas al entorno de desarrollo duro que representa Jira.
 
 ## 2.2. Entrevistas
 
