@@ -523,6 +523,62 @@ El diseño de entrevistas se orienta a comprender en profundidad el trabajo real
 
 ### 2.2.3. Análisis de entrevistas
 
+Las entrevistas se realizaron entre el 25 y 26 de abril de 2026 a un total de seis participantes: tres del segmento Líder Técnico de Startup y tres del segmento Analista Funcional/Producto/Sistemas. El objetivo fue comprender sus flujos reales de levantamiento de requisitos, identificar fricciones operativas recurrentes y validar la oportunidad de una solución como Reqs-AI para reducir ambigüedad y retrabajo.
+
+---
+
+**Segmento: Líder Técnico de Startup**
+
+**Total entrevistados:** 3  
+**Edades:** 22, 22, 23 años  
+**Distritos:** Barranco, Santiago de Surco, San Miguel  
+**Fechas:** 26 de abril de 2026
+
+**Características objetivas**
+
+- Participan directamente en reuniones de levantamiento bajo marcos ágiles (principalmente Scrum): **3/3 (100%)**
+- Utilizan herramientas colaborativas para reuniones y documentación (Google Meet/Zoom/Notion/Google Docs): **3/3 (100%)**
+- Gestionan el backlog con Jira como herramienta de trabajo recurrente: **3/3 (100%)**
+- Reportan problemas de ambigüedad o información incompleta al traducir necesidades del cliente a historias: **3/3 (100%)**
+- Evidencian impacto operativo en retrabajo y tiempo perdido por historias mal definidas: **3/3 (100%)**
+
+**Características subjetivas**
+
+- Perciben que el proceso actual depende demasiado de la claridad humana durante la reunión: **3/3 (100%)**
+- Consideran que errores tempranos en requisitos afectan el sprint y generan desgaste del equipo: **3/3 (100%)**
+- Valoran la automatización de transcripción/resumen y apoyo en generación de historias para mejorar precisión: **3/3 (100%)**
+- Esperan que cualquier automatización mantenga un criterio de validación por parte del equipo: **2/3 (66%)**
+
+---
+
+**Segmento: Analista Funcional / Producto / Sistemas**
+
+**Total entrevistados:** 3  
+**Edades:** 25, 28, 30 años  
+**Distritos:** Magdalena, Santiago de Surco  
+**Fechas:** 25 y 26 de abril de 2026
+
+**Características objetivas**
+
+- Actúan como puente entre necesidad de negocio y especificación técnica para desarrollo: **3/3 (100%)**
+- Utilizan plataformas de trazabilidad/documentación como Jira, Notion y Azure DevOps: **3/3 (100%)**
+- Transforman acuerdos de reunión en artefactos formales (historias de usuario, criterios y procesos): **3/3 (100%)**
+- Identifican como riesgo frecuente la falta de claridad del cliente o de stakeholders clave: **3/3 (100%)**
+- Enfrentan una alta carga de post-procesamiento para reducir ambigüedades antes de entregar al equipo: **3/3 (100%)**
+
+**Características subjetivas**
+
+- Priorizan la trazabilidad y la consistencia del registro para evitar malentendidos entre áreas: **3/3 (100%)**
+- Consideran crítico gestionar expectativas de cliente y equipo para sostener la calidad del requisito: **3/3 (100%)**
+- Perciben que la ambigüedad en una historia puede escalar a errores de alto impacto operativo: **3/3 (100%)**
+- Reconocen valor en acelerar el análisis de reuniones si se preserva el rigor técnico y funcional: **3/3 (100%)**
+
+---
+
+**Conclusión general**
+
+El análisis muestra un patrón común en ambos segmentos: el principal cuello de botella no es la captura inicial de la reunión, sino la transformación de conversaciones en requisitos claros, trazables y accionables sin pérdida de contexto. La coincidencia en dolores (ambigüedad, retrabajo, sobrecarga de post-procesamiento e impacto en tiempos de sprint) valida la necesidad de una plataforma que asista en tiempo real con transcripción estructurada, síntesis y generación de historias de usuario. A la vez, los hallazgos refuerzan que la adopción será más sólida si la automatización se diseña como soporte al criterio profesional y no como reemplazo de la validación humana.
+
 ## 2.3. Need finding
 
 ### 2.3.1. User personas
