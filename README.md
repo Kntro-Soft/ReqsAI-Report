@@ -45,8 +45,18 @@
 
 # Registro de Versiones del Informe
 
-| Versión | Fecha      | Autor                             | Descripción de modificación |
-|---------|------------|-----------------------------------|-----------------------------|
+| Versión | Fecha      | Autor                             | Descripción de modificación                                                                                                                                                              |
+|---------|------------|-----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1.0     | 14/04/2026 | Eric                              | Creación de la estructura base del informe, portada, logos y descripción inicial del Startup.                                                                                            |
+| 1.1     | 17/04/2026 | Eric                              | Adición del Background, problemáticas, proceso de Lean UX, Target Segments y perfiles del equipo (Team Profiles).                                                                        |
+| 1.2     | 22/04/2026 | Marcelo, Salim Ramirez            | Inclusión del análisis de competidores, diseño preliminar de preguntas para entrevistas y configuración de exclusiones del repositorio (.gitignore).                                     |
+| 1.3     | 23/04/2026 | Gutierrez Soto Jhosepmyr, Eric    | Estructuración de Epics, User Stories (formato BDD y criterios de aceptación), Product Backlog priorizado y definición de atributos de calidad (Quality Attribute Scenarios).            |
+| 1.4     | 24/04/2026 | Marcelo, Gutierrez Soto Jhosepmyr | Redacción de estrategias y tácticas, actualización de la sección de competidores, e iteración técnica de historias de usuario (criterios INVEST).                                        |
+| 1.5     | 25/04/2026 | Marcelo                           | Actualización de la información general del proyecto e informe.                                                                                                                          |
+| 1.6     | 26/04/2026 | Paul, Gutierrez Soto Jhosepmyr    | Incorporación de la sección de User Personas (Empathy Mapping, User Journey, User Task Matrix) y modelado de escenarios As-Is / To-Be.                                                   |
+| 1.7     | 26/04/2026 | Eric                              | Desarrollo de la sección de Domain-Driven Design (Eventstorming, Context Discovery, Context Mapping, Bounded Context Canvases).                                                          |
+| 1.8     | 26/04/2026 | Marcelo, Salim Ramirez, Paul      | Incorporación de análisis y hallazgos de las entrevistas para roles técnicos y funcionales. Adición de sección de Impact Mapping y Student Outcomes.                                     |
+| 2.0     | 26/04/2026 | Eric, Gutierrez Soto Jhosepmyr    | Inclusión de los diagramas de Arquitectura de Software C4 (System Landscape, System Context, Container y Deployment). Actualización final del Backlog en Jira y sección de conclusiones. |
 
 <div style="page-break-before: always"></div>
 
