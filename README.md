@@ -264,7 +264,7 @@ Nuestro producto, Reqs-AI, abordará esta brecha mediante un motor de inteligenc
 
 Nuestro enfoque inicial serán las Startups tecnológicas y empresas de desarrollo de software que operan bajo metodologías ágiles y necesitan una transición inmediata y sin errores desde la fase de descubrimiento hasta el inicio de la codificación.
 
-Sabremos que hemos tenido éxito cuando observemos una reducción del 40% en las reuniones de seguimiento para aclaración de requisitos, una disminución significativa en el tiempo que el analista dedica al post-procesamiento de la información y una tasa de aceptación de historias de usuario superior al 80% en la primera iteración de revisión con el equipo de desarrollo.
+Sabremos que hemos tenido éxito cuando observemos una reducción del 40% en las reuniones de seguimiento para aclaración de requisitos, una disminución significativa en el tiempo que el analista dedica al postprocesamiento de la información y una tasa de aceptación de historias de usuario superior al 80% en la primera iteración de revisión con el equipo de desarrollo.
 
 
 #### 1.2.2.2. Lean UX Assumptions
@@ -576,7 +576,7 @@ El diseño de entrevistas se orienta a comprender en profundidad el trabajo real
 17. Si dibujaras tu recorrido completo de trabajo, ¿en qué momentos sientes más presión o incertidumbre?
 18. ¿Qué piensa, siente y teme tu área cuando se propone usar IA para asistir la documentación de requisitos?
 19. ¿Qué condiciones de seguridad, privacidad, control y auditoría serían indispensables para evaluar una solución como Reqs-AI?
-20. Si la herramienta sugiriera preguntas en vivo y redactara borradores en tiempo real, ¿qué criterios usarías para aprobar su adopción?
+20. Si la herramienta sugiriera preguntas en vivo y redactará borradores en tiempo real, ¿qué criterios usarías para aprobar su adopción?
 21. Si tuvieras que dejar una frase textual que resuma tu experiencia actual en este proceso, ¿cuál sería?
 
 ### 2.2.2. Registro de entrevistas
@@ -594,7 +594,7 @@ Los user personas sintetizan patrones de comportamiento, objetivos, frustracione
 
 <img src="assets/requirements/personas/tech-lead.png" alt="User Persona Líder Técnico de Startup" width="800">
 
-**User persona del segmento de Analista de Sistemas Enterprise**
+**User persona del segmento de Analista de sistemas Enterprise**
 
 <img src="assets/requirements/personas/analista.png" alt="User Persona Analista de Sistemas Enterprise" width="800">
 
@@ -603,19 +603,19 @@ Los user personas sintetizan patrones de comportamiento, objetivos, frustracione
 
 En este User Task Matrix se detallan las tareas que realizan los dos segmentos objetivo considerados en Reqs-AI: el Líder Técnico de Startup y el Analista de Sistemas Enterprise. Las tareas descritas corresponden al trabajo real de levantamiento, validación y transferencia de requisitos, y se ejecutan independientemente de la existencia de una herramienta de software.
 
-| **TAREA** | **Diego Alvarado (Líder Técnico de Startup) - Frecuencia** | **Diego Alvarado (Líder Técnico de Startup) - Importancia** | **Analista Enterprise Genérico (Analista de Sistemas Enterprise) - Frecuencia** | **Analista Enterprise Genérico (Analista de Sistemas Enterprise) - Importancia** |
-|---|:---:|:---:|:---:|:---:|
-| Agendar y preparar reuniones de levantamiento de requisitos con stakeholders | always | high | always | high |
-| Escuchar, sintetizar y registrar necesidades funcionales y reglas de negocio durante la reunión | always | high | always | high |
-| Identificar supuestos, restricciones, dependencias y casos de borde | always | high | always | high |
-| Formular preguntas de aclaración para reducir ambiguedad en tiempo real | always | high | always | high |
-| Transformar notas y acuerdos en historias de usuario y criterios de aceptación | always | high | always | high |
-| Estandarizar la redacción de criterios en formato estructurado (por ejemplo, Gherkin) | sometimes | high | always | high |
-| Validar entendimiento con desarrollo y QA antes de comprometer el sprint | always | high | always | high |
-| Gestionar cambios de alcance y negociar prioridades con negocio cuando aparecen nuevas condiciones | sometimes | high | always | high |
-| Mantener trazabilidad de acuerdos, versiones y decisiones para auditoría y control | sometimes | medium | always | high |
-| Revisar grabaciones/minutas y depurar documentación para cerrar vacíos de información | sometimes | medium | always | high |
-| Coordinar reuniones de seguimiento por dudas o contradicciones detectadas después del levantamiento | sometimes | medium | sometimes | high |
+| **TAREA**                                                                                           | **Diego Alvarado (Líder Técnico de Startup) - Frecuencia** | **Diego Alvarado (Líder Técnico de Startup) - Importancia** | **Analista Enterprise Genérico (Analista de Sistemas Enterprise) - Frecuencia** | **Analista Enterprise Genérico (Analista de Sistemas Enterprise) - Importancia** |
+|-----------------------------------------------------------------------------------------------------|:----------------------------------------------------------:|:-----------------------------------------------------------:|:-------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------:|
+| Agendar y preparar reuniones de levantamiento de requisitos con stakeholders                        |                           always                           |                            high                             |                                     always                                      |                                       high                                       |
+| Escuchar, sintetizar y registrar necesidades funcionales y reglas de negocio durante la reunión     |                           always                           |                            high                             |                                     always                                      |                                       high                                       |
+| Identificar supuestos, restricciones, dependencias y casos de borde                                 |                           always                           |                            high                             |                                     always                                      |                                       high                                       |
+| Formular preguntas de aclaración para reducir ambiguedad en tiempo real                             |                           always                           |                            high                             |                                     always                                      |                                       high                                       |
+| Transformar notas y acuerdos en historias de usuario y criterios de aceptación                      |                           always                           |                            high                             |                                     always                                      |                                       high                                       |
+| Estandarizar la redacción de criterios en formato estructurado (por ejemplo, Gherkin)               |                         sometimes                          |                            high                             |                                     always                                      |                                       high                                       |
+| Validar entendimiento con desarrollo y QA antes de comprometer el sprint                            |                           always                           |                            high                             |                                     always                                      |                                       high                                       |
+| Gestionar cambios de alcance y negociar prioridades con negocio cuando aparecen nuevas condiciones  |                         sometimes                          |                            high                             |                                     always                                      |                                       high                                       |
+| Mantener trazabilidad de acuerdos, versiones y decisiones para auditoría y control                  |                         sometimes                          |                           medium                            |                                     always                                      |                                       high                                       |
+| Revisar grabaciones/minutas y depurar documentación para cerrar vacíos de información               |                         sometimes                          |                           medium                            |                                     always                                      |                                       high                                       |
+| Coordinar reuniones de seguimiento por dudas o contradicciones detectadas después del levantamiento |                         sometimes                          |                           medium                            |                                    sometimes                                    |                                       high                                       |
 
 
 La principal diferencia está en el enfoque operativo: el Líder Técnico de Startup prioriza velocidad de ejecución y alineación práctica para codificar cuanto antes, mientras que el Analista de Sistemas Enterprise prioriza estandarización, trazabilidad y control de riesgo. Por ello, en el segmento enterprise aumentan la frecuencia e importancia de actividades formales como redacción estructurada, revisión exhaustiva de evidencias y gestión de cambios bajo criterios de gobernanza.
@@ -636,11 +636,11 @@ A continuación, se presentan los User Journey Maps As-Is de cada User Persona. 
 
 Se elaboraron los Empathy Maps para los dos User Personas priorizados: el Líder Técnico de Startup y el Analista de Sistemas Enterprise. Este proceso permitió profundizar en lo que cada segmento dice, piensa, hace, observa y escucha durante el levantamiento de requisitos, identificando sus principales pains y gains para orientar el diseño de una solución realmente alineada con su contexto operativo.
 
-#### Líder Técnico de Startup
+**Líder Técnico de Startup**
 
 ![Empathy Mapping - Tech Lead](assets/requirements/maps/empathy-maps/tech-lead.png)
 
-#### Analista de Sistemas Enterprise
+**Analista de sistemas Enterprise**
 
 ![Empathy Mapping - Analyst](assets/requirements/maps/empathy-maps/analyst.png)
 
@@ -662,28 +662,28 @@ Además, se identificaron áreas positivas, negativas y blank areas para ubicar 
 
 En esta sección se presenta el glosario del dominio de negocio de Reqs-AI, redactado con términos en inglés (y su equivalente en español) para mantener una comunicación consistente y sin ambigüedades entre analistas, líderes técnicos, negocio, QA y demás stakeholders. Este lenguaje ubicuo se centra en el proceso de levantamiento, validación y gobernanza de requisitos en entornos startup y enterprise.
 
-| Term | Equivalente | Definición |
-|---|---|---|
-| Stakeholder | Interesado / Parte interesada | Persona o área que influye, decide o se ve impactada por un requerimiento del proyecto. |
-| Requirement | Requerimiento | Necesidad del negocio o del usuario que debe quedar descrita de forma clara para guiar la implementación y validación. |
-| Requirement Elicitation | Levantamiento de requerimientos | Proceso de recopilar información con el cliente y actores clave para entender qué problema se debe resolver. |
-| Discovery Session | Sesión de descubrimiento | Reunión inicial en la que se explora el problema, objetivos, contexto y restricciones del requerimiento. |
-| Business Rule | Regla de negocio | Condición o política del negocio que determina cómo debe comportarse un proceso o una funcionalidad. |
-| Acceptance Criteria | Criterios de aceptación | Condiciones verificables que definen cuándo un requerimiento se considera correctamente cumplido. |
-| Edge Case | Caso borde | Situación excepcional o poco frecuente que puede afectar el resultado esperado y debe ser considerada en el análisis. |
-| Assumption | Supuesto | Condición que se da por cierta temporalmente cuando no existe confirmación explícita en la reunión. |
-| Dependency | Dependencia | Elemento externo (área, dato, aprobación o acceso) del cual depende la ejecución de un requerimiento. |
-| Constraint | Restricción | Límite de negocio, tiempo, regulación o presupuesto que condiciona cómo se puede ejecutar una solución. |
-| Scope | Alcance | Conjunto de entregables y límites funcionales acordados para una iniciativa o requerimiento. |
-| Scope Change | Cambio de alcance | Modificación posterior del alcance originalmente acordado que impacta tiempo, costo o prioridades. |
-| Decision Maker | Decisor | Stakeholder con autoridad final para aprobar, rechazar o redefinir un requerimiento. |
-| Approval | Aprobación | Confirmación formal de que un requerimiento y sus criterios están listos para pasar a ejecución. |
-| Requirement Traceability | Trazabilidad de requerimientos | Capacidad de seguir un requerimiento desde su origen hasta su validación final, incluyendo cambios y decisiones. |
-| Minutes of Meeting | Acta de reunión | Registro formal de acuerdos, pendientes y decisiones tomadas durante una sesión con stakeholders. |
-| Clarification Meeting | Reunión de aclaración | Reunión adicional convocada para resolver ambigüedades o contradicciones detectadas después del levantamiento inicial. |
-| Rework | Retrabajo | Esfuerzo adicional causado por requisitos incompletos, ambiguos o mal interpretados en etapas previas. |
-| Requirement Governance | Gobernanza de requerimientos | Conjunto de prácticas para asegurar estandarización, calidad, control de cambios y cumplimiento en la gestión de requerimientos. |
-| Business Alignment | Alineación de negocio | Grado en que todos los stakeholders comparten la misma interpretación sobre el problema y la solución esperada. |
+| Term                     | Equivalente                     | Definición                                                                                                                       |
+|--------------------------|---------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| Stakeholder              | Interesado / Parte interesada   | Persona o área que influye, decide o se ve impactada por un requerimiento del proyecto.                                          |
+| Requirement              | Requerimiento                   | Necesidad del negocio o del usuario que debe quedar descrita de forma clara para guiar la implementación y validación.           |
+| Requirement Elicitation  | Levantamiento de requerimientos | Proceso de recopilar información con el cliente y actores clave para entender qué problema se debe resolver.                     |
+| Discovery Session        | Sesión de descubrimiento        | Reunión inicial en la que se explora el problema, objetivos, contexto y restricciones del requerimiento.                         |
+| Business Rule            | Regla de negocio                | Condición o política del negocio que determina cómo debe comportarse un proceso o una funcionalidad.                             |
+| Acceptance Criteria      | Criterios de aceptación         | Condiciones verificables que definen cuándo un requerimiento se considera correctamente cumplido.                                |
+| Edge Case                | Caso borde                      | Situación excepcional o poco frecuente que puede afectar el resultado esperado y debe ser considerada en el análisis.            |
+| Assumption               | Supuesto                        | Condición que se da por cierta temporalmente cuando no existe confirmación explícita en la reunión.                              |
+| Dependency               | Dependencia                     | Elemento externo (área, dato, aprobación o acceso) del cual depende la ejecución de un requerimiento.                            |
+| Constraint               | Restricción                     | Límite de negocio, tiempo, regulación o presupuesto que condiciona cómo se puede ejecutar una solución.                          |
+| Scope                    | Alcance                         | Conjunto de entregables y límites funcionales acordados para una iniciativa o requerimiento.                                     |
+| Scope Change             | Cambio de alcance               | Modificación posterior del alcance originalmente acordado que impacta tiempo, costo o prioridades.                               |
+| Decision Maker           | Decisor                         | Stakeholder con autoridad final para aprobar, rechazar o redefinir un requerimiento.                                             |
+| Approval                 | Aprobación                      | Confirmación formal de que un requerimiento y sus criterios están listos para pasar a ejecución.                                 |
+| Requirement Traceability | Trazabilidad de requerimientos  | Capacidad de seguir un requerimiento desde su origen hasta su validación final, incluyendo cambios y decisiones.                 |
+| Minutes of Meeting       | Acta de reunión                 | Registro formal de acuerdos, pendientes y decisiones tomadas durante una sesión con stakeholders.                                |
+| Clarification Meeting    | Reunión de aclaración           | Reunión adicional convocada para resolver ambigüedades o contradicciones detectadas después del levantamiento inicial.           |
+| Rework                   | Retrabajo                       | Esfuerzo adicional causado por requisitos incompletos, ambiguos o mal interpretados en etapas previas.                           |
+| Requirement Governance   | Gobernanza de requerimientos    | Conjunto de prácticas para asegurar estandarización, calidad, control de cambios y cumplimiento en la gestión de requerimientos. |
+| Business Alignment       | Alineación de negocio           | Grado en que todos los stakeholders comparten la misma interpretación sobre el problema y la solución esperada.                  |
 
 # Capítulo III: Requirements Specification
 
@@ -703,7 +703,7 @@ El escenario To-Be propone sesiones de levantamiento con mayor validación en ti
 
 ## 3.2. User Stories
 
-El siguiente inventario detalla las funcionalidades del sistema. Nótese la diferenciación entre **US** (User Stories - Funcionalidades de interfaz/usuario) y **TS** (Technical Stories - APIs y Arquitectura backend).
+El siguiente inventario detalla las funcionalidades del sistema. Nótese la diferenciación entre **US** (User Stories - Funcionalidades de interfaz/usuario) y **TS** (Technical Stories - API y Arquitectura backend).
 
 | ID       | Título de la Historia                                 | Descripción (Como... quiero... para...)                                                                                                                                                                                                                                                                                                                            | Criterios de Aceptación (BDD)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Épica Asociada |
 |:---------|:------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------|
@@ -791,7 +791,7 @@ El siguiente inventario detalla las funcionalidades del sistema. Nótese la dife
 
 A continuación, se presenta el Product Backlog priorizado estrictamente por el **Valor de Negocio** y la **Secuencia Lógica de Construcción (MVP Golden Path)**.
 
-Esta priorización se rige por el **Valor de Negocio**: las funcionalidades que generan mayor impacto para el usuario y el negocio ocupan los primeros puestos, independientemente de las dependencias técnicas (que se resuelven durante la planificación del sprint). Las `TS` (Technical Stories / APIs backend) se ubican justo antes de las `US` de su misma épica para reflejar el orden de construcción dentro de cada bloque de valor.
+Esta priorización se rige por el **Valor de Negocio**: las funcionalidades que generan mayor impacto para el usuario y el negocio ocupan los primeros puestos, independientemente de las dependencias técnicas (que se resuelven durante la planificación del sprint). Las `TS` (Technical Stories / API backend) se ubican justo antes de las `US` de su misma épica para reflejar el orden de construcción dentro de cada bloque de valor.
 
 **Tabla de Estimación y Priorización**
 
