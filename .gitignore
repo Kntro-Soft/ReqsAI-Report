@@ -40,3 +40,7 @@ replay_pid*
 
 # Ignore Windows system files
 desktop.ini
+!/.idea/modules.xml
+!/.idea/.gitignore
+!/.idea/ReqsAI-Report.iml
+!/.idea/vcs.xml
