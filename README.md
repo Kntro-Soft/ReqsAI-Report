@@ -927,6 +927,25 @@ A continuación, se presenta la topología del paisaje del sistema:
 
 ### 4.3.2.	Software Architecture Context Level Diagrams
 
+Mientras que el Diagrama Landscape nos mostró el panorama del negocio, el **Diagrama de Contexto (Context Level Diagram)** del modelo C4 cambia el foco hacia el interior, centrando toda la atención arquitectónica exclusivamente en el **Reqs-AI System**. Este diagrama responde a la pregunta de "¿Cuáles son las fronteras inmediatas de nuestra solución?".
+
+A nivel de contexto, eliminamos las interacciones directas entre los usuarios y los sistemas de terceros (ej. el Technical Lead consultando Jira por su cuenta) y nos limitamos a mapear cómo nuestro sistema es el único orquestador responsable de comunicarse con el mundo exterior para cumplir sus objetivos.
+
+![System Context Diagram](assets/4.Strategic-Level-Product-Design/4.3.Software-Architecture/4.3.2.Context/Context-Diagram.jpg)
+
+**Análisis de Entradas y Salidas del Sistema Central:**
+
+*   **Actores Primarios (Inbound):**
+    *   El **Technical Lead** envía los comandos principales: inicia grabaciones de audio en tiempo real y aprueba las historias generadas.
+    *   El **Enterprise Analyst** administra las organizaciones corporativas (Workspaces), los pagos B2B y sube los glosarios de términos que contextualizan la IA.
+*   **Sistemas de Soporte (Outbound Operacional):**
+    *   **Payment Gateway:** Recibe los datos de transacción para habilitar el uso ilimitado o cuotas Pro de la inteligencia artificial.
+    *   **Email Service Provider:** Recibe peticiones vía REST API para enviar los correos transaccionales de recuperación de contraseña y validación de cuentas.
+*   **Sistemas Core (Outbound Tecnológico):**
+    *   **STT API (Speech-to-Text):** Recibe el streaming continuo de audio de las reuniones y retorna texto fragmentado con latencia inferior a 2 segundos.
+    *   **LLM API (Inteligencia Generativa):** Recibe un *Prompt* complejo inyectado con el texto de la reunión y el glosario del proyecto, devolviendo un bloque JSON estructurado en Gherkin.
+    *   **Project Management Tool:** Recibe las historias de usuario aprobadas y formateadas para crear automáticamente *Issues* en el backlog del equipo (por ejemplo en Jira).
+
 ### 4.3.3.	Software Architecture Container Level Diagrams
 
 ### 4.3.4.	Software Architecture Deployment Diagrams
