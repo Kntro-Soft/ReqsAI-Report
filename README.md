@@ -484,25 +484,6 @@ Para este análisis, hemos seleccionado a los competidores más relevantes segú
 
 ### 2.1.2. Estrategias y tácticas frente a competidores
 
-Basados en el análisis anterior, **Reqs-AI** no competirá en el mercado de "tomadores de notas genéricos", sino que ejecutará una estrategia de nicho enfocada estrictamente en la Ingeniería de Requisitos y el Diseño de Producto.
-
-**1. Frente a competidores directos (Spinach.io)**
-*   **Estrategia:** Diferenciación por Profundidad Técnica (Calidad vs. Cantidad).
-*   **Tácticas:** Mientras Spinach.io se posiciona como un "Scrum Master" que cubre muchas ceremonias superficialmente, Reqs-AI se posicionará como un **"Business Analyst Senior"**. Implementaremos validaciones semánticas de requisitos, detección de historias duplicadas y generación estricta de Criterios de Aceptación en formato *Behavior-Driven Development* (BDD/Gherkin). Demostraremos que un ticket de Spinach requiere refinamiento manual posterior, mientras que un ticket de Reqs-AI está listo para desarrollo (*Ready for Dev*).
-
-**2. Frente a sustitutos genéricos (Otter.ai / Fireflies.ai)**
-*   **Estrategia:** Especialización Vertical en Software.
-*   **Tácticas:** Estos bots son excelentes transcribiendo, pero carecen de contexto. Reqs-AI utilizará la arquitectura **RAG (Retrieval-Augmented Generation)**. Permitiremos a los usuarios subir documentos técnicos, glosarios y arquitecturas previas del cliente. Así, cuando el audio mencione "el sistema de pagos", Reqs-AI sabrá exactamente qué pasarela usa ese cliente y redactará la historia con ese contexto corporativo, algo que Otter.ai jamás podría hacer.
-
-**3. Frente al Incumbente (Jira + Atlassian Intelligence)**
-*   **Estrategia:** Asociación y Pre-procesamiento (Complemento, no reemplazo).
-*   **Tácticas:** No intentaremos reemplazar a Jira; intentaremos ser su mejor "puerta de entrada". La debilidad de Jira es que el analista debe salir de la reunión con el cliente, abrir un ticket en blanco y tipear un borrador para que la IA de Jira lo mejore. La táctica de Reqs-AI será el **"One-Click Export a Jira"**. Nuestro valor residirá en procesar el audio *durante* el levantamiento en vivo y enviar la épica completamente armada al backlog de Jira a través de su Webhook (API REST).
-
-**4. Contexto de Oportunidades y Amenazas (FODA Resumido)**
-
-*   **La gran oportunidad:** Los equipos de desarrollo externalizado (Software Factories) pierden hasta un 30% de su rentabilidad por retrabajos causados por requerimientos ambiguos levantados en reuniones iniciales. Ninguna herramienta actual actúa como un "consultor" que interrumpa y diga: *«El cliente mencionó el módulo de reportes, pero no definió los filtros. Sugiérele preguntarlo ahora»*. Esta funcionalidad proactiva es el océano azul de Reqs-AI.
-*   **La mayor amenaza:** Que Atlassian (Jira) decida lanzar un bot de videollamadas nativo que escuche las reuniones y cree tickets directamente, cerrando la brecha. Para mitigar esto, Reqs-AI debe enfocarse en una Experiencia de Usuario (UX) exquisita para el Analista Funcional, creando un espacio de trabajo donde la reunión sea colaborativa y el cliente final pueda validar las historias generadas antes de enviarlas al entorno de desarrollo duro que representa Jira.
-
 ## 2.2. Entrevistas
 
 ### 2.2.1. Diseño de entrevistas
@@ -581,6 +562,55 @@ El diseño de entrevistas se orienta a comprender en profundidad el trabajo real
 
 ### 2.2.2. Registro de entrevistas
 
+**Segmento 1: Líder Técnico de Startup — Entrevistado 1**
+
+| Atributo                | Detalle                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Nombre**              | Gabriel Reyna                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| **Edad**                | 22                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| **Sexo**                | Masculino                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| **Distrito**            | Barranco                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| **Ocupación**           | Desarrollador full stack                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| **Fecha de entrevista** | 2026-04-26                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| **Timing**              | 00:00 - 08:44                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| **Video**               | [Ver entrevista]()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| **Captura**             | ![Captura entrevista Gabriel](assets/screenshots/interview-screenshot-leader1.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| **Resumen**             | Gabriel cuenta con experiencia como desarrollador full stack y participa en reuniones de levantamiento de requisitos dentro de un equipo ágil basado en Scrum. Durante la entrevista, señaló que el proceso actual depende en gran medida de reuniones, notas manuales, documentación en Notion y gestión del backlog en Jira. Identificó como principales dificultades la pérdida de información, la ambigüedad en los requisitos y el retrabajo generado cuando no se definen correctamente los flujos o criterios desde el inicio. Además, considera que una solución que automatice el resumen de reuniones y apoye la generación de historias de usuario podría reducir errores y mejorar la claridad del proceso. |
+
+---
+
+**Segmento 1: Líder Técnico de Startup — Entrevistado 2**
+
+| Atributo                | Detalle |
+|-------------------------|---------|
+| **Nombre**              | Ronald Peralta |
+| **Edad**                | 22 |
+| **Sexo**                | Masculino |
+| **Distrito**            | Santiago de Surco |
+| **Ocupación**           | Líder técnico |
+| **Fecha de entrevista** | 2026-04-26 |
+| **Timing**              | 00:05 - 09:42 |
+| **Video**               | [Ver entrevista]() |
+| **Captura**             | ![Captura entrevista Ronald](./assets/screenshots/interview-screenshot-leader2.png) |
+| **Resumen**             | Ronald se desempeña como líder técnico y participa activamente en el proceso de levantamiento de requisitos junto con perfiles como el Product Owner y el Project Manager. Su equipo trabaja con herramientas como Google Meet, Zoom, Notion, Jira y Trello para coordinar reuniones, documentar acuerdos y gestionar el backlog. Durante la entrevista, destacó que uno de los principales problemas ocurre al traducir lo que el cliente solicita en historias de usuario claras y accionables. Señaló que una historia mal definida puede generar entre cuatro y ocho horas de retrabajo, afectar el avance del sprint y producir frustración en el equipo. Para él, el proceso es necesario, pero todavía depende demasiado de la claridad humana y requiere mayor optimización. |
+
+---
+
+**Segmento 1: Líder Técnico de Startup — Entrevistado 3**
+
+| Atributo                | Detalle |
+|-------------------------|---------|
+| **Nombre**              | Daniela Martínez |
+| **Edad**                | 23 |
+| **Sexo**                | Femenino |
+| **Distrito**            | San Miguel |
+| **Ocupación**           | Desarrolladora backend y apoyo en levantamiento de requerimientos |
+| **Fecha de entrevista** | 2026-04-26 |
+| **Timing**              | 00:00 - 09:49 |
+| **Video**               | [Ver entrevista]() |
+| **Captura**             | ![Captura entrevista Daniela](./assets/screenshots/interview-screenshot-leader3.png) |
+| **Resumen**             | Daniela trabaja como desarrolladora backend y también apoya en el levantamiento de requerimientos dentro de un equipo Scrum. En su flujo de trabajo utiliza Google Meet, Google Spaces, Notion, Google Docs, notas personales y Jira para organizar la información obtenida en reuniones con clientes. Durante la entrevista, explicó que los principales problemas aparecen cuando el cliente no comunica con claridad sus necesidades o cuando se omiten validaciones y reglas de negocio importantes. Indicó que estos errores pueden generar retrabajo, retrasos en el sprint y frustración en el equipo. Asimismo, considera que una herramienta capaz de transcribir reuniones y generar historias de usuario de manera automática podría optimizar significativamente el proceso, siempre que mantenga una validación humana. |
+
 ### 2.2.3. Análisis de entrevistas
 
 ## 2.3. Need finding
@@ -603,19 +633,19 @@ Los user personas sintetizan patrones de comportamiento, objetivos, frustracione
 
 En este User Task Matrix se detallan las tareas que realizan los dos segmentos objetivo considerados en Reqs-AI: el Líder Técnico de Startup y el Analista de Sistemas Enterprise. Las tareas descritas corresponden al trabajo real de levantamiento, validación y transferencia de requisitos, y se ejecutan independientemente de la existencia de una herramienta de software.
 
-| **TAREA**                                                                                           | **Diego Alvarado (Líder Técnico de Startup) - Frecuencia** | **Diego Alvarado (Líder Técnico de Startup) - Importancia** | **Analista Enterprise Genérico (Analista de Sistemas Enterprise) - Frecuencia** | **Analista Enterprise Genérico (Analista de Sistemas Enterprise) - Importancia** |
-|-----------------------------------------------------------------------------------------------------|:----------------------------------------------------------:|:-----------------------------------------------------------:|:-------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------:|
-| Agendar y preparar reuniones de levantamiento de requisitos con stakeholders                        |                           always                           |                            high                             |                                     always                                      |                                       high                                       |
-| Escuchar, sintetizar y registrar necesidades funcionales y reglas de negocio durante la reunión     |                           always                           |                            high                             |                                     always                                      |                                       high                                       |
-| Identificar supuestos, restricciones, dependencias y casos de borde                                 |                           always                           |                            high                             |                                     always                                      |                                       high                                       |
-| Formular preguntas de aclaración para reducir ambiguedad en tiempo real                             |                           always                           |                            high                             |                                     always                                      |                                       high                                       |
-| Transformar notas y acuerdos en historias de usuario y criterios de aceptación                      |                           always                           |                            high                             |                                     always                                      |                                       high                                       |
-| Estandarizar la redacción de criterios en formato estructurado (por ejemplo, Gherkin)               |                         sometimes                          |                            high                             |                                     always                                      |                                       high                                       |
-| Validar entendimiento con desarrollo y QA antes de comprometer el sprint                            |                           always                           |                            high                             |                                     always                                      |                                       high                                       |
-| Gestionar cambios de alcance y negociar prioridades con negocio cuando aparecen nuevas condiciones  |                         sometimes                          |                            high                             |                                     always                                      |                                       high                                       |
-| Mantener trazabilidad de acuerdos, versiones y decisiones para auditoría y control                  |                         sometimes                          |                           medium                            |                                     always                                      |                                       high                                       |
-| Revisar grabaciones/minutas y depurar documentación para cerrar vacíos de información               |                         sometimes                          |                           medium                            |                                     always                                      |                                       high                                       |
-| Coordinar reuniones de seguimiento por dudas o contradicciones detectadas después del levantamiento |                         sometimes                          |                           medium                            |                                    sometimes                                    |                                       high                                       |
+| **TAREA** | **Diego Alvarado (Líder Técnico de Startup) - Frecuencia** | **Diego Alvarado (Líder Técnico de Startup) - Importancia** | **Analista Enterprise Genérico (Analista de Sistemas Enterprise) - Frecuencia** | **Analista Enterprise Genérico (Analista de Sistemas Enterprise) - Importancia** |
+|---|:---:|:---:|:---:|:---:|
+| Agendar y preparar reuniones de levantamiento de requisitos con stakeholders | always | high | always | high |
+| Escuchar, sintetizar y registrar necesidades funcionales y reglas de negocio durante la reunión | always | high | always | high |
+| Identificar supuestos, restricciones, dependencias y casos de borde | always | high | always | high |
+| Formular preguntas de aclaración para reducir ambiguedad en tiempo real | always | high | always | high |
+| Transformar notas y acuerdos en historias de usuario y criterios de aceptación | always | high | always | high |
+| Estandarizar la redacción de criterios en formato estructurado (por ejemplo, Gherkin) | sometimes | high | always | high |
+| Validar entendimiento con desarrollo y QA antes de comprometer el sprint | always | high | always | high |
+| Gestionar cambios de alcance y negociar prioridades con negocio cuando aparecen nuevas condiciones | sometimes | high | always | high |
+| Mantener trazabilidad de acuerdos, versiones y decisiones para auditoría y control | sometimes | medium | always | high |
+| Revisar grabaciones/minutas y depurar documentación para cerrar vacíos de información | sometimes | medium | always | high |
+| Coordinar reuniones de seguimiento por dudas o contradicciones detectadas después del levantamiento | sometimes | medium | sometimes | high |
 
 
 La principal diferencia está en el enfoque operativo: el Líder Técnico de Startup prioriza velocidad de ejecución y alineación práctica para codificar cuanto antes, mientras que el Analista de Sistemas Enterprise prioriza estandarización, trazabilidad y control de riesgo. Por ello, en el segmento enterprise aumentan la frecuencia e importancia de actividades formales como redacción estructurada, revisión exhaustiva de evidencias y gestión de cambios bajo criterios de gobernanza.
@@ -636,11 +666,11 @@ A continuación, se presentan los User Journey Maps As-Is de cada User Persona. 
 
 Se elaboraron los Empathy Maps para los dos User Personas priorizados: el Líder Técnico de Startup y el Analista de Sistemas Enterprise. Este proceso permitió profundizar en lo que cada segmento dice, piensa, hace, observa y escucha durante el levantamiento de requisitos, identificando sus principales pains y gains para orientar el diseño de una solución realmente alineada con su contexto operativo.
 
-**Líder Técnico de Startup**
+#### Líder Técnico de Startup
 
 ![Empathy Mapping - Tech Lead](assets/requirements/maps/empathy-maps/tech-lead.png)
 
-**Analista de sistemas Enterprise**
+#### Analista de Sistemas Enterprise
 
 ![Empathy Mapping - Analyst](assets/requirements/maps/empathy-maps/analyst.png)
 
