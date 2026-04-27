@@ -903,6 +903,22 @@ Las historias de usuario, junto con sus estimaciones en Story Points, Criterios 
 
 ## 3.4. Impact Mapping
 
+En esta sección presentamos el Impact Mapping del modelo de negocio digital de Reqs-AI. Para su elaboración partimos de las User Personas definidas previamente, **Miguel Ocampo** y **Diego Alvarado**, y conectamos cada objetivo de negocio con los cambios de comportamiento esperados (impacts), los entregables del producto (deliverables) y las historias de usuario del backlog.
+
+El mapa fue estructurado con **tres Business Goals SMART** para mantener foco estratégico y trazabilidad funcional:
+
+- **G1**: En 4 meses, aumentar la conversión de visitante a cuenta del 3% al 12%, y lograr que el 70% de nuevos usuarios cree su organización y abra el demo en menos de 15 minutos.
+- **G2**: En 4 meses, reducir en 40% el tiempo de levantamiento y documentación por reunión, y lograr que el 75% de sesiones se cierre el mismo día con backlog utilizable.
+- **G3**: En 6 meses, lograr 100% de organizaciones con control de acceso y retención activa, convertir 15% de organizaciones free a pago y exportar 70% de historias aprobadas a Jira en menos de 5 minutos.
+
+Para cada meta, el mapa diferencia el rol de cada persona: Miguel concentra impactos de gobierno, operación y decisión de negocio; Diego concentra impactos de captura, validación y continuidad del flujo analítico hacia desarrollo. A partir de ello se priorizan deliverables de captación, onboarding, configuración de proyecto, control de calidad y exportación a Jira.
+
+La trazabilidad final se mantiene en formato **Goal -> Persona -> Impact -> Deliverable -> User Story**, usando únicamente historias **US** del Product Backlog para asegurar consistencia entre estrategia y planificación de producto.
+
+![Impact Mapping Reqs-AI](./assets/requirements/maps/impact-map/impact-mapping.png)
+
+[Ver imagen detallada](./assets/requirements/maps/impact-map/impact-mapping.png)
+
 # Capítulo IV: Strategic-Level Product Design
 
 ## 4.1. Strategic-Level Attribute-Driven Design
