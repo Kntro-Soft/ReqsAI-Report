@@ -912,7 +912,7 @@ El *System Landscape Diagram* proporciona una vista panorámica "a vista de páj
 
 A continuación, se presenta la topología del paisaje del sistema:
 
-![SystemLandscapeDiagram](assets/4.Strategic-Level-Product-Design/4.3.Software-Arquitecture/System-landscape.png)
+![SystemLandscapeDiagram](assets/4.Strategic-Level-Product-Design/4.3.Software-Architecture/System-landscape.png)
 
 **Análisis de Interacciones en el Ecosistema:**
 
@@ -931,7 +931,7 @@ Mientras que el Diagrama Landscape nos mostró el panorama del negocio, el **Dia
 
 A nivel de contexto, eliminamos las interacciones directas entre los usuarios y los sistemas de terceros (ej. el Technical Lead consultando Jira por su cuenta) y nos limitamos a mapear cómo nuestro sistema es el único orquestador responsable de comunicarse con el mundo exterior para cumplir sus objetivos.
 
-![System Context Diagram](assets/4.Strategic-Level-Product-Design/4.3.Software-Architecture/4.3.2.Context/Context-Diagram.jpg)
+![System Context Diagram](assets/4.Strategic-Level-Product-Design/4.3.Software-Architecture/System-Context.png)
 
 **Análisis de Entradas y Salidas del Sistema Central:**
 
@@ -983,6 +983,33 @@ La arquitectura define un flujo de comunicación moderno y orientado a servicios
     *   Exporta finalmente las historias de usuario aprobadas hacia la herramienta de gestión mediante la **Project Management API** (Jira).
 
 ### 4.3.4.	Software Architecture Deployment Diagrams
+
+En esta sección se presenta el diagrama de despliegue, el cual ilustra cómo los contenedores de software de ReqsAI se mapean a la infraestructura física o virtual. Este diagrama detalla los nodos de ejecución, los entornos operativos y la topología de red, priorizando una arquitectura viable, escalable y optimizada en costos.
+
+![Deployment Diagram](assets/4.Strategic-Level-Product-Design/4.3.Software-Architecture/Deployment.png)
+
+**Nodos de Despliegue y Distribución de Componentes**
+
+La infraestructura de despliegue se divide en los entornos de cliente, la infraestructura de procesamiento en AWS, y la persistencia de datos en una nube externa especializada.
+
+1.  **Entorno del Cliente (Client-Side):**
+    *   **Dispositivos físicos (iOS/Android).** Dentro opera el *Flutter Engine*, entorno encargado de ejecutar la aplicación mobile.
+    *   **Computadoras de los usuarios.** Utilizan un navegador web como nodo para renderizar la aplicación web.
+
+2.  **Entorno de Nube - Procesamiento (Server-Side - AWS):**
+    La lógica de negocio se aloja en AWS North America, específicamente en us-east-1 (Virginia), elegida por su alta disponibilidad y optimización de costos.
+    
+    *   **AWS API Gateway:** Actúa como el punto de entrada público único, completamente gestionado. Recibe las llamadas HTTPS/REST de los clientes y enruta las peticiones de manera segura hacia el backend.
+    *   **AWS Elastic Beanstalk:** Es el entorno PaaS (Platform as a Service) encargado de alojar el **ReqsAI Backend Service [Container: Java, Spring Boot]**. Elastic Beanstalk abstrae la complejidad de la infraestructura, aprovisionando servidores EC2 subyacentes, auto-escalado y monitoreo, permitiendo al equipo enfocarse únicamente en el código del runtime de Java.
+
+3.  **Entorno de Nube - Persistencia (Database as a Service):**
+    *   **Base de datos Relacional Principal:** Se delegó el almacenamiento de datos a Supabase, una plataforma BaaS (Backend as a Service). Esta decisión arquitectónica permite aprovechar una base de datos robusta, gestionada y con soporte nativo para *embeddings* vectoriales (esenciales para las funcionalidades de IA), reduciendo drásticamente la carga operativa y los costos iniciales en comparación con mantener instancias tradicionales de bases de datos.
+
+**Comunicación e Interacción de Nodos**
+
+*   Las aplicaciones (Mobile y Web) se comunican vía internet mediante **HTTPS/REST** con el **AWS API Gateway**.
+*   El API Gateway enruta el tráfico internamente hacia el entorno de **AWS Elastic Beanstalk**, donde reside la lógica del sistema.
+*   El backend de Spring Boot se conecta de manera externa y segura hacia el clúster gestionado en **Supabase Cloud** para realizar operaciones de lectura y escritura (*Reads and write*) de la información del dominio.
 
 # Capítulo V: Tactical-Level Software Design
 
