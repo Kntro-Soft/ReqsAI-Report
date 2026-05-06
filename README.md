@@ -1313,38 +1313,34 @@ El resultado de la sesión de Design-Level Event Storming fue un mapa exhaustivo
 
 ### 4.2.2.	Candidate Context Discovery
 
-A partir del dominio modelado en nuestra sesión de EventStorming, el equipo llevó a cabo un taller colaborativo de descubrimiento de contextos de aproximadamente 2 horas. El objetivo de esta fase fue trazar fronteras lógicas alrededor de los Agregados identificados previamente, con el fin de descomponer el sistema en módulos altamente cohesivos y con bajo acoplamiento (Bounded Contexts).
+A partir del dominio modelado en nuestra sesión de EventStorming, el equipo llevó a cabo un taller colaborativo de descubrimiento de contextos (Candidate Context Discovery) de aproximadamente 2 horas. El objetivo de esta fase fue trazar fronteras lógicas alrededor de los Agregados identificados previamente, con el fin de descomponer el sistema en módulos altamente cohesivos y con bajo acoplamiento (Bounded Contexts).
 
-Para lograr esto, no nos basamos en corazonadas técnicas, sino que aplicamos rigurosamente tres heurísticas de Domain-Driven Design recomendadas por la industria (Alberto Brandolini y Nick Tune) sobre nuestro tablero de Miro. A continuación, se explica la aplicación progresiva de cada heurística y los resultados obtenidos:
+Para lograr esto, aplicamos rigurosamente tres heurísticas de Domain-Driven Design recomendadas por la industria (Alberto Brandolini y Nick Tune). Tras una reciente refactorización arquitectónica para evitar el anti-patrón de "Nano-Servicios" y mejorar la cohesión, consolidamos nuestro diseño. A continuación, se explica la aplicación de cada heurística:
 
-1. Aplicación de "Start-with-value" (Identificando el Core Domain)
-   Comenzamos el análisis preguntándonos: *¿Por qué partes del sistema pagarían nuestros clientes?* La propuesta de valor y ventaja competitiva de Reqs-AI radica exclusivamente en la transcripción en vivo y la inferencia de Inteligencia Artificial para generar historias de usuario estructuradas.
-*   Al analizar la complejidad del tablero, notamos que agrupar esta "magia" en un solo contexto generaría un "monolito de contexto", ya que el flujo del audio y el procesamiento del texto en LLMs manejan ciclos de vida, lenguajes ubicuos y requisitos de rendimiento distintos.
-*   **Decisión:** Dividimos el Core Domain en dos Bounded Contexts. Por un lado, el **Meeting Capture**, encargado del manejo de WebSockets y Speech-to-Text. Por el otro lado, **Requirement Generation** se encarga del manejo de los Prompts, el LLM y la gestión del formato Gherkin.
+1. Aplicación de "Start-with-value"
+Comenzamos el análisis preguntándonos: *¿Por qué partes del sistema pagarían nuestros clientes?* La propuesta de valor radica en capturar reuniones y transformarlas mediante IA en historias de usuario estructuradas.
+*   Decidimos agrupar los agregados Session (manejo de WebSockets/Audio) y User Story (Prompts y LLM) en un único y potente Core Domain llamado **Requirement Discovery**. Esto cohesiona todo el flujo de valor principal (Value Stream) bajo un mismo techo, minimizando la latencia de red entre la captura y el análisis.
 
-2. Aplicación de "Look-for-pivotal-events" (Fronteras por Cambio de Estado B2B)
-   Posteriormente, buscamos en la línea de tiempo los Eventos Pivote que marcan "un antes y un después" crítico en la vida de un cliente dentro de la plataforma.
-*   *Evento: "Account Validated" vs "Organization Created":* Observamos que la autenticación de un usuario es un problema genérico, mientras que gestionar a qué empresa pertenece y qué roles tiene es un problema organizativo B2B. **Decisión:** Extraímos el agregado *User* hacia un **IAM** independiente, y el agregado *Organization* hacia el **Workspace**.
-*   *Evento: "Upgraded to Pro Plan":* Este evento cambia radicalmente los límites operativos del sistema (cuotas). Involucra pasarelas de pago y facturación. **Decisión:** Aislamos el agregado *Subscription* en el **Billing & Subscription**.
+2. Aplicación de "Look-for-pivotal-events"
+Buscamos los Eventos Pivote que marcan hitos críticos en la vida del cliente.
+*   *Eventos: "Account Validated", "Organization Created" y "Project Created":* Extraímos el agregado User hacia un **IAM** independiente. Por otro lado, dado que un proyecto solo tiene sentido dentro de la estructura de una empresa, agrupamos Organization y Project en un solo contexto cohesionado llamado **Workspace Management**.
+*   *Evento: "Upgraded to Pro Plan":* Involucra pasarelas de pago y cuotas. Aislamos el agregado Subscription en el **Billing & Subscription**.
 
-3. Aplicación de "Start-with-simple" (Fronteras por Secuencia de Soporte)
-   Finalmente, agrupamos los agregados restantes evaluando su función en los pasos "antes" y "después" del proceso principal de captura de requisitos.
-*   Antes de que la IA pueda operar, el Analista necesita crear un entorno y subir documentos PDF de contexto. Esto pertenece al agregado *Project*. **Decisión:** Agrupado en el **Project Configuration**.
-*   Después de que las historias son aprobadas, deben enviarse a plataformas externas. Aquí decidimos aplicar el patrón *Anti-Corruption Layer (ACL)* aislando el agregado *ExternalConnection* para que los cambios en las APIs de terceros no contaminen el Core de Reqs-AI, aislandolo en **Integration Gateway**.
+3. Aplicación de "Start-with-simple"
+Evaluamos las integraciones post-procesamiento.
+*   Después de que las historias son generadas, deben enviarse a plataformas externas (ej. Jira). Para proteger nuestro Core Domain de los constantes cambios en las APIs de terceros, aplicamos el patrón Anti-Corruption Layer (ACL) aislando el agregado ExternalConnection en el **Integration Gateway**.
 
 
 **Resumen de Bounded Contexts Descubiertos**
-A través de este proceso analítico y evolutivo, el sistema quedó dividido arquitectónicamente en los siguientes 7 Candidate Bounded Contexts:
+A través de este proceso analítico y evolutivo, el sistema quedó dividido arquitectónicamente en los siguientes 5 Candidate Bounded Contexts:
 
-| Bounded Context | Tipo de Subdominio | Agregado(s) Principal(es) | Responsabilidad Principal |
-| :--- | :--- | :--- | :--- |
-| **1. Meeting Capture** | Core Domain | Session | Ingesta de audio en tiempo real (WebSockets), control de estado de la reunión (iniciar/pausar) e integración con el servicio de Speech-to-Text. |
-| **2. Requirement Generation** | Core Domain | User Story | Inferencia mediante LLMs, fragmentación de contexto (RAG), generación y estructuración del formato Gherkin, y gestión de similitudes. |
-| **3. IAM** | Generic Subdomain | User | Autenticación, registro, validación de correo y gestión de credenciales seguras. |
-| **4. Workspace** | Generic Subdomain | Organization | Aislamiento Multitenant (Row Level Security), gestión de espacios de trabajo, invitación de miembros y roles corporativos. |
-| **5. Billing & Subscription** | Generic Subdomain | Subscription | Integración con pasarelas de pago (ej. Stripe), upgrades/downgrades de planes y monitoreo de consumo de cuotas/tokens. |
-| **6. Project Configuration** | Supporting Subdomain | Project | Estructura local de iniciativas del cliente, almacenamiento de parámetros técnicos y alojamiento de PDFs de glosario. |
-| **7. Integration Gateway** | Supporting Subdomain | ExternalConnection | Capa Anticorrupción (ACL) para autorizar credenciales (OAuth) y exportar historias hacia herramientas externas como Jira. |
+| Bounded Context               | Tipo de Subdominio   | Agregado(s) Principal(es) | Responsabilidad Principal                                                                                                  |
+|:------------------------------|:---------------------|:--------------------------|:---------------------------------------------------------------------------------------------------------------------------|
+| **1. Requirement Discovery**  | Core Domain          | Session, User Story       | Ingesta de audio (WebSockets), inferencia mediante LLMs, fragmentación de contexto (RAG) y generación del formato Gherkin. |
+| **2. Workspace Management**   | Generic Subdomain    | Organization, Project     | Aislamiento Multitenant (Row Level Security), gestión de proyectos, roles corporativos y almacenamiento de glosarios.      |
+| **3. IAM**                    | Generic Subdomain    | User                      | Autenticación, registro, validación de correo y gestión de credenciales seguras.                                           |
+| **4. Billing & Subscription** | Generic Subdomain    | Subscription              | Integración con pasarelas de pago, upgrades/downgrades de planes y monitoreo de consumo de cuotas/tokens.                  |
+| **5. Integration Gateway**    | Supporting Subdomain | ExternalConnection        | Capa Anticorrupción (ACL) para autorizar credenciales (OAuth) y exportar historias hacia herramientas externas como Jira.  |
 
 ![CCD](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.2.Candidate-Context-Discovery/Bounded-Contexts.jpg)
 
