@@ -1511,39 +1511,41 @@ A nivel de contexto, eliminamos las interacciones directas entre los usuarios y 
 
 ### 4.3.3.	Software Architecture Container Level Diagrams
 
-En esta sección presentamos el diagrama de contenedores (Nivel 2 del modelo C4) para el sistema **ReqsAI**. Este nivel hace un *zoom in* al sistema principal para revelar los contenedores de software que lo componen (aplicaciones móviles, web, APIs, bases de datos), mostrando cómo se distribuyen las responsabilidades, las decisiones tecnológicas de alto nivel y cómo estos componentes se comunican entre sí y con los sistemas externos.
+En esta sección presentamos el diagrama de contenedores para el sistema Reqs-AI. Este nivel hace un enfoque al sistema principal para revelar los contenedores de software que lo componen (aplicaciones móviles, web, APIs, bases de datos), mostrando cómo se distribuyen las responsabilidades, las decisiones tecnológicas de alto nivel y cómo estos componentes se comunican entre sí y con los sistemas externos.
 
 ![Container Diagram](assets/4.Strategic-Level-Product-Design/4.3.Software-Architecture/Container.png)
 
-#### Elementos del Diagrama y Distribución de Responsabilidades
-
-El sistema ReqsAI está compuesto por los siguientes contenedores principales:
+El sistema Reqs-AI está compuesto por los siguientes contenedores principales:
 
 1.  **Interfaces de Usuario (Frontend):**
-    *   **Web Application** Es la plataforma principal para los usuarios. Permite una visualización completa para el análisis profundo de datos, revisión de historias de usuario, configuración de proyectos y gestión general del sistema. Se eligió **Angular** por ser un framework robusto, ideal para aplicaciones empresariales escalables.
+    *   **Web Application:** Es la plataforma principal para los usuarios. Permite una visualización completa para el análisis profundo de datos, revisión de historias de usuario, configuración de proyectos y gestión general del sistema. Se eligió **Angular** por ser un framework robusto, ideal para aplicaciones empresariales escalables.
     *   **Mobile App:** Proporciona accesibilidad móvil a los usuarios, permitiéndoles interactuar con el sistema, grabar reuniones o revisar el estado de los requerimientos desde cualquier lugar. Se optó por **Flutter** para asegurar un desarrollo multiplataforma eficiente (iOS y Android) con una base de código unificada.
 
 2.  **Punto de Entrada y Enrutamiento:**
     *   **API Gateway:** Actúa como la puerta de entrada única para todas las peticiones (Requests) provenientes de las aplicaciones Web y Móvil. Su responsabilidad es enrutar estas solicitudes hacia los servicios de backend correspondientes, centralizando potencialmente políticas de seguridad, *throttling* y métricas.
 
-3.  **Lógica Core (Backend):**
-    *   **ReqsAI Backend Service** Es el motor central del sistema. Maneja toda la lógica de negocio, coordina las transformaciones de datos y orquesta la comunicación con las APIs de terceros. Se seleccionó **Java con Spring Boot** debido a su madurez, seguridad, facilidad para integraciones empresariales y alto rendimiento.
+3.  **Lógica Core (Backend - Monolito Modular):**
+    *   **Reqs-AI Backend Application:** Se ha modelado con un límite punteado (boundary) que representa el despliegue unificado (Monolito Modular) desarrollado en **Java con Spring Boot**. En su interior, el backend está estrictamente dividido en los 5 Bounded Contexts previamente descubiertos, operando como servicios lógicos aislados:
+        *   *Requirement Discovery:* Centraliza la lógica de IA y streaming de audio.
+        *   *Workspace Management:* Gestiona la jerarquía de las organizaciones y el RLS.
+        *   *IAM:* Coordina la identidad y seguridad.
+        *   *Billing & Subscription:* Controla cuotas y pagos.
+        *   *Integration Gateway:* Actúa como la capa anticorrupción (ACL) para las exportaciones.
 
 4.  **Almacenamiento de Datos:**
-    *   **Database** Es la base de datos principal de ReqsAI. Almacena toda la información del dominio (usuarios, configuraciones, transcripciones e historias de usuario). La elección de **PostgreSQL** con la extensión **pgvector** es una decisión estratégica crítica, ya que permite almacenar y consultar *embeddings* vectoriales, facilitando el procesamiento avanzado de IA y las búsquedas semánticas sobre el contexto de los requerimientos.
+    *   **Database:** Es la base de datos principal de Reqs-AI. Almacena toda la información del dominio. La elección de **PostgreSQL** con la extensión **pgvector** es una decisión estratégica crítica, ya que permite almacenar y consultar *embeddings* vectoriales, facilitando el procesamiento avanzado de IA (RAG) y las búsquedas semánticas.
 
 **Comunicación e Integración de Contenedores**
 
 La arquitectura define un flujo de comunicación moderno y orientado a servicios:
 
-*   **Comunicación Cliente-Servidor:** Tanto la aplicación móvil como la web interactúan con el API Gateway realizando llamadas a través de **HTTPS/REST**, garantizando seguridad en el transporte y un estándar ampliamente adoptado.
-*   **Comunicación Interna:** El API Gateway enruta estas llamadas al *ReqsAI Backend Service*. El backend, a su vez, lee y escribe (*Reads and write*) de manera síncrona en la base de datos PostgreSQL para mantener el estado del sistema.
-*   **Integración con Sistemas Externos:** El Backend Service actúa como el coordinador central que delega tareas específicas a sistemas externos especializados:
-    *   Envía correos a través del **Email Service Provider**.
-    *   Procesa transacciones a través del **Payment Gateway**.
-    *   Envía los audios de las reuniones al **STT API** para convertirlos a texto.
-    *   Delega la inferencia de inteligencia artificial al **LLM API** para la generación de historias de usuario en formato Gherkin.
-    *   Exporta finalmente las historias de usuario aprobadas hacia la herramienta de gestión mediante la **Project Management API** (Jira).
+*   **Comunicación Cliente-Servidor:** Tanto la aplicación móvil como la web interactúan con el API Gateway realizando llamadas a través de **HTTPS/REST** y **WebSockets**, garantizando seguridad y soporte para streaming en tiempo real.
+*   **Comunicación Interna:** El API Gateway enruta las llamadas hacia el *Reqs-AI Backend Application*. Internamente, los Bounded Contexts se comunican mediante eventos en memoria (Domain Events) y persisten su estado de manera síncrona en la base de datos compartida (PostgreSQL).
+*   **Integración con Sistemas Externos:** En lugar de centralizar todas las salidas, las integraciones están descentralizadas y asignadas al Bounded Context correspondiente que las necesita:
+    *   **IAM** envía credenciales y alertas a través del **Email Service Provider**.
+    *   **Billing & Subscription** procesa transacciones a través del **Payment Gateway**.
+    *   **Requirement Discovery** envía los audios de las reuniones al **STT API** para convertirlos a texto, y delega la inferencia de inteligencia artificial al **LLM API** para la generación de Gherkin.
+    *   **Integration Gateway** exporta finalmente las historias de usuario hacia la herramienta de gestión mediante la **Project Management API** (Jira).
 
 ### 4.3.4.	Software Architecture Deployment Diagrams
 
