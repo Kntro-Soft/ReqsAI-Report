@@ -1427,42 +1427,37 @@ Capa Anticorrupción (ACL) que protege el Core Domain de los cambios en APIs de 
 
 ### 4.2.5.	Context Mapping
 
-En esta sección evidenciamos el proceso de elaboración de nuestro Context Map. Para llegar al diseño estructural definitivo de nuestros Bounded Contexts, el equipo evaluó el modelo sometiéndolo a un análisis crítico, respondiendo a las preguntas estratégicas de diseño sugeridas. Además, aplicamos rigurosamente los patrones de integración definidos por el repositorio oficial de Context Mapping de DDD Crew.
+En esta sección evidenciamos el proceso de elaboración de nuestro Context Map. Para llegar al diseño estructural definitivo de nuestros 5 Bounded Contexts, el equipo evaluó el modelo sometiéndolo a un análisis crítico, respondiendo a las preguntas estratégicas de diseño sugeridas. Además, aplicamos rigurosamente los patrones de integración definidos por el repositorio oficial de Context Mapping de DDD Crew.
 
 **Evaluación de Alternativas y Diseños Candidatos**
 
+*   **¿Qué pasaría si agrupamos dos contextos fuertemente acoplados en uno solo?**
+    Inicialmente, considerábamos separar la captura de audio (WebSockets) de la generación de la historia (LLM). Sin embargo, al aplicar esta pregunta, nos dimos cuenta de que ambos son parte inseparable del mismo flujo de valor en tiempo real. Agruparlos en un único Core Domain llamado **Requirement Discovery** eliminó la latencia de red y la serialización innecesaria entre ambos pasos. Aplicamos la misma lógica para fusionar Organización y Proyecto dentro de **Workspace Management**.
 *   **¿Qué pasaría si aislamos los core capabilities y movemos los otros a un context aparte?**
-    Inicialmente consideramos que la generación de la historia de usuario y su posterior exportación a Jira ocurrieran en el mismo módulo. Sin embargo, al aplicar esta pregunta, nos dimos cuenta de que exportar tickets es una capacidad de soporte. Aislamos el core de IA en **Requirement Generation** y movimos la integración externa al **Integration Gateway** para evitar que cambios en APIs de terceros contaminen nuestro motor de inferencia.
+    Una vez consolidado el Core, evaluamos el proceso de exportar las historias hacia gestores de proyectos (Jira). Notamos que la integración con terceros es puramente una capacidad de soporte. Por ello, aislamos el core de IA y movimos toda la comunicación externa hacia el **Integration Gateway**. Esto evita que los cambios constantes en APIs de terceros contaminen nuestro motor de inferencia.
 *   **¿Qué pasaría si duplicamos una funcionalidad para romper la dependencia?**
-    Evaluamos la validación de cuotas. Si **Requirement Generation** tuviera que preguntar sincrónicamente a **Billing & Subscription** si un usuario tiene saldo de IA antes de cada inferencia, el sistema sería lento y frágil. Decidimos romper esta dependencia directa. **Billing & Subscription** emite eventos asíncronos cuando una cuota se acaba, y **Requirement Generation** duplica y almacena localmente un indicador de bloqueo, permitiendo inferencias rápidas sin consultas de red.
-*   **¿Qué pasaría si tomamos un capability de estos contexts y lo usamos para formar un nuevo context?**
-    Al analizar la autenticación de usuarios y la gestión de empresas, notamos que estaban fuertemente acopladas. Tomamos la capacidad de registro y login y formamos el contexto **IAM**, separándolo de **Workspace**. Esto nos permite evolucionar la seguridad genérica independientemente de la compleja lógica de roles corporativos multitenant.
+    Evaluamos la validación de cuotas. Si **Requirement Discovery** tuviera que preguntar sincrónicamente a **Billing & Subscription** si un usuario tiene saldo antes de cada uso de IA, el sistema sería lento y frágil. Decidimos romper esta dependencia directa. **Billing & Subscription** emite eventos asíncronos cuando una cuota se actualiza, y **Workspace Management** duplica y almacena localmente esta capacidad. Así, el Core Domain solo consulta su contexto local sin bloqueos de red.
 
 **Patrones de Relación DDD Establecidos**
 
-Tras este debate, definimos formalmente los patrones de integración estratégicos entre nuestros módulos y los sistemas de terceros. Las relaciones indican quién es el proveedor Upstream U y quién es el consumidor Downstream D.
+Tras este debate, definimos formalmente los patrones de integración estratégicos. Las relaciones indican quién es el proveedor (Upstream **U**) y quién es el consumidor (Downstream **D**).
 
-1.  **Integration Gateway D hacia External PM Service (Jira) U**
-    *   **Patrón:** Anti-Corruption Layer ACL
-    *   **Justificación:** El Integration Gateway actúa como una barrera traductora. Consume nuestros eventos internos y los transforma a los complejos modelos de datos de Atlassian. Nuestro Core jamás se entera de los esquemas propietarios de Jira.
-2.  **Requirement Generation D hacia External LLM Service U**
-    *   **Patrón:** Anti-Corruption Layer ACL
-    *   **Justificación:** Para evitar el vendor lock-in con OpenAI o Anthropic. Traducimos nuestros Prompts genéricos al esquema JSON específico de la API del proveedor, protegiendo nuestro modelo de dominio de cambios en la IA externa.
-3.  **Meeting Capture D hacia External STT Service U**
-    *   **Patrón:** Anti-Corruption Layer ACL
-    *   **Justificación:** Al igual que con el LLM, el servicio de Speech-to-Text externo dicta un formato de streaming propio. El ACL aísla a Meeting Capture de la tecnología de transcripción subyacente.
-4.  **Requirement Generation D hacia Project Configuration U**
+1.  **Integration Gateway [D] hacia External PM Service (Jira) [U]**
+    *   **Patrón:** Anti-Corruption Layer (ACL)
+    *   **Justificación:** El Integration Gateway actúa como una barrera traductora. Consume nuestros eventos internos y los transforma a los esquemas propietarios de Atlassian. Nuestro Core jamás se entera de cómo funciona Jira.
+2.  **Requirement Discovery [D] hacia External AI Services (LLM / STT) [U]**
+    *   **Patrón:** Anti-Corruption Layer (ACL)
+    *   **Justificación:** Para evitar el *vendor lock-in* con proveedores como OpenAI o AssemblyAI. Traducimos nuestros Prompts genéricos y flujos de audio al esquema específico de la API del proveedor, protegiendo nuestro modelo de dominio de cambios externos.
+3.  **Requirement Discovery [D] hacia Workspace Management [U]**
     *   **Patrón:** Customer / Supplier
-    *   **Justificación:** Requirement Generation Customer exige que el glosario se le entregue en un formato limpio de texto para el RAG. Project Configuration Supplier adapta su entrega de documentos PDFs para satisfacer esta necesidad.
-5.  **Workspace D hacia IAM U y Workspace D hacia Billing & Subscription U**
-    *   **Patrón:** Conformist CF
-    *   **Justificación:** Workspace conforma ciegamente a los modelos de Identidad de IAM y a los eventos de Cuotas de Billing, sin exigirles cambios a esos dominios genéricos.
-6.  **Workspace U hacia Requirement Generation D y Project Configuration D**
-    *   **Patrones:** Open Host Service OHS y Published Language PL
-    *   **Justificación:** Workspace emite eventos de dominio indicando si una organización tiene permisos o cuotas válidas. Contextos como Requirement Generation y Project Configuration consumen estos eventos estandarizados PL para saber si deben procesar o rechazar las peticiones de IA o creación de proyectos.
-7.  **Comunicación Core Interna Event-Driven**
-    *   **Patrones:** Open Host Service OHS y Published Language PL
-    *   **Justificación:** Las conexiones asíncronas entre los contextos **Meeting Capture U -> Requirement Generation D** y **Requirement Generation U -> Integration Gateway D** se realizan publicando eventos en una cola local, funcionando como un OHS.
+    *   **Justificación:** Requirement Discovery [Customer] exige que el glosario del proyecto se le entregue en un formato limpio de texto para inyectarlo en el contexto (RAG). Workspace Management [Supplier] adapta su proceso de subida y parsing de PDFs para satisfacer esta necesidad core.
+4.  **Workspace Management [D] hacia IAM [U] y Billing & Subscription [U]**
+    *   **Patrón:** Conformist (CF)
+    *   **Justificación:** Workspace Management se conforma ciegamente a los modelos de Identidad de IAM y a los modelos de suscripción de Billing (los cuales suelen estar dictados por estándares de pasarelas externas como Stripe). Al adoptar el patrón Conformist, Workspace acepta que es un consumidor pasivo y no puede negociar ni alterar el modelo de Billing.
+    *   **Impacto en la evolución del sistema:** La principal consecuencia de esta decisión es un acoplamiento estructural unidireccional. Si en el futuro el modelo de negocio de la startup evoluciona y Billing cambia su estructura (por ejemplo, pasando de "Planes de Suscripción Mensual" a un modelo "Pay-as-you-go por tokens/minutos consumidos"), Workspace Management estará forzado a modificar inmediatamente su propia lógica interna de evaluación de cuotas para adaptarse a este nuevo esquema. El equipo asume conscientemente este riesgo y la pérdida de autonomía a cambio de la simplicidad técnica de no tener que construir ni mantener una compleja capa de traducción (ACL) entre dos subdominios genéricos.
+5.  **Requirement Discovery [U] hacia Integration Gateway [D]**
+    *   **Patrones:** Open Host Service (OHS) y Published Language (PL)
+    *   **Justificación:** El Core domain emite eventos estandarizados usando un lenguaje publicado (PL) a través de un bus de eventos (OHS). El Gateway simplemente se suscribe a este canal común para iniciar su lógica de exportación.
 
 **Diagrama de Context Map Final**
 
