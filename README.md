@@ -1393,21 +1393,19 @@ Este es un flujo netamente operativo y post-procesamiento. Ocurre después de qu
 
 ### 4.2.4.	Bounded Context Canvases
 
-En esta sección el equipo diseña sus candidate bounded contexts, detallando los criterios de diseño. El equipo seleccionó cada bounded context, por orden de importancia, para elaborar su Bounded Context Canvas basándose en la plantilla de Domain Storytelling. 
+En esta sección el equipo diseña sus candidate bounded contexts, detallando los criterios de diseño. El equipo seleccionó cada bounded context, por orden de importancia, para elaborar su Bounded Context Canvas.
 
-A continuación, presentamos los lienzos diseñados para los siete Bounded Contexts de Reqs-AI.
+**1. Requirement Discovery**
 
-**1. Meeting Capture**
+Motor central de la plataforma responsable de ingerir el audio de las reuniones en tiempo real, orquestar la transcripción y aplicar Inteligencia Artificial con contexto (RAG) para generar historias de usuario estructuradas en formato Gherkin.
 
-Este contexto es responsable de la ingesta de audio en tiempo real y la transcripción mediante WebSockets.
+![Canvas1](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Requirement-discovery.jpg)
 
-![Canvas1](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Meeting-Capture.jpg)
+**2. Workspace Management**
 
-**2. Requirement Generation**
+Módulo organizativo que garantiza el aislamiento de datos (Multitenancy), gestiona la jerarquía corporativa (proyectos) y almacena el conocimiento específico del cliente (Glosarios) para contextualizar la IA.
 
-Este contexto es el motor de inteligencia artificial que estructura las transcripciones en formato Gherkin usando estrategias de prompting.
-
-![Canvas2](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Requirement-Generation.jpg)
+![Canvas2](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Workspace-management.jpg)
 
 **3. Identity and Access Management**
 
@@ -1415,29 +1413,17 @@ Este contexto asegura el acceso a la plataforma mediante autenticación y gesti�
 
 ![Canvas3](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/IAM.jpg)
 
-**4. Workspace**
-
-Este contexto administra el aislamiento de datos multitenant, las organizaciones y los roles B2B.
-
-![Canvas4](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Workspace.jpg)
-
-**5. Billing & Subscription**
+**4. Billing & Subscription**
 
 Este contexto monitorea el uso de las cuotas de IA y gestiona los pagos recurrentes integrando pasarelas externas.
 
-![Canvas5](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Billing-and-subscription.jpg)
+![Canvas4](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Billing-and-subscription.jpg)
 
-**6. Project Configuration**
+**5. Integration Gateway**
 
-Este contexto almacena la estructura de las iniciativas del cliente y sus glosarios para contextualizar la IA.
+Capa Anticorrupción (ACL) que protege el Core Domain de los cambios en APIs de terceros. Se encarga de traducir los eventos del sistema a formatos externos y exportar las historias hacia herramientas como Jira.
 
-![Canvas6](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Project-configuration.jpg)
-
-**7. Integration Gateway**
-
-Este contexto actúa como capa anticorrupción para exportar las historias de usuario hacia herramientas ágiles externas como Jira.
-
-![Canvas7](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Integration-Gateway.jpg)
+![Canvas5](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Integration-Gateway.jpg)
 
 ### 4.2.5.	Context Mapping
 
