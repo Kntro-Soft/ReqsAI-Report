@@ -279,7 +279,7 @@ Nuestro producto, Reqs-AI, abordará esta brecha mediante un motor de inteligenc
 
 Nuestro enfoque inicial serán las Startups tecnológicas y empresas de desarrollo de software que operan bajo metodologías ágiles y necesitan una transición inmediata y sin errores desde la fase de descubrimiento hasta el inicio de la codificación.
 
-Sabremos que hemos tenido éxito cuando observemos una reducción del 40% en las reuniones de seguimiento para aclaración de requisitos, una disminución significativa en el tiempo que el analista dedica al post-procesamiento de la información y una tasa de aceptación de historias de usuario superior al 80% en la primera iteración de revisión con el equipo de desarrollo.
+Sabremos que hemos tenido éxito cuando observemos una reducción del 40% en las reuniones de seguimiento para aclaración de requisitos, una disminución significativa en el tiempo que el analista dedica al postprocesamiento de la información y una tasa de aceptación de historias de usuario superior al 80% en la primera iteración de revisión con el equipo de desarrollo.
 
 
 #### 1.2.2.2. Lean UX Assumptions
@@ -416,7 +416,7 @@ Para este análisis, hemos seleccionado a los competidores más relevantes segú
         Asistentes de reuniones por IA de propósito general. Transcriben, hacen resúmenes ejecutivos y extraen "Action Items".
       </td>
       <td style="padding: 10px">
-        La plataforma líder mundial en gestión ágil. Recientemente integró IA para ayudar a redactar y mejorar la gramática de los tickets directamente en su interfaz.
+        La plataforma líder mundial en gestión ágil. Recientemente, integró IA para ayudar a redactar y mejorar la gramática de los tickets directamente en su interfaz.
       </td>
     </tr>
     <tr>
@@ -425,7 +425,7 @@ Para este análisis, hemos seleccionado a los competidores más relevantes segú
         <strong>Profundidad Técnica:</strong> No hace resúmenes, hace Ingeniería de Software. Detecta edge cases, sugiere preguntas al cliente en vivo y previene historias duplicadas.
       </td>
       <td style="padding: 10px">
-        <strong>Integración nativa:</strong> Se comporta como un bot que entra automáticamente a las videollamadas y se integra con múltiples CRMs.
+        <strong>Integración nativa:</strong> Se comporta como un bot que entra automáticamente a las videollamadas y se integra con múltiples CRM.
       </td>
       <td style="padding: 10px">
         <strong>Adopción masiva:</strong> Son extremadamente fáciles de usar, baratos y sirven para cualquier industria (ventas, legal, educación).
@@ -691,7 +691,7 @@ Las entrevistas se realizaron entre el 25 y 26 de abril de 2026 a un total de se
 
 **Segmento: Líder Técnico de Startup**
 
-**Total entrevistados:** 3  
+**Total de entrevistados:** 3  
 **Edades:** 22, 22, 23 años  
 **Distritos:** Barranco, Santiago de Surco, San Miguel  
 **Fechas:** 26 de abril de 2026
@@ -715,7 +715,7 @@ Las entrevistas se realizaron entre el 25 y 26 de abril de 2026 a un total de se
 
 **Segmento: Analista Funcional / Producto / Sistemas**
 
-**Total entrevistados:** 3  
+**Total de entrevistados:** 3  
 **Edades:** 25, 28, 30 años  
 **Distritos:** Magdalena, Santiago de Surco  
 **Fechas:** 25 y 26 de abril de 2026
@@ -726,7 +726,7 @@ Las entrevistas se realizaron entre el 25 y 26 de abril de 2026 a un total de se
 - Utilizan plataformas de trazabilidad/documentación como Jira, Notion y Azure DevOps: **3/3 (100%)**
 - Transforman acuerdos de reunión en artefactos formales (historias de usuario, criterios y procesos): **3/3 (100%)**
 - Identifican como riesgo frecuente la falta de claridad del cliente o de stakeholders clave: **3/3 (100%)**
-- Enfrentan una alta carga de post-procesamiento para reducir ambigüedades antes de entregar al equipo: **3/3 (100%)**
+- Enfrentan una alta carga de postprocesamiento para reducir ambigüedades antes de entregar al equipo: **3/3 (100%)**
 
 **Características subjetivas**
 
@@ -739,7 +739,7 @@ Las entrevistas se realizaron entre el 25 y 26 de abril de 2026 a un total de se
 
 **Conclusión general**
 
-El análisis muestra un patrón común en ambos segmentos: el principal cuello de botella no es la captura inicial de la reunión, sino la transformación de conversaciones en requisitos claros, trazables y accionables sin pérdida de contexto. La coincidencia en dolores (ambigüedad, retrabajo, sobrecarga de post-procesamiento e impacto en tiempos de sprint) valida la necesidad de una plataforma que asista en tiempo real con transcripción estructurada, síntesis y generación de historias de usuario. A la vez, los hallazgos refuerzan que la adopción será más sólida si la automatización se diseña como soporte al criterio profesional y no como reemplazo de la validación humana.
+El análisis muestra un patrón común en ambos segmentos: el principal cuello de botella no es la captura inicial de la reunión, sino la transformación de conversaciones en requisitos claros, trazables y accionables sin pérdida de contexto. La coincidencia en dolores (ambigüedad, retrabajo, sobrecarga de postprocesamiento e impacto en tiempos de sprint) valida la necesidad de una plataforma que asista en tiempo real con transcripción estructurada, síntesis y generación de historias de usuario. A la vez, los hallazgos refuerzan que la adopción será más sólida si la automatización se diseña como soporte al criterio profesional y no como reemplazo de la validación humana.
 
 ## 2.3. Need finding
 
@@ -759,7 +759,7 @@ Los user personas sintetizan patrones de comportamiento, objetivos, frustracione
 
 ### 2.3.2. User Task Matrix
 
-En este User Task Matrix se detallan las tareas que realizan los dos segmentos objetivo considerados en Reqs-AI: el Líder Técnico de Startup y el Analista de Sistemas Enterprise. Las tareas descritas corresponden al trabajo real de levantamiento, validación y transferencia de requisitos, y se ejecutan independientemente de la existencia de una herramienta de software.
+En este User Task Matrix se detallan las tareas que realizan los dos segmentos objetivos considerados en Reqs-AI: el Líder Técnico de Startup y el Analista de Sistemas Enterprise. Las tareas descritas corresponden al trabajo real de levantamiento, validación y transferencia de requisitos, y se ejecutan independientemente de la existencia de una herramienta de software.
 
 | **TAREA**                                                                                           | **Diego Alvarado (Líder Técnico de Startup) - Frecuencia** | **Diego Alvarado (Líder Técnico de Startup) - Importancia** | **Analista Enterprise Genérico (Analista de Sistemas Enterprise) - Frecuencia** | **Analista Enterprise Genérico (Analista de Sistemas Enterprise) - Importancia** |
 |-----------------------------------------------------------------------------------------------------|:----------------------------------------------------------:|:-----------------------------------------------------------:|:-------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------:|
@@ -806,7 +806,7 @@ Se elaboraron los Empathy Maps para los dos User Personas priorizados: el Líder
 
 El equipo elaboró los As-Is Scenario Mapping mediante preparación, lluvia de ideas individual y revisión conjunta por segmento. Con base en entrevistas y artefactos previos, se definieron las fases del recorrido actual de cada User Persona en las filas Steps, Doing, Thinking y Feeling, representando la situación actual sin la solución propuesta.
 
-Además, se identificaron áreas positivas, negativas y blank areas para ubicar con precisión los puntos de mayor impacto operativo y emocional en cada segmento.
+Además, se identificaron áreas positivas, negativas y blank áreas para ubicar con precisión los puntos de mayor impacto operativo y emocional en cada segmento.
 
 **As-Is Scenario Mapping de Diego Alvarado (Líder Técnico de Startup)**
 
@@ -1028,7 +1028,7 @@ Las historias de usuario, junto con sus estimaciones en Story Points, Criterios 
 
 ## 3.4. Impact Mapping
 
-En esta sección presentamos el Impact Mapping del modelo de negocio digital de Reqs-AI. Para su elaboración partimos de las User Personas definidas previamente, **Miguel Ocampo** y **Diego Alvarado**, y conectamos cada objetivo de negocio con los cambios de comportamiento esperados (impacts), los entregables del producto (deliverables) y las historias de usuario del backlog.
+En esta sección presentamos el Impact Mapping del modelo de negocio digital de Reqs-AI. Para su elaboración partimos de las user persona definidas previamente, **Miguel Ocampo** y **Diego Alvarado**, y conectamos cada objetivo de negocio con los cambios de comportamiento esperados (impacts), los entregables del producto (deliverables) y las historias de usuario del backlog.
 
 El mapa fue estructurado con **tres Business Goals SMART** para mantener foco estratégico y trazabilidad funcional:
 
@@ -1064,7 +1064,7 @@ En esta sección se presentan las entradas fundamentales requeridas para ejecuta
 
 #### 4.1.2.1.	Primary Functionality (Primary User Stories)
 
-A continuación, se detallan las Historias de Usuario primarias que tienen el mayor impacto arquitectónico en el diseño de Reqs-AI. Estas funcionalidades han sido seleccionadas porque introducen requerimientos complejos de procesamiento asíncrono (análisis de audio en tiempo real), integración con servicios de Inteligencia Artificial (LLMs) y aislamiento estricto de datos (Multitenancy), elementos que dictarán la topología base del sistema.
+A continuación, se detallan las Historias de Usuario primarias que tienen el mayor impacto arquitectónico en el diseño de Reqs-AI. Estas funcionalidades han sido seleccionadas porque introducen requerimientos complejos de procesamiento asíncrono (análisis de audio en tiempo real), integración con servicios de Inteligencia Artificial (LLM) y aislamiento estricto de datos (Multitenancy), elementos que dictarán la topología base del sistema.
 
 | Epic / User Story ID | Título                             | Descripción                                                                                                                                                                                     | Criterios de Aceptación                                                                                                                                                                                                                                                          | Relacionado con (Epic ID) |
 |:---------------------|:-----------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------|
@@ -1086,7 +1086,7 @@ En esta sección se definen los escenarios de atributos de calidad más crítico
 
 ##### 4.1.2.3.	Constraints
 
-Esta sección describe las restricciones innegociables impuestas por el modelo de negocio, las capacidades técnicas del equipo y la viabilidad del proyecto. Las principales restricciones incluyen la dependencia de APIs de LLMs externos y el uso del stack tecnológico (Java/Spring Boot y Angular/Vue.js). A continuación, se detallan como Technical Stories:
+Esta sección describe las restricciones innegociables impuestas por el modelo de negocio, las capacidades técnicas del equipo y la viabilidad del proyecto. Las principales restricciones incluyen la dependencia de API de LLM externos y el uso del stack tecnológico (Java/Spring Boot y Angular/Vue.js). A continuación, se detallan como Technical Stories:
 
 | Technical Story ID | Título                               | Descripción                                                                                                                                                            | Criterios de Aceptación                                                                                                                                                                              | Relacionado con (Epic ID) |
 |:-------------------|:-------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------|
@@ -1117,7 +1117,7 @@ En esta sección se detalla el proceso seguido durante las iteraciones (Stages) 
 En esta primera iteración se evaluó la estructura general del backend y cómo gestionar el aislamiento de datos. Se descartó la arquitectura de Microservicios por su alta complejidad operativa, optando por un **Monolito Modular** en Spring Boot (AD-08). Para resolver la separación de datos entre empresas (AD-02), se debatió entre *Database-per-Tenant* y *Shared-Database*. Se eligió la base de datos compartida aplicando políticas estrictas de **Row Level Security (RLS)** a nivel de base de datos (ej. PostgreSQL), lo que garantiza el aislamiento del 100% de la información mientras se optimizan los costos de despliegue en la nube (AD-07).
 
 **Iteración 2: Ingesta de Audio en Tiempo Real y Tolerancia a Fallos (Drivers: AD-01, AD-03)**
-El reto principal fue cumplir con la latencia <2s para la transcripción en vivo (AD-01). Se evaluó REST Polling, Server-Sent Events (SSE) y WebSockets. Se eligió **WebSockets** por permitir una comunicación bidireccional continua (necesaria para mandar fragmentos de audio al server y recibir texto del STT simultáneamente). Para la tolerancia a fallos ante caídas de las APIs de IA (AD-03), se descartó la complejidad de un **Message Broker externo** y se adoptó el uso de **Colas en Memoria RAM (Patrón Observer)** junto con persistencia de estado en la Base de Datos, optimizando la latencia y reduciendo costos de infraestructura en el MVP.
+El reto principal fue cumplir con la latencia <2s para la transcripción en vivo (AD-01). Se evaluó REST Polling, Server-Sent Events (SSE) y WebSockets. Se eligió **WebSockets** por permitir una comunicación bidireccional continua (necesaria para mandar fragmentos de audio al server y recibir texto del STT simultáneamente). Para la tolerancia a fallos ante caídas de las API de IA (AD-03), se descartó la complejidad de un **Message Broker externo** y se adoptó el uso de **Colas en Memoria RAM (Patrón Observer)** junto con persistencia de estado en la Base de Datos, optimizando la latencia y reduciendo costos de infraestructura en el MVP.
 
 **Iteración 3: Integración RAG y Modificabilidad de IA (Drivers: AD-04, AD-05, AD-06)**
 Finalmente, el equipo abordó cómo evitar el acoplamiento con las APIs de IA de terceros y cómo lograr el RAG rápido (AD-05). Se descartó la Arquitectura en Capas tradicional a favor de una **Arquitectura Hexagonal (Ports and Adapters)**. Esto permite encapsular las reglas de negocio del *Prompt Engineering* en el dominio, dejando a OpenAI o Anthropic como simples "adaptadores", cumpliendo la meta de intercambiabilidad en <16h (AD-06). Para el almacenamiento del contexto del cliente, se eligió una **Base de Datos Vectorial** (ej. pgvector) superando las limitaciones de búsqueda semántica de las BD relacionales tradicionales.
@@ -1136,7 +1136,7 @@ La siguiente matriz resume la evaluación de los patrones candidatos considerado
 ### 4.1.5.	Quality Attribute Scenario Refinements
 
 
-Tras finalizar las iteraciones del *Quality Attribute Workshop* y definir los patrones arquitectónicos base (WebSockets para el streaming, Shared DB con Row Level Security para el multitenancy, y Arquitectura Orientada a Eventos en Memoria para la tolerancia a fallos), procedemos a refinar los escenarios de atributos de calidad priorizados. Estos refinamientos incorporan los artefactos tecnológicos que ahora conocemos y mapean directamente los escenarios con los objetivos de negocio (Business Goals) de la plataforma SaaS, identificando además las preguntas abiertas y riesgos remanentes (Issues).
+Tras finalizar las iteraciones del *Quality Attribute Workshop* y definir los patrones arquitectónicos base (WebSockets para el streaming, Shared DB con Row Level Security para el multitenancy, y Arquitectura Orientada Eventos en Memoria para la tolerancia a fallos), procedemos a refinar los escenarios de atributos de calidad priorizados. Estos refinamientos incorporan los artefactos tecnológicos que ahora conocemos y mapean directamente los escenarios con los objetivos de negocio (Business Goals) de la plataforma SaaS, identificando además las preguntas abiertas y riesgos remanentes (Issues).
 
 A continuación, se presenta la versión final de los escenarios refinados en orden de prioridad.
 
@@ -1242,7 +1242,7 @@ A continuación, se presenta la versión final de los escenarios refinados en or
   </tr>
   <tr>
     <td colspan="2" style="padding: 8px;"><strong>Questions:</strong></td>
-    <td style="padding: 8px;">¿Cómo afecta la validación de políticas RLS al rendimiento de las consultas complejas (JOINs) cuando la tabla principal supere el millón de registros?</td>
+    <td style="padding: 8px;">¿Cómo afecta la validación de políticas RLS al rendimiento de las consultas complejas (JOIN) cuando la tabla principal supere el millón de registros?</td>
   </tr>
   <tr>
     <td colspan="2" style="padding: 8px;"><strong>Issues:</strong></td>
@@ -1406,7 +1406,7 @@ A continuación, detallamos los escenarios elaborados.
 Este flujo describe la colaboración principal desde que el usuario inicia la grabación de la reunión hasta que se estructuran las historias de usuario con la Inteligencia Artificial.
 
 1. **Inicio y Procesamiento:** El Actor **Product Owner** envía el Command **Start Session** al Bounded Context **Requirement Discovery**. Este contexto gestiona el streaming enviando el Command **Divide Audio** al System **STT Service**, que retorna progresivamente el Event **Speech segments identified**.
-2. **Recopilación de Contexto (RAG):** Una vez finalizada la sesión, **Requirement Discovery** necesita los datos y reglas de negocio del cliente, por lo que envía un Query **Request Project Data** a **Workspace Management**, recibiendo el Event **Project data sent** (que incluye el glosario).
+2. **Recopilación de Contexto (RAG):** Una vez finalizada la sesión, **Requirement Discovery** necesita los datos y reglas de negocio del cliente, por lo que envía una Query **Request Project Data** a **Workspace Management**, recibiendo el Event **Project data sent** (que incluye el glosario).
 3. **Inferencia IA:** Con el texto de la reunión y el contexto listos, **Requirement Discovery** envía el Command **Generate User story** al System **LLM Service**. Se consolida el resultado emitiendo el Event final **User story generated** para que el Product Owner lo revise.
 
 ![Domain Message Flow](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.3.Domain-Message-Flows-Modeling/Scenario1.jpg)
@@ -1416,7 +1416,7 @@ Este flujo describe la colaboración principal desde que el usuario inicia la gr
 Este flujo se enfoca estrictamente en la coreografía arquitectónica que ocurre cuando una organización decide adquirir un plan de pago. Demuestra cómo el sistema reacciona para actualizar las capacidades del entorno sin necesidad de intervención manual de un administrador.
 
 1. **Solicitud de Suscripción:** El Actor **Tech Lead** envía el Command **Request Pro Upgrade** a **Billing & Subscription**.
-2. **Procesamiento Externo:** **Billing & Subscription** delega la transacción enviando el Command **Process Payment** al System **Payment Gateway**. El sistema externo valida y retorna el resultado.
+2. **Procesamiento Externo:** **Billing & Subscription** delega la transacción enviando el Command **Process Payment** al System **Payment Gateway**. El sistema externo válida y retorna el resultado.
 3. **Propagación de Beneficios:** Una vez consolidado el pago, **Billing & Subscription** emite el Event **Upgraded to Pro Plan**.
 4. **Aprovisionamiento Automático:** El contexto **Workspace Management** escucha este evento y reacciona automáticamente actualizando los límites operativos de la organización.
 
@@ -1424,11 +1424,11 @@ Este flujo se enfoca estrictamente en la coreografía arquitectónica que ocurre
 
 **Escenario 3: Sincronización Ágil (Exportación a Jira)**
 
-Este es un flujo netamente operativo y post-procesamiento. Ocurre después de que el usuario ya utilizó el sistema core y desea llevar el resultado final hacia sus herramientas de gestión de proyectos.
+Este es un flujo netamente operativo y postprocesamiento. Ocurre después de que el usuario ya utilizó el sistema core y desea llevar el resultado final hacia sus herramientas de gestión de proyectos.
 
 1. **Aprobación:** Tras haber revisado las historias generadas por la IA, el Actor **Tech Lead** envía el Command **Approve Story** a **Requirement Discovery**.
 2. **Propagación:** El contexto core registra el cambio y emite el Event **Story Approved**.
-3. **Capa Anticorrupción:** El evento es escuchado por el **Integration Gateway**. Este contexto actúa como ACL (aislando al core domain de los detalles de APIs externas), mapea el modelo interno al formato esperado por el sistema externo, y envía el Command **Create Issue** al System **PM Service**.
+3. **Capa Anticorrupción:** El evento es escuchado por el **Integration Gateway**. Este contexto actúa como ACL (aislando al core domain de los detalles de API externas), mapea el modelo interno al formato esperado por el sistema externo, y envía el Command **Create Issue** al System **PM Service**.
 4. **Confirmación y Retorno:** El System **PM Service** responde exitosamente con los datos del ticket. El **Integration Gateway** traduce esta respuesta al lenguaje de nuestro dominio y emite el Event **Story Exported**.
 
 ![Domain Message Flow](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.3.Domain-Message-Flows-Modeling/Scenario3.jpg)
@@ -1463,7 +1463,7 @@ Este contexto monitorea el uso de las cuotas de IA y gestiona los pagos recurren
 
 **5. Integration Gateway**
 
-Capa Anticorrupción (ACL) que protege el Core Domain de los cambios en APIs de terceros. Se encarga de traducir los eventos del sistema a formatos externos y exportar las historias hacia herramientas como Jira.
+Capa Anticorrupción (ACL) que protege el Core Domain de los cambios en API de terceros. Se encarga de traducir los eventos del sistema a formatos externos y exportar las historias hacia herramientas como Jira.
 
 ![Canvas5](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Integration-Gateway.jpg)
 
@@ -1476,7 +1476,7 @@ En esta sección evidenciamos el proceso de elaboración de nuestro Context Map.
 *   **¿Qué pasaría si agrupamos dos contextos fuertemente acoplados en uno solo?**
     Inicialmente, considerábamos separar la captura de audio (WebSockets) de la generación de la historia (LLM). Sin embargo, al aplicar esta pregunta, nos dimos cuenta de que ambos son parte inseparable del mismo flujo de valor en tiempo real. Agruparlos en un único Core Domain llamado **Requirement Discovery** eliminó la latencia de red y la serialización innecesaria entre ambos pasos. Aplicamos la misma lógica para fusionar Organización y Proyecto dentro de **Workspace Management**.
 *   **¿Qué pasaría si aislamos los core capabilities y movemos los otros a un context aparte?**
-    Una vez consolidado el Core, evaluamos el proceso de exportar las historias hacia gestores de proyectos (Jira). Notamos que la integración con terceros es puramente una capacidad de soporte. Por ello, aislamos el core de IA y movimos toda la comunicación externa hacia el **Integration Gateway**. Esto evita que los cambios constantes en APIs de terceros contaminen nuestro motor de inferencia.
+    Una vez consolidado el Core, evaluamos el proceso de exportar las historias hacia gestores de proyectos (Jira). Notamos que la integración con terceros es puramente una capacidad de soporte. Por ello, aislamos el core de IA y movimos toda la comunicación externa hacia el **Integration Gateway**. Esto evita que los cambios constantes en API de terceros contaminen nuestro motor de inferencia.
 *   **¿Qué pasaría si duplicamos una funcionalidad para romper la dependencia?**
     Evaluamos la validación de cuotas. Si **Requirement Discovery** tuviera que preguntar sincrónicamente a **Billing & Subscription** si un usuario tiene saldo antes de cada uso de IA, el sistema sería lento y frágil. Decidimos romper esta dependencia directa. **Billing & Subscription** emite eventos asíncronos cuando una cuota se actualiza, y **Workspace Management** duplica y almacena localmente esta capacidad. Así, el Core Domain solo consulta su contexto local sin bloqueos de red.
 
@@ -1486,13 +1486,13 @@ Tras este debate, definimos formalmente los patrones de integración estratégic
 
 1.  **Integration Gateway [D] hacia External PM Service (Jira) [U]**
     *   **Patrón:** Anti-Corruption Layer (ACL)
-    *   **Justificación:** El Integration Gateway actúa como una barrera traductora. Consume nuestros eventos internos y los transforma a los esquemas propietarios de Atlassian. Nuestro Core jamás se entera de cómo funciona Jira.
+    *   **Justificación:** El Integration Gateway actúa como una barrera traductora. Consume nuestros eventos internos y los transforma los esquemas propietarios de Atlassian. Nuestro Core jamás se entera de cómo funciona Jira.
 2.  **Requirement Discovery [D] hacia External AI Services (LLM / STT) [U]**
     *   **Patrón:** Anti-Corruption Layer (ACL)
     *   **Justificación:** Para evitar el *vendor lock-in* con proveedores como OpenAI o AssemblyAI. Traducimos nuestros Prompts genéricos y flujos de audio al esquema específico de la API del proveedor, protegiendo nuestro modelo de dominio de cambios externos.
 3.  **Requirement Discovery [D] hacia Workspace Management [U]**
     *   **Patrón:** Customer / Supplier
-    *   **Justificación:** Requirement Discovery [Customer] exige que el glosario del proyecto se le entregue en un formato limpio de texto para inyectarlo en el contexto (RAG). Workspace Management [Supplier] adapta su proceso de subida y parsing de PDFs para satisfacer esta necesidad core.
+    *   **Justificación:** Requirement Discovery [Customer] exige que el glosario del proyecto se le entregue en un formato limpio de texto para inyectarlo en el contexto (RAG). Workspace Management [Supplier] adapta su proceso de subida y parsing de PDF para satisfacer esta necesidad core.
 4.  **Workspace Management [D] hacia IAM [U] y Billing & Subscription [U]**
     *   **Patrón:** Conformist (CF)
     *   **Justificación:** Workspace Management se conforma ciegamente a los modelos de Identidad de IAM y a los modelos de suscripción de Billing (los cuales suelen estar dictados por estándares de pasarelas externas como Stripe). Al adoptar el patrón Conformist, Workspace acepta que es un consumidor pasivo y no puede negociar ni alterar el modelo de Billing.
@@ -1553,7 +1553,7 @@ A nivel de contexto, eliminamos las interacciones directas entre los usuarios y 
 
 ### 4.3.3.	Software Architecture Container Level Diagrams
 
-En esta sección presentamos el diagrama de contenedores para el sistema Reqs-AI. Este nivel hace un enfoque al sistema principal para revelar los contenedores de software que lo componen (aplicaciones móviles, web, APIs, bases de datos), mostrando cómo se distribuyen las responsabilidades, las decisiones tecnológicas de alto nivel y cómo estos componentes se comunican entre sí y con los sistemas externos.
+En esta sección presentamos el diagrama de contenedores para el sistema Reqs-AI. Este nivel hace un enfoque al sistema principal para revelar los contenedores de software que lo componen (aplicaciones móviles, web, API, bases de datos), mostrando cómo se distribuyen las responsabilidades, las decisiones tecnológicas de alto nivel y cómo estos componentes se comunican entre sí y con los sistemas externos.
 
 ![Container Diagram](assets/4.Strategic-Level-Product-Design/4.3.Software-Architecture/Container.png)
 
@@ -1582,7 +1582,7 @@ El sistema Reqs-AI está compuesto por los siguientes contenedores principales:
 La arquitectura define un flujo de comunicación moderno y orientado a servicios:
 
 *   **Comunicación Cliente-Servidor:** Tanto la aplicación móvil como la web interactúan con el API Gateway realizando llamadas a través de **HTTPS/REST** y **WebSockets**, garantizando seguridad y soporte para streaming en tiempo real.
-*   **Comunicación Interna:** El API Gateway enruta las llamadas hacia el *Reqs-AI Backend Application*. Internamente, los Bounded Contexts se comunican mediante eventos en memoria (Domain Events) y persisten su estado de manera síncrona en la base de datos compartida (PostgreSQL).
+*   **Comunicación Interna:** La API Gateway enruta las llamadas hacia el *Reqs-AI Backend Application*. Internamente, los Bounded Contexts se comunican mediante eventos en memoria (Domain Events) y persisten su estado de manera síncrona en la base de datos compartida (PostgreSQL).
 *   **Integración con Sistemas Externos:** En lugar de centralizar todas las salidas, las integraciones están descentralizadas y asignadas al Bounded Context correspondiente que las necesita:
     *   **IAM** envía credenciales y alertas a través del **Email Service Provider**.
     *   **Billing & Subscription** procesa transacciones a través del **Payment Gateway**.
@@ -1615,7 +1615,7 @@ La infraestructura de despliegue se divide en los entornos de cliente, la infrae
 **Comunicación e Interacción de Nodos**
 
 *   Las aplicaciones (Mobile y Web) se comunican vía internet mediante **HTTPS/REST** con el **AWS API Gateway**.
-*   El API Gateway enruta el tráfico internamente hacia el entorno de **AWS Elastic Beanstalk**, donde reside la lógica del sistema.
+*   La API Gateway enruta el tráfico internamente hacia el entorno de **AWS Elastic Beanstalk**, donde reside la lógica del sistema.
 *   El backend de Spring Boot se conecta de manera externa y segura hacia el clúster gestionado en **Supabase Cloud** para realizar operaciones de lectura y escritura (*Reads and write*) de la información del dominio.
 
 # Capítulo V: Tactical-Level Software Design
@@ -1718,13 +1718,13 @@ La infraestructura de despliegue se divide en los entornos de cliente, la infrae
 
 # Conclusiones
 
-El equipo concluye que el problema abordado es real, recurrente y de alto impacto en el ciclo de vida del software: la ambigüedad en el levantamiento de requisitos y la sobrecarga de post-procesamiento generan retrabajo, retrasos y riesgo de construir funcionalidades incorrectas. La evidencia obtenida en entrevistas confirma un patrón consistente en ambos segmentos objetivo (Líder Técnico de Startup y Analista de Sistemas/Producto): transformar conversaciones en requisitos claros, trazables y accionables sigue siendo el principal cuello de botella.
+El equipo concluye que el problema abordado es real, recurrente y de alto impacto en el ciclo de vida del software: la ambigüedad en el levantamiento de requisitos y la sobrecarga de postprocesamiento generan retrabajo, retrasos y riesgo de construir funcionalidades incorrectas. La evidencia obtenida en entrevistas confirma un patrón consistente en ambos segmentos objetivo (Líder Técnico de Startup y Analista de Sistemas/Producto): transformar conversaciones en requisitos claros, trazables y accionables sigue siendo el principal cuello de botella.
 
 Sobre esta base, Reqs-AI se consolida como una propuesta de valor pertinente al combinar asistencia en tiempo real, generación estructurada de historias de usuario y criterios de aceptación, y mecanismos de integración con herramientas de gestión del backlog. El enfoque del producto no reemplaza el criterio profesional del analista o líder técnico, sino que lo potencia para reducir omisiones, acelerar la claridad funcional y mejorar la calidad de entrada hacia desarrollo y QA.
 
 Asimismo, el trabajo desarrollado en el informe demuestra coherencia metodológica entre descubrimiento, análisis y diseño de solución. Los artefactos de Lean UX, entrevistas, need finding, user stories, backlog e impact mapping se enlazan con decisiones arquitectónicas estratégicas (DDD, EventStorming, Bounded Contexts y lineamientos de seguridad multitenancy con RLS), aportando trazabilidad desde la necesidad del usuario hasta la estructura técnica propuesta.
 
-Respecto a las hipótesis planteadas, el equipo considera que cuentan con validación inicial de problema y de deseabilidad, debido a la convergencia de hallazgos cualitativos y cuantitativos en las entrevistas. Sin embargo, su validación de desempeño y negocio permanece parcial, ya que métricas objetivo como reducción de reuniones de aclaración, tiempo de edición manual por sesión, retención de uso y sincronización efectiva al backlog deben medirse con el producto en operación real.
+Respecto a las hipótesis planteadas, el equipo considera que cuentan con validación inicial de problema y de deseabilidad, debido a la convergencia de hallazgos cualitativos y cuantitativos en las entrevistas. Sin embargo, su validación de desempeño y negocio permanece parcial, ya que métricas objetivas como reducción de reuniones de aclaración, tiempo de edición manual por sesión, retención de uso y sincronización efectiva al backlog deben medirse con el producto en operación real.
 
 La principal limitación actual del proyecto es que aún no se presenta evidencia completa de implementación, pruebas de campo y resultados longitudinales de adopción. En consecuencia, aunque la arquitectura y el diseño funcional están sólidamente fundamentados, todavía es necesario contrastar el comportamiento del sistema en escenarios productivos con usuarios reales y condiciones de carga, seguridad y dependencia de servicios externos de IA.
 
