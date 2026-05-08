@@ -1285,126 +1285,141 @@ Para establecer una base sólida en el diseño guiado por el dominio (DDD) y fac
 
 La sesión se estructuró siguiendo una agenda iterativa para construir el modelo de forma progresiva:
 
-1. **Domain Events (Eventos de Dominio):** Iniciamos la sesión identificando y ordenando cronológicamente en post-its naranjas los hechos relevantes que ya han ocurrido en el sistema (verbos en participio pasado). La línea de tiempo abarcó desde Organización Registrada y Suscripción Pagada, pasando por el núcleo operativo, hasta eventos de cierre como Historias Exportadas a Jira.
+1. **Domain Events:** Iniciamos la sesión identificando en post-its naranjas los hechos relevantes que ocurren en el sistema (escritos como verbos en participio pasado). En esta etapa inicial nos centramos únicamente en la lluvia de ideas de todos los eventos posibles sin preocuparnos por el orden temporal exacto.
 
-![Event Storming](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Domain-Events.jpg)
+![Domain Events](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Domain-events.jpg)
 
-2. **Commands (Comandos):** A la izquierda de cada evento naranja, colocamos post-its azules que representan la acción o intención que provocó dicho evento. Por ejemplo, el comando Procesar Audio precede al evento Audio Transcrito, y el comando Generar Historia de usuario precede a Historia de Usuario Generada.
+2. **Timeline:** Una vez identificados los eventos, procedimos a organizarlos cronológicamente, creando una línea de tiempo lógica que abarca desde el registro de la organización hasta la exportación de las historias de usuario aprobadas.
 
-![Event Storming](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Commands.jpg)
+![Timeline](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Timeline.jpg)
 
-5. **Actors and Policies (Actores y Políticas):** Identificamos qué o quién ejecuta los comandos. Utilizamos post-its amarillos pequeños para los actores humanos, destacando a nuestros roles principales: Líder Técnico, Analista Enterprise. Para las acciones automatizadas de nuestro SaaS, usamos post-its lilas (Políticas), redactadas como reacciones.
+3. **Pain Points:** Con la línea de tiempo establecida, analizamos el flujo para identificar cuellos de botella, problemas potenciales o áreas de fricción (representados visualmente para destacar conflictos en el dominio). Esto nos ayudó a visualizar dónde el sistema requería atención especial.
 
-![Event Storming](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Actors-and-Policies.jpg)
+![Pain Points](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Pain-points.jpg)
 
-5. **Blank stickies for Read models and UX mockups:** Para garantizar que el diseño de software contemple la experiencia del usuario, insertamos post-its verdes y blancos vacíos justo antes de las decisiones (comandos) de los actores, marcando los lugares donde el usuario necesita información antes de actuar.
+4. **Pivotal Points:** Marcamos los eventos cruciales que representan cambios de estado significativos o transiciones importantes en el ciclo de vida del negocio (por ejemplo, el momento en que se completa el pago o se genera la historia de usuario).
 
-![Event Storming](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Blank-stickies.jpg)
+![Pivotal Points](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Pivotal-points.jpg)
 
-6. **Read models and UX Mockups:** Llenamos los post-its vacíos detallando la información necesaria (post-its verdes), como Estado de Transcripción en Vivo o Dashboard de Consumo de Tokens, y agregamos bocetos rápidos (wireframes en post-its blancos) para visualizar la interfaz de la consola de captura de Reqs-AI.
+5. **Commands and Actors:** A la izquierda de los eventos, colocamos post-its azules que representan la acción o intención (comandos) que provoca dicho evento. Además, identificamos qué o quién ejecuta estos comandos utilizando post-its amarillos pequeños para los actores humanos (como el Líder Técnico o el Analista Enterprise).
 
-![Event Storming](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/RM-and-UX.jpg)
+![Commands and Actors](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Commands.jpg)
 
-7. **External systems (Sistemas Externos):** Mapeamos las dependencias críticas de Reqs-AI utilizando post-its rosados. Los colocamos entre los comandos y los eventos cuando la acción delegaba responsabilidad a un tercero. Fue fundamental para diagramar llamadas a la API de IA (generación de historias), a la pasarela de pago (facturación) y a la API de Jira (exportación).
+6. **Policies:** Para las acciones automatizadas o lógicas reactivas del sistema, utilizamos post-its lilas representando las políticas. **Es importante destacar que en esta etapa es donde se diseñan las soluciones automáticas y reglas de negocio para resolver los Pain Points identificados anteriormente. Por esta razón, los marcadores de Pain Points desaparecen de los diagramas en los siguientes pasos, ya que el diseño del flujo y las políticas han mitigado esos problemas.**
 
-![Event Storming](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/External-services.jpg)
+![Policies](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Policies.jpg)
 
-8. **Aggregates and Business Rules (Agregados y Reglas de Negocio):** Esta fue la etapa más crítica del diseño. Añadimos post-its amarillos rectangulares entre los comandos y los eventos para documentar las Reglas de Negocio (Business Rules) requeridas, definiendo precondiciones, postcondiciones e invariantes
+7. **Read Models:** Insertamos post-its verdes detallando la información necesaria que el usuario debe visualizar antes de tomar una decisión o ejecutar un comando (por ejemplo, el Dashboard de Consumo de Tokens o la vista de transcripción).
 
-![Event Storming](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Aggregates.jpg)
+![Read Models](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Read-Models.jpg)
 
-El resultado de la sesión de Design-Level Event Storming fue un mapa exhaustivo y altamente estructurado del dominio de Reqs-AI. Pasamos de una simple línea de tiempo a un conjunto de Agregados claramente definidos, destacando Aggregates críticos como Organization (para el multitenancy), Subscription, Session y UserStory.
+8. **External Services:** Mapeamos las dependencias críticas de Reqs-AI utilizando post-its rosados. Los colocamos entre los comandos y los eventos cuando la acción delega responsabilidad a un tercero (API de IA para LLM, pasarela de pago para Billing, y API de Jira para exportación).
+
+![External Services](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/External-services.jpg)
+
+9. **Aggregates:** Como última capa de agrupación estructural, añadimos post-its amarillos grandes alrededor de los comandos, eventos y modelos de lectura asociados para documentar los Agregados (Aggregates). Estos definen las entidades transaccionales clave y las fronteras de consistencia de datos dentro del dominio.
+
+![Aggregates](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Aggregates.jpg)
+
+El resultado de la sesión de Design-Level Event Storming fue un mapa exhaustivo y altamente estructurado del dominio de Reqs-AI. Pasamos de una simple lluvia de ideas a un conjunto de Agregados claramente definidos.
+
+El paso final metodológico del Event Storming, que consiste en agrupar estos Agregados dentro de las fronteras lógicas de los Bounded Contexts correspondientes, se abordará en detalle en la siguiente sección, donde evaluaremos las relaciones semánticas y cohesivas para definir la arquitectura final del dominio.
 
 ### 4.2.2.	Candidate Context Discovery
 
-A partir del dominio modelado en nuestra sesión de EventStorming, el equipo llevó a cabo un taller colaborativo de descubrimiento de contextos de aproximadamente 2 horas. El objetivo de esta fase fue trazar fronteras lógicas alrededor de los Agregados identificados previamente, con el fin de descomponer el sistema en módulos altamente cohesivos y con bajo acoplamiento (Bounded Contexts).
+A partir del dominio modelado en nuestra sesión de EventStorming, el equipo llevó a cabo un taller colaborativo de descubrimiento de contextos (Candidate Context Discovery) de aproximadamente 2 horas. El objetivo de esta fase fue trazar fronteras lógicas alrededor de los Agregados identificados previamente, con el fin de descomponer el sistema en módulos altamente cohesivos y con bajo acoplamiento (Bounded Contexts).
 
-Para lograr esto, no nos basamos en corazonadas técnicas, sino que aplicamos rigurosamente tres heurísticas de Domain-Driven Design recomendadas por la industria (Alberto Brandolini y Nick Tune) sobre nuestro tablero de Miro. A continuación, se explica la aplicación progresiva de cada heurística y los resultados obtenidos:
+Para lograr esto, aplicamos rigurosamente tres heurísticas de Domain-Driven Design recomendadas por la industria (Alberto Brandolini y Nick Tune). Tras una reciente refactorización arquitectónica para evitar el anti-patrón de "Nano-Servicios" y mejorar la cohesión, consolidamos nuestro diseño. A continuación, se explica la aplicación de cada heurística:
 
-1. Aplicación de "Start-with-value" (Identificando el Core Domain)
-   Comenzamos el análisis preguntándonos: *¿Por qué partes del sistema pagarían nuestros clientes?* La propuesta de valor y ventaja competitiva de Reqs-AI radica exclusivamente en la transcripción en vivo y la inferencia de Inteligencia Artificial para generar historias de usuario estructuradas.
-*   Al analizar la complejidad del tablero, notamos que agrupar esta "magia" en un solo contexto generaría un "monolito de contexto", ya que el flujo del audio y el procesamiento del texto en LLMs manejan ciclos de vida, lenguajes ubicuos y requisitos de rendimiento distintos.
-*   **Decisión:** Dividimos el Core Domain en dos Bounded Contexts. Por un lado, el **Meeting Capture**, encargado del manejo de WebSockets y Speech-to-Text. Por el otro lado, **Requirement Generation** se encarga del manejo de los Prompts, el LLM y la gestión del formato Gherkin.
+1. Aplicación de "Start-with-value"
+Comenzamos el análisis preguntándonos: *¿Por qué partes del sistema pagarían nuestros clientes?* La propuesta de valor radica en capturar reuniones y transformarlas mediante IA en historias de usuario estructuradas.
+*   Decidimos agrupar los agregados Session (manejo de WebSockets/Audio) y User Story (Prompts y LLM) en un único y potente Core Domain llamado **Requirement Discovery**. Esto cohesiona todo el flujo de valor principal (Value Stream) bajo un mismo techo, minimizando la latencia de red entre la captura y el análisis.
 
-2. Aplicación de "Look-for-pivotal-events" (Fronteras por Cambio de Estado B2B)
-   Posteriormente, buscamos en la línea de tiempo los Eventos Pivote que marcan "un antes y un después" crítico en la vida de un cliente dentro de la plataforma.
-*   *Evento: "Account Validated" vs "Organization Created":* Observamos que la autenticación de un usuario es un problema genérico, mientras que gestionar a qué empresa pertenece y qué roles tiene es un problema organizativo B2B. **Decisión:** Extraímos el agregado *User* hacia un **IAM** independiente, y el agregado *Organization* hacia el **Workspace**.
-*   *Evento: "Upgraded to Pro Plan":* Este evento cambia radicalmente los límites operativos del sistema (cuotas). Involucra pasarelas de pago y facturación. **Decisión:** Aislamos el agregado *Subscription* en el **Billing & Subscription**.
+2. Aplicación de "Look-for-pivotal-events"
+Buscamos los Eventos Pivote que marcan hitos críticos en la vida del cliente.
+*   *Eventos: "Account Validated", "Organization Created" y "Project Created":* Extraímos el agregado User hacia un **IAM** independiente. Por otro lado, dado que un proyecto solo tiene sentido dentro de la estructura de una empresa, agrupamos Organization y Project en un solo contexto cohesionado llamado **Workspace Management**.
+*   *Evento: "Upgraded to Pro Plan":* Involucra pasarelas de pago y cuotas. Aislamos el agregado Subscription en el **Billing & Subscription**.
 
-3. Aplicación de "Start-with-simple" (Fronteras por Secuencia de Soporte)
-   Finalmente, agrupamos los agregados restantes evaluando su función en los pasos "antes" y "después" del proceso principal de captura de requisitos.
-*   Antes de que la IA pueda operar, el Analista necesita crear un entorno y subir documentos PDF de contexto. Esto pertenece al agregado *Project*. **Decisión:** Agrupado en el **Project Configuration**.
-*   Después de que las historias son aprobadas, deben enviarse a plataformas externas. Aquí decidimos aplicar el patrón *Anti-Corruption Layer (ACL)* aislando el agregado *ExternalConnection* para que los cambios en las APIs de terceros no contaminen el Core de Reqs-AI, aislandolo en **Integration Gateway**.
+3. Aplicación de "Start-with-simple"
+Evaluamos las integraciones post-procesamiento.
+*   Después de que las historias son generadas, deben enviarse a plataformas externas (ej. Jira). Para proteger nuestro Core Domain de los constantes cambios en las APIs de terceros, aplicamos el patrón Anti-Corruption Layer (ACL) aislando el agregado ExternalConnection en el **Integration Gateway**.
 
 
 **Resumen de Bounded Contexts Descubiertos**
-A través de este proceso analítico y evolutivo, el sistema quedó dividido arquitectónicamente en los siguientes 7 Candidate Bounded Contexts:
+A través de este proceso analítico y evolutivo, el sistema quedó dividido arquitectónicamente en los siguientes 5 Candidate Bounded Contexts:
 
-| Bounded Context | Tipo de Subdominio | Agregado(s) Principal(es) | Responsabilidad Principal |
-| :--- | :--- | :--- | :--- |
-| **1. Meeting Capture** | Core Domain | Session | Ingesta de audio en tiempo real (WebSockets), control de estado de la reunión (iniciar/pausar) e integración con el servicio de Speech-to-Text. |
-| **2. Requirement Generation** | Core Domain | User Story | Inferencia mediante LLMs, fragmentación de contexto (RAG), generación y estructuración del formato Gherkin, y gestión de similitudes. |
-| **3. IAM** | Generic Subdomain | User | Autenticación, registro, validación de correo y gestión de credenciales seguras. |
-| **4. Workspace** | Generic Subdomain | Organization | Aislamiento Multitenant (Row Level Security), gestión de espacios de trabajo, invitación de miembros y roles corporativos. |
-| **5. Billing & Subscription** | Generic Subdomain | Subscription | Integración con pasarelas de pago (ej. Stripe), upgrades/downgrades de planes y monitoreo de consumo de cuotas/tokens. |
-| **6. Project Configuration** | Supporting Subdomain | Project | Estructura local de iniciativas del cliente, almacenamiento de parámetros técnicos y alojamiento de PDFs de glosario. |
-| **7. Integration Gateway** | Supporting Subdomain | ExternalConnection | Capa Anticorrupción (ACL) para autorizar credenciales (OAuth) y exportar historias hacia herramientas externas como Jira. |
+| Bounded Context               | Tipo de Subdominio   | Agregado(s) Principal(es) | Responsabilidad Principal                                                                                                  |
+|:------------------------------|:---------------------|:--------------------------|:---------------------------------------------------------------------------------------------------------------------------|
+| **1. Requirement Discovery**  | Core Domain          | Session, User Story       | Ingesta de audio (WebSockets), inferencia mediante LLMs, fragmentación de contexto (RAG) y generación del formato Gherkin. |
+| **2. Workspace Management**   | Generic Subdomain    | Organization, Project     | Aislamiento Multitenant (Row Level Security), gestión de proyectos, roles corporativos y almacenamiento de glosarios.      |
+| **3. IAM**                    | Generic Subdomain    | User                      | Autenticación, registro, validación de correo y gestión de credenciales seguras.                                           |
+| **4. Billing & Subscription** | Generic Subdomain    | Subscription              | Integración con pasarelas de pago, upgrades/downgrades de planes y monitoreo de consumo de cuotas/tokens.                  |
+| **5. Integration Gateway**    | Supporting Subdomain | ExternalConnection        | Capa Anticorrupción (ACL) para autorizar credenciales (OAuth) y exportar historias hacia herramientas externas como Jira.  |
 
 ![CCD](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.2.Candidate-Context-Discovery/Bounded-Contexts.jpg)
 
 ### 4.2.3.	Domain Message Flows Modeling
 
-En esta sección, explicamos y evidenciamos el proceso seguido para visualizar cómo deben colaborar los Bounded Contexts para resolver el caso principal del negocio. Para ello, aplicamos una variante técnica de Domain Storytelling enfocada en el flujo de mensajes. 
+En esta sección, aplicamos una variante técnica de Domain Storytelling enfocada en el flujo de mensajes para evidenciar cómo colaboran los 5 Bounded Contexts consolidados (**Requirement Discovery**, **Workspace Management**, **IAM**, **Billing & Subscription**, y **Integration Gateway**) y así resolver los casos principales del negocio.
 
 Utilizamos una notación específica para modelar la interacción:
 *   **Actor:** Persona interactuando con el sistema.
 *   **Bounded Context:** Módulo lógico de nuestro dominio.
 *   **System:** Sistemas o dependencias externas.
-*   **Command:** Intención de hacer algo en color azul.
-*   **Event:** Hecho que ya ocurrió en color naranja.
-*   **Query:** Solicitud de información en color verde.
+*   **Command:** Intención de hacer algo (color azul).
+*   **Event:** Hecho que ya ocurrió (color naranja).
+*   **Query:** Solicitud de información (color verde).
 *   **Direction of message:** Flecha que indica el flujo del emisor al receptor.
 
-A continuación, detallamos el paso a paso del diagrama elaborado para el flujo principal de Reqs-AI.
+A continuación, detallamos los escenarios elaborados.
 
-**Escenario Core: Captura de Sesión y Generación de Requerimientos**
+**Escenario 1: Captura de sesión y generación de historias (Core Flow)**
 
-Este flujo describe la colaboración desde que el usuario inicia la grabación hasta que se generan las historias de usuario estructuradas.
+Este flujo describe la colaboración principal desde que el usuario inicia la grabación de la reunión hasta que se estructuran las historias de usuario con la Inteligencia Artificial.
 
-1. **Inicio de Sesión:** El Actor **Analyst** utiliza el System **Website** para enviar el Command **Start Session** al Bounded Context **Meeting Capture**, el cual confirma el inicio emitiendo el Event **Recording Started**.
-2. **Procesamiento de Audio:** **Meeting Capture** delega la carga de trabajo enviando el Command **Divide Audio** al System **STT Service**, que retorna progresivamente el Event **Speech segments identified**.
-3. **Recopilación de Contexto:** Al finalizar, se emite el Command **Send Transcript** hacia **Requirement Generation**. Este contexto necesita el glosario del cliente, por lo que envía un Query **Request Project Data** a **Project Configuration**, recibiendo como respuesta el Event **Project data sent**.
-4. **Inferencia IA:** Con el texto y el contexto listos, **Requirement Generation** envía el Command **Generate User story** al System **LLM Service**. Una vez procesado, se consolida el flujo emitiendo el Event final **User story generated**.
+1. **Inicio y Procesamiento:** El Actor **Product Owner** envía el Command **Start Session** al Bounded Context **Requirement Discovery**. Este contexto gestiona el streaming enviando el Command **Divide Audio** al System **STT Service**, que retorna progresivamente el Event **Speech segments identified**.
+2. **Recopilación de Contexto (RAG):** Una vez finalizada la sesión, **Requirement Discovery** necesita los datos y reglas de negocio del cliente, por lo que envía un Query **Request Project Data** a **Workspace Management**, recibiendo el Event **Project data sent** (que incluye el glosario).
+3. **Inferencia IA:** Con el texto de la reunión y el contexto listos, **Requirement Discovery** envía el Command **Generate User story** al System **LLM Service**. Se consolida el resultado emitiendo el Event final **User story generated** para que el Product Owner lo revise.
 
-![Scenario1](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.3.Domain-Message-Flows-Modeling/Scenario1.jpg)
+![Domain Message Flow](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.3.Domain-Message-Flows-Modeling/Scenario1.jpg)
 
-**Escenario: Creación de Organización y Suscripción**
+**Escenario 2: Suscripción y mejora de organización**
 
-Este flujo detalla el onboarding B2B, donde un líder técnico registra su empresa, realiza el pago de un plan Pro y el sistema prepara su entorno de trabajo inicial.
+Este flujo se enfoca estrictamente en la coreografía arquitectónica que ocurre cuando una organización decide adquirir un plan de pago. Demuestra cómo el sistema reacciona para actualizar las capacidades del entorno sin necesidad de intervención manual de un administrador.
 
-1. **Creación del Espacio:** El Actor **Tech Lead** usa el System **Website** para enviar el Command **Create organization** al Bounded Context **Workspace**, el cual notifica el éxito de la operación con el Event **Organization Created**.
-2. **Gestión del Pago:** Para desbloquear los límites de IA, se emite el Command **Request Pro plan Upgrade** hacia **Billing & Subscription**. Este contexto se comunica con el System **Payment Gateway** mediante el Command **Start Payment** y espera el Event **Payment Validated**.
-3. **Activación y Onboarding:** Tras el pago exitoso, se notifica a Workspace con el Event **Upgraded to Pro plan**. Como parte del onboarding automático, Workspace envía el Command **Generate Demonstration Project** a **Project Configuration**, finalizando el flujo con el Event **Demonstration Project Generated**.
+1. **Solicitud de Suscripción:** El Actor **Tech Lead** envía el Command **Request Pro Upgrade** a **Billing & Subscription**.
+2. **Procesamiento Externo:** **Billing & Subscription** delega la transacción enviando el Command **Process Payment** al System **Payment Gateway**. El sistema externo valida y retorna el resultado.
+3. **Propagación de Beneficios:** Una vez consolidado el pago, **Billing & Subscription** emite el Event **Upgraded to Pro Plan**.
+4. **Aprovisionamiento Automático:** El contexto **Workspace Management** escucha este evento y reacciona automáticamente actualizando los límites operativos de la organización.
 
-![Scenario2](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.3.Domain-Message-Flows-Modeling/Scenario2.jpg)
+![Domain Message Flow](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.3.Domain-Message-Flows-Modeling/Scenario2.jpg)
+
+**Escenario 3: Sincronización Ágil (Exportación a Jira)**
+
+Este es un flujo netamente operativo y post-procesamiento. Ocurre después de que el usuario ya utilizó el sistema core y desea llevar el resultado final hacia sus herramientas de gestión de proyectos.
+
+1. **Aprobación:** Tras haber revisado las historias generadas por la IA, el Actor **Tech Lead** envía el Command **Approve Story** a **Requirement Discovery**.
+2. **Propagación:** El contexto core registra el cambio y emite el Event **Story Approved**.
+3. **Capa Anticorrupción:** El evento es escuchado por el **Integration Gateway**. Este contexto actúa como ACL (aislando al core domain de los detalles de APIs externas), mapea el modelo interno al formato esperado por el sistema externo, y envía el Command **Create Issue** al System **PM Service**.
+4. **Confirmación y Retorno:** El System **PM Service** responde exitosamente con los datos del ticket. El **Integration Gateway** traduce esta respuesta al lenguaje de nuestro dominio y emite el Event **Story Exported**.
+
+![Domain Message Flow](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.3.Domain-Message-Flows-Modeling/Scenario3.jpg)
 
 ### 4.2.4.	Bounded Context Canvases
 
-En esta sección el equipo diseña sus candidate bounded contexts, detallando los criterios de diseño. El equipo seleccionó cada bounded context, por orden de importancia, para elaborar su Bounded Context Canvas basándose en la plantilla de Domain Storytelling. 
+En esta sección el equipo diseña sus candidate bounded contexts, detallando los criterios de diseño. El equipo seleccionó cada bounded context, por orden de importancia, para elaborar su Bounded Context Canvas.
 
-A continuación, presentamos los lienzos diseñados para los siete Bounded Contexts de Reqs-AI.
+**1. Requirement Discovery**
 
-**1. Meeting Capture**
+Motor central de la plataforma responsable de ingerir el audio de las reuniones en tiempo real, orquestar la transcripción y aplicar Inteligencia Artificial con contexto (RAG) para generar historias de usuario estructuradas en formato Gherkin.
 
-Este contexto es responsable de la ingesta de audio en tiempo real y la transcripción mediante WebSockets.
+![Canvas1](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Requirement-discovery.jpg)
 
-![Canvas1](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Meeting-Capture.jpg)
+**2. Workspace Management**
 
-**2. Requirement Generation**
+Módulo organizativo que garantiza el aislamiento de datos (Multitenancy), gestiona la jerarquía corporativa (proyectos) y almacena el conocimiento específico del cliente (Glosarios) para contextualizar la IA.
 
-Este contexto es el motor de inteligencia artificial que estructura las transcripciones en formato Gherkin usando estrategias de prompting.
-
-![Canvas2](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Requirement-Generation.jpg)
+![Canvas2](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Workspace-management.jpg)
 
 **3. Identity and Access Management**
 
@@ -1412,68 +1427,51 @@ Este contexto asegura el acceso a la plataforma mediante autenticación y gesti�
 
 ![Canvas3](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/IAM.jpg)
 
-**4. Workspace**
-
-Este contexto administra el aislamiento de datos multitenant, las organizaciones y los roles B2B.
-
-![Canvas4](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Workspace.jpg)
-
-**5. Billing & Subscription**
+**4. Billing & Subscription**
 
 Este contexto monitorea el uso de las cuotas de IA y gestiona los pagos recurrentes integrando pasarelas externas.
 
-![Canvas5](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Billing-and-subscription.jpg)
+![Canvas4](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Billing-and-subscription.jpg)
 
-**6. Project Configuration**
+**5. Integration Gateway**
 
-Este contexto almacena la estructura de las iniciativas del cliente y sus glosarios para contextualizar la IA.
+Capa Anticorrupción (ACL) que protege el Core Domain de los cambios en APIs de terceros. Se encarga de traducir los eventos del sistema a formatos externos y exportar las historias hacia herramientas como Jira.
 
-![Canvas6](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Project-configuration.jpg)
-
-**7. Integration Gateway**
-
-Este contexto actúa como capa anticorrupción para exportar las historias de usuario hacia herramientas ágiles externas como Jira.
-
-![Canvas7](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Integration-Gateway.jpg)
+![Canvas5](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Integration-Gateway.jpg)
 
 ### 4.2.5.	Context Mapping
 
-En esta sección evidenciamos el proceso de elaboración de nuestro Context Map. Para llegar al diseño estructural definitivo de nuestros Bounded Contexts, el equipo evaluó el modelo sometiéndolo a un análisis crítico, respondiendo a las preguntas estratégicas de diseño sugeridas. Además, aplicamos rigurosamente los patrones de integración definidos por el repositorio oficial de Context Mapping de DDD Crew.
+En esta sección evidenciamos el proceso de elaboración de nuestro Context Map. Para llegar al diseño estructural definitivo de nuestros 5 Bounded Contexts, el equipo evaluó el modelo sometiéndolo a un análisis crítico, respondiendo a las preguntas estratégicas de diseño sugeridas. Además, aplicamos rigurosamente los patrones de integración definidos por el repositorio oficial de Context Mapping de DDD Crew.
 
 **Evaluación de Alternativas y Diseños Candidatos**
 
+*   **¿Qué pasaría si agrupamos dos contextos fuertemente acoplados en uno solo?**
+    Inicialmente, considerábamos separar la captura de audio (WebSockets) de la generación de la historia (LLM). Sin embargo, al aplicar esta pregunta, nos dimos cuenta de que ambos son parte inseparable del mismo flujo de valor en tiempo real. Agruparlos en un único Core Domain llamado **Requirement Discovery** eliminó la latencia de red y la serialización innecesaria entre ambos pasos. Aplicamos la misma lógica para fusionar Organización y Proyecto dentro de **Workspace Management**.
 *   **¿Qué pasaría si aislamos los core capabilities y movemos los otros a un context aparte?**
-    Inicialmente consideramos que la generación de la historia de usuario y su posterior exportación a Jira ocurrieran en el mismo módulo. Sin embargo, al aplicar esta pregunta, nos dimos cuenta de que exportar tickets es una capacidad de soporte. Aislamos el core de IA en **Requirement Generation** y movimos la integración externa al **Integration Gateway** para evitar que cambios en APIs de terceros contaminen nuestro motor de inferencia.
+    Una vez consolidado el Core, evaluamos el proceso de exportar las historias hacia gestores de proyectos (Jira). Notamos que la integración con terceros es puramente una capacidad de soporte. Por ello, aislamos el core de IA y movimos toda la comunicación externa hacia el **Integration Gateway**. Esto evita que los cambios constantes en APIs de terceros contaminen nuestro motor de inferencia.
 *   **¿Qué pasaría si duplicamos una funcionalidad para romper la dependencia?**
-    Evaluamos la validación de cuotas. Si **Requirement Generation** tuviera que preguntar sincrónicamente a **Billing & Subscription** si un usuario tiene saldo de IA antes de cada inferencia, el sistema sería lento y frágil. Decidimos romper esta dependencia directa. **Billing & Subscription** emite eventos asíncronos cuando una cuota se acaba, y **Requirement Generation** duplica y almacena localmente un indicador de bloqueo, permitiendo inferencias rápidas sin consultas de red.
-*   **¿Qué pasaría si tomamos un capability de estos contexts y lo usamos para formar un nuevo context?**
-    Al analizar la autenticación de usuarios y la gestión de empresas, notamos que estaban fuertemente acopladas. Tomamos la capacidad de registro y login y formamos el contexto **IAM**, separándolo de **Workspace**. Esto nos permite evolucionar la seguridad genérica independientemente de la compleja lógica de roles corporativos multitenant.
+    Evaluamos la validación de cuotas. Si **Requirement Discovery** tuviera que preguntar sincrónicamente a **Billing & Subscription** si un usuario tiene saldo antes de cada uso de IA, el sistema sería lento y frágil. Decidimos romper esta dependencia directa. **Billing & Subscription** emite eventos asíncronos cuando una cuota se actualiza, y **Workspace Management** duplica y almacena localmente esta capacidad. Así, el Core Domain solo consulta su contexto local sin bloqueos de red.
 
 **Patrones de Relación DDD Establecidos**
 
-Tras este debate, definimos formalmente los patrones de integración estratégicos entre nuestros módulos y los sistemas de terceros. Las relaciones indican quién es el proveedor Upstream U y quién es el consumidor Downstream D.
+Tras este debate, definimos formalmente los patrones de integración estratégicos. Las relaciones indican quién es el proveedor (Upstream **U**) y quién es el consumidor (Downstream **D**).
 
-1.  **Integration Gateway D hacia External PM Service (Jira) U**
-    *   **Patrón:** Anti-Corruption Layer ACL
-    *   **Justificación:** El Integration Gateway actúa como una barrera traductora. Consume nuestros eventos internos y los transforma a los complejos modelos de datos de Atlassian. Nuestro Core jamás se entera de los esquemas propietarios de Jira.
-2.  **Requirement Generation D hacia External LLM Service U**
-    *   **Patrón:** Anti-Corruption Layer ACL
-    *   **Justificación:** Para evitar el vendor lock-in con OpenAI o Anthropic. Traducimos nuestros Prompts genéricos al esquema JSON específico de la API del proveedor, protegiendo nuestro modelo de dominio de cambios en la IA externa.
-3.  **Meeting Capture D hacia External STT Service U**
-    *   **Patrón:** Anti-Corruption Layer ACL
-    *   **Justificación:** Al igual que con el LLM, el servicio de Speech-to-Text externo dicta un formato de streaming propio. El ACL aísla a Meeting Capture de la tecnología de transcripción subyacente.
-4.  **Requirement Generation D hacia Project Configuration U**
+1.  **Integration Gateway [D] hacia External PM Service (Jira) [U]**
+    *   **Patrón:** Anti-Corruption Layer (ACL)
+    *   **Justificación:** El Integration Gateway actúa como una barrera traductora. Consume nuestros eventos internos y los transforma a los esquemas propietarios de Atlassian. Nuestro Core jamás se entera de cómo funciona Jira.
+2.  **Requirement Discovery [D] hacia External AI Services (LLM / STT) [U]**
+    *   **Patrón:** Anti-Corruption Layer (ACL)
+    *   **Justificación:** Para evitar el *vendor lock-in* con proveedores como OpenAI o AssemblyAI. Traducimos nuestros Prompts genéricos y flujos de audio al esquema específico de la API del proveedor, protegiendo nuestro modelo de dominio de cambios externos.
+3.  **Requirement Discovery [D] hacia Workspace Management [U]**
     *   **Patrón:** Customer / Supplier
-    *   **Justificación:** Requirement Generation Customer exige que el glosario se le entregue en un formato limpio de texto para el RAG. Project Configuration Supplier adapta su entrega de documentos PDFs para satisfacer esta necesidad.
-5.  **Workspace D hacia IAM U y Workspace D hacia Billing & Subscription U**
-    *   **Patrón:** Conformist CF
-    *   **Justificación:** Workspace conforma ciegamente a los modelos de Identidad de IAM y a los eventos de Cuotas de Billing, sin exigirles cambios a esos dominios genéricos.
-6.  **Workspace U hacia Requirement Generation D y Project Configuration D**
-    *   **Patrones:** Open Host Service OHS y Published Language PL
-    *   **Justificación:** Workspace emite eventos de dominio indicando si una organización tiene permisos o cuotas válidas. Contextos como Requirement Generation y Project Configuration consumen estos eventos estandarizados PL para saber si deben procesar o rechazar las peticiones de IA o creación de proyectos.
-7.  **Comunicación Core Interna Event-Driven**
-    *   **Patrones:** Open Host Service OHS y Published Language PL
-    *   **Justificación:** Las conexiones asíncronas entre los contextos **Meeting Capture U -> Requirement Generation D** y **Requirement Generation U -> Integration Gateway D** se realizan publicando eventos en una cola local, funcionando como un OHS.
+    *   **Justificación:** Requirement Discovery [Customer] exige que el glosario del proyecto se le entregue en un formato limpio de texto para inyectarlo en el contexto (RAG). Workspace Management [Supplier] adapta su proceso de subida y parsing de PDFs para satisfacer esta necesidad core.
+4.  **Workspace Management [D] hacia IAM [U] y Billing & Subscription [U]**
+    *   **Patrón:** Conformist (CF)
+    *   **Justificación:** Workspace Management se conforma ciegamente a los modelos de Identidad de IAM y a los modelos de suscripción de Billing (los cuales suelen estar dictados por estándares de pasarelas externas como Stripe). Al adoptar el patrón Conformist, Workspace acepta que es un consumidor pasivo y no puede negociar ni alterar el modelo de Billing.
+    *   **Impacto en la evolución del sistema:** La principal consecuencia de esta decisión es un acoplamiento estructural unidireccional. Si en el futuro el modelo de negocio de la startup evoluciona y Billing cambia su estructura (por ejemplo, pasando de "Planes de Suscripción Mensual" a un modelo "Pay-as-you-go por tokens/minutos consumidos"), Workspace Management estará forzado a modificar inmediatamente su propia lógica interna de evaluación de cuotas para adaptarse a este nuevo esquema. El equipo asume conscientemente este riesgo y la pérdida de autonomía a cambio de la simplicidad técnica de no tener que construir ni mantener una compleja capa de traducción (ACL) entre dos subdominios genéricos.
+5.  **Requirement Discovery [U] hacia Integration Gateway [D]**
+    *   **Patrones:** Open Host Service (OHS) y Published Language (PL)
+    *   **Justificación:** El Core domain emite eventos estandarizados usando un lenguaje publicado (PL) a través de un bus de eventos (OHS). El Gateway simplemente se suscribe a este canal común para iniciar su lógica de exportación.
 
 **Diagrama de Context Map Final**
 
@@ -1527,39 +1525,41 @@ A nivel de contexto, eliminamos las interacciones directas entre los usuarios y 
 
 ### 4.3.3.	Software Architecture Container Level Diagrams
 
-En esta sección presentamos el diagrama de contenedores (Nivel 2 del modelo C4) para el sistema **ReqsAI**. Este nivel hace un *zoom in* al sistema principal para revelar los contenedores de software que lo componen (aplicaciones móviles, web, APIs, bases de datos), mostrando cómo se distribuyen las responsabilidades, las decisiones tecnológicas de alto nivel y cómo estos componentes se comunican entre sí y con los sistemas externos.
+En esta sección presentamos el diagrama de contenedores para el sistema Reqs-AI. Este nivel hace un enfoque al sistema principal para revelar los contenedores de software que lo componen (aplicaciones móviles, web, APIs, bases de datos), mostrando cómo se distribuyen las responsabilidades, las decisiones tecnológicas de alto nivel y cómo estos componentes se comunican entre sí y con los sistemas externos.
 
 ![Container Diagram](assets/4.Strategic-Level-Product-Design/4.3.Software-Architecture/Container.png)
 
-#### Elementos del Diagrama y Distribución de Responsabilidades
-
-El sistema ReqsAI está compuesto por los siguientes contenedores principales:
+El sistema Reqs-AI está compuesto por los siguientes contenedores principales:
 
 1.  **Interfaces de Usuario (Frontend):**
-    *   **Web Application** Es la plataforma principal para los usuarios. Permite una visualización completa para el análisis profundo de datos, revisión de historias de usuario, configuración de proyectos y gestión general del sistema. Se eligió **Angular** por ser un framework robusto, ideal para aplicaciones empresariales escalables.
+    *   **Web Application:** Es la plataforma principal para los usuarios. Permite una visualización completa para el análisis profundo de datos, revisión de historias de usuario, configuración de proyectos y gestión general del sistema. Se eligió **Angular** por ser un framework robusto, ideal para aplicaciones empresariales escalables.
     *   **Mobile App:** Proporciona accesibilidad móvil a los usuarios, permitiéndoles interactuar con el sistema, grabar reuniones o revisar el estado de los requerimientos desde cualquier lugar. Se optó por **Flutter** para asegurar un desarrollo multiplataforma eficiente (iOS y Android) con una base de código unificada.
 
 2.  **Punto de Entrada y Enrutamiento:**
     *   **API Gateway:** Actúa como la puerta de entrada única para todas las peticiones (Requests) provenientes de las aplicaciones Web y Móvil. Su responsabilidad es enrutar estas solicitudes hacia los servicios de backend correspondientes, centralizando potencialmente políticas de seguridad, *throttling* y métricas.
 
-3.  **Lógica Core (Backend):**
-    *   **ReqsAI Backend Service** Es el motor central del sistema. Maneja toda la lógica de negocio, coordina las transformaciones de datos y orquesta la comunicación con las APIs de terceros. Se seleccionó **Java con Spring Boot** debido a su madurez, seguridad, facilidad para integraciones empresariales y alto rendimiento.
+3.  **Lógica Core (Backend - Monolito Modular):**
+    *   **Reqs-AI Backend Application:** Se ha modelado con un límite punteado (boundary) que representa el despliegue unificado (Monolito Modular) desarrollado en **Java con Spring Boot**. En su interior, el backend está estrictamente dividido en los 5 Bounded Contexts previamente descubiertos, operando como servicios lógicos aislados:
+        *   *Requirement Discovery:* Centraliza la lógica de IA y streaming de audio.
+        *   *Workspace Management:* Gestiona la jerarquía de las organizaciones y el RLS.
+        *   *IAM:* Coordina la identidad y seguridad.
+        *   *Billing & Subscription:* Controla cuotas y pagos.
+        *   *Integration Gateway:* Actúa como la capa anticorrupción (ACL) para las exportaciones.
 
 4.  **Almacenamiento de Datos:**
-    *   **Database** Es la base de datos principal de ReqsAI. Almacena toda la información del dominio (usuarios, configuraciones, transcripciones e historias de usuario). La elección de **PostgreSQL** con la extensión **pgvector** es una decisión estratégica crítica, ya que permite almacenar y consultar *embeddings* vectoriales, facilitando el procesamiento avanzado de IA y las búsquedas semánticas sobre el contexto de los requerimientos.
+    *   **Database:** Es la base de datos principal de Reqs-AI. Almacena toda la información del dominio. La elección de **PostgreSQL** con la extensión **pgvector** es una decisión estratégica crítica, ya que permite almacenar y consultar *embeddings* vectoriales, facilitando el procesamiento avanzado de IA (RAG) y las búsquedas semánticas.
 
 **Comunicación e Integración de Contenedores**
 
 La arquitectura define un flujo de comunicación moderno y orientado a servicios:
 
-*   **Comunicación Cliente-Servidor:** Tanto la aplicación móvil como la web interactúan con el API Gateway realizando llamadas a través de **HTTPS/REST**, garantizando seguridad en el transporte y un estándar ampliamente adoptado.
-*   **Comunicación Interna:** El API Gateway enruta estas llamadas al *ReqsAI Backend Service*. El backend, a su vez, lee y escribe (*Reads and write*) de manera síncrona en la base de datos PostgreSQL para mantener el estado del sistema.
-*   **Integración con Sistemas Externos:** El Backend Service actúa como el coordinador central que delega tareas específicas a sistemas externos especializados:
-    *   Envía correos a través del **Email Service Provider**.
-    *   Procesa transacciones a través del **Payment Gateway**.
-    *   Envía los audios de las reuniones al **STT API** para convertirlos a texto.
-    *   Delega la inferencia de inteligencia artificial al **LLM API** para la generación de historias de usuario en formato Gherkin.
-    *   Exporta finalmente las historias de usuario aprobadas hacia la herramienta de gestión mediante la **Project Management API** (Jira).
+*   **Comunicación Cliente-Servidor:** Tanto la aplicación móvil como la web interactúan con el API Gateway realizando llamadas a través de **HTTPS/REST** y **WebSockets**, garantizando seguridad y soporte para streaming en tiempo real.
+*   **Comunicación Interna:** El API Gateway enruta las llamadas hacia el *Reqs-AI Backend Application*. Internamente, los Bounded Contexts se comunican mediante eventos en memoria (Domain Events) y persisten su estado de manera síncrona en la base de datos compartida (PostgreSQL).
+*   **Integración con Sistemas Externos:** En lugar de centralizar todas las salidas, las integraciones están descentralizadas y asignadas al Bounded Context correspondiente que las necesita:
+    *   **IAM** envía credenciales y alertas a través del **Email Service Provider**.
+    *   **Billing & Subscription** procesa transacciones a través del **Payment Gateway**.
+    *   **Requirement Discovery** envía los audios de las reuniones al **STT API** para convertirlos a texto, y delega la inferencia de inteligencia artificial al **LLM API** para la generación de Gherkin.
+    *   **Integration Gateway** exporta finalmente las historias de usuario hacia la herramienta de gestión mediante la **Project Management API** (Jira).
 
 ### 4.3.4.	Software Architecture Deployment Diagrams
 
