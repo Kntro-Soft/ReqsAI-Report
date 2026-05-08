@@ -509,57 +509,85 @@ El diseño de entrevistas se orienta a comprender en profundidad el trabajo real
 
 **Fase A: Perfil y Ecosistema**
 
-1. *Datos base:* Nombre, edad, distrito y con quién vives.
-2. *Contexto Profesional:* ¿Cuál es tu rol, cuánto tiempo llevas en él y cómo es tu equipo (personas, roles y metodología)?
-3. *Stack de trabajo:* ¿Qué herramientas usas para coordinar reuniones, documentar lo que sale de ellas y gestionar el backlog?
-4. *La "imprescindible":* ¿Cuál herramienta no podrías eliminar de tu flujo y por qué?
-5. *Influencias:* ¿Alguna comunidad o recurso que dicte cómo defines tus prácticas?
+*1. Datos base:* Nombre, edad, distrito y con quién vives.
+
+*2. Contexto Profesional:* ¿Cuál es tu rol, cuánto tiempo llevas en él y cómo es tu equipo (personas, roles y metodología)?
+
+*3. Stack de trabajo:* ¿Qué herramientas usas para coordinar reuniones, documentar lo que sale de ellas y gestionar el backlog?
+
+*4. La "imprescindible":* ¿Cuál herramienta no podrías eliminar de tu flujo y por qué?
+
+*5. Influencias:* ¿Alguna comunidad o recurso que dicte cómo defines tus prácticas?
 
 **Fase B: El Flujo y la Ejecución**
 
-6. *El proceso:* Cuéntame el paso a paso desde que se agenda la reunión de requisitos hasta que la historia entra al sprint.
-7. *Dinámica de reunión:* ¿Quién agenda? ¿Cómo se preparan? ¿Qué haces tú exactamente mientras el cliente habla y quién más participa?
-8. *Post-reunión:* Al terminar, ¿cuál es tu primera acción y qué información queda registrada?
-9. *Foco Técnico:* ¿Desarrollas tú mismo lo que se levantó? ¿Cuánto tiempo pasa hasta tener la historia lista?
-10. *La brecha:* Al trabajar con tus notas, ¿qué información sientes que faltó capturar?
+*6. El proceso:* Cuéntame el paso a paso desde que se agenda la reunión de requisitos hasta que la historia entra al sprint.
+
+*7. Dinámica de reunión:* ¿Quién agenda? ¿Cómo se preparan? ¿Qué haces tú exactamente mientras el cliente habla y quién más participa?
+
+*8. Post-reunión:* Al terminar, ¿cuál es tu primera acción y qué información queda registrada?
+
+*9. Foco Técnico:* ¿Desarrollas tú mismo lo que se levantó? ¿Cuánto tiempo pasa hasta tener la historia lista?
+
+*10. La brecha:* Al trabajar con tus notas, ¿qué información sientes que faltó capturar?
 
 **Fase C: Dolores, Costos y Éxitos**
 
-11. *Puntos de quiebre:* ¿Qué parte es la más desgastante? ¿Dónde hay más malentendidos o pérdida de información?
-12. *Casos reales:* Cuéntame una reunión que salió mal. ¿Qué detalles suelen omitirse al inicio y por qué crees que pasa?
-13. *Impacto en código:* ¿Con qué frecuencia cambian las decisiones técnicas ya en desarrollo? ¿Cómo lo resuelven?
-14. *El costo del error:* Si una historia queda mal definida, ¿cuántas horas de tu propio desarrollo pierdes? ¿Cómo afecta al sprint y a tu estado de ánimo?
-15. *El ideal:* ¿Cuándo sientes que una reunión salió "perfecta"? ¿Qué cambió?
-16. *Validación:* ¿Han intentado automatizar la documentación? ¿Qué cambiarías del proceso si pudieras?
-17. *Cierre:* En una frase honesta, ¿cómo vives este proceso? ¿Algo más que deba saber?
+*11. Puntos de quiebre:* ¿Qué parte es la más desgastante? ¿Dónde hay más malentendidos o pérdida de información?
+
+*12. Casos reales:* Cuéntame una reunión que salió mal. ¿Qué detalles suelen omitirse al inicio y por qué crees que pasa?
+
+*13. Impacto en código:* ¿Con qué frecuencia cambian las decisiones técnicas ya en desarrollo? ¿Cómo lo resuelven?
+
+*14. El costo del error:* Si una historia queda mal definida, ¿cuántas horas de tu propio desarrollo pierdes? ¿Cómo afecta al sprint y a tu estado de ánimo?
+
+*15. El ideal:* ¿Cuándo sientes que una reunión salió "perfecta"? ¿Qué cambió?
+
+*16. Validación:* ¿Han intentado automatizar la documentación? ¿Qué cambiarías del proceso si pudieras?
+
+*17. Cierre:* En una frase honesta, ¿cómo vives este proceso? ¿Algo más que deba saber?
 
 **Segmento 2: Analista de Sistemas Enterprise**
 
 **Fase A: Perfil y Ecosistema**
 
-1. *Datos base:* Nombre, edad, distrito y con quién vives.
-2. *Contexto Profesional:* ¿Cuál es tu rol, cuánto tiempo llevas en él y cómo es tu equipo (personas, roles y metodología)?
-3. *Stack de trabajo:* ¿Qué herramientas usas para coordinar reuniones, documentar lo que sale de ellas y gestionar el backlog?
-4. *La "imprescindible":* ¿Cuál herramienta no podrías eliminar de tu flujo y por qué?
-5. *Influencias:* ¿Alguna comunidad o recurso que dicte cómo defines tus prácticas?
+*1. Datos base:* Nombre, edad, distrito y con quién vives.
+
+*2. Contexto Profesional:* ¿Cuál es tu rol, cuánto tiempo llevas en él y cómo es tu equipo (personas, roles y metodología)?
+
+*3. Stack de trabajo:* ¿Qué herramientas usas para coordinar reuniones, documentar lo que sale de ellas y gestionar el backlog?
+
+*4. La "imprescindible":* ¿Cuál herramienta no podrías eliminar de tu flujo y por qué?
+
+*5. Influencias:* ¿Alguna comunidad o recurso que dicte cómo defines tus prácticas?
 
 **Fase B: El Flujo y la Entrega**
 
-6. *El proceso:* Cuéntame el paso a paso desde que se agenda la reunión de requisitos hasta que la historia entra al sprint.
-7. *Dinámica de reunión:* ¿Quién agenda? ¿Cómo se preparan? ¿Qué haces tú exactamente mientras el cliente habla y quién más participa?
-8. *Post-reunión:* Al terminar, ¿cuál es tu primera acción y qué información queda registrada?
-9. *Foco Funcional:* ¿A quién le entregas los requisitos, en qué formato y cuánto tiempo inviertes en transformar notas en historias formales?
-10. *Alineación:* ¿Cómo te aseguras de que el equipo técnico entendió lo mismo que tú y el cliente?
+*6. El proceso:* Cuéntame el paso a paso desde que se agenda la reunión de requisitos hasta que la historia entra al sprint.
+
+*7. Dinámica de reunión:* ¿Quién agenda? ¿Cómo se preparan? ¿Qué haces tú exactamente mientras el cliente habla y quién más participa?
+
+*8. Post-reunión:* Al terminar, ¿cuál es tu primera acción y qué información queda registrada?
+
+*9. Foco Funcional:* ¿A quién le entregas los requisitos, en qué formato y cuánto tiempo inviertes en transformar notas en historias formales?
+
+*10. Alineación:* ¿Cómo te aseguras de que el equipo técnico entendió lo mismo que tú y el cliente?
 
 **Fase C: Dolores, Relaciones y Éxitos**
 
-11. *Puntos de quiebre:* ¿Qué parte es la más desgastante? ¿Dónde hay más malentendidos o pérdida de información?
-12. *Casos reales:* Cuéntame una reunión que salió mal. ¿Qué detalles suelen omitirse al inicio y por qué crees que pasa?
-13. *Crisis:* ¿Qué pasa si el cliente dice que lo entregado no es lo que pidió? ¿Cómo manejas al cliente y al equipo a la vez?
-14. *El costo del error:* Si una historia está incompleta, ¿quién se ve más afectado y cómo daña la relación con el cliente? ¿Cómo te sientes tú?
-15. *El ideal:* ¿Cuándo sientes que una reunión salió "perfecta"? ¿Qué cambió?
-16. *Validación:* ¿Usan templates o checklists? ¿Qué tan bien funcionan en la realidad vs. el papel? ¿Qué cambiarías del proceso?
-17. *Cierre:* En una frase honesta, ¿cómo vives este proceso? ¿Algo más que deba saber?
+*11. Puntos de quiebre:* ¿Qué parte es la más desgastante? ¿Dónde hay más malentendidos o pérdida de información?
+
+*12. Casos reales:* Cuéntame una reunión que salió mal. ¿Qué detalles suelen omitirse al inicio y por qué crees que pasa?
+
+*13. Crisis:* ¿Qué pasa si el cliente dice que lo entregado no es lo que pidió? ¿Cómo manejas al cliente y al equipo a la vez?
+
+*14. El costo del error:* Si una historia está incompleta, ¿quién se ve más afectado y cómo daña la relación con el cliente? ¿Cómo te sientes tú?
+
+*15. El ideal:* ¿Cuándo sientes que una reunión salió "perfecta"? ¿Qué cambió?
+
+*16. Validación:* ¿Usan templates o checklists? ¿Qué tan bien funcionan en la realidad vs. el papel? ¿Qué cambiarías del proceso?
+
+*17. Cierre:* En una frase honesta, ¿cómo vives este proceso? ¿Algo más que deba saber?
 
 ### 2.2.2. Registro de entrevistas
 
