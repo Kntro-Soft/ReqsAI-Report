@@ -380,117 +380,117 @@ Deben asegurar que cada requerimiento del cliente esté perfectamente documentad
 
 Para este análisis, hemos seleccionado a los competidores más relevantes según el tipo de amenaza que representan para **Reqs-AI**: un competidor directo y especializado (Spinach.io), un competidor sustituto de uso masivo (Otter.ai / Fireflies.ai), y el incumbente o *Status Quo* de la industria (Jira + Atlassian Intelligence).
 
-<table border="1" cellspacing="0" cellpadding="10" style="border-collapse: collapse; width: 100%; text-align: left;">
+<table style="border: 1px solid; border-collapse: collapse; width: 100%; text-align: left;">
   <thead>
     <tr>
-      <th>Aspecto</th>
-      <th>Reqs-AI (Nuestro Producto)</th>
-      <th>Spinach.io (Competidor Directo)</th>
-      <th>Otter.ai / Fireflies (Sustituto)</th>
-      <th>Jira + Atlassian AI (Incumbente)</th>
+      <th style="padding: 10px">Aspecto</th>
+      <th style="padding: 10px">Reqs-AI (Nuestro Producto)</th>
+      <th style="padding: 10px">Spinach.io (Competidor Directo)</th>
+      <th style="padding: 10px">Otter.ai / Fireflies (Sustituto)</th>
+      <th style="padding: 10px">Jira + Atlassian AI (Incumbente)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>¿Por qué se analiza?</strong></td>
-      <td colspan="4">
+      <td style="padding: 10px"><strong>¿Por qué se analiza?</strong></td>
+      <td colspan="4" style="padding: 10px">
         Para identificar brechas de mercado entre los transcriptores genéricos, los asistentes ágiles y las herramientas de ticketing, posicionando a Reqs-AI como el único especialista en <strong>Ingeniería de Requisitos</strong>.
       </td>
     </tr>
     <tr>
-      <td><strong>Logo</strong></td>
-      <td align="center"><img src="./assets/logos/Reqs-AI-Logo.png" alt="Reqs-AI" width="120"></td>
-      <td align="center"><img src="./assets/logos/Logo-Spinach.png" alt="Spinach.io" width="120"></td>
-      <td align="center"><img src="./assets/logos/Logo-Otter.png" alt="Otter.ai" width="120"></td>
-      <td align="center"><img src="./assets/logos/Logo-Jira.png" alt="Jira" width="120"></td>
+      <td style="padding: 10px"><strong>Logo</strong></td>
+      <td style="text-align: center; padding: 10px"><img src="./assets/logos/Reqs-AI-Logo.png" alt="Reqs-AI" style="width: 120px"></td>
+      <td style="text-align: center; padding: 10px"><img src="./assets/logos/Logo-Spinach.png" alt="Spinach.io" style="width: 120px"></td>
+      <td style="text-align: center; padding: 10px"><img src="./assets/logos/Logo-Otter.png" alt="Otter.ai" style="width: 120px"></td>
+      <td style="text-align: center; padding: 10px"><img src="./assets/logos/Logo-Jira.png" alt="Jira" style="width: 120px"></td>
     </tr>
     <tr>
-      <td><strong>Overview</strong></td>
-      <td>
+      <td style="padding: 10px"><strong>Overview</strong></td>
+      <td style="padding: 10px">
         SaaS impulsado por IA especializado en <em>Requirements Elicitation</em>. Captura audio de reuniones, aplica RAG con documentos del proyecto y genera historias de usuario estructuradas (BDD/Gherkin).
       </td>
-      <td>
+      <td style="padding: 10px">
         "AI Scrum Master". Se une a las reuniones de Zoom/Meet, toma notas, resume stand-ups y crea tickets básicos en Jira.
       </td>
-      <td>
+      <td style="padding: 10px">
         Asistentes de reuniones por IA de propósito general. Transcriben, hacen resúmenes ejecutivos y extraen "Action Items".
       </td>
-      <td>
+      <td style="padding: 10px">
         La plataforma líder mundial en gestión ágil. Recientemente integró IA para ayudar a redactar y mejorar la gramática de los tickets directamente en su interfaz.
       </td>
     </tr>
     <tr>
-      <td><strong>Ventaja competitiva</strong></td>
-      <td>
+      <td style="padding: 10px"><strong>Ventaja competitiva</strong></td>
+      <td style="padding: 10px">
         <strong>Profundidad Técnica:</strong> No hace resúmenes, hace Ingeniería de Software. Detecta edge cases, sugiere preguntas al cliente en vivo y previene historias duplicadas.
       </td>
-      <td>
+      <td style="padding: 10px">
         <strong>Integración nativa:</strong> Se comporta como un bot que entra automáticamente a las videollamadas y se integra con múltiples CRMs.
       </td>
-      <td>
+      <td style="padding: 10px">
         <strong>Adopción masiva:</strong> Son extremadamente fáciles de usar, baratos y sirven para cualquier industria (ventas, legal, educación).
       </td>
-      <td>
+      <td style="padding: 10px">
         <strong>Monopolio del dato:</strong> Los equipos ya viven en Jira. No necesitan salir de la plataforma para usar su IA.
       </td>
     </tr>
     <tr>
-      <td><strong>Mercado objetivo</strong></td>
-      <td>
+      <td style="padding: 10px"><strong>Mercado objetivo</strong></td>
+      <td style="padding: 10px">
         Business Analysts, Product Owners, y Software Factories que sufren por requerimientos ambiguos.
       </td>
-      <td>
+      <td style="padding: 10px">
         Scrum Masters y Project Managers que quieren automatizar la burocracia de las ceremonias ágiles.
       </td>
-      <td>
+      <td style="padding: 10px">
         Profesionales de cualquier rubro que tienen demasiadas reuniones y necesitan recordar qué se habló.
       </td>
-      <td>
+      <td style="padding: 10px">
         Equipos de desarrollo de software y corporaciones que ya usan el ecosistema Atlassian.
       </td>
     </tr>
     <tr>
-      <td><strong>Estrategia de Marketing</strong></td>
-      <td>
+      <td style="padding: 10px"><strong>Estrategia de Marketing</strong></td>
+      <td style="padding: 10px">
         Nicho técnico: "Deja de codificar lo que no es. Reqs-AI convierte reuniones caóticas en requerimientos perfectos."
       </td>
-      <td>
+      <td style="padding: 10px">
         Productividad ágil: "Tu asistente de IA que actualiza tu tablero Kanban por ti."
       </td>
-      <td>
+      <td style="padding: 10px">
         Productividad general: "Nunca más tomes notas en una reunión."
       </td>
-      <td>
+      <td style="padding: 10px">
         Ecosistema cerrado: "Todo el poder de la IA, sin salir de tu entorno seguro de Jira."
       </td>
     </tr>
     <tr>
-      <td><strong>Fortalezas</strong></td>
-      <td>
+      <td style="padding: 10px"><strong>Fortalezas</strong></td>
+      <td style="padding: 10px">
         Generación de criterios de aceptación en Gherkin, entendimiento del contexto técnico (RAG con glosarios del cliente) y asistencia consultiva en tiempo real.
       </td>
-      <td>
+      <td style="padding: 10px">
         Cubre todo el ciclo Scrum (Plannings, Dailies, Retrospectives) no solo el levantamiento de requerimientos.
       </td>
-      <td>
+      <td style="padding: 10px">
         Transcripción casi perfecta, búsqueda global de palabras clave, reconocimiento de voz (diarización) excepcional.
       </td>
-      <td>
+      <td style="padding: 10px">
         Confianza corporativa absoluta, seguridad empresarial (Compliance) y cero fricción de adopción para equipos actuales.
       </td>
     </tr>
     <tr>
-      <td><strong>Debilidades</strong></td>
-      <td>
+      <td style="padding: 10px"><strong>Debilidades</strong></td>
+      <td style="padding: 10px">
         Requiere cambiar el hábito del Analista (usar una herramienta externa antes de pasar a Jira). Marca nueva sin confianza corporativa aún.
       </td>
-      <td>
+      <td style="padding: 10px">
         Sus Historias de Usuario son superficiales. Se enfocan en el "Qué" pero fallan gravemente en los detalles técnicos y reglas de negocio complejas.
       </td>
-      <td>
+      <td style="padding: 10px">
         No entienden de software. Un "Action Item" para Otter es "Hacer el login", pero no generará los criterios de aceptación técnicos para el desarrollador.
       </td>
-      <td>
+      <td style="padding: 10px">
         La IA de Jira reacciona a texto, no escucha. El Product Owner todavía tiene que tomar notas en la reunión y luego pedirle a la IA de Jira que las mejore.
       </td>
     </tr>
@@ -722,11 +722,11 @@ Los user personas sintetizan patrones de comportamiento, objetivos, frustracione
 
 **User persona del segmento de Líder Técnico de Startup**
 
-<img src="assets/requirements/personas/tech-lead.png" alt="User Persona Líder Técnico de Startup" width="800">
+<img src="assets/requirements/personas/tech-lead.png" alt="User Persona Líder Técnico de Startup" style="width: 800px">
 
 **User persona del segmento de Analista de sistemas Enterprise**
 
-<img src="assets/requirements/personas/analista.png" alt="User Persona Analista de Sistemas Enterprise" width="800">
+<img src="assets/requirements/personas/analista.png" alt="User Persona Analista de Sistemas Enterprise" style="width: 800px">
 
 
 ### 2.3.2. User Task Matrix
@@ -1114,7 +1114,7 @@ A continuación, se presenta la versión final de los escenarios refinados en or
 
 <br>
 
-<table border="1" style="width: 100%; border-collapse: collapse;">
+<table style="width: 100%; border: 1px solid; border-collapse: collapse;">
   <tr>
     <th colspan="2" style="text-align: left; padding: 8px;">Scenario Refinement for Scenario 1</th>
     <th style="padding: 8px;">Procesamiento de Audio en Tiempo Real (Streaming)</th>
@@ -1169,7 +1169,7 @@ A continuación, se presenta la versión final de los escenarios refinados en or
 
 <br>
 
-<table border="1" style="width: 100%; border-collapse: collapse;">
+<table style="width: 100%; border: 1px solid; border-collapse: collapse;">
   <tr>
     <th colspan="2" style="text-align: left; padding: 8px;">Scenario Refinement for Scenario 2</th>
     <th style="padding: 8px;">Arquitectura Multitenancy y Aislamiento de Datos</th>
@@ -1224,7 +1224,7 @@ A continuación, se presenta la versión final de los escenarios refinados en or
 
 <br>
 
-<table border="1" style="width: 100%; border-collapse: collapse;">
+<table style="width: 100%; border: 1px solid; border-collapse: collapse;">
   <tr>
     <th colspan="2" style="text-align: left; padding: 8px;">Scenario Refinement for Scenario 3</th>
     <th style="padding: 8px;">Tolerancia a Fallos en Servicios de IA</th>
