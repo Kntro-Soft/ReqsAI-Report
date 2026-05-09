@@ -1,0 +1,55 @@
+name: Generate PDF from README
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  generate-pdf:
+    name: Build README PDF
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Install md-to-pdf
+        run: npm install -g md-to-pdf
+
+      - name: Install Chromium dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq \
+            libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 \
+            libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 \
+            libxfixes3 libxrandr2 libgbm1 \
+            libasound2t64 || sudo apt-get install -y -qq libasound2
+
+      - name: Generate PDF
+        run: |
+          md-to-pdf README.md \
+            --pdf-options '{"format":"A4","margin":{"top":"20mm","right":"20mm","bottom":"20mm","left":"20mm"},"printBackground":true}' \
+            --launch-options '{"args":["--no-sandbox","--disable-setuid-sandbox"]}' \
+            --basedir .
+          mv README.pdf ReqsAI-Report.pdf
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ReqsAI-Report-PDF
+          path: ReqsAI-Report.pdf
+          retention-days: 90
+
+      - name: Attach to release (if tagged)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v3
+        with:
+          files: ReqsAI-Report.pdf
