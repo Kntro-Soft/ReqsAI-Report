@@ -1,0 +1,28 @@
+name: Check Broken Links
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  check-links:
+    name: Verify image and markdown links
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Check links in README.md
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: |
+            --exclude-mail
+            --no-progress
+            --include-fragments
+            README.md
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
