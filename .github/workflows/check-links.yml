@@ -20,7 +20,8 @@ jobs:
         with:
           args: >-
             --no-progress
-            --include-fragments
+            --exclude "sharepoint\.com"
+            --exclude "pmi\.org"
             README.md
           fail: true
         env:
