@@ -1,4 +1,4 @@
-# Contributor Covenant Code of Conduct
+﻿# Contributor Covenant Code of Conduct
 
 ## Our Pledge
 
@@ -33,7 +33,7 @@ Each team member is responsible for:
 
 ## Scope
 
-This Code of Conduct applies within the GitHub repository (`Kntro-Soft/Report`) and in any team communication channel related to the project.
+This Code of Conduct applies within the GitHub repository (`Kntro-Soft/ReqsAI-Report`) and in any team communication channel related to the project.
 
 ## Enforcement
 

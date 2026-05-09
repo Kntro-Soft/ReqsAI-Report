@@ -66,7 +66,7 @@
 En esta sección se documenta la colaboración del equipo en la elaboración del informe, mostrando evidencias gráficas de la actividad en GitHub y su coherencia con el registro de versiones.
 
 * URL del repositorio del Project Report en la organización de GitHub del equipo:
-* [https://github.com/Kntro-Soft/Report](https://github.com/Kntro-Soft/Report)
+* [https://github.com/Kntro-Soft/ReqsAI-Report](https://github.com/Kntro-Soft/ReqsAI-Report)
 
 TB1:
 

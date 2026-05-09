@@ -1,12 +1,12 @@
-# Security Policy — Kntro-Soft
+﻿# Security Policy — Kntro-Soft
 
 ## Covered Repositories
 
 This policy applies to all repositories under the **Kntro-Soft** organization on GitHub:
 
-| Repository          | Description                             |
-|---------------------|-----------------------------------------|
-| `Kntro-Soft/Report` | Academic report for the Reqs-AI project |
+| Repository                 | Description                             |
+|----------------------------|-----------------------------------------|
+| `Kntro-Soft/ReqsAI-Report` | Academic report for the Reqs-AI project |
 
 ## Supported Versions
 

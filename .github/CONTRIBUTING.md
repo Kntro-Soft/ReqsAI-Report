@@ -1,4 +1,4 @@
-# Contributing Guide — Kntro-Soft / Report
+﻿# Contributing Guide — Kntro-Soft / Report
 
 Thank you for contributing to the **Reqs-AI** project report. This guide describes the workflow agreed upon by the team to keep the repository organized and the commit history clean.
 
@@ -16,7 +16,7 @@ Thank you for contributing to the **Reqs-AI** project report. This guide describ
 ## Prerequisites
 
 - Git installed and configured with your UPC name and email
-- Access to the `Kntro-Soft/Report` repository on GitHub
+- Access to the `Kntro-Soft/ReqsAI-Report` repository on GitHub
 - A Markdown-compatible editor (VS Code, IntelliJ, etc.)
 
 ---
