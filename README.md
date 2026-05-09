@@ -1,10 +1,10 @@
-<body>
+﻿<body>
     <div style="text-align: center; font-weight: bolder">
         <p>Universidad Peruana de Ciencias Aplicadas - Ingeniería de Software - 8 Ciclo</p>
-        <img src="assets/cover/logo-upc.png" alt="logo of UPC"/>
+        <img src="assets/brand/logo-upc.png" alt="logo of UPC"/>
         <p>1ASI0732 - Arquitectura de Software Emergentes</p>
         <p>Sección - 11821</p>
-        <p>Docente: Christian Luis De Los Rios Fernandez</p>   
+        <p>Docente: Christian Luis De Los Rios Fernández</p>   
         <p>Informe de Trabajo Final<p>
         <p>Startup: Kntro-Soft</p>
         <p>Producto: Reqs-AI</p>
@@ -45,18 +45,19 @@
 
 # Registro de Versiones del Informe
 
-| Versión | Fecha      | Autor                             | Descripción de modificación                                                                                                                                                              |
-|---------|------------|-----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 1.0     | 14/04/2026 | Eric                              | Creación de la estructura base del informe, portada, logos y descripción inicial del Startup.                                                                                            |
-| 1.1     | 17/04/2026 | Eric                              | Adición del Background, problemáticas, proceso de Lean UX, Target Segments y perfiles del equipo (Team Profiles).                                                                        |
-| 1.2     | 22/04/2026 | Marcelo, Salim Ramirez            | Inclusión del análisis de competidores, diseño preliminar de preguntas para entrevistas y configuración de exclusiones del repositorio (.gitignore).                                     |
-| 1.3     | 23/04/2026 | Gutierrez Soto Jhosepmyr, Eric    | Estructuración de Epics, User Stories (formato BDD y criterios de aceptación), Product Backlog priorizado y definición de atributos de calidad (Quality Attribute Scenarios).            |
-| 1.4     | 24/04/2026 | Marcelo, Gutierrez Soto Jhosepmyr | Redacción de estrategias y tácticas, actualización de la sección de competidores, e iteración técnica de historias de usuario (criterios INVEST).                                        |
-| 1.5     | 25/04/2026 | Marcelo                           | Actualización de la información general del proyecto e informe.                                                                                                                          |
-| 1.6     | 26/04/2026 | Paul, Gutierrez Soto Jhosepmyr    | Incorporación de la sección de User Personas (Empathy Mapping, User Journey, User Task Matrix) y modelado de escenarios As-Is / To-Be.                                                   |
-| 1.7     | 26/04/2026 | Eric                              | Desarrollo de la sección de Domain-Driven Design (Eventstorming, Context Discovery, Context Mapping, Bounded Context Canvases).                                                          |
-| 1.8     | 26/04/2026 | Marcelo, Salim Ramirez, Paul      | Incorporación de análisis y hallazgos de las entrevistas para roles técnicos y funcionales. Adición de sección de Impact Mapping y Student Outcomes.                                     |
-| 2.0     | 26/04/2026 | Eric, Gutierrez Soto Jhosepmyr    | Inclusión de los diagramas de Arquitectura de Software C4 (System Landscape, System Context, Container y Deployment). Actualización final del Backlog en Jira y sección de conclusiones. |
+| Versión | Fecha      | Autor                             | Descripción de modificación                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+|---------|------------|-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1.0     | 14/04/2026 | Eric                              | Creación de la estructura base del informe, portada, logos y descripción inicial del Startup.                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| 1.1     | 17/04/2026 | Eric                              | Adición del Background, problemáticas, proceso de Lean UX, Target Segments y perfiles del equipo (Team Profiles).                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| 1.2     | 22/04/2026 | Marcelo, Salim Ramirez            | Inclusión del análisis de competidores, diseño preliminar de preguntas para entrevistas y configuración de exclusiones del repositorio (.gitignore).                                                                                                                                                                                                                                                                                                                                                                                         |
+| 1.3     | 23/04/2026 | Gutierrez Soto Jhosepmyr, Eric    | Estructuración de Epics, User Stories (formato BDD y criterios de aceptación), Product Backlog priorizado y definición de atributos de calidad (Quality Attribute Scenarios).                                                                                                                                                                                                                                                                                                                                                                |
+| 1.4     | 24/04/2026 | Marcelo, Gutierrez Soto Jhosepmyr | Redacción de estrategias y tácticas, actualización de la sección de competidores, e iteración técnica de historias de usuario (criterios INVEST).                                                                                                                                                                                                                                                                                                                                                                                            |
+| 1.5     | 25/04/2026 | Marcelo                           | Actualización de la información general del proyecto e informe.                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| 1.6     | 26/04/2026 | Paul, Gutierrez Soto Jhosepmyr    | Incorporación de la sección de User Personas (Empathy Mapping, User Journey, User Task Matrix) y modelado de escenarios As-Is / To-Be.                                                                                                                                                                                                                                                                                                                                                                                                       |
+| 1.7     | 26/04/2026 | Eric                              | Desarrollo de la sección de Domain-Driven Design (Eventstorming, Context Discovery, Context Mapping, Bounded Context Canvases).                                                                                                                                                                                                                                                                                                                                                                                                              |
+| 1.8     | 26/04/2026 | Marcelo, Salim Ramirez, Paul      | Incorporación de análisis y hallazgos de las entrevistas para roles técnicos y funcionales. Adición de sección de Impact Mapping y Student Outcomes.                                                                                                                                                                                                                                                                                                                                                                                         |
+| 2.0     | 26/04/2026 | Eric, Gutierrez Soto Jhosepmyr    | Inclusión de los diagramas de Arquitectura de Software C4 (System Landscape, System Context, Container y Deployment). Actualización final del Backlog en Jira y sección de conclusiones.                                                                                                                                                                                                                                                                                                                                                     |
+| 2.1     | 09/05/2026 | Gutierrez Soto Jhosepmyr          | Refinamientos por feedback TP1: ampliación uniforme de los 5 patrones de Context Mapping (ACL hacia Jira, ACL hacia LLM/STT, Customer/Supplier Discovery↔Workspace, Conformist Workspace↔Billing, OHS+PL Discovery↔Gateway) con contratos detallados, escenarios de evolución y tradeoffs explícitos; reescritura del Container Diagram con declaración explícita Monolito Modular vs. Microservicios, mapeo Bounded Context → Módulo Maven y reglas de dependencia automatizadas con ArchUnit, en tono orientado a presentación al cliente. |
 
 <div style="page-break-before: always"></div>
 
@@ -69,7 +70,7 @@ En esta sección se documenta la colaboración del equipo en la elaboración del
 
 TB1:
 
-![InsightsTB1](assets/Insights/insightsTB1.png)
+![InsightsTB1](assets/insights/insights-tb1.png)
 
 <div style="page-break-before: always"></div>
 
@@ -199,11 +200,11 @@ El curso contribuye al cumplimiento del Student Outcome ABET:
 
 En el siguiente cuadro se describen las acciones realizadas y los enunciados de conclusiones por parte del grupo, los cuales permiten sustentar el haber alcanzado el logro del ABET – EAC - Student Outcome 3.
 
-| **Criterio específico** | **Acciones realizadas** | **Conclusiones** |
-|-------------------------|-------------------------|------------------|
-| **Comunica oralmente sus ideas y/o resultados con objetividad a público de diferentes especialidades y niveles jerárquicos, en el marco del desarrollo de un proyecto en ingeniería.** | **TB1**<br><br>**Gutiérrez Soto, Jhosepmyr Orlando – 202317638**<br>Trabajé comunicando oralmente los aspectos generales del proyecto relacionados con el Capítulo I y parte del Capítulo IV. Expliqué la descripción de la startup, la propuesta de solución y los fundamentos estratégicos del producto, procurando presentar las ideas de manera clara, ordenada y comprensible para una audiencia académica.<br><br>**Hernández Tuiro, Eric Ernesto – 20221C857**<br>Trabajé comunicando oralmente los contenidos vinculados al Capítulo I y Capítulo IV. Presenté ideas relacionadas con el perfil de la solución, el enfoque estratégico del producto y las decisiones generales de diseño, utilizando un lenguaje objetivo y adecuado para explicar la relación entre la problemática identificada y la solución propuesta.<br><br>**Ramirez Mestanza, Salim Ignacio – 20201E843**<br>Trabajé comunicando oralmente los avances desarrollados en el Capítulo II, principalmente los resultados del análisis de requerimientos, entrevistas, competidores y hallazgos del proceso de need finding. Mi participación permitió explicar cómo se identificaron necesidades relevantes para orientar el desarrollo del producto.<br><br>**Varela Bustinza, Marcelo Alessandro – 202319668**<br>Trabajé comunicando oralmente los resultados correspondientes al Capítulo II, especialmente el análisis competitivo, las estrategias frente a competidores, el diseño y análisis de entrevistas, así como los principales hallazgos obtenidos sobre los usuarios. Busqué explicar la información de manera objetiva, conectando los resultados con la definición de requerimientos del proyecto.<br><br>**Sulca Gonzales, Paul Fernando – 20221C486**<br>Trabajé comunicando oralmente los contenidos del Capítulo III, relacionados con la especificación de requerimientos, user stories, product backlog e impact mapping. Expliqué cómo los hallazgos obtenidos en etapas anteriores se transformaron en requisitos y elementos priorizados para el desarrollo de la solución. | Como equipo, se logró comunicar oralmente los avances del proyecto de manera clara, organizada y objetiva. Cada integrante explicó los resultados correspondientes a su participación, conectando los capítulos desarrollados con el propósito general de la solución. Asimismo, la exposición permitió adaptar el lenguaje técnico a una audiencia académica, integrando aspectos de negocio, usuarios, requerimientos y diseño de ingeniería. |
-| **Comunica en forma escrita ideas y/o resultados con objetividad a público de diferentes especialidades y niveles jerárquicos, en el marco del desarrollo de un proyecto en ingeniería.** | **TB1**<br><br>**Gutiérrez Soto, Jhosepmyr Orlando – 202317638**<br>Trabajé comunicando de forma escrita los contenidos relacionados con el Capítulo I y parte del Capítulo IV. Redacté información sobre el perfil de la startup, la propuesta de solución y los elementos estratégicos del diseño del producto, procurando mantener una estructura clara y una redacción adecuada para el contexto académico y de ingeniería.<br><br>**Hernández Tuiro, Eric Ernesto – 20221C857**<br>Trabajé comunicando de forma escrita los apartados vinculados al Capítulo I y Capítulo IV. Mi aporte se centró en organizar y redactar ideas sobre la solución propuesta, su relación con la problemática y los criterios estratégicos del producto, asegurando coherencia entre el enfoque del proyecto y las decisiones de diseño.<br><br>**Ramirez Mestanza, Salim Ignacio – 20201E843**<br>Trabajé comunicando de forma escrita los contenidos del Capítulo II, principalmente en los apartados de análisis de requerimientos, entrevistas, competidores, identificación de necesidades y lenguaje ubicuo. Mi aporte permitió documentar los hallazgos de manera ordenada y orientada a sustentar la definición de requerimientos.<br><br>**Varela Bustinza, Marcelo Alessandro – 202319668**<br>Trabajé comunicando de forma escrita los resultados del Capítulo II, incluyendo el análisis competitivo, estrategias frente a competidores, diseño y análisis de entrevistas, user personas, mapas de empatía y escenarios actuales. Mi trabajo contribuyó a presentar evidencia relevante sobre las necesidades del usuario y su relación con los requerimientos del producto.<br><br>**Sulca Gonzales, Paul Fernando – 20221C486**<br>Trabajé comunicando de forma escrita los contenidos del Capítulo III, enfocados en to-be scenario mapping, user stories, product backlog e impact mapping. Mi aporte permitió transformar los hallazgos del análisis en requisitos claros, priorizados y alineados con los objetivos del producto. | Como equipo, se logró comunicar por escrito las ideas, resultados y decisiones del proyecto de manera estructurada y objetiva. El documento integra información sobre negocio, usuarios, requerimientos y diseño estratégico, manteniendo una secuencia lógica entre los capítulos. Además, la redacción permitió presentar el proyecto de forma comprensible para audiencias con distintos niveles de conocimiento técnico. |
-|
+| **Criterio específico**                                                                                                                                                                   | **Acciones realizadas**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | **Conclusiones**                                                                                                                                                                                                                                                                                                                                                                                                                                |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Comunica oralmente sus ideas y/o resultados con objetividad a público de diferentes especialidades y niveles jerárquicos, en el marco del desarrollo de un proyecto en ingeniería.**    | **TB1**<br><br>**Gutiérrez Soto, Jhosepmyr Orlando – 202317638**<br>Trabajé comunicando oralmente los aspectos generales del proyecto relacionados con el Capítulo I y parte del Capítulo IV. Expliqué la descripción de la startup, la propuesta de solución y los fundamentos estratégicos del producto, procurando presentar las ideas de manera clara, ordenada y comprensible para una audiencia académica.<br><br>**Hernández Tuiro, Eric Ernesto – 20221C857**<br>Trabajé comunicando oralmente los contenidos vinculados al Capítulo I y Capítulo IV. Presenté ideas relacionadas con el perfil de la solución, el enfoque estratégico del producto y las decisiones generales de diseño, utilizando un lenguaje objetivo y adecuado para explicar la relación entre la problemática identificada y la solución propuesta.<br><br>**Ramirez Mestanza, Salim Ignacio – 20201E843**<br>Trabajé comunicando oralmente los avances desarrollados en el Capítulo II, principalmente los resultados del análisis de requerimientos, entrevistas, competidores y hallazgos del proceso de need finding. Mi participación permitió explicar cómo se identificaron necesidades relevantes para orientar el desarrollo del producto.<br><br>**Varela Bustinza, Marcelo Alessandro – 202319668**<br>Trabajé comunicando oralmente los resultados correspondientes al Capítulo II, especialmente el análisis competitivo, las estrategias frente a competidores, el diseño y análisis de entrevistas, así como los principales hallazgos obtenidos sobre los usuarios. Busqué explicar la información de manera objetiva, conectando los resultados con la definición de requerimientos del proyecto.<br><br>**Sulca Gonzales, Paul Fernando – 20221C486**<br>Trabajé comunicando oralmente los contenidos del Capítulo III, relacionados con la especificación de requerimientos, user stories, product backlog e impact mapping. Expliqué cómo los hallazgos obtenidos en etapas anteriores se transformaron en requisitos y elementos priorizados para el desarrollo de la solución. | Como equipo, se logró comunicar oralmente los avances del proyecto de manera clara, organizada y objetiva. Cada integrante explicó los resultados correspondientes a su participación, conectando los capítulos desarrollados con el propósito general de la solución. Asimismo, la exposición permitió adaptar el lenguaje técnico a una audiencia académica, integrando aspectos de negocio, usuarios, requerimientos y diseño de ingeniería. |
+| **Comunica en forma escrita ideas y/o resultados con objetividad a público de diferentes especialidades y niveles jerárquicos, en el marco del desarrollo de un proyecto en ingeniería.** | **TB1**<br><br>**Gutiérrez Soto, Jhosepmyr Orlando – 202317638**<br>Trabajé comunicando de forma escrita los contenidos relacionados con el Capítulo I y parte del Capítulo IV. Redacté información sobre el perfil de la startup, la propuesta de solución y los elementos estratégicos del diseño del producto, procurando mantener una estructura clara y una redacción adecuada para el contexto académico y de ingeniería.<br><br>**Hernández Tuiro, Eric Ernesto – 20221C857**<br>Trabajé comunicando de forma escrita los apartados vinculados al Capítulo I y Capítulo IV. Mi aporte se centró en organizar y redactar ideas sobre la solución propuesta, su relación con la problemática y los criterios estratégicos del producto, asegurando coherencia entre el enfoque del proyecto y las decisiones de diseño.<br><br>**Ramirez Mestanza, Salim Ignacio – 20201E843**<br>Trabajé comunicando de forma escrita los contenidos del Capítulo II, principalmente en los apartados de análisis de requerimientos, entrevistas, competidores, identificación de necesidades y lenguaje ubicuo. Mi aporte permitió documentar los hallazgos de manera ordenada y orientada a sustentar la definición de requerimientos.<br><br>**Varela Bustinza, Marcelo Alessandro – 202319668**<br>Trabajé comunicando de forma escrita los resultados del Capítulo II, incluyendo el análisis competitivo, estrategias frente a competidores, diseño y análisis de entrevistas, user personas, mapas de empatía y escenarios actuales. Mi trabajo contribuyó a presentar evidencia relevante sobre las necesidades del usuario y su relación con los requerimientos del producto.<br><br>**Sulca Gonzales, Paul Fernando – 20221C486**<br>Trabajé comunicando de forma escrita los contenidos del Capítulo III, enfocados en to-be scenario mapping, user stories, product backlog e impact mapping. Mi aporte permitió transformar los hallazgos del análisis en requisitos claros, priorizados y alineados con los objetivos del producto.                                             | Como equipo, se logró comunicar por escrito las ideas, resultados y decisiones del proyecto de manera estructurada y objetiva. El documento integra información sobre negocio, usuarios, requerimientos y diseño estratégico, manteniendo una secuencia lógica entre los capítulos. Además, la redacción permitió presentar el proyecto de forma comprensible para audiencias con distintos niveles de conocimiento técnico.                    |
+
 <div style="page-break-before: always"></div>
 
 # Capítulo I: Introducción
@@ -217,8 +218,8 @@ Nuestra misión es potenciar la productividad de los equipos de desarrollo y ana
 
 **Propuesta de Valor**
 
-* Documentación Instantánea: Generación automática de User Stories con criterios de aceptación en formato Gherkin mediante LLMs de última generación
-* Asistencia Consultiva en Vivo: Sugerencias inteligentes de preguntas durante las reuniones para evitar vacíos de información y considerar casos de borde
+* Documentación Instantánea: Generación automática de User Stories con criterios de aceptación en formato Gherkin mediante LLM de última generación
+* Asistencia de Consulta en Tiempo Real: Recomendaciones de preguntas estratégicas durante las juntas para eludir lagunas de información y contemplar escenarios excepcionales.
 * Contexto Inteligente (RAG): Integración con el historial del proyecto para detectar duplicados y asegurar que los nuevos requisitos sean consistentes con la arquitectura existente
 * Privacidad Empresarial: Arquitectura multitenancy robusta con Row Level Security, garantizando que los datos y el conocimiento de cada organización permanezcan estrictamente aislados
 
@@ -235,13 +236,13 @@ Convertirnos en la plataforma estándar de gestión de requisitos para empresas 
 
 ### 1.1.2. Perfiles de integrantes del equipo
 
-| Foto del participante                                                                       | Nombres y apellidos               | Código de estudiante | Carrera                | Conocimientos técnicos y habilidades                                                                                                                                                                                                                                            |
-|---------------------------------------------------------------------------------------------|-----------------------------------|----------------------|------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ![erick.png](assets/1.introduction/1.1.startup-profile/1.1.2.team-member/erick.png)         | Eric Ernesto Hernández Tuiro      | 20221C857            | Ingeniería de Software | Especialista en desarrollo backend con Java/Spring Boot y diseño de arquitecturas de sistemas. Enfocado en tecnologías empresariales y soluciones eficientes.                                                                                                                   |
-| ![marcelo.png](assets/1.introduction/1.1.startup-profile/1.1.2.team-member/marcelo.jpg)     | Marcelo Alejandro Varela Bustinza | 202319668            | Ingeniería de Software | Desarrollador con experiencia en Angular/Spring Boot y Vue.js/ASP.NET, enfocado en arquitecturas monolíticas y desarrollo de aplicaciones.                                                                                                                                      | 
-| ![jhosepmyr.png](assets/1.introduction/1.1.startup-profile/1.1.2.team-member/jhosepmyr.png) | Jhosepmyr Orlando Gutiérrez Soto  | 202317638            | Ingeniería de Software | Especialista en desarrollo full-stack con Java/Spring Boot y frameworks frontend como Angular y Vue.js. Experiencia en microservicios y servicios cloud (AWS, Azure, GCP). Aporta habilidades de liderazgo técnico, toma de decisiones y coordinación de equipos de desarrollo. | 
-| ![paul.png](assets/1.introduction/1.1.startup-profile/1.1.2.team-member/paul.png)           | Paul Fernando Sulca Gonzales      | 20221C486            | Ingeniería de Software | Conocimiento en diseño de software orientado a objetos y modelado UML. Experiencia en implementación de interfaces web adaptativas. Amante de los desafíos de la vida universitaria.                                                                                            |
-| ![salim.jpg](assets/1.introduction/1.1.startup-profile/1.1.2.team-member/salim.jpg)         | Salim Ignacio Ramirez Mestanza    | 20201E843            | Ingeniería de Software | Conocimiento en arquitectura de software y control de versiones con Git. Experiencia en documentación técnica y colaboración en equipos ágiles. Desarrollo backend con Java/Spring Boot y Domain-Driven Design.                                                                 |
+| Foto del participante                                 | Nombres y apellidos               | Código de estudiante | Carrera                | Conocimientos técnicos y habilidades                                                                                                                                                                                                                                            |
+|-------------------------------------------------------|-----------------------------------|----------------------|------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ![erick.png](assets/team/eric-hernandez.png)          | Eric Ernesto Hernández Tuiro      | 20221C857            | Ingeniería de Software | Especialista en desarrollo backend con Java/Spring Boot y diseño de arquitecturas de sistemas. Enfocado en tecnologías empresariales y soluciones eficientes.                                                                                                                   |
+| ![marcelo.png](assets/team/marcelo-varela.jpg)        | Marcelo Alejandro Varela Bustinza | 202319668            | Ingeniería de Software | Desarrollador con experiencia en Angular/Spring Boot y Vue.js/ASP.NET, enfocado en arquitecturas monolíticas y desarrollo de aplicaciones.                                                                                                                                      | 
+| ![jhosepmyr.png](assets/team/jhosepmyr-gutierrez.png) | Jhosepmyr Orlando Gutiérrez Soto  | 202317638            | Ingeniería de Software | Especialista en desarrollo full-stack con Java/Spring Boot y frameworks frontend como Angular y Vue.js. Experiencia en microservicios y servicios cloud (AWS, Azure, GCP). Aporta habilidades de liderazgo técnico, toma de decisiones y coordinación de equipos de desarrollo. | 
+| ![paul.png](assets/team/paul-sulca.png)               | Paul Fernando Sulca Gonzales      | 20221C486            | Ingeniería de Software | Conocimiento en diseño de software orientado a objetos y modelado UML. Experiencia en implementación de interfaces web adaptativas. Amante de los desafíos de la vida universitaria.                                                                                            |
+| ![salim.jpg](assets/team/salim-ramirez.jpg)           | Salim Ignacio Ramirez Mestanza    | 20201E843            | Ingeniería de Software | Conocimiento en arquitectura de software y control de versiones con Git. Experiencia en documentación técnica y colaboración en equipos ágiles. Desarrollo backend con Java/Spring Boot y Domain-Driven Design.                                                                 |
 
 ## 1.2. Solution Profile
 
@@ -279,7 +280,7 @@ Nuestro producto, Reqs-AI, abordará esta brecha mediante un motor de inteligenc
 
 Nuestro enfoque inicial serán las Startups tecnológicas y empresas de desarrollo de software que operan bajo metodologías ágiles y necesitan una transición inmediata y sin errores desde la fase de descubrimiento hasta el inicio de la codificación.
 
-Sabremos que hemos tenido éxito cuando observemos una reducción del 40% en las reuniones de seguimiento para aclaración de requisitos, una disminución significativa en el tiempo que el analista dedica al post-procesamiento de la información y una tasa de aceptación de historias de usuario superior al 80% en la primera iteración de revisión con el equipo de desarrollo.
+Sabremos que hemos tenido éxito cuando observemos una reducción del 40% en las reuniones de seguimiento para aclaración de requisitos, una disminución significativa en el tiempo que el analista dedica al postprocesamiento de la información y una tasa de aceptación de historias de usuario superior al 80% en la primera iteración de revisión con el equipo de desarrollo.
 
 
 #### 1.2.2.2. Lean UX Assumptions
@@ -313,7 +314,7 @@ Aspiracional: Ser el facilitador de una cultura de ingeniería de alto rendimien
 
 * Analista Enterprise:
 Funcional: Eliminar el trabajo manual de transcribir grabaciones y redactar Gherkin desde cero.
-Emocional: Sentirse empoderada durante la reunión al recibir sugerencias de preguntas que exponen vacíos de lógica del cliente.
+Emocional: Sentir empoderamiento durante la reunión al recibir sugerencias de preguntas que exponen vacíos de lógica del cliente.
 Aspiracional: Posicionarse como una analista estratégica que garantiza la precisión del proyecto, reduciendo el retrabajo del equipo.
 
 #### 1.2.2.3. Lean UX Hypothesis Statements
@@ -336,7 +337,7 @@ El equipo cree que la implementación de una arquitectura de aislamiento de dato
 
 #### 1.2.2.4. Lean UX Canvas
 
-![lean-ux-canvas](assets/1.introduction/1.2.solution-profile/1.2.2.lean-ux-process/LEAN-UX-CANVAS-Reqs-AI.png)
+![lean-ux-canvas](assets/lean-ux/lean-ux-canvas.png)
 
 ## 1.3. Segmentos objetivos
 
@@ -380,117 +381,117 @@ Deben asegurar que cada requerimiento del cliente esté perfectamente documentad
 
 Para este análisis, hemos seleccionado a los competidores más relevantes según el tipo de amenaza que representan para **Reqs-AI**: un competidor directo y especializado (Spinach.io), un competidor sustituto de uso masivo (Otter.ai / Fireflies.ai), y el incumbente o *Status Quo* de la industria (Jira + Atlassian Intelligence).
 
-<table border="1" cellspacing="0" cellpadding="10" style="border-collapse: collapse; width: 100%; text-align: left;">
+<table style="border: 1px solid; border-collapse: collapse; width: 100%; text-align: left;">
   <thead>
     <tr>
-      <th>Aspecto</th>
-      <th>Reqs-AI (Nuestro Producto)</th>
-      <th>Spinach.io (Competidor Directo)</th>
-      <th>Otter.ai / Fireflies (Sustituto)</th>
-      <th>Jira + Atlassian AI (Incumbente)</th>
+      <th style="padding: 10px">Aspecto</th>
+      <th style="padding: 10px">Reqs-AI (Nuestro Producto)</th>
+      <th style="padding: 10px">Spinach.io (Competidor Directo)</th>
+      <th style="padding: 10px">Otter.ai / Fireflies (Sustituto)</th>
+      <th style="padding: 10px">Jira + Atlassian AI (Incumbente)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>¿Por qué se analiza?</strong></td>
-      <td colspan="4">
+      <td style="padding: 10px"><strong>¿Por qué se analiza?</strong></td>
+      <td colspan="4" style="padding: 10px">
         Para identificar brechas de mercado entre los transcriptores genéricos, los asistentes ágiles y las herramientas de ticketing, posicionando a Reqs-AI como el único especialista en <strong>Ingeniería de Requisitos</strong>.
       </td>
     </tr>
     <tr>
-      <td><strong>Logo</strong></td>
-      <td align="center"><img src="./assets/logos/Reqs-AI-Logo.png" alt="Reqs-AI" width="120"></td>
-      <td align="center"><img src="./assets/logos/Logo-Spinach.png" alt="Spinach.io" width="120"></td>
-      <td align="center"><img src="./assets/logos/Logo-Otter.png" alt="Otter.ai" width="120"></td>
-      <td align="center"><img src="./assets/logos/Logo-Jira.png" alt="Jira" width="120"></td>
+      <td style="padding: 10px"><strong>Logo</strong></td>
+      <td style="text-align: center; padding: 10px"><img src="assets/brand/logo-reqs-ai.png" alt="Reqs-AI" style="width: 120px"></td>
+      <td style="text-align: center; padding: 10px"><img src="assets/brand/logo-spinach.png" alt="Spinach.io" style="width: 120px"></td>
+      <td style="text-align: center; padding: 10px"><img src="assets/brand/logo-otter.png" alt="Otter.ai" style="width: 120px"></td>
+      <td style="text-align: center; padding: 10px"><img src="assets/brand/logo-jira.png" alt="Jira" style="width: 120px"></td>
     </tr>
     <tr>
-      <td><strong>Overview</strong></td>
-      <td>
+      <td style="padding: 10px"><strong>Overview</strong></td>
+      <td style="padding: 10px">
         SaaS impulsado por IA especializado en <em>Requirements Elicitation</em>. Captura audio de reuniones, aplica RAG con documentos del proyecto y genera historias de usuario estructuradas (BDD/Gherkin).
       </td>
-      <td>
+      <td style="padding: 10px">
         "AI Scrum Master". Se une a las reuniones de Zoom/Meet, toma notas, resume stand-ups y crea tickets básicos en Jira.
       </td>
-      <td>
+      <td style="padding: 10px">
         Asistentes de reuniones por IA de propósito general. Transcriben, hacen resúmenes ejecutivos y extraen "Action Items".
       </td>
-      <td>
-        La plataforma líder mundial en gestión ágil. Recientemente integró IA para ayudar a redactar y mejorar la gramática de los tickets directamente en su interfaz.
+      <td style="padding: 10px">
+        La plataforma líder mundial en gestión ágil. Recientemente, integró IA para ayudar a redactar y mejorar la gramática de los tickets directamente en su interfaz.
       </td>
     </tr>
     <tr>
-      <td><strong>Ventaja competitiva</strong></td>
-      <td>
+      <td style="padding: 10px"><strong>Ventaja competitiva</strong></td>
+      <td style="padding: 10px">
         <strong>Profundidad Técnica:</strong> No hace resúmenes, hace Ingeniería de Software. Detecta edge cases, sugiere preguntas al cliente en vivo y previene historias duplicadas.
       </td>
-      <td>
-        <strong>Integración nativa:</strong> Se comporta como un bot que entra automáticamente a las videollamadas y se integra con múltiples CRMs.
+      <td style="padding: 10px">
+        <strong>Integración nativa:</strong> Se comporta como un bot que entra automáticamente a las videollamadas y se integra con múltiples CRM.
       </td>
-      <td>
+      <td style="padding: 10px">
         <strong>Adopción masiva:</strong> Son extremadamente fáciles de usar, baratos y sirven para cualquier industria (ventas, legal, educación).
       </td>
-      <td>
+      <td style="padding: 10px">
         <strong>Monopolio del dato:</strong> Los equipos ya viven en Jira. No necesitan salir de la plataforma para usar su IA.
       </td>
     </tr>
     <tr>
-      <td><strong>Mercado objetivo</strong></td>
-      <td>
+      <td style="padding: 10px"><strong>Mercado objetivo</strong></td>
+      <td style="padding: 10px">
         Business Analysts, Product Owners, y Software Factories que sufren por requerimientos ambiguos.
       </td>
-      <td>
+      <td style="padding: 10px">
         Scrum Masters y Project Managers que quieren automatizar la burocracia de las ceremonias ágiles.
       </td>
-      <td>
+      <td style="padding: 10px">
         Profesionales de cualquier rubro que tienen demasiadas reuniones y necesitan recordar qué se habló.
       </td>
-      <td>
+      <td style="padding: 10px">
         Equipos de desarrollo de software y corporaciones que ya usan el ecosistema Atlassian.
       </td>
     </tr>
     <tr>
-      <td><strong>Estrategia de Marketing</strong></td>
-      <td>
+      <td style="padding: 10px"><strong>Estrategia de Marketing</strong></td>
+      <td style="padding: 10px">
         Nicho técnico: "Deja de codificar lo que no es. Reqs-AI convierte reuniones caóticas en requerimientos perfectos."
       </td>
-      <td>
+      <td style="padding: 10px">
         Productividad ágil: "Tu asistente de IA que actualiza tu tablero Kanban por ti."
       </td>
-      <td>
+      <td style="padding: 10px">
         Productividad general: "Nunca más tomes notas en una reunión."
       </td>
-      <td>
+      <td style="padding: 10px">
         Ecosistema cerrado: "Todo el poder de la IA, sin salir de tu entorno seguro de Jira."
       </td>
     </tr>
     <tr>
-      <td><strong>Fortalezas</strong></td>
-      <td>
+      <td style="padding: 10px"><strong>Fortalezas</strong></td>
+      <td style="padding: 10px">
         Generación de criterios de aceptación en Gherkin, entendimiento del contexto técnico (RAG con glosarios del cliente) y asistencia consultiva en tiempo real.
       </td>
-      <td>
+      <td style="padding: 10px">
         Cubre todo el ciclo Scrum (Plannings, Dailies, Retrospectives) no solo el levantamiento de requerimientos.
       </td>
-      <td>
+      <td style="padding: 10px">
         Transcripción casi perfecta, búsqueda global de palabras clave, reconocimiento de voz (diarización) excepcional.
       </td>
-      <td>
+      <td style="padding: 10px">
         Confianza corporativa absoluta, seguridad empresarial (Compliance) y cero fricción de adopción para equipos actuales.
       </td>
     </tr>
     <tr>
-      <td><strong>Debilidades</strong></td>
-      <td>
+      <td style="padding: 10px"><strong>Debilidades</strong></td>
+      <td style="padding: 10px">
         Requiere cambiar el hábito del Analista (usar una herramienta externa antes de pasar a Jira). Marca nueva sin confianza corporativa aún.
       </td>
-      <td>
+      <td style="padding: 10px">
         Sus Historias de Usuario son superficiales. Se enfocan en el "Qué" pero fallan gravemente en los detalles técnicos y reglas de negocio complejas.
       </td>
-      <td>
+      <td style="padding: 10px">
         No entienden de software. Un "Action Item" para Otter es "Hacer el login", pero no generará los criterios de aceptación técnicos para el desarrollador.
       </td>
-      <td>
+      <td style="padding: 10px">
         La IA de Jira reacciona a texto, no escucha. El Product Owner todavía tiene que tomar notas en la reunión y luego pedirle a la IA de Jira que las mejore.
       </td>
     </tr>
@@ -509,57 +510,85 @@ El diseño de entrevistas se orienta a comprender en profundidad el trabajo real
 
 **Fase A: Perfil y Ecosistema**
 
-1. *Datos base:* Nombre, edad, distrito y con quién vives.
-2. *Contexto Profesional:* ¿Cuál es tu rol, cuánto tiempo llevas en él y cómo es tu equipo (personas, roles y metodología)?
-3. *Stack de trabajo:* ¿Qué herramientas usas para coordinar reuniones, documentar lo que sale de ellas y gestionar el backlog?
-4. *La "imprescindible":* ¿Cuál herramienta no podrías eliminar de tu flujo y por qué?
-5. *Influencias:* ¿Alguna comunidad o recurso que dicte cómo defines tus prácticas?
+*1. Datos base:* Nombre, edad, distrito y con quién vives.
+
+*2. Contexto Profesional:* ¿Cuál es tu rol, cuánto tiempo llevas en él y cómo es tu equipo (personas, roles y metodología)?
+
+*3. Stack de trabajo:* ¿Qué herramientas usas para coordinar reuniones, documentar lo que sale de ellas y gestionar el backlog?
+
+*4. La "imprescindible":* ¿Cuál herramienta no podrías eliminar de tu flujo y por qué?
+
+*5. Influencias:* ¿Alguna comunidad o recurso que dicte cómo defines tus prácticas?
 
 **Fase B: El Flujo y la Ejecución**
 
-6. *El proceso:* Cuéntame el paso a paso desde que se agenda la reunión de requisitos hasta que la historia entra al sprint.
-7. *Dinámica de reunión:* ¿Quién agenda? ¿Cómo se preparan? ¿Qué haces tú exactamente mientras el cliente habla y quién más participa?
-8. *Post-reunión:* Al terminar, ¿cuál es tu primera acción y qué información queda registrada?
-9. *Foco Técnico:* ¿Desarrollas tú mismo lo que se levantó? ¿Cuánto tiempo pasa hasta tener la historia lista?
-10. *La brecha:* Al trabajar con tus notas, ¿qué información sientes que faltó capturar?
+*6. El proceso:* Cuéntame el paso a paso desde que se agenda la reunión de requisitos hasta que la historia entra al sprint.
+
+*7. Dinámica de reunión:* ¿Quién agenda? ¿Cómo se preparan? ¿Qué haces tú exactamente mientras el cliente habla y quién más participa?
+
+*8. Post-reunión:* Al terminar, ¿cuál es tu primera acción y qué información queda registrada?
+
+*9. Foco Técnico:* ¿Desarrollas tú mismo lo que se levantó? ¿Cuánto tiempo pasa hasta tener la historia lista?
+
+*10. La brecha:* Al trabajar con tus notas, ¿qué información sientes que faltó capturar?
 
 **Fase C: Dolores, Costos y Éxitos**
 
-11. *Puntos de quiebre:* ¿Qué parte es la más desgastante? ¿Dónde hay más malentendidos o pérdida de información?
-12. *Casos reales:* Cuéntame una reunión que salió mal. ¿Qué detalles suelen omitirse al inicio y por qué crees que pasa?
-13. *Impacto en código:* ¿Con qué frecuencia cambian las decisiones técnicas ya en desarrollo? ¿Cómo lo resuelven?
-14. *El costo del error:* Si una historia queda mal definida, ¿cuántas horas de tu propio desarrollo pierdes? ¿Cómo afecta al sprint y a tu estado de ánimo?
-15. *El ideal:* ¿Cuándo sientes que una reunión salió "perfecta"? ¿Qué cambió?
-16. *Validación:* ¿Han intentado automatizar la documentación? ¿Qué cambiarías del proceso si pudieras?
-17. *Cierre:* En una frase honesta, ¿cómo vives este proceso? ¿Algo más que deba saber?
+*11. Puntos de quiebre:* ¿Qué parte es la más desgastante? ¿Dónde hay más malentendidos o pérdida de información?
+
+*12. Casos reales:* Cuéntame una reunión que salió mal. ¿Qué detalles suelen omitirse al inicio y por qué crees que pasa?
+
+*13. Impacto en código:* ¿Con qué frecuencia cambian las decisiones técnicas ya en desarrollo? ¿Cómo lo resuelven?
+
+*14. El costo del error:* Si una historia queda mal definida, ¿cuántas horas de tu propio desarrollo pierdes? ¿Cómo afecta al sprint y a tu estado de ánimo?
+
+*15. El ideal:* ¿Cuándo sientes que una reunión salió "perfecta"? ¿Qué cambió?
+
+*16. Validación:* ¿Han intentado automatizar la documentación? ¿Qué cambiarías del proceso si pudieras?
+
+*17. Cierre:* En una frase honesta, ¿cómo vives este proceso? ¿Algo más que deba saber?
 
 **Segmento 2: Analista de Sistemas Enterprise**
 
 **Fase A: Perfil y Ecosistema**
 
-1. *Datos base:* Nombre, edad, distrito y con quién vives.
-2. *Contexto Profesional:* ¿Cuál es tu rol, cuánto tiempo llevas en él y cómo es tu equipo (personas, roles y metodología)?
-3. *Stack de trabajo:* ¿Qué herramientas usas para coordinar reuniones, documentar lo que sale de ellas y gestionar el backlog?
-4. *La "imprescindible":* ¿Cuál herramienta no podrías eliminar de tu flujo y por qué?
-5. *Influencias:* ¿Alguna comunidad o recurso que dicte cómo defines tus prácticas?
+*1. Datos base:* Nombre, edad, distrito y con quién vives.
+
+*2. Contexto Profesional:* ¿Cuál es tu rol, cuánto tiempo llevas en él y cómo es tu equipo (personas, roles y metodología)?
+
+*3. Stack de trabajo:* ¿Qué herramientas usas para coordinar reuniones, documentar lo que sale de ellas y gestionar el backlog?
+
+*4. La "imprescindible":* ¿Cuál herramienta no podrías eliminar de tu flujo y por qué?
+
+*5. Influencias:* ¿Alguna comunidad o recurso que dicte cómo defines tus prácticas?
 
 **Fase B: El Flujo y la Entrega**
 
-6. *El proceso:* Cuéntame el paso a paso desde que se agenda la reunión de requisitos hasta que la historia entra al sprint.
-7. *Dinámica de reunión:* ¿Quién agenda? ¿Cómo se preparan? ¿Qué haces tú exactamente mientras el cliente habla y quién más participa?
-8. *Post-reunión:* Al terminar, ¿cuál es tu primera acción y qué información queda registrada?
-9. *Foco Funcional:* ¿A quién le entregas los requisitos, en qué formato y cuánto tiempo inviertes en transformar notas en historias formales?
-10. *Alineación:* ¿Cómo te aseguras de que el equipo técnico entendió lo mismo que tú y el cliente?
+*6. El proceso:* Cuéntame el paso a paso desde que se agenda la reunión de requisitos hasta que la historia entra al sprint.
+
+*7. Dinámica de reunión:* ¿Quién agenda? ¿Cómo se preparan? ¿Qué haces tú exactamente mientras el cliente habla y quién más participa?
+
+*8. Post-reunión:* Al terminar, ¿cuál es tu primera acción y qué información queda registrada?
+
+*9. Foco Funcional:* ¿A quién le entregas los requisitos, en qué formato y cuánto tiempo inviertes en transformar notas en historias formales?
+
+*10. Alineación:* ¿Cómo te aseguras de que el equipo técnico entendió lo mismo que tú y el cliente?
 
 **Fase C: Dolores, Relaciones y Éxitos**
 
-11. *Puntos de quiebre:* ¿Qué parte es la más desgastante? ¿Dónde hay más malentendidos o pérdida de información?
-12. *Casos reales:* Cuéntame una reunión que salió mal. ¿Qué detalles suelen omitirse al inicio y por qué crees que pasa?
-13. *Crisis:* ¿Qué pasa si el cliente dice que lo entregado no es lo que pidió? ¿Cómo manejas al cliente y al equipo a la vez?
-14. *El costo del error:* Si una historia está incompleta, ¿quién se ve más afectado y cómo daña la relación con el cliente? ¿Cómo te sientes tú?
-15. *El ideal:* ¿Cuándo sientes que una reunión salió "perfecta"? ¿Qué cambió?
-16. *Validación:* ¿Usan templates o checklists? ¿Qué tan bien funcionan en la realidad vs. el papel? ¿Qué cambiarías del proceso?
-17. *Cierre:* En una frase honesta, ¿cómo vives este proceso? ¿Algo más que deba saber?
+*11. Puntos de quiebre:* ¿Qué parte es la más desgastante? ¿Dónde hay más malentendidos o pérdida de información?
+
+*12. Casos reales:* Cuéntame una reunión que salió mal. ¿Qué detalles suelen omitirse al inicio y por qué crees que pasa?
+
+*13. Crisis:* ¿Qué pasa si el cliente dice que lo entregado no es lo que pidió? ¿Cómo manejas al cliente y al equipo a la vez?
+
+*14. El costo del error:* Si una historia está incompleta, ¿quién se ve más afectado y cómo daña la relación con el cliente? ¿Cómo te sientes tú?
+
+*15. El ideal:* ¿Cuándo sientes que una reunión salió "perfecta"? ¿Qué cambió?
+
+*16. Validación:* ¿Usan templates o checklists? ¿Qué tan bien funcionan en la realidad vs. el papel? ¿Qué cambiarías del proceso?
+
+*17. Cierre:* En una frase honesta, ¿cómo vives este proceso? ¿Algo más que deba saber?
 
 ### 2.2.2. Registro de entrevistas
 
@@ -575,7 +604,7 @@ El diseño de entrevistas se orienta a comprender en profundidad el trabajo real
 | **Fecha de entrevista** | 2026-04-26                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | **Timing**              | 00:00 - 08:44                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | **Video**               | [Ver en Microsoft Stream](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20201e843_upc_edu_pe/IQBfI-e1lo83TbYt7kDQtSnkAdVnWNpkz3TnXS4tGTxTGYk?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=vSJAsl)                                                                                                                                                                                                                                                                                                                                                                 |
-| **Captura**             | ![Captura entrevista Gabriel](assets/images/screenshots/interview-screenshot-leader1.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| **Captura**             | ![Captura entrevista Gabriel](assets/interviews/leader-1.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | **Resumen**             | Gabriel cuenta con experiencia como desarrollador full stack y participa en reuniones de levantamiento de requisitos dentro de un equipo ágil basado en Scrum. Durante la entrevista, señaló que el proceso actual depende en gran medida de reuniones, notas manuales, documentación en Notion y gestión del backlog en Jira. Identificó como principales dificultades la pérdida de información, la ambigüedad en los requisitos y el retrabajo generado cuando no se definen correctamente los flujos o criterios desde el inicio. Además, considera que una solución que automatice el resumen de reuniones y apoye la generación de historias de usuario podría reducir errores y mejorar la claridad del proceso. |
 
 **Segmento Líder Técnico: Entrevistado 2**
@@ -590,7 +619,7 @@ El diseño de entrevistas se orienta a comprender en profundidad el trabajo real
 | **Fecha de entrevista** | 2026-04-26                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | **Timing**              | 08:44 - 18:26                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | **Video**               | [Ver en Microsoft Stream](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20201e843_upc_edu_pe/IQBfI-e1lo83TbYt7kDQtSnkAdVnWNpkz3TnXS4tGTxTGYk?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=vSJAsl)                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| **Captura**             | ![Captura entrevista Ronald](assets/images/screenshots/interview-screenshot-leader2.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| **Captura**             | ![Captura entrevista Ronald](assets/interviews/leader-2.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | **Resumen**             | Ronald se desempeña como líder técnico y participa activamente en el proceso de levantamiento de requisitos junto con perfiles como el Product Owner y el Project Manager. Su equipo trabaja con herramientas como Google Meet, Zoom, Notion, Jira y Trello para coordinar reuniones, documentar acuerdos y gestionar el backlog. Durante la entrevista, destacó que uno de los principales problemas ocurre al traducir lo que el cliente solicita en historias de usuario claras y accionables. Señaló que una historia mal definida puede generar entre cuatro y ocho horas de retrabajo, afectar el avance del sprint y producir frustración en el equipo. Para él, el proceso es necesario, pero todavía depende demasiado de la claridad humana y requiere mayor optimización. |
 
 **Segmento Líder Técnico: Entrevistado 3**
@@ -605,7 +634,7 @@ El diseño de entrevistas se orienta a comprender en profundidad el trabajo real
 | **Fecha de entrevista** | 2026-04-26                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | **Timing**              | 18:26 - 28:42                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | **Video**               | [Ver en Microsoft Stream](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20201e843_upc_edu_pe/IQBfI-e1lo83TbYt7kDQtSnkAdVnWNpkz3TnXS4tGTxTGYk?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=vSJAsl)                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| **Captura**             | ![Captura entrevista Daniela](assets/images/screenshots/interview-screenshot-leader3.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| **Captura**             | ![Captura entrevista Daniela](assets/interviews/leader-3.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | **Resumen**             | Daniela trabaja como desarrolladora backend y también apoya en el levantamiento de requerimientos dentro de un equipo Scrum. En su flujo de trabajo utiliza Google Meet, Google Spaces, Notion, Google Docs, notas personales y Jira para organizar la información obtenida en reuniones con clientes. Durante la entrevista, explicó que los principales problemas aparecen cuando el cliente no comunica con claridad sus necesidades o cuando se omiten validaciones y reglas de negocio importantes. Indicó que estos errores pueden generar retrabajo, retrasos en el sprint y frustración en el equipo. Asimismo, considera que una herramienta capaz de transcribir reuniones y generar historias de usuario de manera automática podría optimizar significativamente el proceso, siempre que mantenga una validación humana. |
 
 ---
@@ -622,7 +651,7 @@ El diseño de entrevistas se orienta a comprender en profundidad el trabajo real
 | **Fecha de entrevista** | 25 de abril de 2026                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | **Timing**              | 28:42 - 44:31                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | **Video**               | [Ver en Microsoft Stream](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20201e843_upc_edu_pe/IQBfI-e1lo83TbYt7kDQtSnkAdVnWNpkz3TnXS4tGTxTGYk?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=vSJAsl)                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| **Captura**             | ![Captura entrevista Renato](./assets/images/screenshots/interview-screenshot-consultor1.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| **Captura**             | ![Captura entrevista Renato](assets/interviews/consultant-1.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | **Resumen**             | Esta entrevista presenta a Renato Torres, analista funcional senior con tres años de experiencia en una consultora tecnológica para el sector bancario. Lidera una célula ágil bajo la metodología Scrum adaptada, utilizando herramientas como Jira, Confluence y Microsoft Teams. Su proceso comienza con el discovery y la redacción de historias de usuario, actuando como un "traductor" entre las necesidades de negocio y el equipo técnico. Renato enfatiza que Jira es su única fuente de verdad para evitar malentendidos. Identifica como principales desafíos la falta de claridad en los procesos de los clientes y la omisión de los decisores finales. Finalmente, destaca que el éxito de su rol en el entorno peruano depende en un 80% de la gestión de expectativas. |
 
 **Segmento Analista Funcional: Entrevistado 2**
@@ -637,7 +666,7 @@ El diseño de entrevistas se orienta a comprender en profundidad el trabajo real
 | **Fecha de entrevista** | 25 de abril de 2026                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | **Timing**              | 44:31 - 54:51                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | **Video**               | [Ver en Microsoft Stream](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20201e843_upc_edu_pe/IQBfI-e1lo83TbYt7kDQtSnkAdVnWNpkz3TnXS4tGTxTGYk?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=vSJAsl)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| **Captura**             | ![Captura entrevista Valentin](./assets/images/screenshots/interview-screenshot-consultor2.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| **Captura**             | ![Captura entrevista Valentin](assets/interviews/consultant-2.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | **Resumen**             | Esta entrevista presenta a Valentín, analista de producto de 25 años con experiencia en una consultora tecnológica. Trabaja en un equipo pequeño de cinco personas bajo una metodología Kanban, priorizando la agilidad sobre la rigidez de Scrum. Su stack incluye Slack, Google Meet, Trello y Notion, siendo esta última su herramienta indispensable para documentar requerimientos. Su proceso se centra en el aspecto visual, utilizando FigJam para crear mapas mentales en vivo y prototipos que reemplazan la documentación extensa. Valentín define su labor como un "caos ordenado" y actúa como puente entre el cliente y los desarrolladores. Entre sus principales desafíos destaca el manejo de cambios imprevistos por stakeholders ausentes y la falta de límites en la comunicación (WhatsApp), subrayando que la empatía con el usuario final es la clave del éxito. |
 
 **Segmento Analista Funcional: Entrevistado 3**
@@ -652,7 +681,7 @@ El diseño de entrevistas se orienta a comprender en profundidad el trabajo real
 | **Fecha de entrevista** | 26 de abril de 2026                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | **Timing**              | 54:51 - 01:05:32                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | **Video**               | [Ver en Microsoft Stream](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20201e843_upc_edu_pe/IQBfI-e1lo83TbYt7kDQtSnkAdVnWNpkz3TnXS4tGTxTGYk?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=vSJAsl)                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| **Captura**             | ![Captura entrevista Daniel](./assets/images/screenshots/interview-screenshot-consultor3.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| **Captura**             | ![Captura entrevista Daniel](assets/interviews/consultant-3.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | **Resumen**             | Esta entrevista presenta a Daniel Franco, analista de sistemas de 30 años en una software factory para el sector bancario. Trabaja bajo el marco SAFe en una célula con roles definidos y procesos rigurosos. Su matriz de trabajo es Azure DevOps, herramienta que considera imprescindible por la trazabilidad y certificación del proceso. Daniel destaca por su enfoque técnico: redacta historias en formato Gherkin, utiliza Enterprise Architect para procesos complejos y se guía por el BABOK Guide. Su mayor desafío operativo es procesar grabaciones de reuniones para evitar ambigüedades, invirtiendo cuatro horas de análisis por cada hora de sesión. Se define como el "guardián de la certidumbre", subrayando que en el entorno corporativo un error de lógica impacta a miles de usuarios financieros. |
 
 ### 2.2.3. Análisis de entrevistas
@@ -663,7 +692,7 @@ Las entrevistas se realizaron entre el 25 y 26 de abril de 2026 a un total de se
 
 **Segmento: Líder Técnico de Startup**
 
-**Total entrevistados:** 3  
+**Total de entrevistados:** 3  
 **Edades:** 22, 22, 23 años  
 **Distritos:** Barranco, Santiago de Surco, San Miguel  
 **Fechas:** 26 de abril de 2026
@@ -687,7 +716,7 @@ Las entrevistas se realizaron entre el 25 y 26 de abril de 2026 a un total de se
 
 **Segmento: Analista Funcional / Producto / Sistemas**
 
-**Total entrevistados:** 3  
+**Total de entrevistados:** 3  
 **Edades:** 25, 28, 30 años  
 **Distritos:** Magdalena, Santiago de Surco  
 **Fechas:** 25 y 26 de abril de 2026
@@ -698,7 +727,7 @@ Las entrevistas se realizaron entre el 25 y 26 de abril de 2026 a un total de se
 - Utilizan plataformas de trazabilidad/documentación como Jira, Notion y Azure DevOps: **3/3 (100%)**
 - Transforman acuerdos de reunión en artefactos formales (historias de usuario, criterios y procesos): **3/3 (100%)**
 - Identifican como riesgo frecuente la falta de claridad del cliente o de stakeholders clave: **3/3 (100%)**
-- Enfrentan una alta carga de post-procesamiento para reducir ambigüedades antes de entregar al equipo: **3/3 (100%)**
+- Enfrentan una alta carga de postprocesamiento para reducir ambigüedades antes de entregar al equipo: **3/3 (100%)**
 
 **Características subjetivas**
 
@@ -711,41 +740,41 @@ Las entrevistas se realizaron entre el 25 y 26 de abril de 2026 a un total de se
 
 **Conclusión general**
 
-El análisis muestra un patrón común en ambos segmentos: el principal cuello de botella no es la captura inicial de la reunión, sino la transformación de conversaciones en requisitos claros, trazables y accionables sin pérdida de contexto. La coincidencia en dolores (ambigüedad, retrabajo, sobrecarga de post-procesamiento e impacto en tiempos de sprint) valida la necesidad de una plataforma que asista en tiempo real con transcripción estructurada, síntesis y generación de historias de usuario. A la vez, los hallazgos refuerzan que la adopción será más sólida si la automatización se diseña como soporte al criterio profesional y no como reemplazo de la validación humana.
+El análisis muestra un patrón común en ambos segmentos: el principal cuello de botella no es la captura inicial de la reunión, sino la transformación de conversaciones en requisitos claros, trazables y accionables sin pérdida de contexto. La coincidencia en dolores (ambigüedad, retrabajo, sobrecarga de postprocesamiento e impacto en tiempos de sprint) válida la necesidad de una plataforma que asista en tiempo real con transcripción estructurada, síntesis y generación de historias de usuario. A la vez, los hallazgos refuerzan que la adopción será más sólida si la automatización se diseña como soporte al criterio profesional y no como reemplazo de la validación humana.
 
 ## 2.3. Need finding
 
 ### 2.3.1. User personas
 
 Esta sección presenta los arquetipos de usuario de Reqs-AI, construidos a partir del análisis de entrevistas realizadas a profesionales del levantamiento de requisitos y del estudio del contexto operativo en startups y entornos enterprise.
-Los user personas sintetizan patrones de comportamiento, objetivos, frustraciones y necesidades clave que luego se conectan con los demás artefactos de needfinding (User Task Matrix, Journey Map, Empathy Map y As-Is Scenario Mapping).
+Los user personas sintetizan patrones de comportamiento, objetivos, frustraciones y necesidades clave que luego se conectan con los demás artefactos de need finding (User Task Matrix, Journey Map, Empathy Map y As-Is Scenario Mapping).
 
 **User persona del segmento de Líder Técnico de Startup**
 
-<img src="assets/requirements/personas/tech-lead.png" alt="User Persona Líder Técnico de Startup" width="800">
+<img src="assets/user-research/personas/persona-tech-lead.png" alt="User Persona Líder Técnico de Startup" style="width: 800px">
 
 **User persona del segmento de Analista de sistemas Enterprise**
 
-<img src="assets/requirements/personas/analista.png" alt="User Persona Analista de Sistemas Enterprise" width="800">
+<img src="assets/user-research/personas/persona-analyst.png" alt="User Persona Analista de Sistemas Enterprise" style="width: 800px">
 
 
 ### 2.3.2. User Task Matrix
 
-En este User Task Matrix se detallan las tareas que realizan los dos segmentos objetivo considerados en Reqs-AI: el Líder Técnico de Startup y el Analista de Sistemas Enterprise. Las tareas descritas corresponden al trabajo real de levantamiento, validación y transferencia de requisitos, y se ejecutan independientemente de la existencia de una herramienta de software.
+En este User Task Matrix se detallan las tareas que realizan los dos segmentos objetivos considerados en Reqs-AI: el Líder Técnico de Startup y el Analista de Sistemas Enterprise. Las tareas descritas corresponden al trabajo real de levantamiento, validación y transferencia de requisitos, y se ejecutan independientemente de la existencia de una herramienta de software.
 
-| **TAREA** | **Diego Alvarado (Líder Técnico de Startup) - Frecuencia** | **Diego Alvarado (Líder Técnico de Startup) - Importancia** | **Analista Enterprise Genérico (Analista de Sistemas Enterprise) - Frecuencia** | **Analista Enterprise Genérico (Analista de Sistemas Enterprise) - Importancia** |
-|---|:---:|:---:|:---:|:---:|
-| Agendar y preparar reuniones de levantamiento de requisitos con stakeholders | always | high | always | high |
-| Escuchar, sintetizar y registrar necesidades funcionales y reglas de negocio durante la reunión | always | high | always | high |
-| Identificar supuestos, restricciones, dependencias y casos de borde | always | high | always | high |
-| Formular preguntas de aclaración para reducir ambiguedad en tiempo real | always | high | always | high |
-| Transformar notas y acuerdos en historias de usuario y criterios de aceptación | always | high | always | high |
-| Estandarizar la redacción de criterios en formato estructurado (por ejemplo, Gherkin) | sometimes | high | always | high |
-| Validar entendimiento con desarrollo y QA antes de comprometer el sprint | always | high | always | high |
-| Gestionar cambios de alcance y negociar prioridades con negocio cuando aparecen nuevas condiciones | sometimes | high | always | high |
-| Mantener trazabilidad de acuerdos, versiones y decisiones para auditoría y control | sometimes | medium | always | high |
-| Revisar grabaciones/minutas y depurar documentación para cerrar vacíos de información | sometimes | medium | always | high |
-| Coordinar reuniones de seguimiento por dudas o contradicciones detectadas después del levantamiento | sometimes | medium | sometimes | high |
+| **TAREA**                                                                                           | **Diego Alvarado (Líder Técnico de Startup) - Frecuencia** | **Diego Alvarado (Líder Técnico de Startup) - Importancia** | **Analista Enterprise Genérico (Analista de Sistemas Enterprise) - Frecuencia** | **Analista Enterprise Genérico (Analista de Sistemas Enterprise) - Importancia** |
+|-----------------------------------------------------------------------------------------------------|:----------------------------------------------------------:|:-----------------------------------------------------------:|:-------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------:|
+| Agendar y preparar reuniones de levantamiento de requisitos con stakeholders                        |                           always                           |                            high                             |                                     always                                      |                                       high                                       |
+| Escuchar, sintetizar y registrar necesidades funcionales y reglas de negocio durante la reunión     |                           always                           |                            high                             |                                     always                                      |                                       high                                       |
+| Identificar supuestos, restricciones, dependencias y casos de borde                                 |                           always                           |                            high                             |                                     always                                      |                                       high                                       |
+| Formular preguntas de aclaración para reducir ambiguedad en tiempo real                             |                           always                           |                            high                             |                                     always                                      |                                       high                                       |
+| Transformar notas y acuerdos en historias de usuario y criterios de aceptación                      |                           always                           |                            high                             |                                     always                                      |                                       high                                       |
+| Estandarizar la redacción de criterios en formato estructurado (por ejemplo, Gherkin)               |                         sometimes                          |                            high                             |                                     always                                      |                                       high                                       |
+| Validar entendimiento con desarrollo y QA antes de comprometer el sprint                            |                           always                           |                            high                             |                                     always                                      |                                       high                                       |
+| Gestionar cambios de alcance y negociar prioridades con negocio cuando aparecen nuevas condiciones  |                         sometimes                          |                            high                             |                                     always                                      |                                       high                                       |
+| Mantener trazabilidad de acuerdos, versiones y decisiones para auditoría y control                  |                         sometimes                          |                           medium                            |                                     always                                      |                                       high                                       |
+| Revisar grabaciones/minutas y depurar documentación para cerrar vacíos de información               |                         sometimes                          |                           medium                            |                                     always                                      |                                       high                                       |
+| Coordinar reuniones de seguimiento por dudas o contradicciones detectadas después del levantamiento |                         sometimes                          |                           medium                            |                                    sometimes                                    |                                       high                                       |
 
 
 La principal diferencia está en el enfoque operativo: el Líder Técnico de Startup prioriza velocidad de ejecución y alineación práctica para codificar cuanto antes, mientras que el Analista de Sistemas Enterprise prioriza estandarización, trazabilidad y control de riesgo. Por ello, en el segmento enterprise aumentan la frecuencia e importancia de actividades formales como redacción estructurada, revisión exhaustiva de evidencias y gestión de cambios bajo criterios de gobernanza.
@@ -756,37 +785,37 @@ A continuación, se presentan los User Journey Maps As-Is de cada User Persona. 
 
 * User Journey Map de Diego Alvarado (Líder Técnico de Startup):
 
-  ![User Journey Map del User Persona Diego Alvarado](assets/requirements/maps/journey-maps/tech-lead.png)
+  ![User Journey Map del User Persona Diego Alvarado](assets/user-research/journey-maps/journey-map-tech-lead.png)
 
-* User Journey Map de Analista Enterprise Genérico (Analista de Sistemas Enterprise):
+* User Journey Map de Analista Enterprise Genérico (Analista de sistemas enterprise):
 
-  ![User Journey Map del User Persona Analista Enterprise Genérico](assets/requirements/maps/journey-maps/analyst.png)
+  ![User Journey Map del User Persona Analista Enterprise Genérico](assets/user-research/journey-maps/journey-map-analyst.png)
 
 ### 2.3.4. Empathy Mapping
 
-Se elaboraron los Empathy Maps para los dos User Personas priorizados: el Líder Técnico de Startup y el Analista de Sistemas Enterprise. Este proceso permitió profundizar en lo que cada segmento dice, piensa, hace, observa y escucha durante el levantamiento de requisitos, identificando sus principales pains y gains para orientar el diseño de una solución realmente alineada con su contexto operativo.
+Se elaboraron los Empathy Maps para los dos user persona priorizados: el Líder Técnico de Startup y el Analista de Sistemas Enterprise. Este proceso permitió profundizar en lo que cada segmento dice, piensa, hace, observa y escucha durante el levantamiento de requisitos, identificando sus principales pains y gains para orientar el diseño de una solución realmente alineada con su contexto operativo.
 
-#### Líder Técnico de Startup
+**Líder Técnico de Startup**
 
-![Empathy Mapping - Tech Lead](assets/requirements/maps/empathy-maps/tech-lead.png)
+![Empathy Mapping - Tech Lead](assets/user-research/empathy-maps/empathy-map-tech-lead.png)
 
-#### Analista de Sistemas Enterprise
+**Analista de sistemas enterprise**
 
-![Empathy Mapping - Analyst](assets/requirements/maps/empathy-maps/analyst.png)
+![Empathy Mapping - Analyst](assets/user-research/empathy-maps/empathy-map-analyst.png)
 
 ### 2.3.5. As-is Scenario Mapping
 
 El equipo elaboró los As-Is Scenario Mapping mediante preparación, lluvia de ideas individual y revisión conjunta por segmento. Con base en entrevistas y artefactos previos, se definieron las fases del recorrido actual de cada User Persona en las filas Steps, Doing, Thinking y Feeling, representando la situación actual sin la solución propuesta.
 
-Además, se identificaron áreas positivas, negativas y blank areas para ubicar con precisión los puntos de mayor impacto operativo y emocional en cada segmento.
+Además, se identificaron áreas positivas, negativas y blank áreas para ubicar con precisión los puntos de mayor impacto operativo y emocional en cada segmento.
 
 **As-Is Scenario Mapping de Diego Alvarado (Líder Técnico de Startup)**
 
-![As-Is Scenario Mapping - Tech Lead](assets/requirements/maps/as-is-scenarios/tech-lead.png)
+![As-Is Scenario Mapping - Tech Lead](assets/user-research/as-is-scenarios/as-is-tech-lead.png)
 
 **As-Is Scenario Mapping de Analista Enterprise Genérico (Analista de Sistemas Enterprise)**
 
-![As-Is Scenario Mapping - Analyst](assets/requirements/maps/as-is-scenarios/analyst.png)
+![As-Is Scenario Mapping - Analyst](assets/user-research/as-is-scenarios/as-is-analyst.png)
 
 ## 2.4. Ubiquitous Language
 
@@ -825,11 +854,11 @@ El escenario To-Be propone sesiones de levantamiento con mayor validación en ti
 
 **To-Be Scenario Mapping de Diego Alvarado (Líder Técnico de Startup)**
 
-![To-Be Scenario Mapping - Tech Lead](assets/requirements/maps/to-be-scenarios/tech-lead.png)
+![To-Be Scenario Mapping - Tech Lead](assets/user-research/to-be-scenarios/to-be-tech-lead.png)
 
 **To-Be Scenario Mapping de Analista Enterprise Genérico (Analista de Sistemas Enterprise)**
 
-![To-Be Scenario Mapping - Analyst](assets/requirements/maps/to-be-scenarios/analyst.png)
+![To-Be Scenario Mapping - Analyst](assets/user-research/to-be-scenarios/to-be-analyst.png)
 
 ## 3.2. User Stories
 
@@ -996,11 +1025,11 @@ Las historias de usuario, junto con sus estimaciones en Story Points, Criterios 
 [https://uni-ride.atlassian.net/jira/software/projects/REQ/boards/299/backlog](https://uni-ride.atlassian.net/jira/software/projects/REQ/boards/299/backlog) *(Enlace de acceso).*
 
 **Captura del Product Backlog (Priorizado):**  
-![Product Backlog Jira Reference](assets/annexes/jira-backlog-prioritized.png)
+![Product Backlog Jira Reference](assets/annexes/jira-backlog.png)
 
 ## 3.4. Impact Mapping
 
-En esta sección presentamos el Impact Mapping del modelo de negocio digital de Reqs-AI. Para su elaboración partimos de las User Personas definidas previamente, **Miguel Ocampo** y **Diego Alvarado**, y conectamos cada objetivo de negocio con los cambios de comportamiento esperados (impacts), los entregables del producto (deliverables) y las historias de usuario del backlog.
+En esta sección presentamos el Impact Mapping del modelo de negocio digital de Reqs-AI. Para su elaboración partimos de las user persona definidas previamente, **Miguel Ocampo** y **Diego Alvarado**, y conectamos cada objetivo de negocio con los cambios de comportamiento esperados (impacts), los entregables del producto (deliverables) y las historias de usuario del backlog.
 
 El mapa fue estructurado con **tres Business Goals SMART** para mantener foco estratégico y trazabilidad funcional:
 
@@ -1012,9 +1041,9 @@ Para cada meta, el mapa diferencia el rol de cada persona: Miguel concentra impa
 
 La trazabilidad final se mantiene en formato **Goal -> Persona -> Impact -> Deliverable -> User Story**, usando únicamente historias **US** del Product Backlog para asegurar consistencia entre estrategia y planificación de producto.
 
-![Impact Mapping Reqs-AI](./assets/requirements/maps/impact-map/impact-mapping.png)
+![Impact Mapping Reqs-AI](./assets/user-research/impact-map/impact-map.png)
 
-[Ver imagen detallada](./assets/requirements/maps/impact-map/impact-mapping.png)
+[Ver imagen detallada](./assets/user-research/impact-map/impact-map.png)
 
 # Capítulo IV: Strategic-Level Product Design
 
@@ -1028,7 +1057,7 @@ Este diseño está directamente orientado a satisfacer las necesidades críticas
 * **Para el Líder Técnico de Startup:** La arquitectura priorizará el rendimiento y la integración (flujos automatizados hacia herramientas como Jira), asegurando agilidad y la reducción del tiempo entre el *discovery* y el desarrollo.
 * **Para la Analista Enterprise:** El diseño se centrará en la seguridad y la privacidad de los datos, estableciendo una arquitectura *Multitenancy* con aislamiento de datos estricto (*Row Level Security*), cumpliendo así con las exigencias corporativas y mitigando los riesgos de fuga de información.
 
-A nivel de negocio para la startup Kntro-Soft, el diseño tiene el propósito de habilitar el modelo de distribución SaaS (Software as a Service). La arquitectura debe soportar el sistema de suscripciones y facturación, gestionar los límites de consumo de los motores de IA (LLMs) para mantener la rentabilidad, y asegurar que la plataforma pueda escalar el procesamiento de múltiples organizaciones concurrentes sin degradar la experiencia de usuario.
+A nivel de negocio para la startup Kntro-Soft, el diseño tiene el propósito de habilitar el modelo de distribución SaaS (Software as a Service). La arquitectura debe soportar el sistema de suscripciones y facturación, gestionar los límites de consumo de los motores de IA (LLM) para mantener la rentabilidad, y asegurar que la plataforma pueda escalar el procesamiento de múltiples organizaciones concurrentes sin degradar la experiencia de usuario.
 
 ### 4.1.2.	Attribute-Driven Design Inputs
 
@@ -1036,7 +1065,7 @@ En esta sección se presentan las entradas fundamentales requeridas para ejecuta
 
 #### 4.1.2.1.	Primary Functionality (Primary User Stories)
 
-A continuación, se detallan las Historias de Usuario primarias que tienen el mayor impacto arquitectónico en el diseño de Reqs-AI. Estas funcionalidades han sido seleccionadas porque introducen requerimientos complejos de procesamiento asíncrono (análisis de audio en tiempo real), integración con servicios de Inteligencia Artificial (LLMs) y aislamiento estricto de datos (Multitenancy), elementos que dictarán la topología base del sistema.
+A continuación, se detallan las Historias de Usuario primarias que tienen el mayor impacto arquitectónico en el diseño de Reqs-AI. Estas funcionalidades han sido seleccionadas porque introducen requerimientos complejos de procesamiento asíncrono (análisis de audio en tiempo real), integración con servicios de Inteligencia Artificial (LLM) y aislamiento estricto de datos (Multitenancy), elementos que dictarán la topología base del sistema.
 
 | Epic / User Story ID | Título                             | Descripción                                                                                                                                                                                     | Criterios de Aceptación                                                                                                                                                                                                                                                          | Relacionado con (Epic ID) |
 |:---------------------|:-----------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------|
@@ -1058,7 +1087,7 @@ En esta sección se definen los escenarios de atributos de calidad más crítico
 
 ##### 4.1.2.3.	Constraints
 
-Esta sección describe las restricciones innegociables impuestas por el modelo de negocio, las capacidades técnicas del equipo y la viabilidad del proyecto. Las principales restricciones incluyen la dependencia de APIs de LLMs externos y el uso del stack tecnológico (Java/Spring Boot y Angular/Vue.js). A continuación, se detallan como Technical Stories:
+Esta sección describe las restricciones innegociables impuestas por el modelo de negocio, las capacidades técnicas del equipo y la viabilidad del proyecto. Las principales restricciones incluyen la dependencia de API de LLM externos y el uso del stack tecnológico (Java/Spring Boot y Angular/Vue.js). A continuación, se detallan como Technical Stories:
 
 | Technical Story ID | Título                               | Descripción                                                                                                                                                            | Criterios de Aceptación                                                                                                                                                                              | Relacionado con (Epic ID) |
 |:-------------------|:-------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------|
@@ -1070,16 +1099,16 @@ Esta sección describe las restricciones innegociables impuestas por el modelo d
 
 En esta sección se establece el conjunto de Architectural Drivers acordados por el equipo, resultado del proceso iterativo en nuestro Quality Attribute Workshop (QAW). El Architectural Drivers Backlog consolida los Functional Drivers seleccionados (provenientes de las historias de usuario críticas), los Quality Attribute Drivers seleccionados (Performance, Security, Availability, Modifiability) y todos los Constraints del negocio y la tecnología. Todos los Drivers se presentan a continuación, habiendo sido priorizados de forma descendente colocando primero aquellos que representan una Alta importancia para los Stakeholders y un Alto impacto en la Complejidad Técnica de la Arquitectura.
 
-| Driver ID | Título de Driver                                          | Descripción                                                                                                                                                                            | Importancia para Stakeholders (High, Medium, Low) | Impacto en Architecture Technical Complexity (High, Medium, Low) |
-|:----------|:----------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------|:-----------------------------------------------------------------|
-| **AD-01** | Procesamiento de Audio en Tiempo Real e Integración LLM   | El sistema debe ingestar flujos continuos de audio (STT) en <2s y consolidar la inferencia del modelo LLM (Gherkin) en <20s, gestionando operaciones asíncronas durante las reuniones. | High                                              | High                                                             |
-| **AD-02** | Arquitectura Multitenancy y Aislamiento de Datos          | El diseño debe garantizar la separación estricta de la información (Row Level Security) entre organizaciones corporativas, denegando el 100% de los accesos cruzados.                  | High                                              | High                                                             |
+| Driver ID | Título de Driver                                          | Descripción                                                                                                                                                                                                                        | Importancia para Stakeholders (High, Medium, Low) | Impacto en Architecture Technical Complexity (High, Medium, Low) |
+|:----------|:----------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------|:-----------------------------------------------------------------|
+| **AD-01** | Procesamiento de Audio en Tiempo Real e Integración LLM   | El sistema debe ingestar flujos continuos de audio (STT) en <2s y consolidar la inferencia del modelo LLM (Gherkin) en <20s, gestionando operaciones asíncronas durante las reuniones.                                             | High                                              | High                                                             |
+| **AD-02** | Arquitectura Multitenancy y Aislamiento de Datos          | El diseño debe garantizar la separación estricta de la información (Row Level Security) entre organizaciones corporativas, denegando el 100% de los accesos cruzados.                                                              | High                                              | High                                                             |
 | **AD-03** | Tolerancia a Fallos en Servicios de IA Externos           | El sistema debe ser capaz de soportar caídas de las APIs de IA (Timeout/5xx) sin perder datos, procesando las sesiones de forma asíncrona mediante el patrón Observer (Eventos de Spring) y control de estado en la Base de Datos. | High                                              | High                                                             |
-| **AD-04** | Dependencia Estricta de APIs de LLM Externas              | Todo el procesamiento de inteligencia generativa dependerá de proveedores externos, lo que obliga al diseño a gestionar *rate limits* y costos operativos.                             | High                                              | High                                                             |
-| **AD-05** | Ingesta de Contexto del Cliente y Motor RAG               | El sistema debe fragmentar (chunking) y vectorizar los PDFs de contexto de las empresas en <10s para proveer Retrieval-Augmented Generation en las inferencias.                        | High                                              | Medium                                                           |
-| **AD-06** | Modificabilidad de Proveedores de Inteligencia Artificial | La arquitectura debe ser agnóstica al proveedor del LLM, permitiendo el reemplazo de la API de IA (ej. de OpenAI a Anthropic) en <16 horas de desarrollo mediante adaptadores.         | High                                              | Medium                                                           |
-| **AD-07** | Despliegue en Cloud Pública                               | Todos los componentes deben ser contenerizados y desplegados en una nube pública como AWS o Azure para minimizar costos *on-premise* y permitir la escalabilidad.                      | Medium                                            | Medium                                                           |
-| **AD-08** | Stack Tecnológico Base de Desarrollo                      | El backend debe desarrollarse en Java (Spring Boot) y el frontend en Angular/Vue.js debido al conocimiento técnico previo del equipo, limitando la adopción de otros lenguajes core.   | Medium                                            | Low                                                              |
+| **AD-04** | Dependencia Estricta de APIs de LLM Externas              | Todo el procesamiento de inteligencia generativa dependerá de proveedores externos, lo que obliga al diseño a gestionar *rate limits* y costos operativos.                                                                         | High                                              | High                                                             |
+| **AD-05** | Ingesta de Contexto del Cliente y Motor RAG               | El sistema debe fragmentar (chunking) y vectorizar los PDFs de contexto de las empresas en <10s para proveer Retrieval-Augmented Generation en las inferencias.                                                                    | High                                              | Medium                                                           |
+| **AD-06** | Modificabilidad de Proveedores de Inteligencia Artificial | La arquitectura debe ser agnóstica al proveedor del LLM, permitiendo el reemplazo de la API de IA (ej. de OpenAI a Anthropic) en <16 horas de desarrollo mediante adaptadores.                                                     | High                                              | Medium                                                           |
+| **AD-07** | Despliegue en Cloud Pública                               | Todos los componentes deben ser contenerizados y desplegados en una nube pública como AWS o Azure para minimizar costos *on-premise* y permitir la escalabilidad.                                                                  | Medium                                            | Medium                                                           |
+| **AD-08** | Stack Tecnológico Base de Desarrollo                      | El backend debe desarrollarse en Java (Spring Boot) y el frontend en Angular/Vue.js debido al conocimiento técnico previo del equipo, limitando la adopción de otros lenguajes core.                                               | Medium                                            | Low                                                              |
 
 ### 4.1.4.	Architectural Design Decisions
 
@@ -1089,32 +1118,32 @@ En esta sección se detalla el proceso seguido durante las iteraciones (Stages) 
 En esta primera iteración se evaluó la estructura general del backend y cómo gestionar el aislamiento de datos. Se descartó la arquitectura de Microservicios por su alta complejidad operativa, optando por un **Monolito Modular** en Spring Boot (AD-08). Para resolver la separación de datos entre empresas (AD-02), se debatió entre *Database-per-Tenant* y *Shared-Database*. Se eligió la base de datos compartida aplicando políticas estrictas de **Row Level Security (RLS)** a nivel de base de datos (ej. PostgreSQL), lo que garantiza el aislamiento del 100% de la información mientras se optimizan los costos de despliegue en la nube (AD-07).
 
 **Iteración 2: Ingesta de Audio en Tiempo Real y Tolerancia a Fallos (Drivers: AD-01, AD-03)**
-El reto principal fue cumplir con la latencia <2s para la transcripción en vivo (AD-01). Se evaluó REST Polling, Server-Sent Events (SSE) y WebSockets. Se eligió **WebSockets** por permitir una comunicación bidireccional continua (necesaria para mandar fragmentos de audio al server y recibir texto del STT simultáneamente). Para la tolerancia a fallos ante caídas de las APIs de IA (AD-03), se descartó la complejidad de un **Message Broker externo** y se adoptó el uso de **Colas en Memoria RAM (Patrón Observer)** junto con persistencia de estado en la Base de Datos, optimizando la latencia y reduciendo costos de infraestructura en el MVP.
+El reto principal fue cumplir con la latencia <2 s para la transcripción en vivo (AD-01). Se evaluó REST Polling, Server-Sent Events (SSE) y WebSockets. Se eligió **WebSockets** por permitir una comunicación bidireccional continua (necesaria para mandar fragmentos de audio al server y recibir texto del STT simultáneamente). Para la tolerancia a fallos ante caídas de las API de IA (AD-03), se descartó la complejidad de un **Message Broker externo** y se adoptó el uso de **Colas en Memoria RAM (Patrón Observer)** junto con persistencia de estado en la Base de Datos, optimizando la latencia y reduciendo costos de infraestructura en el MVP.
 
 **Iteración 3: Integración RAG y Modificabilidad de IA (Drivers: AD-04, AD-05, AD-06)**
-Finalmente, el equipo abordó cómo evitar el acoplamiento con las APIs de IA de terceros y cómo lograr el RAG rápido (AD-05). Se descartó la Arquitectura en Capas tradicional a favor de una **Arquitectura Hexagonal (Ports and Adapters)**. Esto permite encapsular las reglas de negocio del *Prompt Engineering* en el dominio, dejando a OpenAI o Anthropic como simples "adaptadores", cumpliendo la meta de intercambiabilidad en <16h (AD-06). Para el almacenamiento del contexto del cliente, se eligió una **Base de Datos Vectorial** (ej. pgvector) superando las limitaciones de búsqueda semántica de las BD relacionales tradicionales.
+Finalmente, el equipo abordó cómo evitar el acoplamiento con las API de IA de terceros y cómo lograr el RAG rápido (AD-05). Se descartó la Arquitectura en Capas tradicional a favor de una **Arquitectura Hexagonal (Ports and Adapters)**. Esto permite encapsular las reglas de negocio del *Prompt Engineering* en el dominio, dejando a OpenAI o Anthropic como simples "adaptadores", cumpliendo la meta de intercambiabilidad en <16 h (AD-06). Para el almacenamiento del contexto del cliente, se eligió una **Base de Datos Vectorial** (ej. pgvector) superando las limitaciones de búsqueda semántica de las BD relacionales tradicionales.
 
 **Candidate Pattern Evaluation Matrix**
 
 La siguiente matriz resume la evaluación de los patrones candidatos considerados para los Drivers más críticos, justificando técnica y económicamente la decisión final del equipo.
 
-| Driver ID | Título de Driver                          | Pattern 1                                                                                                                                                                                                                                       | Pattern 2                                                                                                                                                                                                                                                                                      | Pattern 3                                                                                                                                                                                                                |
-|:----------|:------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **AD-01** | Procesamiento de Audio en Tiempo Real     | **REST Long Polling**<br>**Pro:** Fácil implementación inicial.<br>**Con:** Genera una alta latencia de red e interrumpe el flujo continuo del audio, incumpliendo la meta de <2s. *(Descartado)*                                               | **WebSockets** *(Elegido)*<br>**Pro:** Comunicación bidireccional y persistente, latencia casi nula para *streaming* de audio a texto.<br>**Con:** Añade complejidad al manejo de estados y balanceo de carga.                                                                                 | **Server-Sent Events (SSE)**<br>**Pro:** Excelente para enviar texto del servidor al cliente con soporte HTTP nativo.<br>**Con:** Es unidireccional. No sirve para que el cliente envíe su audio en vivo. *(Descartado)* |
-| **AD-02** | Arquitectura Multitenancy y Aislamiento   | **Database per Tenant**<br>**Pro:** Aislamiento físico de datos impecable. Fácil restauración.<br>**Con:** Costos exorbitantes para una startup si la plataforma escala a miles de pequeñas empresas. *(Descartado)*                            | **Shared Database con Row Level Security** *(Elegido)*<br>**Pro:** Maximiza la economía de infraestructura. El motor (PostgreSQL) asegura que un inquilino jamás vea datos ajenos.<br>**Con:** Un error en la configuración de la política expone a todos.                                     | *(No se evaluó un 3er patrón)*                                                                                                                                                                                           |
+| Driver ID | Título de Driver                          | Pattern 1                                                                                                                                                                                                                                                                                                                                                 | Pattern 2                                                                                                                                                                                                                                                                                                                                      | Pattern 3                                                                                                                                                                                                                |
+|:----------|:------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **AD-01** | Procesamiento de Audio en Tiempo Real     | **REST Long Polling**<br>**Pro:** Fácil implementación inicial.<br>**Con:** Genera una alta latencia de red e interrumpe el flujo continuo del audio, incumpliendo la meta de <2s. *(Descartado)*                                                                                                                                                         | **WebSockets** *(Elegido)*<br>**Pro:** Comunicación bidireccional y persistente, latencia casi nula para *streaming* de audio a texto.<br>**Con:** Añade complejidad al manejo de estados y balanceo de carga.                                                                                                                                 | **Server-Sent Events (SSE)**<br>**Pro:** Excelente para enviar texto del servidor al cliente con soporte HTTP nativo.<br>**Con:** Es unidireccional. No sirve para que el cliente envíe su audio en vivo. *(Descartado)* |
+| **AD-02** | Arquitectura Multitenancy y Aislamiento   | **Database per Tenant**<br>**Pro:** Aislamiento físico de datos impecable. Fácil restauración.<br>**Con:** Costos exorbitantes para una startup si la plataforma escala a miles de pequeñas empresas. *(Descartado)*                                                                                                                                      | **Shared Database con Row Level Security** *(Elegido)*<br>**Pro:** Maximiza la economía de infraestructura. El motor (PostgreSQL) asegura que un inquilino jamás vea datos ajenos.<br>**Con:** Un error en la configuración de la política expone a todos.                                                                                     | *(No se evaluó un 3er patrón)*                                                                                                                                                                                           |
 | **AD-03** | Tolerancia a Fallos en Servicios Externos | **Cola en Memoria RAM local (Patrón Observer con @Async)** *(Elegido)*<br>**Pro:** Muy rápido (latencia mínima), simplicidad de código y no requiere aprovisionar infraestructura extra (RabbitMQ/Kafka).<br>**Con:** Si el servidor se reinicia abruptamente, los eventos en memoria se pierden, por lo que el estado debe respaldarse en Base de Datos. | **Message Broker Persistente (ej. RabbitMQ / Kafka)** *(Descartado)*<br>**Pro:** Garantiza la durabilidad total de los mensajes y retries automáticos si el pod falla.<br>**Con:** Exceso de ingeniería (Overengineering) para la etapa actual del proyecto. Requiere aprovisionar, configurar y pagar por otro componente pesado en el cloud. | *(No se evaluó un 3er patrón)*                                                                                                                                                                                           |
-| **AD-06** | Modificabilidad de Proveedores IA         | **Arquitectura Monolítica en Capas**<br>**Pro:** Modelo mental simple para el equipo (Controllers, Services, Repositories).<br>**Con:** Lógica de negocio altamente acoplada al SDK del proveedor de IA. Tomaría semanas migrar. *(Descartado)* | **Arquitectura Hexagonal (Ports & Adapters)** *(Elegido)*<br>**Pro:** El dominio ignora qué IA se usa. Cambiar a Anthropic solo exige escribir un nuevo Adapter para el Port correspondiente en <16h.<br>**Con:** Exige escribir más código *boilerplate* y dominar Inyección de Dependencias. | *(No se evaluó un 3er patrón)*                                                                                                                                                                                           |
+| **AD-06** | Modificabilidad de Proveedores IA         | **Arquitectura Monolítica en Capas**<br>**Pro:** Modelo mental simple para el equipo (Controllers, Services, Repositories).<br>**Con:** Lógica de negocio altamente acoplada al SDK del proveedor de IA. Tomaría semanas migrar. *(Descartado)*                                                                                                           | **Arquitectura Hexagonal (Ports & Adapters)** *(Elegido)*<br>**Pro:** El dominio ignora qué IA se usa. Cambiar a Anthropic solo exige escribir un nuevo Adapter para el Port correspondiente en <16h.<br>**Con:** Exige escribir más código *boilerplate* y dominar Inyección de Dependencias.                                                 | *(No se evaluó un 3er patrón)*                                                                                                                                                                                           |
 
 ### 4.1.5.	Quality Attribute Scenario Refinements
 
 
-Tras finalizar las iteraciones del *Quality Attribute Workshop* y definir los patrones arquitectónicos base (WebSockets para el streaming, Shared DB con Row Level Security para el multitenancy, y Arquitectura Orientada a Eventos en Memoria para la tolerancia a fallos), procedemos a refinar los escenarios de atributos de calidad priorizados. Estos refinamientos incorporan los artefactos tecnológicos que ahora conocemos y mapean directamente los escenarios con los objetivos de negocio (Business Goals) de la plataforma SaaS, identificando además las preguntas abiertas y riesgos remanentes (Issues).
+Tras finalizar las iteraciones del *Quality Attribute Workshop* y definir los patrones arquitectónicos base (WebSockets para el streaming, Shared DB con Row Level Security para el multitenancy, y Arquitectura Orientada Eventos en Memoria para la tolerancia a fallos), procedemos a refinar los escenarios de atributos de calidad priorizados. Estos refinamientos incorporan los artefactos tecnológicos que ahora conocemos y mapean directamente los escenarios con los objetivos de negocio (Business Goals) de la plataforma SaaS, identificando además las preguntas abiertas y riesgos remanentes (Issues).
 
 A continuación, se presenta la versión final de los escenarios refinados en orden de prioridad.
 
 <br>
 
-<table border="1" style="width: 100%; border-collapse: collapse;">
+<table style="width: 100%; border: 1px solid; border-collapse: collapse;">
   <tr>
     <th colspan="2" style="text-align: left; padding: 8px;">Scenario Refinement for Scenario 1</th>
     <th style="padding: 8px;">Procesamiento de Audio en Tiempo Real (Streaming)</th>
@@ -1169,7 +1198,7 @@ A continuación, se presenta la versión final de los escenarios refinados en or
 
 <br>
 
-<table border="1" style="width: 100%; border-collapse: collapse;">
+<table style="width: 100%; border: 1px solid; border-collapse: collapse;">
   <tr>
     <th colspan="2" style="text-align: left; padding: 8px;">Scenario Refinement for Scenario 2</th>
     <th style="padding: 8px;">Arquitectura Multitenancy y Aislamiento de Datos</th>
@@ -1202,7 +1231,7 @@ A continuación, se presenta la versión final de los escenarios refinados en or
   </tr>
   <tr>
     <td style="padding: 8px;"><strong>Artifact (if Known):</strong></td>
-    <td style="padding: 8px;">API Gateway, Spring Security y Base de Datos PostgreSQL (Shared DB con RLS).</td>
+    <td style="padding: 8px;">API Gateway, Spring Security y Base de Datos PostgresSQL (Shared DB con RLS).</td>
   </tr>
   <tr>
     <td style="padding: 8px;"><strong>Response:</strong></td>
@@ -1214,7 +1243,7 @@ A continuación, se presenta la versión final de los escenarios refinados en or
   </tr>
   <tr>
     <td colspan="2" style="padding: 8px;"><strong>Questions:</strong></td>
-    <td style="padding: 8px;">¿Cómo afecta la validación de políticas RLS al rendimiento de las consultas complejas (JOINs) cuando la tabla principal supere el millón de registros?</td>
+    <td style="padding: 8px;">¿Cómo afecta la validación de políticas RLS al rendimiento de las consultas complejas (JOIN) cuando la tabla principal supere el millón de registros?</td>
   </tr>
   <tr>
     <td colspan="2" style="padding: 8px;"><strong>Issues:</strong></td>
@@ -1224,7 +1253,7 @@ A continuación, se presenta la versión final de los escenarios refinados en or
 
 <br>
 
-<table border="1" style="width: 100%; border-collapse: collapse;">
+<table style="width: 100%; border: 1px solid; border-collapse: collapse;">
   <tr>
     <th colspan="2" style="text-align: left; padding: 8px;">Scenario Refinement for Scenario 3</th>
     <th style="padding: 8px;">Tolerancia a Fallos en Servicios de IA</th>
@@ -1285,201 +1314,232 @@ Para establecer una base sólida en el diseño guiado por el dominio (DDD) y fac
 
 La sesión se estructuró siguiendo una agenda iterativa para construir el modelo de forma progresiva:
 
-1. **Domain Events (Eventos de Dominio):** Iniciamos la sesión identificando y ordenando cronológicamente en post-its naranjas los hechos relevantes que ya han ocurrido en el sistema (verbos en participio pasado). La línea de tiempo abarcó desde Organización Registrada y Suscripción Pagada, pasando por el núcleo operativo, hasta eventos de cierre como Historias Exportadas a Jira.
+**1. Domain Events:** Iniciamos la sesión identificando en post-its naranjas los hechos relevantes que ocurren en el sistema (escritos como verbos en participio pasado). En esta etapa inicial nos centramos únicamente en la lluvia de ideas de todos los eventos posibles sin preocuparnos por el orden temporal exacto.
 
-![Event Storming](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Domain-Events.jpg)
+![Domain Events](assets/event-storming/domain-events.jpg)
 
-2. **Commands (Comandos):** A la izquierda de cada evento naranja, colocamos post-its azules que representan la acción o intención que provocó dicho evento. Por ejemplo, el comando Procesar Audio precede al evento Audio Transcrito, y el comando Generar Historia de usuario precede a Historia de Usuario Generada.
+**2. Timeline:** Una vez identificados los eventos, procedimos a organizarlos cronológicamente, creando una línea de tiempo lógica que abarca desde el registro de la organización hasta la exportación de las historias de usuario aprobadas.
 
-![Event Storming](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Commands.jpg)
+![Timeline](assets/event-storming/timeline.jpg)
 
-5. **Actors and Policies (Actores y Políticas):** Identificamos qué o quién ejecuta los comandos. Utilizamos post-its amarillos pequeños para los actores humanos, destacando a nuestros roles principales: Líder Técnico, Analista Enterprise. Para las acciones automatizadas de nuestro SaaS, usamos post-its lilas (Políticas), redactadas como reacciones.
+**3. Pain Points:** Con la línea de tiempo establecida, analizamos el flujo para identificar cuellos de botella, problemas potenciales o áreas de fricción (representados visualmente para destacar conflictos en el dominio). Esto nos ayudó a visualizar dónde el sistema requería atención especial.
 
-![Event Storming](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Actors-and-Policies.jpg)
+![Pain Points](assets/event-storming/pain-points.jpg)
 
-5. **Blank stickies for Read models and UX mockups:** Para garantizar que el diseño de software contemple la experiencia del usuario, insertamos post-its verdes y blancos vacíos justo antes de las decisiones (comandos) de los actores, marcando los lugares donde el usuario necesita información antes de actuar.
+**4. Pivotal Points:** Marcamos los eventos cruciales que representan cambios de estado significativos o transiciones importantes en el ciclo de vida del negocio (por ejemplo, el momento en que se completa el pago o se genera la historia de usuario).
 
-![Event Storming](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Blank-stickies.jpg)
+![Pivotal Points](assets/event-storming/pivotal-points.jpg)
 
-6. **Read models and UX Mockups:** Llenamos los post-its vacíos detallando la información necesaria (post-its verdes), como Estado de Transcripción en Vivo o Dashboard de Consumo de Tokens, y agregamos bocetos rápidos (wireframes en post-its blancos) para visualizar la interfaz de la consola de captura de Reqs-AI.
+**5. Commands and Actors:** A la izquierda de los eventos, colocamos post-its azules que representan la acción o intención (comandos) que provoca dicho evento. Además, identificamos qué o quién ejecuta estos comandos utilizando post-its amarillos pequeños para los actores humanos (como el Líder Técnico o el Analista Enterprise).
 
-![Event Storming](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/RM-and-UX.jpg)
+![Commands and Actors](assets/event-storming/commands.jpg)
 
-7. **External systems (Sistemas Externos):** Mapeamos las dependencias críticas de Reqs-AI utilizando post-its rosados. Los colocamos entre los comandos y los eventos cuando la acción delegaba responsabilidad a un tercero. Fue fundamental para diagramar llamadas a la API de IA (generación de historias), a la pasarela de pago (facturación) y a la API de Jira (exportación).
+**6. Policies:** Para las acciones automatizadas o lógicas reactivas del sistema, utilizamos post-its lilas representando las políticas. **Es importante destacar que en esta etapa es donde se diseñan las soluciones automáticas y reglas de negocio para resolver los Pain Points identificados anteriormente. Por esta razón, los marcadores de Pain Points desaparecen de los diagramas en los siguientes pasos, ya que el diseño del flujo y las políticas han mitigado esos problemas.**
 
-![Event Storming](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/External-services.jpg)
+![Policies](assets/event-storming/policies.jpg)
 
-8. **Aggregates and Business Rules (Agregados y Reglas de Negocio):** Esta fue la etapa más crítica del diseño. Añadimos post-its amarillos rectangulares entre los comandos y los eventos para documentar las Reglas de Negocio (Business Rules) requeridas, definiendo precondiciones, postcondiciones e invariantes
+**7. Read Models:** Insertamos post-its verdes detallando la información necesaria que el usuario debe visualizar antes de tomar una decisión o ejecutar un comando (por ejemplo, el Dashboard de Consumo de Tokens o la vista de transcripción).
 
-![Event Storming](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Aggregates.jpg)
+![Read Models](assets/event-storming/read-models.jpg)
 
-El resultado de la sesión de Design-Level Event Storming fue un mapa exhaustivo y altamente estructurado del dominio de Reqs-AI. Pasamos de una simple línea de tiempo a un conjunto de Agregados claramente definidos, destacando Aggregates críticos como Organization (para el multitenancy), Subscription, Session y UserStory.
+**8. External Services:** Mapeamos las dependencias críticas de Reqs-AI utilizando post-its rosados. Los colocamos entre los comandos y los eventos cuando la acción delega responsabilidad a un tercero (API de IA para LLM, pasarela de pago para Billing, y API de Jira para exportación).
+
+![External Services](assets/event-storming/external-services.jpg)
+
+**9. Aggregates:** Como última capa de agrupación estructural, añadimos post-its amarillos grandes alrededor de los comandos, eventos y modelos de lectura asociados para documentar los Agregados (Aggregates). Estos definen las entidades transaccionales clave y las fronteras de consistencia de datos dentro del dominio.
+
+![Aggregates](assets/event-storming/aggregates.jpg)
+
+El resultado de la sesión de Design-Level Event Storming fue un mapa exhaustivo y altamente estructurado del dominio de Reqs-AI. Pasamos de una simple lluvia de ideas a un conjunto de Agregados claramente definidos.
+
+El paso final metodológico del Event Storming, que consiste en agrupar estos Agregados dentro de las fronteras lógicas de los Bounded Contexts correspondientes, se abordará en detalle en la siguiente sección, donde evaluaremos las relaciones semánticas y cohesivas para definir la arquitectura final del dominio.
 
 ### 4.2.2.	Candidate Context Discovery
 
-A partir del dominio modelado en nuestra sesión de EventStorming, el equipo llevó a cabo un taller colaborativo de descubrimiento de contextos de aproximadamente 2 horas. El objetivo de esta fase fue trazar fronteras lógicas alrededor de los Agregados identificados previamente, con el fin de descomponer el sistema en módulos altamente cohesivos y con bajo acoplamiento (Bounded Contexts).
+A partir del dominio modelado en nuestra sesión de EventStorming, el equipo llevó a cabo un taller colaborativo de descubrimiento de contextos (Candidate Context Discovery) de aproximadamente 2 horas. El objetivo de esta fase fue trazar fronteras lógicas alrededor de los Agregados identificados previamente, con el fin de descomponer el sistema en módulos altamente cohesivos y con bajo acoplamiento (Bounded Contexts).
 
-Para lograr esto, no nos basamos en corazonadas técnicas, sino que aplicamos rigurosamente tres heurísticas de Domain-Driven Design recomendadas por la industria (Alberto Brandolini y Nick Tune) sobre nuestro tablero de Miro. A continuación, se explica la aplicación progresiva de cada heurística y los resultados obtenidos:
+Para lograr esto, aplicamos rigurosamente tres heurísticas de Domain-Driven Design recomendadas por la industria (Alberto Brandolini y Nick Tune). Tras una reciente refactorización arquitectónica para evitar el anti-patrón de "Nano-Servicios" y mejorar la cohesión, consolidamos nuestro diseño. A continuación, se explica la aplicación de cada heurística:
 
-1. Aplicación de "Start-with-value" (Identificando el Core Domain)
-   Comenzamos el análisis preguntándonos: *¿Por qué partes del sistema pagarían nuestros clientes?* La propuesta de valor y ventaja competitiva de Reqs-AI radica exclusivamente en la transcripción en vivo y la inferencia de Inteligencia Artificial para generar historias de usuario estructuradas.
-*   Al analizar la complejidad del tablero, notamos que agrupar esta "magia" en un solo contexto generaría un "monolito de contexto", ya que el flujo del audio y el procesamiento del texto en LLMs manejan ciclos de vida, lenguajes ubicuos y requisitos de rendimiento distintos.
-*   **Decisión:** Dividimos el Core Domain en dos Bounded Contexts. Por un lado, el **Meeting Capture**, encargado del manejo de WebSockets y Speech-to-Text. Por el otro lado, **Requirement Generation** se encarga del manejo de los Prompts, el LLM y la gestión del formato Gherkin.
+**1. Aplicación de "Start-with-value"**
+Comenzamos el análisis preguntándonos: *¿Por qué partes del sistema pagarían nuestros clientes?* La propuesta de valor radica en capturar reuniones y transformarlas mediante IA en historias de usuario estructuradas.
+*   Decidimos agrupar los agregados Session (manejo de WebSockets/Audio) y User Story (Prompts y LLM) en un único y potente Core Domain llamado **Requirement Discovery**. Esto cohesiona todo el flujo de valor principal (Value Stream) bajo un mismo techo, minimizando la latencia de red entre la captura y el análisis.
 
-2. Aplicación de "Look-for-pivotal-events" (Fronteras por Cambio de Estado B2B)
-   Posteriormente, buscamos en la línea de tiempo los Eventos Pivote que marcan "un antes y un después" crítico en la vida de un cliente dentro de la plataforma.
-*   *Evento: "Account Validated" vs "Organization Created":* Observamos que la autenticación de un usuario es un problema genérico, mientras que gestionar a qué empresa pertenece y qué roles tiene es un problema organizativo B2B. **Decisión:** Extraímos el agregado *User* hacia un **IAM** independiente, y el agregado *Organization* hacia el **Workspace**.
-*   *Evento: "Upgraded to Pro Plan":* Este evento cambia radicalmente los límites operativos del sistema (cuotas). Involucra pasarelas de pago y facturación. **Decisión:** Aislamos el agregado *Subscription* en el **Billing & Subscription**.
+**2. Aplicación de "Look-for-pivotal-events"**
+Buscamos los Eventos Pivote que marcan hitos críticos en la vida del cliente.
+*   *Eventos: "Account Validated", "Organization Created" y "Project Created":* Extraímos el agregado User hacia un **IAM** independiente. Por otro lado, dado que un proyecto solo tiene sentido dentro de la estructura de una empresa, agrupamos Organization y Project en un solo contexto cohesionado llamado **Workspace Management**.
+*   *Evento: "Upgraded to Pro Plan":* Involucra pasarelas de pago y cuotas. Aislamos el agregado Subscription en el **Billing & Subscription**.
 
-3. Aplicación de "Start-with-simple" (Fronteras por Secuencia de Soporte)
-   Finalmente, agrupamos los agregados restantes evaluando su función en los pasos "antes" y "después" del proceso principal de captura de requisitos.
-*   Antes de que la IA pueda operar, el Analista necesita crear un entorno y subir documentos PDF de contexto. Esto pertenece al agregado *Project*. **Decisión:** Agrupado en el **Project Configuration**.
-*   Después de que las historias son aprobadas, deben enviarse a plataformas externas. Aquí decidimos aplicar el patrón *Anti-Corruption Layer (ACL)* aislando el agregado *ExternalConnection* para que los cambios en las APIs de terceros no contaminen el Core de Reqs-AI, aislandolo en **Integration Gateway**.
+**3. Aplicación de "Start-with-simple"**
+Evaluamos las integraciones postprocesamiento.
+*   Después de que las historias son generadas, deben enviarse a plataformas externas (ej. Jira). Para proteger nuestro Core Domain de los constantes cambios en las API de terceros, aplicamos el patrón Anti-Corruption Layer (ACL) aislando el agregado ExternalConnection en el **Integration Gateway**.
 
 
 **Resumen de Bounded Contexts Descubiertos**
-A través de este proceso analítico y evolutivo, el sistema quedó dividido arquitectónicamente en los siguientes 7 Candidate Bounded Contexts:
+A través de este proceso analítico y evolutivo, el sistema quedó dividido arquitectónicamente en los siguientes 5 Candidate Bounded Contexts:
 
-| Bounded Context | Tipo de Subdominio | Agregado(s) Principal(es) | Responsabilidad Principal |
-| :--- | :--- | :--- | :--- |
-| **1. Meeting Capture** | Core Domain | Session | Ingesta de audio en tiempo real (WebSockets), control de estado de la reunión (iniciar/pausar) e integración con el servicio de Speech-to-Text. |
-| **2. Requirement Generation** | Core Domain | User Story | Inferencia mediante LLMs, fragmentación de contexto (RAG), generación y estructuración del formato Gherkin, y gestión de similitudes. |
-| **3. IAM** | Generic Subdomain | User | Autenticación, registro, validación de correo y gestión de credenciales seguras. |
-| **4. Workspace** | Generic Subdomain | Organization | Aislamiento Multitenant (Row Level Security), gestión de espacios de trabajo, invitación de miembros y roles corporativos. |
-| **5. Billing & Subscription** | Generic Subdomain | Subscription | Integración con pasarelas de pago (ej. Stripe), upgrades/downgrades de planes y monitoreo de consumo de cuotas/tokens. |
-| **6. Project Configuration** | Supporting Subdomain | Project | Estructura local de iniciativas del cliente, almacenamiento de parámetros técnicos y alojamiento de PDFs de glosario. |
-| **7. Integration Gateway** | Supporting Subdomain | ExternalConnection | Capa Anticorrupción (ACL) para autorizar credenciales (OAuth) y exportar historias hacia herramientas externas como Jira. |
+| Bounded Context               | Tipo de Subdominio   | Agregado(s) Principal(es) | Responsabilidad Principal                                                                                                  |
+|:------------------------------|:---------------------|:--------------------------|:---------------------------------------------------------------------------------------------------------------------------|
+| **1. Requirement Discovery**  | Core Domain          | Session, User Story       | Ingesta de audio (WebSockets), inferencia mediante LLMs, fragmentación de contexto (RAG) y generación del formato Gherkin. |
+| **2. Workspace Management**   | Generic Subdomain    | Organization, Project     | Aislamiento Multitenant (Row Level Security), gestión de proyectos, roles corporativos y almacenamiento de glosarios.      |
+| **3. IAM**                    | Generic Subdomain    | User                      | Autenticación, registro, validación de correo y gestión de credenciales seguras.                                           |
+| **4. Billing & Subscription** | Generic Subdomain    | Subscription              | Integración con pasarelas de pago, upgrades/downgrades de planes y monitoreo de consumo de cuotas/tokens.                  |
+| **5. Integration Gateway**    | Supporting Subdomain | ExternalConnection        | Capa Anticorrupción (ACL) para autorizar credenciales (OAuth) y exportar historias hacia herramientas externas como Jira.  |
 
-![CCD](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.2.Candidate-Context-Discovery/Bounded-Contexts.jpg)
+![CCD](assets/ddd/bounded-contexts.jpg)
 
 ### 4.2.3.	Domain Message Flows Modeling
 
-En esta sección, explicamos y evidenciamos el proceso seguido para visualizar cómo deben colaborar los Bounded Contexts para resolver el caso principal del negocio. Para ello, aplicamos una variante técnica de Domain Storytelling enfocada en el flujo de mensajes. 
+En esta sección, aplicamos una variante técnica de Domain Storytelling enfocado en el flujo de mensajes para evidenciar cómo colaboran los 5 Bounded Contexts consolidados (**Requirement Discovery**, **Workspace Management**, **IAM**, **Billing & Subscription**, e **Integration Gateway**) y así resolver los casos principales del negocio.
 
 Utilizamos una notación específica para modelar la interacción:
 *   **Actor:** Persona interactuando con el sistema.
 *   **Bounded Context:** Módulo lógico de nuestro dominio.
 *   **System:** Sistemas o dependencias externas.
-*   **Command:** Intención de hacer algo en color azul.
-*   **Event:** Hecho que ya ocurrió en color naranja.
-*   **Query:** Solicitud de información en color verde.
+*   **Command:** Intención de hacer algo (color azul).
+*   **Event:** Hecho que ya ocurrió (color naranja).
+*   **Query:** Solicitud de información (color verde).
 *   **Direction of message:** Flecha que indica el flujo del emisor al receptor.
 
-A continuación, detallamos el paso a paso del diagrama elaborado para el flujo principal de Reqs-AI.
+A continuación, detallamos los escenarios elaborados.
 
-**Escenario Core: Captura de Sesión y Generación de Requerimientos**
+**Escenario 1: Captura de sesión y generación de historias (Core Flow)**
 
-Este flujo describe la colaboración desde que el usuario inicia la grabación hasta que se generan las historias de usuario estructuradas.
+Este flujo describe la colaboración principal desde que el usuario inicia la grabación de la reunión hasta que se estructuran las historias de usuario con la Inteligencia Artificial.
 
-1. **Inicio de Sesión:** El Actor **Analyst** utiliza el System **Website** para enviar el Command **Start Session** al Bounded Context **Meeting Capture**, el cual confirma el inicio emitiendo el Event **Recording Started**.
-2. **Procesamiento de Audio:** **Meeting Capture** delega la carga de trabajo enviando el Command **Divide Audio** al System **STT Service**, que retorna progresivamente el Event **Speech segments identified**.
-3. **Recopilación de Contexto:** Al finalizar, se emite el Command **Send Transcript** hacia **Requirement Generation**. Este contexto necesita el glosario del cliente, por lo que envía un Query **Request Project Data** a **Project Configuration**, recibiendo como respuesta el Event **Project data sent**.
-4. **Inferencia IA:** Con el texto y el contexto listos, **Requirement Generation** envía el Command **Generate User story** al System **LLM Service**. Una vez procesado, se consolida el flujo emitiendo el Event final **User story generated**.
+1. **Inicio y Procesamiento:** El Actor **Product Owner** envía el Command **Start Session** al Bounded Context **Requirement Discovery**. Este contexto gestiona el streaming enviando el Command **Divide Audio** al System **STT Service**, que retorna progresivamente el Event **Speech segments identified**.
+2. **Recopilación de Contexto (RAG):** Una vez finalizada la sesión, **Requirement Discovery** necesita los datos y reglas de negocio del cliente, por lo que envía una Query **Request Project Data** a **Workspace Management**, recibiendo el Event **Project data sent** (que incluye el glosario).
+3. **Inferencia IA:** Con el texto de la reunión y el contexto listos, **Requirement Discovery** envía el Command **Generate User story** al System **LLM Service**. Se consolida el resultado emitiendo el Event final **User story generated** para que el Product Owner lo revise.
 
-![Scenario1](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.3.Domain-Message-Flows-Modeling/Scenario1.jpg)
+![Domain Message Flow](assets/ddd/domain-message-flow-1.jpg)
 
-**Escenario: Creación de Organización y Suscripción**
+**Escenario 2: Suscripción y mejora de organización**
 
-Este flujo detalla el onboarding B2B, donde un líder técnico registra su empresa, realiza el pago de un plan Pro y el sistema prepara su entorno de trabajo inicial.
+Este flujo se enfoca estrictamente en la coreografía arquitectónica que ocurre cuando una organización decide adquirir un plan de pago. Demuestra cómo el sistema reacciona para actualizar las capacidades del entorno sin necesidad de intervención manual de un administrador.
 
-1. **Creación del Espacio:** El Actor **Tech Lead** usa el System **Website** para enviar el Command **Create organization** al Bounded Context **Workspace**, el cual notifica el éxito de la operación con el Event **Organization Created**.
-2. **Gestión del Pago:** Para desbloquear los límites de IA, se emite el Command **Request Pro plan Upgrade** hacia **Billing & Subscription**. Este contexto se comunica con el System **Payment Gateway** mediante el Command **Start Payment** y espera el Event **Payment Validated**.
-3. **Activación y Onboarding:** Tras el pago exitoso, se notifica a Workspace con el Event **Upgraded to Pro plan**. Como parte del onboarding automático, Workspace envía el Command **Generate Demonstration Project** a **Project Configuration**, finalizando el flujo con el Event **Demonstration Project Generated**.
+1. **Solicitud de Suscripción:** El Actor **Tech Lead** envía el Command **Request Pro Upgrade** a **Billing & Subscription**.
+2. **Procesamiento Externo:** **Billing & Subscription** delega la transacción enviando el Command **Process Payment** al System **Payment Gateway**. El sistema externo válido y retorna el resultado.
+3. **Propagación de Beneficios:** Una vez consolidado el pago, **Billing & Subscription** emite el Event **Upgraded to Pro Plan**.
+4. **Aprovisionamiento Automático:** El contexto **Workspace Management** escucha este evento y reacciona automáticamente actualizando los límites operativos de la organización.
 
-![Scenario2](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.3.Domain-Message-Flows-Modeling/Scenario2.jpg)
+![Domain Message Flow](assets/ddd/domain-message-flow-2.jpg)
+
+**Escenario 3: Sincronización Ágil (Exportación a Jira)**
+
+Este es un flujo netamente operativo y postprocesamiento. Ocurre después de que el usuario ya utilizó el sistema core y desea llevar el resultado final hacia sus herramientas de gestión de proyectos.
+
+1. **Aprobación:** Tras haber revisado las historias generadas por la IA, el Actor **Tech Lead** envía el Command **Approve Story** a **Requirement Discovery**.
+2. **Propagación:** El contexto core registra el cambio y emite el Event **Story Approved**.
+3. **Capa Anticorrupción:** El evento es escuchado por el **Integration Gateway**. Este contexto actúa como ACL (aislando al core domain de los detalles de API externas), mapea el modelo interno al formato esperado por el sistema externo, y envía el Command **Create Issue** al System **PM Service**.
+4. **Confirmación y Retorno:** El System **PM Service** responde exitosamente con los datos del ticket. El **Integration Gateway** traduce esta respuesta al lenguaje de nuestro dominio y emite el Event **Story Exported**.
+
+![Domain Message Flow](assets/ddd/domain-message-flow-3.jpg)
 
 ### 4.2.4.	Bounded Context Canvases
 
-En esta sección el equipo diseña sus candidate bounded contexts, detallando los criterios de diseño. El equipo seleccionó cada bounded context, por orden de importancia, para elaborar su Bounded Context Canvas basándose en la plantilla de Domain Storytelling. 
+En esta sección el equipo diseña sus candidate bounded contexts, detallando los criterios de diseño. El equipo seleccionó cada bounded context, por orden de importancia, para elaborar su Bounded Context Canvas.
 
-A continuación, presentamos los lienzos diseñados para los siete Bounded Contexts de Reqs-AI.
+**1. Requirement Discovery**
 
-**1. Meeting Capture**
+Motor central de la plataforma responsable de ingerir el audio de las reuniones en tiempo real, orquestar la transcripción y aplicar Inteligencia Artificial con contexto (RAG) para generar historias de usuario estructuradas en formato Gherkin.
 
-Este contexto es responsable de la ingesta de audio en tiempo real y la transcripción mediante WebSockets.
+![Canvas1](assets/ddd/bc-canvas-discovery.jpg)
 
-![Canvas1](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Meeting-Capture.jpg)
+**2. Workspace Management**
 
-**2. Requirement Generation**
+Módulo organizativo que garantiza el aislamiento de datos (Multitenancy), gestiona la jerarquía corporativa (proyectos) y almacena el conocimiento específico del cliente (Glosarios) para contextualizar la IA.
 
-Este contexto es el motor de inteligencia artificial que estructura las transcripciones en formato Gherkin usando estrategias de prompting.
-
-![Canvas2](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Requirement-Generation.jpg)
+![Canvas2](assets/ddd/bc-canvas-workspace.jpg)
 
 **3. Identity and Access Management**
 
 Este contexto asegura el acceso a la plataforma mediante autenticación y gestión de usuarios.
 
-![Canvas3](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/IAM.jpg)
+![Canvas3](assets/ddd/bc-canvas-iam.jpg)
 
-**4. Workspace**
-
-Este contexto administra el aislamiento de datos multitenant, las organizaciones y los roles B2B.
-
-![Canvas4](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Workspace.jpg)
-
-**5. Billing & Subscription**
+**4. Billing & Subscription**
 
 Este contexto monitorea el uso de las cuotas de IA y gestiona los pagos recurrentes integrando pasarelas externas.
 
-![Canvas5](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Billing-and-subscription.jpg)
+![Canvas4](assets/ddd/bc-canvas-billing.jpg)
 
-**6. Project Configuration**
+**5. Integration Gateway**
 
-Este contexto almacena la estructura de las iniciativas del cliente y sus glosarios para contextualizar la IA.
+Capa Anticorrupción (ACL) que protege el Core Domain de los cambios en API de terceros. Se encarga de traducir los eventos del sistema a formatos externos y exportar las historias hacia herramientas como Jira.
 
-![Canvas6](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Project-configuration.jpg)
-
-**7. Integration Gateway**
-
-Este contexto actúa como capa anticorrupción para exportar las historias de usuario hacia herramientas ágiles externas como Jira.
-
-![Canvas7](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Integration-Gateway.jpg)
+![Canvas5](assets/ddd/bc-canvas-gateway.jpg)
 
 ### 4.2.5.	Context Mapping
 
-En esta sección evidenciamos el proceso de elaboración de nuestro Context Map. Para llegar al diseño estructural definitivo de nuestros Bounded Contexts, el equipo evaluó el modelo sometiéndolo a un análisis crítico, respondiendo a las preguntas estratégicas de diseño sugeridas. Además, aplicamos rigurosamente los patrones de integración definidos por el repositorio oficial de Context Mapping de DDD Crew.
+En esta sección evidenciamos el proceso de elaboración de nuestro Context Map. Para llegar al diseño estructural definitivo de nuestros 5 Bounded Contexts, el equipo evaluó el modelo sometiéndolo a un análisis crítico, respondiendo a las preguntas estratégicas de diseño sugeridas. Además, aplicamos rigurosamente los patrones de integración definidos por el repositorio oficial de Context Mapping de DDD Crew.
 
 **Evaluación de Alternativas y Diseños Candidatos**
 
+*   **¿Qué pasaría si agrupamos dos contextos fuertemente acoplados en uno solo?**
+    Inicialmente, considerábamos separar la captura de audio (WebSockets) de la generación de la historia (LLM). Sin embargo, al aplicar esta pregunta, nos dimos cuenta de que ambos son parte inseparable del mismo flujo de valor en tiempo real. Agruparlos en un único Core Domain llamado **Requirement Discovery** eliminó la latencia de red y la serialización innecesaria entre ambos pasos. Aplicamos la misma lógica para fusionar Organización y Proyecto dentro de **Workspace Management**.
 *   **¿Qué pasaría si aislamos los core capabilities y movemos los otros a un context aparte?**
-    Inicialmente consideramos que la generación de la historia de usuario y su posterior exportación a Jira ocurrieran en el mismo módulo. Sin embargo, al aplicar esta pregunta, nos dimos cuenta de que exportar tickets es una capacidad de soporte. Aislamos el core de IA en **Requirement Generation** y movimos la integración externa al **Integration Gateway** para evitar que cambios en APIs de terceros contaminen nuestro motor de inferencia.
+    Una vez consolidado el Core, evaluamos el proceso de exportar las historias hacia gestores de proyectos (Jira). Notamos que la integración con terceros es puramente una capacidad de soporte. Por ello, aislamos el core de IA y movimos toda la comunicación externa hacia el **Integration Gateway**. Esto evita que los cambios constantes en API de terceros contaminen nuestro motor de inferencia.
 *   **¿Qué pasaría si duplicamos una funcionalidad para romper la dependencia?**
-    Evaluamos la validación de cuotas. Si **Requirement Generation** tuviera que preguntar sincrónicamente a **Billing & Subscription** si un usuario tiene saldo de IA antes de cada inferencia, el sistema sería lento y frágil. Decidimos romper esta dependencia directa. **Billing & Subscription** emite eventos asíncronos cuando una cuota se acaba, y **Requirement Generation** duplica y almacena localmente un indicador de bloqueo, permitiendo inferencias rápidas sin consultas de red.
-*   **¿Qué pasaría si tomamos un capability de estos contexts y lo usamos para formar un nuevo context?**
-    Al analizar la autenticación de usuarios y la gestión de empresas, notamos que estaban fuertemente acopladas. Tomamos la capacidad de registro y login y formamos el contexto **IAM**, separándolo de **Workspace**. Esto nos permite evolucionar la seguridad genérica independientemente de la compleja lógica de roles corporativos multitenant.
+    Evaluamos la validación de cuotas. Si **Requirement Discovery** tuviera que preguntar sincrónicamente a **Billing & Subscription** si un usuario tiene saldo antes de cada uso de IA, el sistema sería lento y frágil. Decidimos romper esta dependencia directa. **Billing & Subscription** emite eventos asíncronos cuando una cuota se actualiza, y **Workspace Management** duplica y almacena localmente esta capacidad. Así, el Core Domain solo consulta su contexto local sin bloqueos de red.
 
 **Patrones de Relación DDD Establecidos**
 
-Tras este debate, definimos formalmente los patrones de integración estratégicos entre nuestros módulos y los sistemas de terceros. Las relaciones indican quién es el proveedor Upstream U y quién es el consumidor Downstream D.
+Tras este debate, definimos formalmente los patrones de integración estratégicos. Las relaciones indican quién es el proveedor (Upstream **U**) y quién es el consumidor (Downstream **D**).
 
-1.  **Integration Gateway D hacia External PM Service (Jira) U**
-    *   **Patrón:** Anti-Corruption Layer ACL
-    *   **Justificación:** El Integration Gateway actúa como una barrera traductora. Consume nuestros eventos internos y los transforma a los complejos modelos de datos de Atlassian. Nuestro Core jamás se entera de los esquemas propietarios de Jira.
-2.  **Requirement Generation D hacia External LLM Service U**
-    *   **Patrón:** Anti-Corruption Layer ACL
-    *   **Justificación:** Para evitar el vendor lock-in con OpenAI o Anthropic. Traducimos nuestros Prompts genéricos al esquema JSON específico de la API del proveedor, protegiendo nuestro modelo de dominio de cambios en la IA externa.
-3.  **Meeting Capture D hacia External STT Service U**
-    *   **Patrón:** Anti-Corruption Layer ACL
-    *   **Justificación:** Al igual que con el LLM, el servicio de Speech-to-Text externo dicta un formato de streaming propio. El ACL aísla a Meeting Capture de la tecnología de transcripción subyacente.
-4.  **Requirement Generation D hacia Project Configuration U**
+1.  **Integration Gateway [D] hacia External PM Service (Jira) [U]**
+    *   **Patrón:** Anti-Corruption Layer (ACL)
+    *   **Justificación:** El Integration Gateway actúa como una barrera traductora unidireccional. Consume los eventos de dominio internos del producto, formulados en nuestro lenguaje ubicuo, y los transforma al esquema propietario y mutable de Atlassian. Nuestro Core jamás adopta las convenciones de modelado de Jira ni se entera de cómo funciona su API, lo que preserva la pureza semántica del dominio de elicitación de requisitos.
+    *   **Naturaleza del contrato traducido por el ACL:** El Gateway implementa adaptadores que convierten los conceptos de dominio internos (aprobación de historias, rechazo con motivo, referencias a épicas) a las estructuras propietarias que Atlassian exige: sus tipos de campos, sus formatos de descripción enriquecida, su esquema de identificadores externos y sus convenciones de priorización. Esta traducción es bidireccional cuando se necesita trazabilidad: el identificador interno de cada historia se mapea y persiste junto al identificador externo que Jira asigna, sin contaminar el modelo de dominio del Core.
+    *   **Análisis de Impacto del Patrón ACL en la evolución del sistema:** El equipo evaluó tres escenarios concretos donde el ACL demuestra su valor:
+        1.  *Cambios en la API de Atlassian:* Si Atlassian modificara la versión de su API o migrara a un esquema completamente distinto, únicamente la implementación interna del Gateway requeriría actualización. Ningún módulo del Core sufriría modificación alguna en su modelo de dominio ni en su lógica de negocio.
+        2.  *Cambio entre variantes de Jira:* La migración entre Jira Cloud, Jira Data Center o Jira Server —cada una con mecanismos de autenticación, paginación y límites de tasa distintos— se absorbe completamente dentro del Gateway mediante implementaciones intercambiables del mismo contrato interno, sin exponer esa variabilidad hacia el resto del sistema.
+        3.  *Limitaciones operativas externas:* Las restricciones de consumo que Atlassian impone por plan (límites de llamadas por segundo) son gestionadas internamente por el Gateway con políticas de reintento, tolerancia a fallos y encolado, sin contaminar la lógica de los módulos internos con preocupaciones de infraestructura externa.
+    *   **Tradeoff consciente y costo del aislamiento:** El equipo asume el costo de mantener un adaptador por cada herramienta de gestión soportada y la duplicación temporal de representaciones (interna vs. externa). Este costo se justifica por la naturaleza heterogénea del mercado objetivo: el roadmap incluye soporte futuro para Trello, Asana, ClickUp y Linear, todas con esquemas radicalmente distintos. Sin el ACL, cada nueva integración obligaría a contaminar el Core con concesiones específicas de cada vendor.
+
+2.  **Requirement Discovery [D] hacia External AI Services (LLM / STT) [U]**
+    *   **Patrón:** Anti-Corruption Layer (ACL)
+    *   **Justificación:** Para evitar el *vendor lock-in* con proveedores de IA cuyos contratos de API evolucionan mensualmente (OpenAI, Anthropic, AssemblyAI, Deepgram, entre otros), el ACL traduce las solicitudes de inferencia y los flujos de audio internos del dominio al esquema específico del proveedor activo. El modelo de dominio de Requirement Discovery permanece estable e independiente de los cambios externos, lo que es crítico en un Core Domain donde la inferencia de IA representa la principal propuesta de valor del producto.
+    *   **Naturaleza del contrato traducido por el ACL:** El Gateway de IA expone al dominio dos abstracciones bien definidas: una para la inferencia de lenguaje (recibe la transcripción de la reunión, el glosario del proyecto y el historial de historias previas; devuelve historias estructuradas en Gherkin) y otra para la transcripción de audio en tiempo real (recibe fragmentos de audio en streaming; devuelve segmentos de texto con marcas temporales). Cada adaptador concreto es responsable de traducir estas abstracciones al contrato particular del proveedor —con sus formatos de autenticación, sus estructuras de mensaje, sus parámetros de configuración y sus esquemas de respuesta—, sin que el dominio conozca esa especificidad.
+    *   **Análisis de Impacto del Patrón ACL en la evolución del sistema:** El equipo evaluó tres escenarios donde el ACL es estratégicamente determinante:
+        1.  *Cambio de proveedor de IA:* Migrar el motor de inferencia de un proveedor a otro —motivado por costo, calidad de razonamiento, latencia o regulación de datos en regiones específicas— requiere únicamente desarrollar un nuevo adaptador interno. El modelo de dominio, la lógica de RAG y los flujos de sesiones permanecen completamente inmutables.
+        2.  *Cambio de modelo dentro del mismo proveedor:* Las actualizaciones de modelos dentro de un mismo proveedor frecuentemente alteran el comportamiento esperado ante ciertos tipos de instrucciones. El ACL encapsula los ajustes necesarios de construcción de prompts específicos por modelo sin que esos detalles se propaguen al Domain.
+        3.  *Estrategia de continuidad ante degradación:* Si el proveedor primario sufre una interrupción del servicio o impone restricciones de consumo agresivas, el ACL puede orquestar un desvío automático hacia un proveedor secundario equivalente, garantizando la continuidad del Core sin que el dominio conozca la sustitución.
+    *   **Tradeoff consciente y costo del aislamiento:** Mantener múltiples adaptadores —uno por cada proveedor soportado— representa una carga de mantenimiento real: cada cambio en una API externa exige actualizar el adaptador correspondiente y verificar la paridad funcional. Sin embargo, en una categoría de mercado donde los proveedores liberan modelos disruptivos cada pocos meses y sus políticas de precios pueden cambiar unilateralmente, el costo de quedar atado a un único vendor supera ampliamente el costo de mantener la abstracción.
+
+3.  **Requirement Discovery [D] hacia Workspace Management [U]**
     *   **Patrón:** Customer / Supplier
-    *   **Justificación:** Requirement Generation Customer exige que el glosario se le entregue en un formato limpio de texto para el RAG. Project Configuration Supplier adapta su entrega de documentos PDFs para satisfacer esta necesidad.
-5.  **Workspace D hacia IAM U y Workspace D hacia Billing & Subscription U**
-    *   **Patrón:** Conformist CF
-    *   **Justificación:** Workspace conforma ciegamente a los modelos de Identidad de IAM y a los eventos de Cuotas de Billing, sin exigirles cambios a esos dominios genéricos.
-6.  **Workspace U hacia Requirement Generation D y Project Configuration D**
-    *   **Patrones:** Open Host Service OHS y Published Language PL
-    *   **Justificación:** Workspace emite eventos de dominio indicando si una organización tiene permisos o cuotas válidas. Contextos como Requirement Generation y Project Configuration consumen estos eventos estandarizados PL para saber si deben procesar o rechazar las peticiones de IA o creación de proyectos.
-7.  **Comunicación Core Interna Event-Driven**
-    *   **Patrones:** Open Host Service OHS y Published Language PL
-    *   **Justificación:** Las conexiones asíncronas entre los contextos **Meeting Capture U -> Requirement Generation D** y **Requirement Generation U -> Integration Gateway D** se realizan publicando eventos en una cola local, funcionando como un OHS.
+    *   **Justificación:** Requirement Discovery [Customer] establece una relación de dependencia activa pero negociada con Workspace Management [Supplier]. Como Core Domain, Requirement Discovery exige que el contexto del proyecto —el glosario de términos técnicos del cliente, las restricciones arquitectónicas y el historial de historias previas— se le entregue en un formato canónico, limpio y oportuno para inyectarlo en el motor RAG. Workspace Management, reconociendo la prioridad estratégica de su cliente, adapta sus procesos internos de ingesta, normalización y curación para satisfacer esa necesidad sin imponer su propio modelo interno.
+    *   **Naturaleza del contrato negociado:** La relación se materializa en un contrato de contexto de proyecto formalmente versionado y consensuado entre ambos contextos: incluye el glosario de términos con sus definiciones y sinónimos, las restricciones que el cliente ha declarado sobre su arquitectura, y el resumen de historias ya generadas. El contrato incluye acuerdos de frescura de los datos —el contexto entregado debe reflejar el estado más reciente con un desfase máximo aceptable—, de latencia de generación y de política de versionado bilateral, donde cualquier cambio estructural requiere retrocompatibilidad durante al menos un ciclo de desarrollo completo.
+    *   **Análisis de Impacto del Patrón Customer/Supplier en la evolución del sistema:** El equipo evaluó tres dinámicas que esta relación introduce:
+        1.  *Priorización del backlog de Workspace:* Las solicitudes provenientes de Requirement Discovery —mejoras al procesamiento de documentos del cliente, enriquecimiento del glosario, soporte multiidioma— tienen prioridad operativa sobre el backlog interno de Workspace, lo que ocasionalmente fuerza a Workspace a postergar mejoras propias a la gestión de organizaciones.
+        2.  *Crecimiento del volumen de datos:* Si un proyecto enterprise supera ciertos umbrales de tamaño del glosario o del historial de historias, el contrato actual —que entrega un snapshot completo en cada consulta— se vuelve insostenible en términos de latencia y consumo de memoria. Esto obligaría a renegociar el contrato hacia una entrega incremental o paginada, con implicancias de rediseño en ambos contextos.
+        3.  *Evolución del concepto de "contexto":* Si el equipo de producto decide enriquecer el RAG con nuevas fuentes de información del cliente —diagramas de arquitectura, documentación de API, transcripciones de reuniones anteriores—, Workspace deberá expandir su capacidad de ingesta y curación para honrar la nueva expectativa del Customer, en cada iteración que el producto agregue una nueva fuente de contexto.
+    *   **Tradeoff consciente y dinámica de poder:** El patrón Customer/Supplier reconoce explícitamente una asimetría de prioridades: Workspace cede parte de su autonomía de roadmap a cambio de servir al Core Domain que genera el principal valor del producto. Esta dinámica funciona eficientemente mientras el mismo equipo gestione ambos contextos. Si Reqs-AI escalara con equipos dedicados por contexto, esta relación debería formalizarse mediante contratos de integración automatizados y verificables (*consumer-driven contract testing*) para mantener la salud del acuerdo sin depender de la coordinación informal entre personas.
+
+4.  **Workspace Management [D] hacia IAM [U] y Billing & Subscription [U]**
+    *   **Patrón:** Conformist (CF)
+    *   **Justificación:** Workspace Management se conforma al modelo de identidad que IAM define y al modelo de suscripción que Billing establece —ambos dictados en gran medida por los estándares de los sistemas externos que integran (pasarelas de identidad y de pago). Al adoptar el patrón Conformist, Workspace acepta que es un consumidor pasivo: no puede negociar ni alterar el esquema de ninguno de estos dos contextos proveedores.
+    *   **Naturaleza del acoplamiento por contagio:** Workspace Management replica internamente un subconjunto del modelo de Billing para poder evaluar si una organización tiene cuotas disponibles sin depender de llamadas sincrónicas a Billing en cada operación. Esto significa que Workspace almacena localmente la categoría de plan activo, el estado de la suscripción y los saldos de consumo disponibles, actualizando esa información de forma reactiva cada vez que Billing emite eventos de cambio de estado. De forma análoga, Workspace incorpora los identificadores y roles de identidad que IAM define, sin cuestionarlos ni adaptarlos a su propia semántica interna.
+    *   **Análisis de Impacto del Patrón Conformist en la evolución del sistema:** Asumir el rol de Conformist genera un acoplamiento estructural unidireccional con consecuencias evolutivas concretas que el equipo ha evaluado en tres escenarios:
+        1.  *Cambio en el modelo de monetización:* Si Billing evolucionara de un esquema de planes fijos a un modelo de consumo por uso —por minutos de reunión procesada o por volumen de historias generadas—, Workspace deberá reescribir completamente su lógica de validación de cuotas para adaptarse al nuevo esquema de medición, sin poder influir en cómo Billing decide estructurarlo. Esto implicaría una migración de datos no trivial y la actualización coordinada de toda la lógica de control de acceso en Requirement Discovery.
+        2.  *Cambio de pasarela de pago:* Si Billing migrara a una pasarela de pagos distinta —motivado por el mercado local peruano o latinoamericano—, los identificadores externos de suscripción que Workspace almacena por trazabilidad quedarían obsoletos. Esto forzaría una migración de datos coordinada entre ambos contextos, con riesgo de pérdida de histórico de auditoría y la necesidad de mantener temporalmente ambas representaciones durante el período de transición.
+        3.  *Despliegue acoplado:* Cualquier evolución en el contrato de los eventos que Billing pública para notificar cambios de estado de suscripción requiere despliegues coordinados de ambos contextos. Esto rompe el principio de despliegue independiente que buscaríamos en una arquitectura modular madura y obliga a versionar cuidadosamente los eventos compartidos con políticas de retrocompatibilidad explícitas.
+    *   **Tradeoff consciente y umbral de migración a ACL:** El equipo acepta esta deuda arquitectural mientras Billing siga siendo un *Generic Subdomain* estable y la startup priorice la velocidad de entrega sobre la autonomía evolutiva de Workspace. Sin embargo, se establecen tres condiciones de disparo que justificarían introducir un Anti-Corruption Layer entre Workspace y Billing en futuras iteraciones: (a) que el modelo de negocio de Billing cambie más de una vez por trimestre, (b) que se incorpore una segunda pasarela de pago para soportar mercados regionales con métodos locales de cobro, o (c) que Workspace deba soportar estructuras de planes diferenciadas por geografía o tipo de organización. Mientras estos disparadores no se activen, el costo de construir y mantener un ACL supera el costo del re-trabajo ocasional sobre Workspace.
+
+5.  **Requirement Discovery [U] hacia Integration Gateway [D]**
+    *   **Patrones:** Open Host Service (OHS) y Published Language (PL)
+    *   **Justificación:** El Core Domain Requirement Discovery actúa como un *host* abierto que emite eventos de dominio estandarizados a través de un canal público bien definido, expresados en un Published Language compartido y versionado. Cualquier contexto o sistema externo puede suscribirse a este canal sin requerir modificaciones en el Core. Esta arquitectura desacopla completamente al productor de los consumidores y permite la evolución independiente de ambos lados de la integración.
+    *   **Naturaleza del lenguaje publicado y del canal abierto:** El equipo formalizó el contrato del OHS en tres dimensiones: los tipos de eventos que Requirement Discovery pública —relacionados con los cambios de estado del ciclo de vida de cada historia de usuario y de cada sesión de elicitación—, la estructura común que todos los eventos comparten —con metadatos de trazabilidad, versionado semántico y contexto de tenant para soportar el multitenancy— y el canal de transporte —actualmente en memoria dentro del monolito modular, pero diseñado con la abstracción suficiente para migrarlo a un bus de eventos distribuido si la arquitectura evoluciona en el futuro.
+    *   **Análisis de Impacto del Patrón OHS+PL en la evolución del sistema:** El equipo evaluó tres beneficios concretos que esta arquitectura habilita:
+        1.  *Incorporación de nuevos consumidores sin modificar el Core:* En futuras iteraciones podrán incorporarse consumidores adicionales —notificaciones hacia plataformas de colaboración del cliente, exportaciones hacia otros gestores de proyectos, servicios de analítica de productividad— simplemente suscribiéndose al canal publicado, sin que Requirement Discovery requiera modificación alguna.
+        2.  *Evolución interna del Core sin disrupción externa:* Mientras el Published Language permanezca estable, Requirement Discovery puede refactorizar libremente su modelo interno, cambiar de proveedor de IA, optimizar su motor RAG o rediseñar su capa de persistencia, sin afectar a ningún consumidor downstream.
+        3.  *Política de versionado retrocompatible:* Los cambios aditivos al Published Language —incorporación de campos opcionales— son retrocompatibles y no requieren coordinación con los consumidores. Los cambios disruptivos —renombrado, eliminación o cambio de cardinalidad de elementos del contrato— requieren publicar el evento bajo una nueva versión y mantener la versión anterior activa durante un período de transición acordado, para dar tiempo a los consumidores a migrar sin interrupciones.
+    *   **Tradeoff consciente y rigidez del contrato público:** Adoptar OHS+PL convierte al Published Language en un activo crítico cuya estabilidad es responsabilidad del Core Domain. Cada cambio en el contrato debe ser deliberado, comunicado y documentado, lo que reduce la velocidad de iteración interna sobre los tipos y estructuras de eventos publicados. Sin embargo, esta rigidez es exactamente el tipo de disciplina que se espera de un Core Domain maduro: el costo de esa lentitud en el contrato público se compensa ampliamente al habilitar un ecosistema de consumidores extensible, desacoplado y robusto a largo plazo.
 
 **Diagrama de Context Map Final**
 
 A continuación presentamos la visualización de las relaciones estructurales consolidadas tras aplicar los patrones descritos. Las líneas conectan los Bounded Contexts indicando los roles U y D y los patrones aplicados sobre ellas.
 
-![Context Map](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.5.Context-Mapping/ContextMapping.png)
+![Context Map](assets/ddd/context-map.png)
 
 ## 4.3.	Software Architecture
 
@@ -1491,7 +1551,7 @@ El *System Landscape Diagram* proporciona una vista panorámica del ecosistema t
 
 A continuación, se presenta la topología del paisaje del sistema:
 
-![SystemLandscapeDiagram](assets/4.Strategic-Level-Product-Design/4.3.Software-Architecture/System-landscape.png)
+![SystemLandscapeDiagram](assets/architecture/system-landscape.png)
 
 **Análisis de Interacciones en el Ecosistema:**
 
@@ -1510,7 +1570,7 @@ Mientras que el Diagrama Landscape nos mostró el panorama del negocio, el **Dia
 
 A nivel de contexto, eliminamos las interacciones directas entre los usuarios y los sistemas de terceros (ej. el Technical Lead consultando Jira por su cuenta) y nos limitamos a mapear cómo nuestro sistema es el único orquestador responsable de comunicarse con el mundo exterior para cumplir sus objetivos.
 
-![System Context Diagram](assets/4.Strategic-Level-Product-Design/4.3.Software-Architecture/System-Context.png)
+![System Context Diagram](assets/architecture/system-context.png)
 
 **Análisis de Entradas y Salidas del Sistema Central:**
 
@@ -1527,68 +1587,78 @@ A nivel de contexto, eliminamos las interacciones directas entre los usuarios y 
 
 ### 4.3.3.	Software Architecture Container Level Diagrams
 
-En esta sección presentamos el diagrama de contenedores (Nivel 2 del modelo C4) para el sistema **ReqsAI**. Este nivel hace un *zoom in* al sistema principal para revelar los contenedores de software que lo componen (aplicaciones móviles, web, APIs, bases de datos), mostrando cómo se distribuyen las responsabilidades, las decisiones tecnológicas de alto nivel y cómo estos componentes se comunican entre sí y con los sistemas externos.
+En esta sección presentamos el diagrama de contenedores para el sistema Reqs-AI. Este nivel hace un enfoque al sistema principal para revelar los contenedores de software que lo componen (aplicaciones móviles, web, API, bases de datos), mostrando cómo se distribuyen las responsabilidades, las decisiones tecnológicas de alto nivel y cómo estos componentes se comunican entre sí y con los sistemas externos.
 
-![Container Diagram](assets/4.Strategic-Level-Product-Design/4.3.Software-Architecture/Container.png)
+![Container Diagram](assets/architecture/container-diagram.png)
 
-#### Elementos del Diagrama y Distribución de Responsabilidades
-
-El sistema ReqsAI está compuesto por los siguientes contenedores principales:
+El sistema Reqs-AI está compuesto por los siguientes contenedores principales:
 
 1.  **Interfaces de Usuario (Frontend):**
-    *   **Web Application** Es la plataforma principal para los usuarios. Permite una visualización completa para el análisis profundo de datos, revisión de historias de usuario, configuración de proyectos y gestión general del sistema. Se eligió **Angular** por ser un framework robusto, ideal para aplicaciones empresariales escalables.
+    *   **Web Application:** Es la plataforma principal para los usuarios. Permite una visualización completa para el análisis profundo de datos, revisión de historias de usuario, configuración de proyectos y gestión general del sistema. Se eligió **Angular** por ser un framework robusto, ideal para aplicaciones empresariales escalables.
     *   **Mobile App:** Proporciona accesibilidad móvil a los usuarios, permitiéndoles interactuar con el sistema, grabar reuniones o revisar el estado de los requerimientos desde cualquier lugar. Se optó por **Flutter** para asegurar un desarrollo multiplataforma eficiente (iOS y Android) con una base de código unificada.
 
-2.  **Punto de Entrada y Enrutamiento:**
-    *   **API Gateway:** Actúa como la puerta de entrada única para todas las peticiones (Requests) provenientes de las aplicaciones Web y Móvil. Su responsabilidad es enrutar estas solicitudes hacia los servicios de backend correspondientes, centralizando potencialmente políticas de seguridad, *throttling* y métricas.
+2.  **Distribución y Enrutamiento Perimetral (Edge):**
+    *   **CDN & Reverse Proxy:** Se posiciona como el intermediario absoluto entre las interfaces de usuario (Internet) y la infraestructura interna. Actúa como proxy inverso interceptando todas las peticiones web y móviles. Su función es servir los archivos estáticos de la Web App a alta velocidad desde ubicaciones globales, almacenar respuestas en caché, mitigar ataques (DDoS) y enrutar las peticiones dinámicas (API) hacia el Gateway. En el entorno AWS, la tecnología elegida es **Amazon CloudFront**.
+    *   **API Gateway:** Actúa como la puerta de entrada para todas las peticiones dinámicas (Requests) enrutadas desde el Reverse Proxy. Su responsabilidad es dirigir estas solicitudes hacia los servicios de backend correspondientes, gestionando el *throttling*, métricas de consumo y terminación SSL.
 
-3.  **Lógica Core (Backend):**
-    *   **ReqsAI Backend Service** Es el motor central del sistema. Maneja toda la lógica de negocio, coordina las transformaciones de datos y orquesta la comunicación con las APIs de terceros. Se seleccionó **Java con Spring Boot** debido a su madurez, seguridad, facilidad para integraciones empresariales y alto rendimiento.
+3.  **Lógica Core (Backend — Monolito Modular):**
+    *   **Reqs-AI Backend Application:** Desarrollado en **Java 25 con Spring Boot 3**, se despliega como una única unidad de ejecución que concentra toda la inteligencia de negocio del producto. Está estructurado internamente como un **Monolito Modular**: los 5 Bounded Contexts operan como módulos independientes con fronteras de acceso estrictas, comunicándose entre sí mediante interfaces públicas y eventos en memoria —sin tráfico de red interno—, lo que elimina la latencia distribuida y garantiza la coherencia transaccional durante las sesiones de elicitación en tiempo real. Esta decisión prioriza la simplicidad operativa y el *Time-to-Market* en la etapa actual, manteniendo la arquitectura preparada para una migración selectiva a servicios independientes si el volumen futuro lo justifica.
+
+    | # | Bounded Context        | Responsabilidad principal                                                                                   |
+    |---|------------------------|-------------------------------------------------------------------------------------------------------------|
+    | 1 | Requirement Discovery  | Captura de audio en tiempo real, transcripción, motor RAG y generación de historias en Gherkin.             |
+    | 2 | Workspace Management   | Jerarquía de organizaciones y proyectos, glosarios técnicos y aplicación de Row Level Security multitenant. |
+    | 3 | IAM                    | Identidad, autenticación, autorización por roles y gestión de permisos corporativos.                        |
+    | 4 | Billing & Subscription | Planes de suscripción, control de cuotas e integración con la pasarela de pagos.                            |
+    | 5 | Integration Gateway    | Exportación de historias aprobadas hacia las herramientas de gestión que el cliente ya utiliza.             |
 
 4.  **Almacenamiento de Datos:**
-    *   **Database** Es la base de datos principal de ReqsAI. Almacena toda la información del dominio (usuarios, configuraciones, transcripciones e historias de usuario). La elección de **PostgreSQL** con la extensión **pgvector** es una decisión estratégica crítica, ya que permite almacenar y consultar *embeddings* vectoriales, facilitando el procesamiento avanzado de IA y las búsquedas semánticas sobre el contexto de los requerimientos.
+    *   **Database:** Es la base de datos principal de Reqs-AI. Almacena toda la información del dominio. La elección de **PostgreSQL** con la extensión **pgvector** es una decisión estratégica crítica, ya que permite almacenar y consultar *embeddings* vectoriales, facilitando el procesamiento avanzado de IA (RAG) y las búsquedas semánticas.
 
 **Comunicación e Integración de Contenedores**
 
 La arquitectura define un flujo de comunicación moderno y orientado a servicios:
 
-*   **Comunicación Cliente-Servidor:** Tanto la aplicación móvil como la web interactúan con el API Gateway realizando llamadas a través de **HTTPS/REST**, garantizando seguridad en el transporte y un estándar ampliamente adoptado.
-*   **Comunicación Interna:** El API Gateway enruta estas llamadas al *ReqsAI Backend Service*. El backend, a su vez, lee y escribe (*Reads and write*) de manera síncrona en la base de datos PostgreSQL para mantener el estado del sistema.
-*   **Integración con Sistemas Externos:** El Backend Service actúa como el coordinador central que delega tareas específicas a sistemas externos especializados:
-    *   Envía correos a través del **Email Service Provider**.
-    *   Procesa transacciones a través del **Payment Gateway**.
-    *   Envía los audios de las reuniones al **STT API** para convertirlos a texto.
-    *   Delega la inferencia de inteligencia artificial al **LLM API** para la generación de historias de usuario en formato Gherkin.
-    *   Exporta finalmente las historias de usuario aprobadas hacia la herramienta de gestión mediante la **Project Management API** (Jira).
+*   **Comunicación Cliente-Servidor (Internet):** Tanto la aplicación móvil como la web interactúan inicialmente con el **CDN & Reverse Proxy (CloudFront)** a través de **HTTPS**. El proxy inverso sirve la Web App (Angular) y enruta las llamadas de datos hacia el **API Gateway**. Todo el tráfico utiliza conexiones seguras (REST y WebSockets para el streaming de audio).
+*   **Comunicación Interna:** La API Gateway enruta las llamadas procesadas hacia el *Reqs-AI Backend Application*. Internamente, los Bounded Contexts se comunican mediante eventos en memoria (Domain Events) y persisten su estado de manera síncrona en la base de datos compartida (PostgreSQL).
+*   **Integración con Sistemas Externos:** En lugar de centralizar todas las salidas, las integraciones están descentralizadas y asignadas al Bounded Context correspondiente que las necesita:
+    *   **IAM** envía credenciales y alertas a través del **Email Service Provider**.
+    *   **Billing & Subscription** procesa transacciones a través del **Payment Gateway**.
+    *   **Requirement Discovery** envía los audios de las reuniones al **STT API** para convertirlos a texto, y delega la inferencia de inteligencia artificial al **LLM API** para la generación de Gherkin.
+    *   **Integration Gateway** exporta finalmente las historias de usuario hacia la herramienta de gestión mediante la **Project Management API** (Jira).
 
 ### 4.3.4.	Software Architecture Deployment Diagrams
 
-En esta sección se presenta el diagrama de despliegue, el cual ilustra cómo los contenedores de software de ReqsAI se mapean a la infraestructura física o virtual. Este diagrama detalla los nodos de ejecución, los entornos operativos y la topología de red, priorizando una arquitectura viable, escalable y optimizada en costos.
+En esta sección se presenta el diagrama de despliegue, el cual ilustra cómo los contenedores de software de Reqs-AI se mapean a la infraestructura de la nube. Este diagrama detalla los nodos de ejecución, los entornos operativos y la topología de red, priorizando una arquitectura viable, escalable y optimizada en costos.
 
-![Deployment Diagram](assets/4.Strategic-Level-Product-Design/4.3.Software-Architecture/Deployment.png)
+![Deployment Diagram](assets/architecture/deployment-diagram.png)
 
 **Nodos de Despliegue y Distribución de Componentes**
 
-La infraestructura de despliegue se divide en los entornos de cliente, la infraestructura de procesamiento en AWS, y la persistencia de datos en una nube externa especializada.
+La infraestructura de despliegue se divide en los entornos de cliente, la red de entrega perimetral (Edge), la infraestructura de procesamiento core y la persistencia de datos.
 
-1.  **Entorno del Cliente (Client-Side):**
-    *   **Dispositivos físicos (iOS/Android).** Dentro opera el *Flutter Engine*, entorno encargado de ejecutar la aplicación mobile.
-    *   **Computadoras de los usuarios.** Utilizan un navegador web como nodo para renderizar la aplicación web.
+1.  **En el lado del cliente:**
+    *   **Dispositivos físicos (iOS/Android):** Dentro opera el *Flutter Engine*, entorno encargado de ejecutar la aplicación mobile.
+    *   **Computadoras de los usuarios:** Utilizan un navegador web como nodo de ejecución para renderizar la aplicación web (Angular).
 
-2.  **Entorno de Nube - Procesamiento (Server-Side - AWS):**
-    La lógica de negocio se aloja en AWS North America, específicamente en us-east-1 (Virginia), elegida por su alta disponibilidad y optimización de costos.
-    
-    *   **AWS API Gateway:** Actúa como el punto de entrada público único, completamente gestionado. Recibe las llamadas HTTPS/REST de los clientes y enruta las peticiones de manera segura hacia el backend.
-    *   **AWS Elastic Beanstalk:** Es el entorno PaaS (Platform as a Service) encargado de alojar el **ReqsAI Backend Service [Container: Java, Spring Boot]**. Elastic Beanstalk abstrae la complejidad de la infraestructura, aprovisionando servidores EC2 subyacentes, auto-escalado y monitoreo, permitiendo al equipo enfocarse únicamente en el código del runtime de Java.
+2.  **Entorno de Nube - Red Perimetral (AWS Edge Location):**
+    Para garantizar baja latencia y alta seguridad antes de que el tráfico llegue a los servidores principales, se utilizan los nodos Edge de AWS distribuidos globalmente.
+    *   **Amazon CloudFront (CDN & Reverse Proxy):** Actúa como el primer punto de contacto (Proxy Inverso). Almacena en caché los archivos estáticos de la Web App en ubicaciones cercanas al usuario para cargas instantáneas, y enruta de forma segura y eficiente el tráfico dinámico hacia la región principal de AWS.
 
-3.  **Entorno de Nube - Persistencia (Database as a Service):**
-    *   **Base de datos Relacional Principal:** Se delegó el almacenamiento de datos a Supabase, una plataforma BaaS (Backend as a Service). Esta decisión arquitectónica permite aprovechar una base de datos robusta, gestionada y con soporte nativo para *embeddings* vectoriales (esenciales para las funcionalidades de IA), reduciendo drásticamente la carga operativa y los costos iniciales en comparación con mantener instancias tradicionales de bases de datos.
+3.  **Entorno de Nube - Procesamiento (Server-Side - AWS North America):**
+    La lógica de negocio se aloja en AWS North America (us-east-1, Virginia), elegida por su alta disponibilidad y ecosistema completo de servicios.
+    *   **AWS API Gateway:** Recibe el tráfico dinámico enrutado desde CloudFront y funciona como el orquestador de las peticiones REST y WebSockets hacia el backend.
+    *   **AWS Elastic Beanstalk:** Es el entorno PaaS (Platform as a Service) encargado de alojar el **Reqs-AI Backend Application**. Elastic Beanstalk abstrae la complejidad de la infraestructura, aprovisionando servidores EC2 subyacentes, autoescalado y monitoreo, permitiendo al equipo enfocarse únicamente en el código del runtime de Java.
+
+4.  **Entorno de Nube - Persistencia (Database as a Service):**
+    *   **Supabase Cloud (PostgreSQL):** Se delegó el almacenamiento a Supabase, una plataforma BaaS (Backend as a Service). Esta decisión permite aprovechar una base de datos PostgreSQL robusta, gestionada y con la extensión **pgvector** nativa (esencial para los *embeddings* y RAG de los requerimientos), reduciendo drásticamente la carga operativa y los costos.
 
 **Comunicación e Interacción de Nodos**
 
-*   Las aplicaciones (Mobile y Web) se comunican vía internet mediante **HTTPS/REST** con el **AWS API Gateway**.
-*   El API Gateway enruta el tráfico internamente hacia el entorno de **AWS Elastic Beanstalk**, donde reside la lógica del sistema.
-*   El backend de Spring Boot se conecta de manera externa y segura hacia el clúster gestionado en **Supabase Cloud** para realizar operaciones de lectura y escritura (*Reads and write*) de la información del dominio.
+*   Las aplicaciones (Mobile y Web) se comunican vía internet mediante **HTTPS** con el **Amazon CloudFront** ubicado en el *Edge Location* más cercano.
+*   CloudFront sirve los recursos estáticos web directamente y enruta las solicitudes API hacia el **AWS API Gateway** en la región de AWS North America.
+*   La API Gateway enruta el tráfico internamente hacia el entorno de **AWS Elastic Beanstalk**, donde reside la lógica del Monolito Modular.
+*   El backend de Spring Boot se conecta de manera externa y segura hacia el clúster gestionado en **Supabase Cloud** para realizar operaciones transaccionales (*Reads and writes*) sobre la base de datos compartida.
 
 # Capítulo V: Tactical-Level Software Design
 
@@ -1690,13 +1760,13 @@ La infraestructura de despliegue se divide en los entornos de cliente, la infrae
 
 # Conclusiones
 
-El equipo concluye que el problema abordado es real, recurrente y de alto impacto en el ciclo de vida del software: la ambigüedad en el levantamiento de requisitos y la sobrecarga de post-procesamiento generan retrabajo, retrasos y riesgo de construir funcionalidades incorrectas. La evidencia obtenida en entrevistas confirma un patrón consistente en ambos segmentos objetivo (Líder Técnico de Startup y Analista de Sistemas/Producto): transformar conversaciones en requisitos claros, trazables y accionables sigue siendo el principal cuello de botella.
+El equipo concluye que el problema abordado es real, recurrente y de alto impacto en el ciclo de vida del software: la ambigüedad en el levantamiento de requisitos y la sobrecarga de postprocesamiento generan retrabajo, retrasos y riesgo de construir funcionalidades incorrectas. La evidencia obtenida en entrevistas confirma un patrón consistente en ambos segmentos objetivo (Líder Técnico de Startup y Analista de Sistemas/Producto): transformar conversaciones en requisitos claros, trazables y accionables sigue siendo el principal cuello de botella.
 
 Sobre esta base, Reqs-AI se consolida como una propuesta de valor pertinente al combinar asistencia en tiempo real, generación estructurada de historias de usuario y criterios de aceptación, y mecanismos de integración con herramientas de gestión del backlog. El enfoque del producto no reemplaza el criterio profesional del analista o líder técnico, sino que lo potencia para reducir omisiones, acelerar la claridad funcional y mejorar la calidad de entrada hacia desarrollo y QA.
 
 Asimismo, el trabajo desarrollado en el informe demuestra coherencia metodológica entre descubrimiento, análisis y diseño de solución. Los artefactos de Lean UX, entrevistas, need finding, user stories, backlog e impact mapping se enlazan con decisiones arquitectónicas estratégicas (DDD, EventStorming, Bounded Contexts y lineamientos de seguridad multitenancy con RLS), aportando trazabilidad desde la necesidad del usuario hasta la estructura técnica propuesta.
 
-Respecto a las hipótesis planteadas, el equipo considera que cuentan con validación inicial de problema y de deseabilidad, debido a la convergencia de hallazgos cualitativos y cuantitativos en las entrevistas. Sin embargo, su validación de desempeño y negocio permanece parcial, ya que métricas objetivo como reducción de reuniones de aclaración, tiempo de edición manual por sesión, retención de uso y sincronización efectiva al backlog deben medirse con el producto en operación real.
+Respecto a las hipótesis planteadas, el equipo considera que cuentan con validación inicial de problema y de deseabilidad, debido a la convergencia de hallazgos cualitativos y cuantitativos en las entrevistas. Sin embargo, su validación de desempeño y negocio permanece parcial, ya que métricas objetivas como reducción de reuniones de aclaración, tiempo de edición manual por sesión, retención de uso y sincronización efectiva al backlog deben medirse con el producto en operación real.
 
 La principal limitación actual del proyecto es que aún no se presenta evidencia completa de implementación, pruebas de campo y resultados longitudinales de adopción. En consecuencia, aunque la arquitectura y el diseño funcional están sólidamente fundamentados, todavía es necesario contrastar el comportamiento del sistema en escenarios productivos con usuarios reales y condiciones de carga, seguridad y dependencia de servicios externos de IA.
 
@@ -1704,11 +1774,11 @@ Como siguientes pasos, se recomienda priorizar un MVP enfocado en el flujo crít
 
 # Bibliografía
 
->Pulse of the Profession (2018) Success in Disruptiive Times. Project Management Institute. Recuperado el 15 de Abril de 2025, de https://www.pmi.org/learning/thought-leadership/pulse/pulse-of-the-profession-2018
+>Pulse of the Profession (2018) Success in Disruptive Times. Project Management Institute. Recuperado el 15 de Abril de 2025, de https://www.pmi.org/learning/thought-leadership/pulse/pulse-of-the-profession-2018
 
 >Jhonson J (2020) CHAOS Report: Beyond Infinity. Standish Group. Recuperado el 15 de Abril de 2025, de https://www.standishgroup.com/products/copy-of-chaos-report-beyond-infinity-digital-version
 
 
 # Anexos
 
-1. Relative Cost of Fixing Defects (IBM System Science Institute) ![IBM.png](assets/annexes/IBM.png)  
+1. Relative Cost of Fixing Defects (IBM System Science Institute) ![IBM.png](assets/annexes/ibm-defect-cost.png)  
