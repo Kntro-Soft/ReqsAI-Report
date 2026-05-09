@@ -4,7 +4,7 @@
         <img src="assets/cover/logo-upc.png" alt="logo of UPC"/>
         <p>1ASI0732 - Arquitectura de Software Emergentes</p>
         <p>Sección - 11821</p>
-        <p>Docente: Christian Luis De Los Rios Fernandez</p>   
+        <p>Docente: Christian Luis De Los Rios Fernández</p>   
         <p>Informe de Trabajo Final<p>
         <p>Startup: Kntro-Soft</p>
         <p>Producto: Reqs-AI</p>
@@ -217,8 +217,8 @@ Nuestra misión es potenciar la productividad de los equipos de desarrollo y ana
 
 **Propuesta de Valor**
 
-* Documentación Instantánea: Generación automática de User Stories con criterios de aceptación en formato Gherkin mediante LLMs de última generación
-* Asistencia Consultiva en Vivo: Sugerencias inteligentes de preguntas durante las reuniones para evitar vacíos de información y considerar casos de borde
+* Documentación Instantánea: Generación automática de User Stories con criterios de aceptación en formato Gherkin mediante LLM de última generación
+* Asistencia de Consulta en Tiempo Real: Recomendaciones de preguntas estratégicas durante las juntas para eludir lagunas de información y contemplar escenarios excepcionales.
 * Contexto Inteligente (RAG): Integración con el historial del proyecto para detectar duplicados y asegurar que los nuevos requisitos sean consistentes con la arquitectura existente
 * Privacidad Empresarial: Arquitectura multitenancy robusta con Row Level Security, garantizando que los datos y el conocimiento de cada organización permanezcan estrictamente aislados
 
@@ -313,7 +313,7 @@ Aspiracional: Ser el facilitador de una cultura de ingeniería de alto rendimien
 
 * Analista Enterprise:
 Funcional: Eliminar el trabajo manual de transcribir grabaciones y redactar Gherkin desde cero.
-Emocional: Sentirse empoderada durante la reunión al recibir sugerencias de preguntas que exponen vacíos de lógica del cliente.
+Emocional: Sentir empoderamiento durante la reunión al recibir sugerencias de preguntas que exponen vacíos de lógica del cliente.
 Aspiracional: Posicionarse como una analista estratégica que garantiza la precisión del proyecto, reduciendo el retrabajo del equipo.
 
 #### 1.2.2.3. Lean UX Hypothesis Statements
@@ -739,14 +739,14 @@ Las entrevistas se realizaron entre el 25 y 26 de abril de 2026 a un total de se
 
 **Conclusión general**
 
-El análisis muestra un patrón común en ambos segmentos: el principal cuello de botella no es la captura inicial de la reunión, sino la transformación de conversaciones en requisitos claros, trazables y accionables sin pérdida de contexto. La coincidencia en dolores (ambigüedad, retrabajo, sobrecarga de postprocesamiento e impacto en tiempos de sprint) valida la necesidad de una plataforma que asista en tiempo real con transcripción estructurada, síntesis y generación de historias de usuario. A la vez, los hallazgos refuerzan que la adopción será más sólida si la automatización se diseña como soporte al criterio profesional y no como reemplazo de la validación humana.
+El análisis muestra un patrón común en ambos segmentos: el principal cuello de botella no es la captura inicial de la reunión, sino la transformación de conversaciones en requisitos claros, trazables y accionables sin pérdida de contexto. La coincidencia en dolores (ambigüedad, retrabajo, sobrecarga de postprocesamiento e impacto en tiempos de sprint) válida la necesidad de una plataforma que asista en tiempo real con transcripción estructurada, síntesis y generación de historias de usuario. A la vez, los hallazgos refuerzan que la adopción será más sólida si la automatización se diseña como soporte al criterio profesional y no como reemplazo de la validación humana.
 
 ## 2.3. Need finding
 
 ### 2.3.1. User personas
 
 Esta sección presenta los arquetipos de usuario de Reqs-AI, construidos a partir del análisis de entrevistas realizadas a profesionales del levantamiento de requisitos y del estudio del contexto operativo en startups y entornos enterprise.
-Los user personas sintetizan patrones de comportamiento, objetivos, frustraciones y necesidades clave que luego se conectan con los demás artefactos de needfinding (User Task Matrix, Journey Map, Empathy Map y As-Is Scenario Mapping).
+Los user personas sintetizan patrones de comportamiento, objetivos, frustraciones y necesidades clave que luego se conectan con los demás artefactos de need finding (User Task Matrix, Journey Map, Empathy Map y As-Is Scenario Mapping).
 
 **User persona del segmento de Líder Técnico de Startup**
 
@@ -786,13 +786,13 @@ A continuación, se presentan los User Journey Maps As-Is de cada User Persona. 
 
   ![User Journey Map del User Persona Diego Alvarado](assets/requirements/maps/journey-maps/tech-lead.png)
 
-* User Journey Map de Analista Enterprise Genérico (Analista de Sistemas Enterprise):
+* User Journey Map de Analista Enterprise Genérico (Analista de sistemas enterprise):
 
   ![User Journey Map del User Persona Analista Enterprise Genérico](assets/requirements/maps/journey-maps/analyst.png)
 
 ### 2.3.4. Empathy Mapping
 
-Se elaboraron los Empathy Maps para los dos User Personas priorizados: el Líder Técnico de Startup y el Analista de Sistemas Enterprise. Este proceso permitió profundizar en lo que cada segmento dice, piensa, hace, observa y escucha durante el levantamiento de requisitos, identificando sus principales pains y gains para orientar el diseño de una solución realmente alineada con su contexto operativo.
+Se elaboraron los Empathy Maps para los dos user persona priorizados: el Líder Técnico de Startup y el Analista de Sistemas Enterprise. Este proceso permitió profundizar en lo que cada segmento dice, piensa, hace, observa y escucha durante el levantamiento de requisitos, identificando sus principales pains y gains para orientar el diseño de una solución realmente alineada con su contexto operativo.
 
 **Líder Técnico de Startup**
 
@@ -1056,7 +1056,7 @@ Este diseño está directamente orientado a satisfacer las necesidades críticas
 * **Para el Líder Técnico de Startup:** La arquitectura priorizará el rendimiento y la integración (flujos automatizados hacia herramientas como Jira), asegurando agilidad y la reducción del tiempo entre el *discovery* y el desarrollo.
 * **Para la Analista Enterprise:** El diseño se centrará en la seguridad y la privacidad de los datos, estableciendo una arquitectura *Multitenancy* con aislamiento de datos estricto (*Row Level Security*), cumpliendo así con las exigencias corporativas y mitigando los riesgos de fuga de información.
 
-A nivel de negocio para la startup Kntro-Soft, el diseño tiene el propósito de habilitar el modelo de distribución SaaS (Software as a Service). La arquitectura debe soportar el sistema de suscripciones y facturación, gestionar los límites de consumo de los motores de IA (LLMs) para mantener la rentabilidad, y asegurar que la plataforma pueda escalar el procesamiento de múltiples organizaciones concurrentes sin degradar la experiencia de usuario.
+A nivel de negocio para la startup Kntro-Soft, el diseño tiene el propósito de habilitar el modelo de distribución SaaS (Software as a Service). La arquitectura debe soportar el sistema de suscripciones y facturación, gestionar los límites de consumo de los motores de IA (LLM) para mantener la rentabilidad, y asegurar que la plataforma pueda escalar el procesamiento de múltiples organizaciones concurrentes sin degradar la experiencia de usuario.
 
 ### 4.1.2.	Attribute-Driven Design Inputs
 
@@ -1117,10 +1117,10 @@ En esta sección se detalla el proceso seguido durante las iteraciones (Stages) 
 En esta primera iteración se evaluó la estructura general del backend y cómo gestionar el aislamiento de datos. Se descartó la arquitectura de Microservicios por su alta complejidad operativa, optando por un **Monolito Modular** en Spring Boot (AD-08). Para resolver la separación de datos entre empresas (AD-02), se debatió entre *Database-per-Tenant* y *Shared-Database*. Se eligió la base de datos compartida aplicando políticas estrictas de **Row Level Security (RLS)** a nivel de base de datos (ej. PostgreSQL), lo que garantiza el aislamiento del 100% de la información mientras se optimizan los costos de despliegue en la nube (AD-07).
 
 **Iteración 2: Ingesta de Audio en Tiempo Real y Tolerancia a Fallos (Drivers: AD-01, AD-03)**
-El reto principal fue cumplir con la latencia <2s para la transcripción en vivo (AD-01). Se evaluó REST Polling, Server-Sent Events (SSE) y WebSockets. Se eligió **WebSockets** por permitir una comunicación bidireccional continua (necesaria para mandar fragmentos de audio al server y recibir texto del STT simultáneamente). Para la tolerancia a fallos ante caídas de las API de IA (AD-03), se descartó la complejidad de un **Message Broker externo** y se adoptó el uso de **Colas en Memoria RAM (Patrón Observer)** junto con persistencia de estado en la Base de Datos, optimizando la latencia y reduciendo costos de infraestructura en el MVP.
+El reto principal fue cumplir con la latencia <2 s para la transcripción en vivo (AD-01). Se evaluó REST Polling, Server-Sent Events (SSE) y WebSockets. Se eligió **WebSockets** por permitir una comunicación bidireccional continua (necesaria para mandar fragmentos de audio al server y recibir texto del STT simultáneamente). Para la tolerancia a fallos ante caídas de las API de IA (AD-03), se descartó la complejidad de un **Message Broker externo** y se adoptó el uso de **Colas en Memoria RAM (Patrón Observer)** junto con persistencia de estado en la Base de Datos, optimizando la latencia y reduciendo costos de infraestructura en el MVP.
 
 **Iteración 3: Integración RAG y Modificabilidad de IA (Drivers: AD-04, AD-05, AD-06)**
-Finalmente, el equipo abordó cómo evitar el acoplamiento con las APIs de IA de terceros y cómo lograr el RAG rápido (AD-05). Se descartó la Arquitectura en Capas tradicional a favor de una **Arquitectura Hexagonal (Ports and Adapters)**. Esto permite encapsular las reglas de negocio del *Prompt Engineering* en el dominio, dejando a OpenAI o Anthropic como simples "adaptadores", cumpliendo la meta de intercambiabilidad en <16h (AD-06). Para el almacenamiento del contexto del cliente, se eligió una **Base de Datos Vectorial** (ej. pgvector) superando las limitaciones de búsqueda semántica de las BD relacionales tradicionales.
+Finalmente, el equipo abordó cómo evitar el acoplamiento con las API de IA de terceros y cómo lograr el RAG rápido (AD-05). Se descartó la Arquitectura en Capas tradicional a favor de una **Arquitectura Hexagonal (Ports and Adapters)**. Esto permite encapsular las reglas de negocio del *Prompt Engineering* en el dominio, dejando a OpenAI o Anthropic como simples "adaptadores", cumpliendo la meta de intercambiabilidad en <16 h (AD-06). Para el almacenamiento del contexto del cliente, se eligió una **Base de Datos Vectorial** (ej. pgvector) superando las limitaciones de búsqueda semántica de las BD relacionales tradicionales.
 
 **Candidate Pattern Evaluation Matrix**
 
@@ -1230,7 +1230,7 @@ A continuación, se presenta la versión final de los escenarios refinados en or
   </tr>
   <tr>
     <td style="padding: 8px;"><strong>Artifact (if Known):</strong></td>
-    <td style="padding: 8px;">API Gateway, Spring Security y Base de Datos PostgreSQL (Shared DB con RLS).</td>
+    <td style="padding: 8px;">API Gateway, Spring Security y Base de Datos PostgresSQL (Shared DB con RLS).</td>
   </tr>
   <tr>
     <td style="padding: 8px;"><strong>Response:</strong></td>
@@ -1369,8 +1369,8 @@ Buscamos los Eventos Pivote que marcan hitos críticos en la vida del cliente.
 *   *Evento: "Upgraded to Pro Plan":* Involucra pasarelas de pago y cuotas. Aislamos el agregado Subscription en el **Billing & Subscription**.
 
 **3. Aplicación de "Start-with-simple"**
-Evaluamos las integraciones post-procesamiento.
-*   Después de que las historias son generadas, deben enviarse a plataformas externas (ej. Jira). Para proteger nuestro Core Domain de los constantes cambios en las APIs de terceros, aplicamos el patrón Anti-Corruption Layer (ACL) aislando el agregado ExternalConnection en el **Integration Gateway**.
+Evaluamos las integraciones postprocesamiento.
+*   Después de que las historias son generadas, deben enviarse a plataformas externas (ej. Jira). Para proteger nuestro Core Domain de los constantes cambios en las API de terceros, aplicamos el patrón Anti-Corruption Layer (ACL) aislando el agregado ExternalConnection en el **Integration Gateway**.
 
 
 **Resumen de Bounded Contexts Descubiertos**
@@ -1388,7 +1388,7 @@ A través de este proceso analítico y evolutivo, el sistema quedó dividido arq
 
 ### 4.2.3.	Domain Message Flows Modeling
 
-En esta sección, aplicamos una variante técnica de Domain Storytelling enfocada en el flujo de mensajes para evidenciar cómo colaboran los 5 Bounded Contexts consolidados (**Requirement Discovery**, **Workspace Management**, **IAM**, **Billing & Subscription**, y **Integration Gateway**) y así resolver los casos principales del negocio.
+En esta sección, aplicamos una variante técnica de Domain Storytelling enfocado en el flujo de mensajes para evidenciar cómo colaboran los 5 Bounded Contexts consolidados (**Requirement Discovery**, **Workspace Management**, **IAM**, **Billing & Subscription**, e **Integration Gateway**) y así resolver los casos principales del negocio.
 
 Utilizamos una notación específica para modelar la interacción:
 *   **Actor:** Persona interactuando con el sistema.
@@ -1416,7 +1416,7 @@ Este flujo describe la colaboración principal desde que el usuario inicia la gr
 Este flujo se enfoca estrictamente en la coreografía arquitectónica que ocurre cuando una organización decide adquirir un plan de pago. Demuestra cómo el sistema reacciona para actualizar las capacidades del entorno sin necesidad de intervención manual de un administrador.
 
 1. **Solicitud de Suscripción:** El Actor **Tech Lead** envía el Command **Request Pro Upgrade** a **Billing & Subscription**.
-2. **Procesamiento Externo:** **Billing & Subscription** delega la transacción enviando el Command **Process Payment** al System **Payment Gateway**. El sistema externo válida y retorna el resultado.
+2. **Procesamiento Externo:** **Billing & Subscription** delega la transacción enviando el Command **Process Payment** al System **Payment Gateway**. El sistema externo válido y retorna el resultado.
 3. **Propagación de Beneficios:** Una vez consolidado el pago, **Billing & Subscription** emite el Event **Upgraded to Pro Plan**.
 4. **Aprovisionamiento Automático:** El contexto **Workspace Management** escucha este evento y reacciona automáticamente actualizando los límites operativos de la organización.
 
@@ -1599,7 +1599,7 @@ En esta sección se presenta el diagrama de despliegue, el cual ilustra cómo lo
 
 La infraestructura de despliegue se divide en los entornos de cliente, la infraestructura de procesamiento en AWS, y la persistencia de datos en una nube externa especializada.
 
-1.  **Entorno del Cliente (Client-Side):**
+1.  **Lado del cliente:**
     *   **Dispositivos físicos (iOS/Android).** Dentro opera el *Flutter Engine*, entorno encargado de ejecutar la aplicación mobile.
     *   **Computadoras de los usuarios.** Utilizan un navegador web como nodo para renderizar la aplicación web.
 
@@ -1607,7 +1607,7 @@ La infraestructura de despliegue se divide en los entornos de cliente, la infrae
     La lógica de negocio se aloja en AWS North America, específicamente en us-east-1 (Virginia), elegida por su alta disponibilidad y optimización de costos.
     
     *   **AWS API Gateway:** Actúa como el punto de entrada público único, completamente gestionado. Recibe las llamadas HTTPS/REST de los clientes y enruta las peticiones de manera segura hacia el backend.
-    *   **AWS Elastic Beanstalk:** Es el entorno PaaS (Platform as a Service) encargado de alojar el **ReqsAI Backend Service [Container: Java, Spring Boot]**. Elastic Beanstalk abstrae la complejidad de la infraestructura, aprovisionando servidores EC2 subyacentes, auto-escalado y monitoreo, permitiendo al equipo enfocarse únicamente en el código del runtime de Java.
+    *   **AWS Elastic Beanstalk:** Es el entorno PaaS (Platform as a Service) encargado de alojar el **ReqsAI Backend Service [Container: Java, Spring Boot]**. Elastic Beanstalk abstrae la complejidad de la infraestructura, aprovisionando servidores EC2 subyacentes, autoescalado y monitoreo, permitiendo al equipo enfocarse únicamente en el código del runtime de Java.
 
 3.  **Entorno de Nube - Persistencia (Database as a Service):**
     *   **Base de datos Relacional Principal:** Se delegó el almacenamiento de datos a Supabase, una plataforma BaaS (Backend as a Service). Esta decisión arquitectónica permite aprovechar una base de datos robusta, gestionada y con soporte nativo para *embeddings* vectoriales (esenciales para las funcionalidades de IA), reduciendo drásticamente la carga operativa y los costos iniciales en comparación con mantener instancias tradicionales de bases de datos.
@@ -1732,7 +1732,7 @@ Como siguientes pasos, se recomienda priorizar un MVP enfocado en el flujo crít
 
 # Bibliografía
 
->Pulse of the Profession (2018) Success in Disruptiive Times. Project Management Institute. Recuperado el 15 de Abril de 2025, de https://www.pmi.org/learning/thought-leadership/pulse/pulse-of-the-profession-2018
+>Pulse of the Profession (2018) Success in Disruptive Times. Project Management Institute. Recuperado el 15 de Abril de 2025, de https://www.pmi.org/learning/thought-leadership/pulse/pulse-of-the-profession-2018
 
 >Jhonson J (2020) CHAOS Report: Beyond Infinity. Standish Group. Recuperado el 15 de Abril de 2025, de https://www.standishgroup.com/products/copy-of-chaos-report-beyond-infinity-digital-version
 
