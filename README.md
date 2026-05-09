@@ -1531,8 +1531,9 @@ El sistema Reqs-AI está compuesto por los siguientes contenedores principales:
     *   **Web Application:** Es la plataforma principal para los usuarios. Permite una visualización completa para el análisis profundo de datos, revisión de historias de usuario, configuración de proyectos y gestión general del sistema. Se eligió **Angular** por ser un framework robusto, ideal para aplicaciones empresariales escalables.
     *   **Mobile App:** Proporciona accesibilidad móvil a los usuarios, permitiéndoles interactuar con el sistema, grabar reuniones o revisar el estado de los requerimientos desde cualquier lugar. Se optó por **Flutter** para asegurar un desarrollo multiplataforma eficiente (iOS y Android) con una base de código unificada.
 
-2.  **Punto de Entrada y Enrutamiento:**
-    *   **API Gateway:** Actúa como la puerta de entrada única para todas las peticiones (Requests) provenientes de las aplicaciones Web y Móvil. Su responsabilidad es enrutar estas solicitudes hacia los servicios de backend correspondientes, centralizando potencialmente políticas de seguridad, *throttling* y métricas.
+2.  **Distribución y Enrutamiento Perimetral (Edge):**
+    *   **CDN & Reverse Proxy:** Se posiciona como el intermediario absoluto entre las interfaces de usuario (Internet) y la infraestructura interna. Actúa como proxy inverso interceptando todas las peticiones web y móviles. Su función es servir los archivos estáticos de la Web App a alta velocidad desde ubicaciones globales, almacenar respuestas en caché, mitigar ataques (DDoS) y enrutar las peticiones dinámicas (API) hacia el Gateway. En el entorno AWS, la tecnología elegida es **Amazon CloudFront**.
+    *   **API Gateway:** Actúa como la puerta de entrada para todas las peticiones dinámicas (Requests) enrutadas desde el Reverse Proxy. Su responsabilidad es dirigir estas solicitudes hacia los servicios de backend correspondientes, gestionando el *throttling*, métricas de consumo y terminación SSL.
 
 3.  **Lógica Core (Backend - Monolito Modular):**
     *   **Reqs-AI Backend Application:** Se ha modelado con un límite punteado (boundary) que representa el despliegue unificado (Monolito Modular) desarrollado en **Java con Spring Boot**. En su interior, el backend está estrictamente dividido en los 5 Bounded Contexts previamente descubiertos, operando como servicios lógicos aislados:
@@ -1549,8 +1550,8 @@ El sistema Reqs-AI está compuesto por los siguientes contenedores principales:
 
 La arquitectura define un flujo de comunicación moderno y orientado a servicios:
 
-*   **Comunicación Cliente-Servidor:** Tanto la aplicación móvil como la web interactúan con el API Gateway realizando llamadas a través de **HTTPS/REST** y **WebSockets**, garantizando seguridad y soporte para streaming en tiempo real.
-*   **Comunicación Interna:** El API Gateway enruta las llamadas hacia el *Reqs-AI Backend Application*. Internamente, los Bounded Contexts se comunican mediante eventos en memoria (Domain Events) y persisten su estado de manera síncrona en la base de datos compartida (PostgreSQL).
+*   **Comunicación Cliente-Servidor (Internet):** Tanto la aplicación móvil como la web interactúan inicialmente con el **CDN & Reverse Proxy (CloudFront)** a través de **HTTPS**. El proxy inverso sirve la Web App (Angular) y enruta las llamadas de datos hacia el **API Gateway**. Todo el tráfico utiliza conexiones seguras (REST y WebSockets para el streaming de audio).
+*   **Comunicación Interna:** El API Gateway enruta las llamadas procesadas hacia el *Reqs-AI Backend Application*. Internamente, los Bounded Contexts se comunican mediante eventos en memoria (Domain Events) y persisten su estado de manera síncrona en la base de datos compartida (PostgreSQL).
 *   **Integración con Sistemas Externos:** En lugar de centralizar todas las salidas, las integraciones están descentralizadas y asignadas al Bounded Context correspondiente que las necesita:
     *   **IAM** envía credenciales y alertas a través del **Email Service Provider**.
     *   **Billing & Subscription** procesa transacciones a través del **Payment Gateway**.
@@ -1559,32 +1560,36 @@ La arquitectura define un flujo de comunicación moderno y orientado a servicios
 
 ### 4.3.4.	Software Architecture Deployment Diagrams
 
-En esta sección se presenta el diagrama de despliegue, el cual ilustra cómo los contenedores de software de ReqsAI se mapean a la infraestructura física o virtual. Este diagrama detalla los nodos de ejecución, los entornos operativos y la topología de red, priorizando una arquitectura viable, escalable y optimizada en costos.
+En esta sección se presenta el diagrama de despliegue, el cual ilustra cómo los contenedores de software de Reqs-AI se mapean a la infraestructura de la nube. Este diagrama detalla los nodos de ejecución, los entornos operativos y la topología de red, priorizando una arquitectura viable, escalable y optimizada en costos.
 
 ![Deployment Diagram](assets/4.Strategic-Level-Product-Design/4.3.Software-Architecture/Deployment.png)
 
 **Nodos de Despliegue y Distribución de Componentes**
 
-La infraestructura de despliegue se divide en los entornos de cliente, la infraestructura de procesamiento en AWS, y la persistencia de datos en una nube externa especializada.
+La infraestructura de despliegue se divide en los entornos de cliente, la red de entrega perimetral (Edge), la infraestructura de procesamiento core y la persistencia de datos.
 
 1.  **Entorno del Cliente (Client-Side):**
-    *   **Dispositivos físicos (iOS/Android).** Dentro opera el *Flutter Engine*, entorno encargado de ejecutar la aplicación mobile.
-    *   **Computadoras de los usuarios.** Utilizan un navegador web como nodo para renderizar la aplicación web.
+    *   **Dispositivos físicos (iOS/Android):** Dentro opera el *Flutter Engine*, entorno encargado de ejecutar la aplicación mobile.
+    *   **Computadoras de los usuarios:** Utilizan un navegador web como nodo de ejecución para renderizar la aplicación web (Angular).
 
-2.  **Entorno de Nube - Procesamiento (Server-Side - AWS):**
-    La lógica de negocio se aloja en AWS North America, específicamente en us-east-1 (Virginia), elegida por su alta disponibilidad y optimización de costos.
-    
-    *   **AWS API Gateway:** Actúa como el punto de entrada público único, completamente gestionado. Recibe las llamadas HTTPS/REST de los clientes y enruta las peticiones de manera segura hacia el backend.
-    *   **AWS Elastic Beanstalk:** Es el entorno PaaS (Platform as a Service) encargado de alojar el **ReqsAI Backend Service [Container: Java, Spring Boot]**. Elastic Beanstalk abstrae la complejidad de la infraestructura, aprovisionando servidores EC2 subyacentes, auto-escalado y monitoreo, permitiendo al equipo enfocarse únicamente en el código del runtime de Java.
+2.  **Entorno de Nube - Red Perimetral (AWS Edge Location):**
+    Para garantizar baja latencia y alta seguridad antes de que el tráfico llegue a los servidores principales, se utilizan los nodos Edge de AWS distribuidos globalmente.
+    *   **Amazon CloudFront (CDN & Reverse Proxy):** Actúa como el primer punto de contacto (Proxy Inverso). Almacena en caché los archivos estáticos de la Web App en ubicaciones cercanas al usuario para cargas instantáneas, y enruta de forma segura y eficiente el tráfico dinámico hacia la región principal de AWS.
 
-3.  **Entorno de Nube - Persistencia (Database as a Service):**
-    *   **Base de datos Relacional Principal:** Se delegó el almacenamiento de datos a Supabase, una plataforma BaaS (Backend as a Service). Esta decisión arquitectónica permite aprovechar una base de datos robusta, gestionada y con soporte nativo para *embeddings* vectoriales (esenciales para las funcionalidades de IA), reduciendo drásticamente la carga operativa y los costos iniciales en comparación con mantener instancias tradicionales de bases de datos.
+3.  **Entorno de Nube - Procesamiento (Server-Side - AWS North America):**
+    La lógica de negocio se aloja en AWS North America (us-east-1, Virginia), elegida por su alta disponibilidad y ecosistema completo de servicios.
+    *   **AWS API Gateway:** Recibe el tráfico dinámico enrutado desde CloudFront y funciona como el orquestador de las peticiones REST y WebSockets hacia el backend.
+    *   **AWS Elastic Beanstalk:** Es el entorno PaaS (Platform as a Service) encargado de alojar el **Reqs-AI Backend Application**. Elastic Beanstalk abstrae la complejidad de la infraestructura, aprovisionando servidores EC2 subyacentes, auto-escalado y monitoreo, permitiendo al equipo enfocarse únicamente en el código del runtime de Java.
+
+4.  **Entorno de Nube - Persistencia (Database as a Service):**
+    *   **Supabase Cloud (PostgreSQL):** Se delegó el almacenamiento a Supabase, una plataforma BaaS (Backend as a Service). Esta decisión permite aprovechar una base de datos PostgreSQL robusta, gestionada y con la extensión **pgvector** nativa (esencial para los *embeddings* y RAG de los requerimientos), reduciendo drásticamente la carga operativa y los costos.
 
 **Comunicación e Interacción de Nodos**
 
-*   Las aplicaciones (Mobile y Web) se comunican vía internet mediante **HTTPS/REST** con el **AWS API Gateway**.
-*   El API Gateway enruta el tráfico internamente hacia el entorno de **AWS Elastic Beanstalk**, donde reside la lógica del sistema.
-*   El backend de Spring Boot se conecta de manera externa y segura hacia el clúster gestionado en **Supabase Cloud** para realizar operaciones de lectura y escritura (*Reads and write*) de la información del dominio.
+*   Las aplicaciones (Mobile y Web) se comunican vía internet mediante **HTTPS** con el **Amazon CloudFront** ubicado en el *Edge Location* más cercano.
+*   CloudFront sirve los recursos estáticos web directamente y enruta las solicitudes API hacia el **AWS API Gateway** en la región de AWS North America.
+*   El API Gateway enruta el tráfico internamente hacia el entorno de **AWS Elastic Beanstalk**, donde reside la lógica del Monolito Modular.
+*   El backend de Spring Boot se conecta de manera externa y segura hacia el clúster gestionado en **Supabase Cloud** para realizar operaciones transaccionales (*Reads and writes*) sobre la base de datos compartida.
 
 # Capítulo V: Tactical-Level Software Design
 
