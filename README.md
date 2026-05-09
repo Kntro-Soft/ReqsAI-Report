@@ -1,7 +1,7 @@
-<body>
+﻿<body>
     <div style="text-align: center; font-weight: bolder">
         <p>Universidad Peruana de Ciencias Aplicadas - Ingeniería de Software - 8 Ciclo</p>
-        <img src="assets/cover/logo-upc.png" alt="logo of UPC"/>
+        <img src="assets/brand/logo-upc.png" alt="logo of UPC"/>
         <p>1ASI0732 - Arquitectura de Software Emergentes</p>
         <p>Sección - 11821</p>
         <p>Docente: Christian Luis De Los Rios Fernández</p>   
@@ -70,7 +70,7 @@ En esta sección se documenta la colaboración del equipo en la elaboración del
 
 TB1:
 
-![InsightsTB1](assets/Insights/insightsTB1.png)
+![InsightsTB1](assets/insights/insights-tb1.png)
 
 <div style="page-break-before: always"></div>
 
@@ -236,13 +236,13 @@ Convertirnos en la plataforma estándar de gestión de requisitos para empresas 
 
 ### 1.1.2. Perfiles de integrantes del equipo
 
-| Foto del participante                                                                       | Nombres y apellidos               | Código de estudiante | Carrera                | Conocimientos técnicos y habilidades                                                                                                                                                                                                                                            |
-|---------------------------------------------------------------------------------------------|-----------------------------------|----------------------|------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ![erick.png](assets/1.introduction/1.1.startup-profile/1.1.2.team-member/erick.png)         | Eric Ernesto Hernández Tuiro      | 20221C857            | Ingeniería de Software | Especialista en desarrollo backend con Java/Spring Boot y diseño de arquitecturas de sistemas. Enfocado en tecnologías empresariales y soluciones eficientes.                                                                                                                   |
-| ![marcelo.png](assets/1.introduction/1.1.startup-profile/1.1.2.team-member/marcelo.jpg)     | Marcelo Alejandro Varela Bustinza | 202319668            | Ingeniería de Software | Desarrollador con experiencia en Angular/Spring Boot y Vue.js/ASP.NET, enfocado en arquitecturas monolíticas y desarrollo de aplicaciones.                                                                                                                                      | 
-| ![jhosepmyr.png](assets/1.introduction/1.1.startup-profile/1.1.2.team-member/jhosepmyr.png) | Jhosepmyr Orlando Gutiérrez Soto  | 202317638            | Ingeniería de Software | Especialista en desarrollo full-stack con Java/Spring Boot y frameworks frontend como Angular y Vue.js. Experiencia en microservicios y servicios cloud (AWS, Azure, GCP). Aporta habilidades de liderazgo técnico, toma de decisiones y coordinación de equipos de desarrollo. | 
-| ![paul.png](assets/1.introduction/1.1.startup-profile/1.1.2.team-member/paul.png)           | Paul Fernando Sulca Gonzales      | 20221C486            | Ingeniería de Software | Conocimiento en diseño de software orientado a objetos y modelado UML. Experiencia en implementación de interfaces web adaptativas. Amante de los desafíos de la vida universitaria.                                                                                            |
-| ![salim.jpg](assets/1.introduction/1.1.startup-profile/1.1.2.team-member/salim.jpg)         | Salim Ignacio Ramirez Mestanza    | 20201E843            | Ingeniería de Software | Conocimiento en arquitectura de software y control de versiones con Git. Experiencia en documentación técnica y colaboración en equipos ágiles. Desarrollo backend con Java/Spring Boot y Domain-Driven Design.                                                                 |
+| Foto del participante                                 | Nombres y apellidos               | Código de estudiante | Carrera                | Conocimientos técnicos y habilidades                                                                                                                                                                                                                                            |
+|-------------------------------------------------------|-----------------------------------|----------------------|------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ![erick.png](assets/team/eric-hernandez.png)          | Eric Ernesto Hernández Tuiro      | 20221C857            | Ingeniería de Software | Especialista en desarrollo backend con Java/Spring Boot y diseño de arquitecturas de sistemas. Enfocado en tecnologías empresariales y soluciones eficientes.                                                                                                                   |
+| ![marcelo.png](assets/team/marcelo-varela.jpg)        | Marcelo Alejandro Varela Bustinza | 202319668            | Ingeniería de Software | Desarrollador con experiencia en Angular/Spring Boot y Vue.js/ASP.NET, enfocado en arquitecturas monolíticas y desarrollo de aplicaciones.                                                                                                                                      | 
+| ![jhosepmyr.png](assets/team/jhosepmyr-gutierrez.png) | Jhosepmyr Orlando Gutiérrez Soto  | 202317638            | Ingeniería de Software | Especialista en desarrollo full-stack con Java/Spring Boot y frameworks frontend como Angular y Vue.js. Experiencia en microservicios y servicios cloud (AWS, Azure, GCP). Aporta habilidades de liderazgo técnico, toma de decisiones y coordinación de equipos de desarrollo. | 
+| ![paul.png](assets/team/paul-sulca.png)               | Paul Fernando Sulca Gonzales      | 20221C486            | Ingeniería de Software | Conocimiento en diseño de software orientado a objetos y modelado UML. Experiencia en implementación de interfaces web adaptativas. Amante de los desafíos de la vida universitaria.                                                                                            |
+| ![salim.jpg](assets/team/salim-ramirez.jpg)           | Salim Ignacio Ramirez Mestanza    | 20201E843            | Ingeniería de Software | Conocimiento en arquitectura de software y control de versiones con Git. Experiencia en documentación técnica y colaboración en equipos ágiles. Desarrollo backend con Java/Spring Boot y Domain-Driven Design.                                                                 |
 
 ## 1.2. Solution Profile
 
@@ -337,7 +337,7 @@ El equipo cree que la implementación de una arquitectura de aislamiento de dato
 
 #### 1.2.2.4. Lean UX Canvas
 
-![lean-ux-canvas](assets/1.introduction/1.2.solution-profile/1.2.2.lean-ux-process/LEAN-UX-CANVAS-Reqs-AI.png)
+![lean-ux-canvas](assets/lean-ux/lean-ux-canvas.png)
 
 ## 1.3. Segmentos objetivos
 
@@ -400,10 +400,10 @@ Para este análisis, hemos seleccionado a los competidores más relevantes segú
     </tr>
     <tr>
       <td style="padding: 10px"><strong>Logo</strong></td>
-      <td style="text-align: center; padding: 10px"><img src="./assets/logos/Reqs-AI-Logo.png" alt="Reqs-AI" style="width: 120px"></td>
-      <td style="text-align: center; padding: 10px"><img src="./assets/logos/Logo-Spinach.png" alt="Spinach.io" style="width: 120px"></td>
-      <td style="text-align: center; padding: 10px"><img src="./assets/logos/Logo-Otter.png" alt="Otter.ai" style="width: 120px"></td>
-      <td style="text-align: center; padding: 10px"><img src="./assets/logos/Logo-Jira.png" alt="Jira" style="width: 120px"></td>
+      <td style="text-align: center; padding: 10px"><img src="assets/brand/logo-reqs-ai.png" alt="Reqs-AI" style="width: 120px"></td>
+      <td style="text-align: center; padding: 10px"><img src="assets/brand/logo-spinach.png" alt="Spinach.io" style="width: 120px"></td>
+      <td style="text-align: center; padding: 10px"><img src="assets/brand/logo-otter.png" alt="Otter.ai" style="width: 120px"></td>
+      <td style="text-align: center; padding: 10px"><img src="assets/brand/logo-jira.png" alt="Jira" style="width: 120px"></td>
     </tr>
     <tr>
       <td style="padding: 10px"><strong>Overview</strong></td>
@@ -604,7 +604,7 @@ El diseño de entrevistas se orienta a comprender en profundidad el trabajo real
 | **Fecha de entrevista** | 2026-04-26                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | **Timing**              | 00:00 - 08:44                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | **Video**               | [Ver en Microsoft Stream](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20201e843_upc_edu_pe/IQBfI-e1lo83TbYt7kDQtSnkAdVnWNpkz3TnXS4tGTxTGYk?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=vSJAsl)                                                                                                                                                                                                                                                                                                                                                                 |
-| **Captura**             | ![Captura entrevista Gabriel](assets/images/screenshots/interview-screenshot-leader1.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| **Captura**             | ![Captura entrevista Gabriel](assets/interviews/leader-1.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | **Resumen**             | Gabriel cuenta con experiencia como desarrollador full stack y participa en reuniones de levantamiento de requisitos dentro de un equipo ágil basado en Scrum. Durante la entrevista, señaló que el proceso actual depende en gran medida de reuniones, notas manuales, documentación en Notion y gestión del backlog en Jira. Identificó como principales dificultades la pérdida de información, la ambigüedad en los requisitos y el retrabajo generado cuando no se definen correctamente los flujos o criterios desde el inicio. Además, considera que una solución que automatice el resumen de reuniones y apoye la generación de historias de usuario podría reducir errores y mejorar la claridad del proceso. |
 
 **Segmento Líder Técnico: Entrevistado 2**
@@ -619,7 +619,7 @@ El diseño de entrevistas se orienta a comprender en profundidad el trabajo real
 | **Fecha de entrevista** | 2026-04-26                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | **Timing**              | 08:44 - 18:26                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | **Video**               | [Ver en Microsoft Stream](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20201e843_upc_edu_pe/IQBfI-e1lo83TbYt7kDQtSnkAdVnWNpkz3TnXS4tGTxTGYk?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=vSJAsl)                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| **Captura**             | ![Captura entrevista Ronald](assets/images/screenshots/interview-screenshot-leader2.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| **Captura**             | ![Captura entrevista Ronald](assets/interviews/leader-2.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | **Resumen**             | Ronald se desempeña como líder técnico y participa activamente en el proceso de levantamiento de requisitos junto con perfiles como el Product Owner y el Project Manager. Su equipo trabaja con herramientas como Google Meet, Zoom, Notion, Jira y Trello para coordinar reuniones, documentar acuerdos y gestionar el backlog. Durante la entrevista, destacó que uno de los principales problemas ocurre al traducir lo que el cliente solicita en historias de usuario claras y accionables. Señaló que una historia mal definida puede generar entre cuatro y ocho horas de retrabajo, afectar el avance del sprint y producir frustración en el equipo. Para él, el proceso es necesario, pero todavía depende demasiado de la claridad humana y requiere mayor optimización. |
 
 **Segmento Líder Técnico: Entrevistado 3**
@@ -634,7 +634,7 @@ El diseño de entrevistas se orienta a comprender en profundidad el trabajo real
 | **Fecha de entrevista** | 2026-04-26                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | **Timing**              | 18:26 - 28:42                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | **Video**               | [Ver en Microsoft Stream](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20201e843_upc_edu_pe/IQBfI-e1lo83TbYt7kDQtSnkAdVnWNpkz3TnXS4tGTxTGYk?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=vSJAsl)                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| **Captura**             | ![Captura entrevista Daniela](assets/images/screenshots/interview-screenshot-leader3.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| **Captura**             | ![Captura entrevista Daniela](assets/interviews/leader-3.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | **Resumen**             | Daniela trabaja como desarrolladora backend y también apoya en el levantamiento de requerimientos dentro de un equipo Scrum. En su flujo de trabajo utiliza Google Meet, Google Spaces, Notion, Google Docs, notas personales y Jira para organizar la información obtenida en reuniones con clientes. Durante la entrevista, explicó que los principales problemas aparecen cuando el cliente no comunica con claridad sus necesidades o cuando se omiten validaciones y reglas de negocio importantes. Indicó que estos errores pueden generar retrabajo, retrasos en el sprint y frustración en el equipo. Asimismo, considera que una herramienta capaz de transcribir reuniones y generar historias de usuario de manera automática podría optimizar significativamente el proceso, siempre que mantenga una validación humana. |
 
 ---
@@ -651,7 +651,7 @@ El diseño de entrevistas se orienta a comprender en profundidad el trabajo real
 | **Fecha de entrevista** | 25 de abril de 2026                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | **Timing**              | 28:42 - 44:31                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | **Video**               | [Ver en Microsoft Stream](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20201e843_upc_edu_pe/IQBfI-e1lo83TbYt7kDQtSnkAdVnWNpkz3TnXS4tGTxTGYk?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=vSJAsl)                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| **Captura**             | ![Captura entrevista Renato](./assets/images/screenshots/interview-screenshot-consultor1.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| **Captura**             | ![Captura entrevista Renato](assets/interviews/consultant-1.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | **Resumen**             | Esta entrevista presenta a Renato Torres, analista funcional senior con tres años de experiencia en una consultora tecnológica para el sector bancario. Lidera una célula ágil bajo la metodología Scrum adaptada, utilizando herramientas como Jira, Confluence y Microsoft Teams. Su proceso comienza con el discovery y la redacción de historias de usuario, actuando como un "traductor" entre las necesidades de negocio y el equipo técnico. Renato enfatiza que Jira es su única fuente de verdad para evitar malentendidos. Identifica como principales desafíos la falta de claridad en los procesos de los clientes y la omisión de los decisores finales. Finalmente, destaca que el éxito de su rol en el entorno peruano depende en un 80% de la gestión de expectativas. |
 
 **Segmento Analista Funcional: Entrevistado 2**
@@ -666,7 +666,7 @@ El diseño de entrevistas se orienta a comprender en profundidad el trabajo real
 | **Fecha de entrevista** | 25 de abril de 2026                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | **Timing**              | 44:31 - 54:51                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | **Video**               | [Ver en Microsoft Stream](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20201e843_upc_edu_pe/IQBfI-e1lo83TbYt7kDQtSnkAdVnWNpkz3TnXS4tGTxTGYk?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=vSJAsl)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| **Captura**             | ![Captura entrevista Valentin](./assets/images/screenshots/interview-screenshot-consultor2.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| **Captura**             | ![Captura entrevista Valentin](assets/interviews/consultant-2.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | **Resumen**             | Esta entrevista presenta a Valentín, analista de producto de 25 años con experiencia en una consultora tecnológica. Trabaja en un equipo pequeño de cinco personas bajo una metodología Kanban, priorizando la agilidad sobre la rigidez de Scrum. Su stack incluye Slack, Google Meet, Trello y Notion, siendo esta última su herramienta indispensable para documentar requerimientos. Su proceso se centra en el aspecto visual, utilizando FigJam para crear mapas mentales en vivo y prototipos que reemplazan la documentación extensa. Valentín define su labor como un "caos ordenado" y actúa como puente entre el cliente y los desarrolladores. Entre sus principales desafíos destaca el manejo de cambios imprevistos por stakeholders ausentes y la falta de límites en la comunicación (WhatsApp), subrayando que la empatía con el usuario final es la clave del éxito. |
 
 **Segmento Analista Funcional: Entrevistado 3**
@@ -681,7 +681,7 @@ El diseño de entrevistas se orienta a comprender en profundidad el trabajo real
 | **Fecha de entrevista** | 26 de abril de 2026                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | **Timing**              | 54:51 - 01:05:32                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | **Video**               | [Ver en Microsoft Stream](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20201e843_upc_edu_pe/IQBfI-e1lo83TbYt7kDQtSnkAdVnWNpkz3TnXS4tGTxTGYk?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=vSJAsl)                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| **Captura**             | ![Captura entrevista Daniel](./assets/images/screenshots/interview-screenshot-consultor3.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| **Captura**             | ![Captura entrevista Daniel](assets/interviews/consultant-3.png)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | **Resumen**             | Esta entrevista presenta a Daniel Franco, analista de sistemas de 30 años en una software factory para el sector bancario. Trabaja bajo el marco SAFe en una célula con roles definidos y procesos rigurosos. Su matriz de trabajo es Azure DevOps, herramienta que considera imprescindible por la trazabilidad y certificación del proceso. Daniel destaca por su enfoque técnico: redacta historias en formato Gherkin, utiliza Enterprise Architect para procesos complejos y se guía por el BABOK Guide. Su mayor desafío operativo es procesar grabaciones de reuniones para evitar ambigüedades, invirtiendo cuatro horas de análisis por cada hora de sesión. Se define como el "guardián de la certidumbre", subrayando que en el entorno corporativo un error de lógica impacta a miles de usuarios financieros. |
 
 ### 2.2.3. Análisis de entrevistas
@@ -751,11 +751,11 @@ Los user personas sintetizan patrones de comportamiento, objetivos, frustracione
 
 **User persona del segmento de Líder Técnico de Startup**
 
-<img src="assets/requirements/personas/tech-lead.png" alt="User Persona Líder Técnico de Startup" style="width: 800px">
+<img src="assets/user-research/personas/persona-tech-lead.png" alt="User Persona Líder Técnico de Startup" style="width: 800px">
 
 **User persona del segmento de Analista de sistemas Enterprise**
 
-<img src="assets/requirements/personas/analista.png" alt="User Persona Analista de Sistemas Enterprise" style="width: 800px">
+<img src="assets/user-research/personas/persona-analyst.png" alt="User Persona Analista de Sistemas Enterprise" style="width: 800px">
 
 
 ### 2.3.2. User Task Matrix
@@ -785,11 +785,11 @@ A continuación, se presentan los User Journey Maps As-Is de cada User Persona. 
 
 * User Journey Map de Diego Alvarado (Líder Técnico de Startup):
 
-  ![User Journey Map del User Persona Diego Alvarado](assets/requirements/maps/journey-maps/tech-lead.png)
+  ![User Journey Map del User Persona Diego Alvarado](assets/user-research/journey-maps/journey-map-tech-lead.png)
 
 * User Journey Map de Analista Enterprise Genérico (Analista de sistemas enterprise):
 
-  ![User Journey Map del User Persona Analista Enterprise Genérico](assets/requirements/maps/journey-maps/analyst.png)
+  ![User Journey Map del User Persona Analista Enterprise Genérico](assets/user-research/journey-maps/journey-map-analyst.png)
 
 ### 2.3.4. Empathy Mapping
 
@@ -797,11 +797,11 @@ Se elaboraron los Empathy Maps para los dos user persona priorizados: el Líder 
 
 **Líder Técnico de Startup**
 
-![Empathy Mapping - Tech Lead](assets/requirements/maps/empathy-maps/tech-lead.png)
+![Empathy Mapping - Tech Lead](assets/user-research/empathy-maps/empathy-map-tech-lead.png)
 
 **Analista de sistemas enterprise**
 
-![Empathy Mapping - Analyst](assets/requirements/maps/empathy-maps/analyst.png)
+![Empathy Mapping - Analyst](assets/user-research/empathy-maps/empathy-map-analyst.png)
 
 ### 2.3.5. As-is Scenario Mapping
 
@@ -811,11 +811,11 @@ Además, se identificaron áreas positivas, negativas y blank áreas para ubicar
 
 **As-Is Scenario Mapping de Diego Alvarado (Líder Técnico de Startup)**
 
-![As-Is Scenario Mapping - Tech Lead](assets/requirements/maps/as-is-scenarios/tech-lead.png)
+![As-Is Scenario Mapping - Tech Lead](assets/user-research/as-is-scenarios/as-is-tech-lead.png)
 
 **As-Is Scenario Mapping de Analista Enterprise Genérico (Analista de Sistemas Enterprise)**
 
-![As-Is Scenario Mapping - Analyst](assets/requirements/maps/as-is-scenarios/analyst.png)
+![As-Is Scenario Mapping - Analyst](assets/user-research/as-is-scenarios/as-is-analyst.png)
 
 ## 2.4. Ubiquitous Language
 
@@ -854,11 +854,11 @@ El escenario To-Be propone sesiones de levantamiento con mayor validación en ti
 
 **To-Be Scenario Mapping de Diego Alvarado (Líder Técnico de Startup)**
 
-![To-Be Scenario Mapping - Tech Lead](assets/requirements/maps/to-be-scenarios/tech-lead.png)
+![To-Be Scenario Mapping - Tech Lead](assets/user-research/to-be-scenarios/to-be-tech-lead.png)
 
 **To-Be Scenario Mapping de Analista Enterprise Genérico (Analista de Sistemas Enterprise)**
 
-![To-Be Scenario Mapping - Analyst](assets/requirements/maps/to-be-scenarios/analyst.png)
+![To-Be Scenario Mapping - Analyst](assets/user-research/to-be-scenarios/to-be-analyst.png)
 
 ## 3.2. User Stories
 
@@ -1025,7 +1025,7 @@ Las historias de usuario, junto con sus estimaciones en Story Points, Criterios 
 [https://uni-ride.atlassian.net/jira/software/projects/REQ/boards/299/backlog](https://uni-ride.atlassian.net/jira/software/projects/REQ/boards/299/backlog) *(Enlace de acceso).*
 
 **Captura del Product Backlog (Priorizado):**  
-![Product Backlog Jira Reference](assets/annexes/jira-backlog-prioritized.png)
+![Product Backlog Jira Reference](assets/annexes/jira-backlog.png)
 
 ## 3.4. Impact Mapping
 
@@ -1041,9 +1041,9 @@ Para cada meta, el mapa diferencia el rol de cada persona: Miguel concentra impa
 
 La trazabilidad final se mantiene en formato **Goal -> Persona -> Impact -> Deliverable -> User Story**, usando únicamente historias **US** del Product Backlog para asegurar consistencia entre estrategia y planificación de producto.
 
-![Impact Mapping Reqs-AI](./assets/requirements/maps/impact-map/impact-mapping.png)
+![Impact Mapping Reqs-AI](./assets/user-research/impact-map/impact-map.png)
 
-[Ver imagen detallada](./assets/requirements/maps/impact-map/impact-mapping.png)
+[Ver imagen detallada](./assets/user-research/impact-map/impact-map.png)
 
 # Capítulo IV: Strategic-Level Product Design
 
@@ -1316,39 +1316,39 @@ La sesión se estructuró siguiendo una agenda iterativa para construir el model
 
 **1. Domain Events:** Iniciamos la sesión identificando en post-its naranjas los hechos relevantes que ocurren en el sistema (escritos como verbos en participio pasado). En esta etapa inicial nos centramos únicamente en la lluvia de ideas de todos los eventos posibles sin preocuparnos por el orden temporal exacto.
 
-![Domain Events](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Domain-events.jpg)
+![Domain Events](assets/event-storming/domain-events.jpg)
 
 **2. Timeline:** Una vez identificados los eventos, procedimos a organizarlos cronológicamente, creando una línea de tiempo lógica que abarca desde el registro de la organización hasta la exportación de las historias de usuario aprobadas.
 
-![Timeline](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Timeline.jpg)
+![Timeline](assets/event-storming/timeline.jpg)
 
 **3. Pain Points:** Con la línea de tiempo establecida, analizamos el flujo para identificar cuellos de botella, problemas potenciales o áreas de fricción (representados visualmente para destacar conflictos en el dominio). Esto nos ayudó a visualizar dónde el sistema requería atención especial.
 
-![Pain Points](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Pain-points.jpg)
+![Pain Points](assets/event-storming/pain-points.jpg)
 
 **4. Pivotal Points:** Marcamos los eventos cruciales que representan cambios de estado significativos o transiciones importantes en el ciclo de vida del negocio (por ejemplo, el momento en que se completa el pago o se genera la historia de usuario).
 
-![Pivotal Points](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Pivotal-points.jpg)
+![Pivotal Points](assets/event-storming/pivotal-points.jpg)
 
 **5. Commands and Actors:** A la izquierda de los eventos, colocamos post-its azules que representan la acción o intención (comandos) que provoca dicho evento. Además, identificamos qué o quién ejecuta estos comandos utilizando post-its amarillos pequeños para los actores humanos (como el Líder Técnico o el Analista Enterprise).
 
-![Commands and Actors](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Commands.jpg)
+![Commands and Actors](assets/event-storming/commands.jpg)
 
 **6. Policies:** Para las acciones automatizadas o lógicas reactivas del sistema, utilizamos post-its lilas representando las políticas. **Es importante destacar que en esta etapa es donde se diseñan las soluciones automáticas y reglas de negocio para resolver los Pain Points identificados anteriormente. Por esta razón, los marcadores de Pain Points desaparecen de los diagramas en los siguientes pasos, ya que el diseño del flujo y las políticas han mitigado esos problemas.**
 
-![Policies](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Policies.jpg)
+![Policies](assets/event-storming/policies.jpg)
 
 **7. Read Models:** Insertamos post-its verdes detallando la información necesaria que el usuario debe visualizar antes de tomar una decisión o ejecutar un comando (por ejemplo, el Dashboard de Consumo de Tokens o la vista de transcripción).
 
-![Read Models](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Read-Models.jpg)
+![Read Models](assets/event-storming/read-models.jpg)
 
 **8. External Services:** Mapeamos las dependencias críticas de Reqs-AI utilizando post-its rosados. Los colocamos entre los comandos y los eventos cuando la acción delega responsabilidad a un tercero (API de IA para LLM, pasarela de pago para Billing, y API de Jira para exportación).
 
-![External Services](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/External-services.jpg)
+![External Services](assets/event-storming/external-services.jpg)
 
 **9. Aggregates:** Como última capa de agrupación estructural, añadimos post-its amarillos grandes alrededor de los comandos, eventos y modelos de lectura asociados para documentar los Agregados (Aggregates). Estos definen las entidades transaccionales clave y las fronteras de consistencia de datos dentro del dominio.
 
-![Aggregates](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.1.EventStorming/Aggregates.jpg)
+![Aggregates](assets/event-storming/aggregates.jpg)
 
 El resultado de la sesión de Design-Level Event Storming fue un mapa exhaustivo y altamente estructurado del dominio de Reqs-AI. Pasamos de una simple lluvia de ideas a un conjunto de Agregados claramente definidos.
 
@@ -1385,7 +1385,7 @@ A través de este proceso analítico y evolutivo, el sistema quedó dividido arq
 | **4. Billing & Subscription** | Generic Subdomain    | Subscription              | Integración con pasarelas de pago, upgrades/downgrades de planes y monitoreo de consumo de cuotas/tokens.                  |
 | **5. Integration Gateway**    | Supporting Subdomain | ExternalConnection        | Capa Anticorrupción (ACL) para autorizar credenciales (OAuth) y exportar historias hacia herramientas externas como Jira.  |
 
-![CCD](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.2.Candidate-Context-Discovery/Bounded-Contexts.jpg)
+![CCD](assets/ddd/bounded-contexts.jpg)
 
 ### 4.2.3.	Domain Message Flows Modeling
 
@@ -1410,7 +1410,7 @@ Este flujo describe la colaboración principal desde que el usuario inicia la gr
 2. **Recopilación de Contexto (RAG):** Una vez finalizada la sesión, **Requirement Discovery** necesita los datos y reglas de negocio del cliente, por lo que envía una Query **Request Project Data** a **Workspace Management**, recibiendo el Event **Project data sent** (que incluye el glosario).
 3. **Inferencia IA:** Con el texto de la reunión y el contexto listos, **Requirement Discovery** envía el Command **Generate User story** al System **LLM Service**. Se consolida el resultado emitiendo el Event final **User story generated** para que el Product Owner lo revise.
 
-![Domain Message Flow](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.3.Domain-Message-Flows-Modeling/Scenario1.jpg)
+![Domain Message Flow](assets/ddd/domain-message-flow-1.jpg)
 
 **Escenario 2: Suscripción y mejora de organización**
 
@@ -1421,7 +1421,7 @@ Este flujo se enfoca estrictamente en la coreografía arquitectónica que ocurre
 3. **Propagación de Beneficios:** Una vez consolidado el pago, **Billing & Subscription** emite el Event **Upgraded to Pro Plan**.
 4. **Aprovisionamiento Automático:** El contexto **Workspace Management** escucha este evento y reacciona automáticamente actualizando los límites operativos de la organización.
 
-![Domain Message Flow](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.3.Domain-Message-Flows-Modeling/Scenario2.jpg)
+![Domain Message Flow](assets/ddd/domain-message-flow-2.jpg)
 
 **Escenario 3: Sincronización Ágil (Exportación a Jira)**
 
@@ -1432,7 +1432,7 @@ Este es un flujo netamente operativo y postprocesamiento. Ocurre después de que
 3. **Capa Anticorrupción:** El evento es escuchado por el **Integration Gateway**. Este contexto actúa como ACL (aislando al core domain de los detalles de API externas), mapea el modelo interno al formato esperado por el sistema externo, y envía el Command **Create Issue** al System **PM Service**.
 4. **Confirmación y Retorno:** El System **PM Service** responde exitosamente con los datos del ticket. El **Integration Gateway** traduce esta respuesta al lenguaje de nuestro dominio y emite el Event **Story Exported**.
 
-![Domain Message Flow](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.3.Domain-Message-Flows-Modeling/Scenario3.jpg)
+![Domain Message Flow](assets/ddd/domain-message-flow-3.jpg)
 
 ### 4.2.4.	Bounded Context Canvases
 
@@ -1442,31 +1442,31 @@ En esta sección el equipo diseña sus candidate bounded contexts, detallando lo
 
 Motor central de la plataforma responsable de ingerir el audio de las reuniones en tiempo real, orquestar la transcripción y aplicar Inteligencia Artificial con contexto (RAG) para generar historias de usuario estructuradas en formato Gherkin.
 
-![Canvas1](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Requirement-discovery.jpg)
+![Canvas1](assets/ddd/bc-canvas-discovery.jpg)
 
 **2. Workspace Management**
 
 Módulo organizativo que garantiza el aislamiento de datos (Multitenancy), gestiona la jerarquía corporativa (proyectos) y almacena el conocimiento específico del cliente (Glosarios) para contextualizar la IA.
 
-![Canvas2](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Workspace-management.jpg)
+![Canvas2](assets/ddd/bc-canvas-workspace.jpg)
 
 **3. Identity and Access Management**
 
 Este contexto asegura el acceso a la plataforma mediante autenticación y gestión de usuarios.
 
-![Canvas3](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/IAM.jpg)
+![Canvas3](assets/ddd/bc-canvas-iam.jpg)
 
 **4. Billing & Subscription**
 
 Este contexto monitorea el uso de las cuotas de IA y gestiona los pagos recurrentes integrando pasarelas externas.
 
-![Canvas4](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Billing-and-subscription.jpg)
+![Canvas4](assets/ddd/bc-canvas-billing.jpg)
 
 **5. Integration Gateway**
 
 Capa Anticorrupción (ACL) que protege el Core Domain de los cambios en API de terceros. Se encarga de traducir los eventos del sistema a formatos externos y exportar las historias hacia herramientas como Jira.
 
-![Canvas5](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.4.Bounded-Context-Canvases/Integration-Gateway.jpg)
+![Canvas5](assets/ddd/bc-canvas-gateway.jpg)
 
 ### 4.2.5.	Context Mapping
 
@@ -1500,7 +1500,7 @@ Tras este debate, definimos formalmente los patrones de integración estratégic
     *   **Justificación:** Para evitar el *vendor lock-in* con proveedores de IA cuyos contratos de API evolucionan mensualmente (OpenAI, Anthropic, AssemblyAI, Deepgram, entre otros), el ACL traduce las solicitudes de inferencia y los flujos de audio internos del dominio al esquema específico del proveedor activo. El modelo de dominio de Requirement Discovery permanece estable e independiente de los cambios externos, lo que es crítico en un Core Domain donde la inferencia de IA representa la principal propuesta de valor del producto.
     *   **Naturaleza del contrato traducido por el ACL:** El Gateway de IA expone al dominio dos abstracciones bien definidas: una para la inferencia de lenguaje (recibe la transcripción de la reunión, el glosario del proyecto y el historial de historias previas; devuelve historias estructuradas en Gherkin) y otra para la transcripción de audio en tiempo real (recibe fragmentos de audio en streaming; devuelve segmentos de texto con marcas temporales). Cada adaptador concreto es responsable de traducir estas abstracciones al contrato particular del proveedor —con sus formatos de autenticación, sus estructuras de mensaje, sus parámetros de configuración y sus esquemas de respuesta—, sin que el dominio conozca esa especificidad.
     *   **Análisis de Impacto del Patrón ACL en la evolución del sistema:** El equipo evaluó tres escenarios donde el ACL es estratégicamente determinante:
-        1.  *Cambio de proveedor de IA:* Migrar el motor de inferencia de un proveedor a otro —motivado por costo, calidad de razonamiento, latencia o regulación de datos en regiones específicas— requiere únicamente desarrollar un nuevo adaptador interno. El modelo de dominio, la lógica de RAG y los flujos de sesión permanecen completamente inmutables.
+        1.  *Cambio de proveedor de IA:* Migrar el motor de inferencia de un proveedor a otro —motivado por costo, calidad de razonamiento, latencia o regulación de datos en regiones específicas— requiere únicamente desarrollar un nuevo adaptador interno. El modelo de dominio, la lógica de RAG y los flujos de sesiones permanecen completamente inmutables.
         2.  *Cambio de modelo dentro del mismo proveedor:* Las actualizaciones de modelos dentro de un mismo proveedor frecuentemente alteran el comportamiento esperado ante ciertos tipos de instrucciones. El ACL encapsula los ajustes necesarios de construcción de prompts específicos por modelo sin que esos detalles se propaguen al Domain.
         3.  *Estrategia de continuidad ante degradación:* Si el proveedor primario sufre una interrupción del servicio o impone restricciones de consumo agresivas, el ACL puede orquestar un desvío automático hacia un proveedor secundario equivalente, garantizando la continuidad del Core sin que el dominio conozca la sustitución.
     *   **Tradeoff consciente y costo del aislamiento:** Mantener múltiples adaptadores —uno por cada proveedor soportado— representa una carga de mantenimiento real: cada cambio en una API externa exige actualizar el adaptador correspondiente y verificar la paridad funcional. Sin embargo, en una categoría de mercado donde los proveedores liberan modelos disruptivos cada pocos meses y sus políticas de precios pueden cambiar unilateralmente, el costo de quedar atado a un único vendor supera ampliamente el costo de mantener la abstracción.
@@ -1510,9 +1510,9 @@ Tras este debate, definimos formalmente los patrones de integración estratégic
     *   **Justificación:** Requirement Discovery [Customer] establece una relación de dependencia activa pero negociada con Workspace Management [Supplier]. Como Core Domain, Requirement Discovery exige que el contexto del proyecto —el glosario de términos técnicos del cliente, las restricciones arquitectónicas y el historial de historias previas— se le entregue en un formato canónico, limpio y oportuno para inyectarlo en el motor RAG. Workspace Management, reconociendo la prioridad estratégica de su cliente, adapta sus procesos internos de ingesta, normalización y curación para satisfacer esa necesidad sin imponer su propio modelo interno.
     *   **Naturaleza del contrato negociado:** La relación se materializa en un contrato de contexto de proyecto formalmente versionado y consensuado entre ambos contextos: incluye el glosario de términos con sus definiciones y sinónimos, las restricciones que el cliente ha declarado sobre su arquitectura, y el resumen de historias ya generadas. El contrato incluye acuerdos de frescura de los datos —el contexto entregado debe reflejar el estado más reciente con un desfase máximo aceptable—, de latencia de generación y de política de versionado bilateral, donde cualquier cambio estructural requiere retrocompatibilidad durante al menos un ciclo de desarrollo completo.
     *   **Análisis de Impacto del Patrón Customer/Supplier en la evolución del sistema:** El equipo evaluó tres dinámicas que esta relación introduce:
-        1.  *Priorización del backlog de Workspace:* Las solicitudes provenientes de Requirement Discovery —mejoras al procesamiento de documentos del cliente, enriquecimiento del glosario, soporte multi-idioma— tienen prioridad operativa sobre el backlog interno de Workspace, lo que ocasionalmente fuerza a Workspace a postergar mejoras propias a la gestión de organizaciones.
+        1.  *Priorización del backlog de Workspace:* Las solicitudes provenientes de Requirement Discovery —mejoras al procesamiento de documentos del cliente, enriquecimiento del glosario, soporte multiidioma— tienen prioridad operativa sobre el backlog interno de Workspace, lo que ocasionalmente fuerza a Workspace a postergar mejoras propias a la gestión de organizaciones.
         2.  *Crecimiento del volumen de datos:* Si un proyecto enterprise supera ciertos umbrales de tamaño del glosario o del historial de historias, el contrato actual —que entrega un snapshot completo en cada consulta— se vuelve insostenible en términos de latencia y consumo de memoria. Esto obligaría a renegociar el contrato hacia una entrega incremental o paginada, con implicancias de rediseño en ambos contextos.
-        3.  *Evolución del concepto de "contexto":* Si el equipo de producto decide enriquecer el RAG con nuevas fuentes de información del cliente —diagramas de arquitectura, documentación de APIs, transcripciones de reuniones anteriores—, Workspace deberá expandir su capacidad de ingesta y curación para honrar la nueva expectativa del Customer, en cada iteración que el producto agregue una nueva fuente de contexto.
+        3.  *Evolución del concepto de "contexto":* Si el equipo de producto decide enriquecer el RAG con nuevas fuentes de información del cliente —diagramas de arquitectura, documentación de API, transcripciones de reuniones anteriores—, Workspace deberá expandir su capacidad de ingesta y curación para honrar la nueva expectativa del Customer, en cada iteración que el producto agregue una nueva fuente de contexto.
     *   **Tradeoff consciente y dinámica de poder:** El patrón Customer/Supplier reconoce explícitamente una asimetría de prioridades: Workspace cede parte de su autonomía de roadmap a cambio de servir al Core Domain que genera el principal valor del producto. Esta dinámica funciona eficientemente mientras el mismo equipo gestione ambos contextos. Si Reqs-AI escalara con equipos dedicados por contexto, esta relación debería formalizarse mediante contratos de integración automatizados y verificables (*consumer-driven contract testing*) para mantener la salud del acuerdo sin depender de la coordinación informal entre personas.
 
 4.  **Workspace Management [D] hacia IAM [U] y Billing & Subscription [U]**
@@ -1520,7 +1520,7 @@ Tras este debate, definimos formalmente los patrones de integración estratégic
     *   **Justificación:** Workspace Management se conforma al modelo de identidad que IAM define y al modelo de suscripción que Billing establece —ambos dictados en gran medida por los estándares de los sistemas externos que integran (pasarelas de identidad y de pago). Al adoptar el patrón Conformist, Workspace acepta que es un consumidor pasivo: no puede negociar ni alterar el esquema de ninguno de estos dos contextos proveedores.
     *   **Naturaleza del acoplamiento por contagio:** Workspace Management replica internamente un subconjunto del modelo de Billing para poder evaluar si una organización tiene cuotas disponibles sin depender de llamadas sincrónicas a Billing en cada operación. Esto significa que Workspace almacena localmente la categoría de plan activo, el estado de la suscripción y los saldos de consumo disponibles, actualizando esa información de forma reactiva cada vez que Billing emite eventos de cambio de estado. De forma análoga, Workspace incorpora los identificadores y roles de identidad que IAM define, sin cuestionarlos ni adaptarlos a su propia semántica interna.
     *   **Análisis de Impacto del Patrón Conformist en la evolución del sistema:** Asumir el rol de Conformist genera un acoplamiento estructural unidireccional con consecuencias evolutivas concretas que el equipo ha evaluado en tres escenarios:
-        1.  *Cambio en el modelo de monetización:* Si Billing evolucionara de un esquema de planes fijos a un modelo de consumo por uso —por minutos de reunión procesados o por volumen de historias generadas—, Workspace deberá reescribir completamente su lógica de validación de cuotas para adaptarse al nuevo esquema de medición, sin poder influir en cómo Billing decide estructurarlo. Esto implicaría una migración de datos no trivial y la actualización coordinada de toda la lógica de control de acceso en Requirement Discovery.
+        1.  *Cambio en el modelo de monetización:* Si Billing evolucionara de un esquema de planes fijos a un modelo de consumo por uso —por minutos de reunión procesada o por volumen de historias generadas—, Workspace deberá reescribir completamente su lógica de validación de cuotas para adaptarse al nuevo esquema de medición, sin poder influir en cómo Billing decide estructurarlo. Esto implicaría una migración de datos no trivial y la actualización coordinada de toda la lógica de control de acceso en Requirement Discovery.
         2.  *Cambio de pasarela de pago:* Si Billing migrara a una pasarela de pagos distinta —motivado por el mercado local peruano o latinoamericano—, los identificadores externos de suscripción que Workspace almacena por trazabilidad quedarían obsoletos. Esto forzaría una migración de datos coordinada entre ambos contextos, con riesgo de pérdida de histórico de auditoría y la necesidad de mantener temporalmente ambas representaciones durante el período de transición.
         3.  *Despliegue acoplado:* Cualquier evolución en el contrato de los eventos que Billing pública para notificar cambios de estado de suscripción requiere despliegues coordinados de ambos contextos. Esto rompe el principio de despliegue independiente que buscaríamos en una arquitectura modular madura y obliga a versionar cuidadosamente los eventos compartidos con políticas de retrocompatibilidad explícitas.
     *   **Tradeoff consciente y umbral de migración a ACL:** El equipo acepta esta deuda arquitectural mientras Billing siga siendo un *Generic Subdomain* estable y la startup priorice la velocidad de entrega sobre la autonomía evolutiva de Workspace. Sin embargo, se establecen tres condiciones de disparo que justificarían introducir un Anti-Corruption Layer entre Workspace y Billing en futuras iteraciones: (a) que el modelo de negocio de Billing cambie más de una vez por trimestre, (b) que se incorpore una segunda pasarela de pago para soportar mercados regionales con métodos locales de cobro, o (c) que Workspace deba soportar estructuras de planes diferenciadas por geografía o tipo de organización. Mientras estos disparadores no se activen, el costo de construir y mantener un ACL supera el costo del re-trabajo ocasional sobre Workspace.
@@ -1528,7 +1528,7 @@ Tras este debate, definimos formalmente los patrones de integración estratégic
 5.  **Requirement Discovery [U] hacia Integration Gateway [D]**
     *   **Patrones:** Open Host Service (OHS) y Published Language (PL)
     *   **Justificación:** El Core Domain Requirement Discovery actúa como un *host* abierto que emite eventos de dominio estandarizados a través de un canal público bien definido, expresados en un Published Language compartido y versionado. Cualquier contexto o sistema externo puede suscribirse a este canal sin requerir modificaciones en el Core. Esta arquitectura desacopla completamente al productor de los consumidores y permite la evolución independiente de ambos lados de la integración.
-    *   **Naturaleza del lenguaje publicado y del canal abierto:** El equipo formalizó el contrato del OHS en tres dimensiones: los tipos de eventos que Requirement Discovery publica —relacionados con los cambios de estado del ciclo de vida de cada historia de usuario y de cada sesión de elicitación—, la estructura común que todos los eventos comparten —con metadatos de trazabilidad, versionado semántico y contexto de tenant para soportar el multitenancy— y el canal de transporte —actualmente en memoria dentro del monolito modular, pero diseñado con la abstracción suficiente para migrarlo a un bus de eventos distribuido si la arquitectura evoluciona en el futuro.
+    *   **Naturaleza del lenguaje publicado y del canal abierto:** El equipo formalizó el contrato del OHS en tres dimensiones: los tipos de eventos que Requirement Discovery pública —relacionados con los cambios de estado del ciclo de vida de cada historia de usuario y de cada sesión de elicitación—, la estructura común que todos los eventos comparten —con metadatos de trazabilidad, versionado semántico y contexto de tenant para soportar el multitenancy— y el canal de transporte —actualmente en memoria dentro del monolito modular, pero diseñado con la abstracción suficiente para migrarlo a un bus de eventos distribuido si la arquitectura evoluciona en el futuro.
     *   **Análisis de Impacto del Patrón OHS+PL en la evolución del sistema:** El equipo evaluó tres beneficios concretos que esta arquitectura habilita:
         1.  *Incorporación de nuevos consumidores sin modificar el Core:* En futuras iteraciones podrán incorporarse consumidores adicionales —notificaciones hacia plataformas de colaboración del cliente, exportaciones hacia otros gestores de proyectos, servicios de analítica de productividad— simplemente suscribiéndose al canal publicado, sin que Requirement Discovery requiera modificación alguna.
         2.  *Evolución interna del Core sin disrupción externa:* Mientras el Published Language permanezca estable, Requirement Discovery puede refactorizar libremente su modelo interno, cambiar de proveedor de IA, optimizar su motor RAG o rediseñar su capa de persistencia, sin afectar a ningún consumidor downstream.
@@ -1539,7 +1539,7 @@ Tras este debate, definimos formalmente los patrones de integración estratégic
 
 A continuación presentamos la visualización de las relaciones estructurales consolidadas tras aplicar los patrones descritos. Las líneas conectan los Bounded Contexts indicando los roles U y D y los patrones aplicados sobre ellas.
 
-![Context Map](assets/4.Strategic-Level-Product-Design/4.2.Strategic-Level-DDD/4.2.5.Context-Mapping/ContextMapping.png)
+![Context Map](assets/ddd/context-map.png)
 
 ## 4.3.	Software Architecture
 
@@ -1551,7 +1551,7 @@ El *System Landscape Diagram* proporciona una vista panorámica del ecosistema t
 
 A continuación, se presenta la topología del paisaje del sistema:
 
-![SystemLandscapeDiagram](assets/4.Strategic-Level-Product-Design/4.3.Software-Architecture/System-landscape.png)
+![SystemLandscapeDiagram](assets/architecture/system-landscape.png)
 
 **Análisis de Interacciones en el Ecosistema:**
 
@@ -1570,7 +1570,7 @@ Mientras que el Diagrama Landscape nos mostró el panorama del negocio, el **Dia
 
 A nivel de contexto, eliminamos las interacciones directas entre los usuarios y los sistemas de terceros (ej. el Technical Lead consultando Jira por su cuenta) y nos limitamos a mapear cómo nuestro sistema es el único orquestador responsable de comunicarse con el mundo exterior para cumplir sus objetivos.
 
-![System Context Diagram](assets/4.Strategic-Level-Product-Design/4.3.Software-Architecture/System-Context.png)
+![System Context Diagram](assets/architecture/system-context.png)
 
 **Análisis de Entradas y Salidas del Sistema Central:**
 
@@ -1589,7 +1589,7 @@ A nivel de contexto, eliminamos las interacciones directas entre los usuarios y 
 
 En esta sección presentamos el diagrama de contenedores para el sistema Reqs-AI. Este nivel hace un enfoque al sistema principal para revelar los contenedores de software que lo componen (aplicaciones móviles, web, API, bases de datos), mostrando cómo se distribuyen las responsabilidades, las decisiones tecnológicas de alto nivel y cómo estos componentes se comunican entre sí y con los sistemas externos.
 
-![Container Diagram](assets/4.Strategic-Level-Product-Design/4.3.Software-Architecture/Container.png)
+![Container Diagram](assets/architecture/container-diagram.png)
 
 El sistema Reqs-AI está compuesto por los siguientes contenedores principales:
 
@@ -1631,7 +1631,7 @@ La arquitectura define un flujo de comunicación moderno y orientado a servicios
 
 En esta sección se presenta el diagrama de despliegue, el cual ilustra cómo los contenedores de software de Reqs-AI se mapean a la infraestructura de la nube. Este diagrama detalla los nodos de ejecución, los entornos operativos y la topología de red, priorizando una arquitectura viable, escalable y optimizada en costos.
 
-![Deployment Diagram](assets/4.Strategic-Level-Product-Design/4.3.Software-Architecture/Deployment.png)
+![Deployment Diagram](assets/architecture/deployment-diagram.png)
 
 **Nodos de Despliegue y Distribución de Componentes**
 
@@ -1781,4 +1781,4 @@ Como siguientes pasos, se recomienda priorizar un MVP enfocado en el flujo crít
 
 # Anexos
 
-1. Relative Cost of Fixing Defects (IBM System Science Institute) ![IBM.png](assets/annexes/IBM.png)  
+1. Relative Cost of Fixing Defects (IBM System Science Institute) ![IBM.png](assets/annexes/ibm-defect-cost.png)  

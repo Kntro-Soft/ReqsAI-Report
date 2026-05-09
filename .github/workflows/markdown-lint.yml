@@ -1,0 +1,49 @@
+name: Markdown Lint
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  markdown-lint:
+    name: Lint Markdown files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create markdown lint config
+        run: |
+          cat > /tmp/markdownlint.json << 'EOF'
+          {
+            "MD013": false,
+            "MD033": false,
+            "MD041": false,
+            "MD040": false,
+            "MD031": false,
+            "MD032": false,
+            "MD047": false,
+            "MD010": false,
+            "MD034": false,
+            "MD028": false,
+            "MD012": false,
+            "MD024": false,
+            "MD001": true,
+            "MD022": true
+          }
+          EOF
+
+      - name: Run markdown lint
+        uses: DavidAnson/markdownlint-cli2-action@v23
+        with:
+          globs: |
+            AUTHORS.md
+            CONTRIBUTORS.md
+            CHANGELOG.md
+            ACKNOWLEDGMENTS.md
+            SUPPORT.md
+            .github/**/*.md
+          config: /tmp/markdownlint.json
