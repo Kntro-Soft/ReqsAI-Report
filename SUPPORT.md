@@ -24,9 +24,9 @@ If the issue persists, contact the repository owner.
 
 ## Team Contact
 
-| Member                                        | Email                            |
-|-----------------------------------------------|----------------------------------|
-| Gutiérrez Soto, Jhosepmyr Orlando (Tech Lead) | jhosepmyrgutierrezsoto@gmail.com |
+| Member                                        | Email                                                                       |
+|-----------------------------------------------|-----------------------------------------------------------------------------|
+| Gutiérrez Soto, Jhosepmyr Orlando (Tech Lead) | [jhosepmyrgutierrezsoto@gmail.com](mailto:jhosepmyrgutierrezsoto@gmail.com) |
 
 ## Security or Privacy Issues
 
