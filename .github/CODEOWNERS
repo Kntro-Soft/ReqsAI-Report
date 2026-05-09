@@ -1,0 +1,49 @@
+# CODEOWNERS — Kntro-Soft / Report
+#
+# Defines the owners responsible for each section of the report.
+# Owners are automatically requested as reviewers on every PR
+# that modifies files under their responsibility.
+#
+# Format: <pattern>  @<github-username>
+
+# Global repository owner (Report Tech Lead)
+*  @jhosepmyr
+
+# ─── Cover page, Version History, and general structure ─────────────────────
+README.md                        @jhosepmyr @Eric396
+
+# ─── Brand & logos ──────────────────────────────────────────────────────────
+assets/brand/                    @Eric396
+
+# ─── Team photos ────────────────────────────────────────────────────────────
+assets/team/                     @jhosepmyr
+
+# ─── Collaboration insights ──────────────────────────────────────────────────
+assets/insights/                 @jhosepmyr
+
+# ─── Chapter I: Lean UX ─────────────────────────────────────────────────────
+assets/lean-ux/                  @Eric396
+
+# ─── Chapter II: Interviews ─────────────────────────────────────────────────
+assets/interviews/               @salimramirez @VarBus
+
+# ─── Chapter II: User Research ──────────────────────────────────────────────
+assets/user-research/            @Kyrubi @jhosepmyr
+
+# ─── Chapter IV: EventStorming ──────────────────────────────────────────────
+assets/event-storming/           @Eric396 @jhosepmyr
+
+# ─── Chapter IV: Domain-Driven Design ───────────────────────────────────────
+assets/ddd/                      @Eric396 @jhosepmyr
+
+# ─── Chapter IV: Software Architecture (C4) ─────────────────────────────────
+assets/architecture/             @jhosepmyr
+
+# ─── Annexes ────────────────────────────────────────────────────────────────
+assets/annexes/                  @VarBus @salimramirez
+
+# ─── Repository governance files ────────────────────────────────────────────
+CHANGELOG.md                     @jhosepmyr
+CONTRIBUTING.md                  @jhosepmyr
+AUTHORS.md                       @jhosepmyr
+.github/                         @jhosepmyr
