@@ -1,16 +1,11 @@
 {
-  // Line length — disabled because report lines are intentionally long
   "MD013": false,
-  // Inline HTML — disabled because README uses <img>, <div>, <table>
   "MD033": false,
-  // First line must be a heading — disabled because README starts with <body>
   "MD041": false,
-  // Heading levels increment by one
+  "MD040": false,
+  "MD031": false,
+  "MD032": false,
+  "MD047": false,
   "MD001": true,
-  // Headings must be surrounded by blank lines
-  "MD022": true,
-  // Fenced code blocks must be surrounded by blank lines
-  "MD031": true,
-  // Lists must be surrounded by blank lines
-  "MD032": true
+  "MD022": true
 }

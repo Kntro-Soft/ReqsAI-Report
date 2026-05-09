@@ -21,3 +21,4 @@ jobs:
           globs: |
             *.md
             .github/**/*.md
+          config: .markdownlint-cli2.jsonc
