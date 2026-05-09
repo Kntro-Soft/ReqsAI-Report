@@ -1,4 +1,4 @@
-﻿# Contributing Guide — Kntro-Soft / Report
+# Contributing Guide — Kntro-Soft / Report
 
 Thank you for contributing to the **Reqs-AI** project report. This guide describes the workflow agreed upon by the team to keep the repository organized and the commit history clean.
 

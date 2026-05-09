@@ -1,4 +1,4 @@
-﻿# Contributors — Kntro-Soft / Report
+# Contributors — Kntro-Soft / Report
 
 List of all people who have contributed to the Reqs-AI report repository, ordered by first contribution.
 

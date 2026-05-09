@@ -1,4 +1,4 @@
-﻿# Support — Kntro-Soft / Report
+# Support — Kntro-Soft / Report
 
 ## This is an Academic Repository
 

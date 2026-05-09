@@ -1,4 +1,4 @@
-﻿# Security Policy — Kntro-Soft
+# Security Policy — Kntro-Soft
 
 ## Covered Repositories
 
