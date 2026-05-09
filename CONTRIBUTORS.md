@@ -2,7 +2,7 @@
 
 List of all people who have contributed to the Reqs-AI report repository, ordered by first contribution.
 
-For the full detail of each contribution, see the [commit history](https://github.com/Kntro-Soft/Report/commits/main) and the [CHANGELOG](./CHANGELOG.md).
+For the full detail of each contribution, see the [commit history](https://github.com/Kntro-Soft/ReqsAI-Report/commits/main) and the [CHANGELOG](./CHANGELOG.md).
 
 ## Team Members
 

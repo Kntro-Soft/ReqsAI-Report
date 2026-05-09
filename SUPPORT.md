@@ -10,7 +10,7 @@ This repository contains the final project report for the course **1ASI0732 - Em
 
 If you have an observation about the academic content of the report, you can:
 
-1. Open an [Issue](https://github.com/Kntro-Soft/Report/issues/new/choose) using the appropriate template
+1. Open an [Issue](https://github.com/Kntro-Soft/ReqsAI-Report/issues/new/choose) using the appropriate template
 2. Contact the team directly by email
 
 ### For Team Members
@@ -34,5 +34,5 @@ To report sensitive information accidentally exposed in the repository, **do not
 
 ## Issues and Discussions
 
-- [Open an Issue](https://github.com/Kntro-Soft/Report/issues/new/choose)
-- [GitHub Discussions](https://github.com/Kntro-Soft/Report/discussions)
+- [Open an Issue](https://github.com/Kntro-Soft/ReqsAI-Report/issues/new/choose)
+- [GitHub Discussions](https://github.com/Kntro-Soft/ReqsAI-Report/discussions)

@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ---
 
+## [2.2] - 2026-05-09
+
+### Added
+
+- GitHub Actions workflow to automatically generate a PDF from README.md on every merge to `main`, with the output available as a downloadable artifact in Actions (90-day retention)
+- Local testing guide for GitHub Actions workflows using `act` (`ACT_LOCAL_TESTING.md`)
+- `ReqsAI-Report.pdf` added to `.gitignore` to prevent accidental commits of generated files
+
+**Author:** Gutiérrez Soto, Jhosepmyr Orlando
+
+---
+
 ## [2.1] - 2026-05-09
 
 ### Changed
