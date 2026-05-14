@@ -1710,7 +1710,193 @@ La infraestructura de despliegue se divide en los entornos de cliente, la red de
 
 ### 6.4.2.	Applications Wireflow Diagrams
 
-### 6.4.2.	Applications Mock-ups
+### 6.4.2. Applications Mock-ups
+
+Los siguientes mock-ups presentan la versión de alta fidelidad de la aplicación web de Reqs-AI. La secuencia evidencia el recorrido principal del usuario dentro de la plataforma: autenticación, creación del workspace, navegación inicial, gestión de proyectos, sesiones de descubrimiento, revisión de historias generadas por IA, integraciones, facturación y configuración del equipo.
+
+#### Autenticación y acceso
+
+##### Google Auth External Authorization
+**Descripción:** Esta pantalla representa el flujo de autorización externa mediante Google. Permite evidenciar que Reqs-AI contempla un acceso rápido y seguro usando una cuenta existente, reduciendo la fricción del registro manual.
+
+<img src="assets/ui/web/mock-ups/00_google_auth_external_authorization.png" alt="Google Auth External Authorization" width="100%">
+
+##### Login Screen
+**Descripción:** Este mock-up muestra la pantalla de inicio de sesión de Reqs-AI. Aquí el usuario ingresa sus credenciales para acceder a sus proyectos, sesiones e historial dentro de la organización activa.
+
+<img src="assets/ui/web/mock-ups/01_login_screen.png" alt="Login Screen" width="100%">
+
+##### Signup Screen
+**Descripción:** Esta pantalla representa el registro de una nueva cuenta. El formulario permite que un visitante se convierta en usuario de la plataforma para posteriormente crear o asociarse a un workspace.
+
+<img src="assets/ui/web/mock-ups/02_signup_screen.png" alt="Signup Screen" width="100%">
+
+#### Onboarding y creación de workspace
+
+##### Dashboard Empty State Before Workspace
+**Descripción:** Este mock-up muestra el estado inicial del dashboard cuando el usuario aún no ha creado ningún workspace. Funciona como punto de onboarding y guía al usuario hacia la creación de su primer espacio de trabajo.
+
+<img src="assets/ui/web/mock-ups/03_dashboard_empty_state_before_workspace.png" alt="Dashboard Empty State Before Workspace" width="100%">
+
+##### Workspace Creation Modal Empty Fields
+**Descripción:** Esta pantalla presenta el modal inicial de creación de workspace con los campos vacíos. Su propósito es capturar los datos básicos de la organización o equipo que usará Reqs-AI.
+
+<img src="assets/ui/web/mock-ups/04_workspace_creation_modal_empty_fields.png" alt="Workspace Creation Modal Empty Fields" width="100%">
+
+##### Workspace Creation Validation Errors
+**Descripción:** Este mock-up evidencia las validaciones del formulario de creación de workspace. La interfaz informa al usuario cuando faltan campos obligatorios o cuando la información ingresada no cumple las reglas esperadas.
+
+<img src="assets/ui/web/mock-ups/05_workspace_creation_validation_errors.png" alt="Workspace Creation Validation Errors" width="100%">
+
+##### Workspace Creation Company Type Dropdown Open
+**Descripción:** Esta pantalla muestra el selector desplegable para elegir el tipo de empresa u organización. Este dato ayuda a contextualizar el uso de Reqs-AI según el perfil del equipo.
+
+<img src="assets/ui/web/mock-ups/06_workspace_creation_company_type_dropdown_open.png" alt="Workspace Creation Company Type Dropdown Open" width="100%">
+
+##### Workspace Creation Form Filled Private Visibility
+**Descripción:** Este mock-up representa el formulario de workspace completado, incluyendo la configuración de visibilidad privada. Permite revisar la información antes de confirmar la creación del entorno.
+
+<img src="assets/ui/web/mock-ups/07_workspace_creation_form_filled_private_visibility.png" alt="Workspace Creation Form Filled Private Visibility" width="100%">
+
+##### Workspace Creation Team Size Dropdown Open
+**Descripción:** Esta pantalla muestra el selector de tamaño del equipo. La selección permite adaptar la experiencia inicial y las recomendaciones del sistema según la cantidad de miembros del workspace.
+
+<img src="assets/ui/web/mock-ups/08_workspace_creation_team_size_dropdown_open.png" alt="Workspace Creation Team Size Dropdown Open" width="100%">
+
+##### Workspace Settings Company Type Dropdown Open
+**Descripción:** Este mock-up representa un estado de configuración donde se puede revisar o ajustar el tipo de organización. Refuerza que los datos del workspace pueden actualizarse según la realidad del equipo.
+
+<img src="assets/ui/web/mock-ups/09_workspace_settings_company_type_dropdown_open.png" alt="Workspace Settings Company Type Dropdown Open" width="100%">
+
+##### Workspace Onboarding Use Case Selection State
+**Descripción:** Esta pantalla muestra la selección del caso de uso principal del workspace. Permite orientar la plataforma hacia discovery, levantamiento de requisitos, generación de historias o integración con herramientas ágiles.
+
+<img src="assets/ui/web/mock-ups/10_workspace_onboarding_use_case_selection_state.png" alt="Workspace Onboarding Use Case Selection State" width="100%">
+
+##### Workspace Use Case Selection Modal
+**Descripción:** Este mock-up presenta el modal donde el usuario define el enfoque inicial de uso de Reqs-AI. Esta decisión ayuda a personalizar el onboarding y las siguientes acciones dentro de la plataforma.
+
+<img src="assets/ui/web/mock-ups/11_workspace_use_case_selection_modal.png" alt="Workspace Use Case Selection Modal" width="100%">
+
+##### Workspace Setup Summary Form Filled
+**Descripción:** Esta pantalla funciona como resumen previo a la creación definitiva del workspace. El usuario puede validar los datos ingresados antes de confirmar el espacio de trabajo.
+
+<img src="assets/ui/web/mock-ups/12_workspace_setup_summary_form_filled.png" alt="Workspace Setup Summary Form Filled" width="100%">
+
+##### Workspace Creation Loading State
+**Descripción:** Este mock-up muestra el estado de carga después de confirmar la creación del workspace. Comunica que el sistema está procesando la solicitud y evita acciones repetidas.
+
+<img src="assets/ui/web/mock-ups/13_workspace_creation_loading_state.png" alt="Workspace Creation Loading State" width="100%">
+
+##### Workspace Creation Progress Loading State
+**Descripción:** Esta pantalla representa un estado de progreso durante la creación del workspace. Muestra que el sistema está configurando el entorno, preparando datos iniciales y habilitando el acceso.
+
+<img src="assets/ui/web/mock-ups/14_workspace_creation_progress_loading_state.png" alt="Workspace Creation Progress Loading State" width="100%">
+
+##### Workspace Created Success Modal
+**Descripción:** Este mock-up evidencia la confirmación de creación exitosa del workspace. La interfaz informa que el espacio ya está listo y permite continuar hacia el dashboard principal.
+
+<img src="assets/ui/web/mock-ups/15_workspace_created_success_modal.png" alt="Workspace Created Success Modal" width="100%">
+
+##### Workspace Created Success Details Modal
+**Descripción:** Esta pantalla complementa el mensaje de éxito con detalles del workspace creado. Refuerza el cierre del flujo de onboarding y da claridad sobre el nuevo entorno de trabajo.
+
+<img src="assets/ui/web/mock-ups/16_workspace_created_success_details_modal.png" alt="Workspace Created Success Details Modal" width="100%">
+
+#### Dashboard y navegación principal
+
+##### Workspace Dashboard Home
+**Descripción:** Este mock-up muestra el dashboard principal luego de crear el workspace. Presenta una vista general de actividad, accesos rápidos y métricas iniciales.
+
+<img src="assets/ui/web/mock-ups/17_workspace_dashboard_home.png" alt="Workspace Dashboard Home" width="100%">
+
+##### Workspace Switcher Menu Open
+**Descripción:** Esta pantalla evidencia el selector de workspace abierto. Permite cambiar entre organizaciones o espacios de trabajo, asegurando que el usuario opere en el contexto correcto.
+
+<img src="assets/ui/web/mock-ups/18_workspace_switcher_menu_open.png" alt="Workspace Switcher Menu Open" width="100%">
+
+##### User Profile Menu Open
+**Descripción:** Este mock-up muestra el menú de perfil del usuario. Desde esta sección se accede a opciones personales, configuración de cuenta o cierre de sesión.
+
+<img src="assets/ui/web/mock-ups/19_user_profile_menu_open.png" alt="User Profile Menu Open" width="100%">
+
+#### Gestión de proyectos
+
+##### Projects Page Overview
+**Descripción:** Este mock-up presenta la vista principal de proyectos dentro del workspace. Permite visualizar proyectos activos, su estado y accesos para crear o administrar iniciativas.
+
+<img src="assets/ui/web/mock-ups/20_projects_page_overview.png" alt="Projects Page Overview" width="100%">
+
+##### Projects Board Overview
+**Descripción:** Esta pantalla muestra una vista tipo tablero de proyectos. Facilita comparar proyectos, revisar su avance y acceder a sesiones o historias relacionadas.
+
+<img src="assets/ui/web/mock-ups/21_projects_board_overview.png" alt="Projects Board Overview" width="100%">
+
+##### Live Discovery Session Modal Configuration
+**Descripción:** Esta pantalla representa la configuración de una sesión de descubrimiento en vivo. El usuario puede preparar la captura de audio y activar el soporte de IA para convertir la conversación en historias de usuario.
+
+<img src="assets/ui/web/mock-ups/22_live_discovery_session_modal_configuration.png" alt="Live Discovery Session Modal Configuration" width="100%">
+
+#### Historias de usuario generadas por IA
+
+##### User Stories Page Review Board
+**Descripción:** Este mock-up muestra el tablero de revisión de historias de usuario generadas por IA. Las historias pueden organizarse por estado, revisarse, editarse y aprobarse antes de pasar al backlog.
+
+<img src="assets/ui/web/mock-ups/23_user_stories_page_review_board.png" alt="User Stories Page Review Board" width="100%">
+
+#### Integraciones, billing y configuración
+
+##### Integrations Page Jira Connection
+**Descripción:** Este mock-up muestra la página de integraciones externas, destacando la conexión con Jira. Permite evidenciar cómo Reqs-AI facilita llevar historias aprobadas hacia herramientas ágiles.
+
+<img src="assets/ui/web/mock-ups/24_integrations_page_jira_connection.png" alt="Integrations Page Jira Connection" width="100%">
+
+##### Jira Connection Modal OAuth Flow
+**Descripción:** Esta pantalla representa el modal de conexión con Jira mediante autorización OAuth. El objetivo es vincular Reqs-AI con Atlassian de forma segura, sin exponer credenciales directamente.
+
+<img src="assets/ui/web/mock-ups/25_jira_connection_modal_oauth_flow.png" alt="Jira Connection Modal OAuth Flow" width="100%">
+
+##### Billing Subscription Page
+**Descripción:** Este mock-up presenta la página de suscripción y facturación. Permite visualizar el plan activo, consumo, límites y opciones de actualización del modelo SaaS.
+
+<img src="assets/ui/web/mock-ups/26_billing_subscription_page.png" alt="Billing Subscription Page" width="100%">
+
+##### Settings Workspace Configuration Page
+**Descripción:** Esta pantalla muestra la configuración general del workspace. Desde aquí se gestionan datos de la organización, preferencias del entorno y ajustes principales.
+
+<img src="assets/ui/web/mock-ups/27_settings_workspace_configuration_page.png" alt="Settings Workspace Configuration Page" width="100%">
+
+##### Navigation Consistency Check Frame
+**Descripción:** Esta pantalla evidencia la consistencia visual de la navegación en la aplicación. Mantiene sidebar, barra superior, acciones principales y perfil de usuario de forma uniforme.
+
+<img src="assets/ui/web/mock-ups/28_navigation_consistency_check_frame.png" alt="Navigation Consistency Check Frame" width="100%">
+
+##### Settings Team Members Management Page
+**Descripción:** Este mock-up representa la administración de miembros del equipo. Permite invitar usuarios, revisar integrantes, gestionar roles y controlar accesos al workspace.
+
+<img src="assets/ui/web/mock-ups/29_settings_team_members_management_page.png" alt="Settings Team Members Management Page" width="100%">
+
+#### Sesiones de descubrimiento
+
+##### Discovery Sessions Page Simple Overview
+**Descripción:** Esta pantalla muestra una vista general de las sesiones de descubrimiento. Permite revisar reuniones registradas, su estado y el acceso a sesiones anteriores.
+
+<img src="assets/ui/web/mock-ups/30_discovery_sessions_page_simple_overview.png" alt="Discovery Sessions Page Simple Overview" width="100%">
+
+##### Discovery Sessions Page Metrics And Export
+**Descripción:** Este mock-up amplía la vista de sesiones con métricas y acciones de exportación. Permite evidenciar el valor generado por Reqs-AI mediante sesiones procesadas y resultados obtenidos.
+
+<img src="assets/ui/web/mock-ups/31_discovery_sessions_page_metrics_and_export.png" alt="Discovery Sessions Page Metrics And Export" width="100%">
+
+##### User Story Review Drawer With Gherkin
+**Descripción:** Esta pantalla presenta el panel lateral de detalle de una historia de usuario. Incluye descripción, criterios de aceptación en formato Gherkin, nivel de confianza y acciones de edición o aprobación.
+
+<img src="assets/ui/web/mock-ups/32_user_story_review_drawer_with_gherkin.png" alt="User Story Review Drawer With Gherkin" width="100%">
+
+##### Create New Project Modal Template Selection
+**Descripción:** Este mock-up representa el modal de creación de un nuevo proyecto. Incluye la selección de plantilla o tipo de proyecto para configurar rápidamente un espacio de levantamiento de requisitos.
+
+<img src="assets/ui/web/mock-ups/33_create_new_project_modal_template_selection.png" alt="Create New Project Modal Template Selection" width="100%">
 
 ### 6.4.3.	Applications User Flow Diagrams
 
