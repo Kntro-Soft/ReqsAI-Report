@@ -10,10 +10,10 @@
 *  @jhosepmyr
 
 # ─── Cover page, Version History, and general structure ─────────────────────
-README.md                        @jhosepmyr @Eric396
+README.md                        @jhosepmyr @Eric396 @salimramirez @VarBus @Kyrubi
 
 # ─── Brand & logos ──────────────────────────────────────────────────────────
-assets/brand/                    @Eric396
+assets/brand/                    @jhosepmyr
 
 # ─── Team photos ────────────────────────────────────────────────────────────
 assets/team/                     @jhosepmyr
@@ -22,25 +22,25 @@ assets/team/                     @jhosepmyr
 assets/insights/                 @jhosepmyr
 
 # ─── Chapter I: Lean UX ─────────────────────────────────────────────────────
-assets/lean-ux/                  @Eric396
+assets/lean-ux/                  @jhosepmyr
 
 # ─── Chapter II: Interviews ─────────────────────────────────────────────────
-assets/interviews/               @salimramirez @VarBus
+assets/interviews/               @jhosepmyr
 
 # ─── Chapter II: User Research ──────────────────────────────────────────────
-assets/user-research/            @Kyrubi @jhosepmyr
+assets/user-research/            @jhosepmyr
 
 # ─── Chapter IV: EventStorming ──────────────────────────────────────────────
-assets/event-storming/           @Eric396 @jhosepmyr
+assets/event-storming/           @jhosepmyr
 
 # ─── Chapter IV: Domain-Driven Design ───────────────────────────────────────
-assets/ddd/                      @Eric396 @jhosepmyr
+assets/ddd/                      @jhosepmyr
 
 # ─── Chapter IV: Software Architecture (C4) ─────────────────────────────────
 assets/architecture/             @jhosepmyr
 
 # ─── Annexes ────────────────────────────────────────────────────────────────
-assets/annexes/                  @VarBus @salimramirez
+assets/annexes/                  @jhosepmyr
 
 # ─── Repository governance files ────────────────────────────────────────────
 CHANGELOG.md                     @jhosepmyr
