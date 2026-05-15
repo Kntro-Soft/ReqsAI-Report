@@ -55,4 +55,54 @@ skinparam class<<Abstract>> {
   BackgroundColor       #F9FAFB
 }
 
+'' Architectural stereotypes (hexagonal + layered)
+skinparam class<<Handler>> {
+  HeaderBackgroundColor $REQSAI_BLUE_800
+  HeaderFontColor       #FFFFFF
+  BorderColor           $REQSAI_BLUE_800
+  BackgroundColor       #EFF6FF
+}
+
+skinparam class<<Port>> {
+  HeaderBackgroundColor $REQSAI_TEAL_900
+  HeaderFontColor       #FFFFFF
+  BorderColor           $REQSAI_TEAL_900
+  BackgroundColor       #ECFDF5
+}
+
+skinparam class<<Adapter>> {
+  HeaderBackgroundColor $REQSAI_ORANGE_900
+  HeaderFontColor       #FFFFFF
+  BorderColor           $REQSAI_ORANGE_900
+  BackgroundColor       #FFF7ED
+}
+
+skinparam class<<Controller>> {
+  HeaderBackgroundColor $REQSAI_PURPLE_700
+  HeaderFontColor       #FFFFFF
+  BorderColor           $REQSAI_PURPLE_700
+  BackgroundColor       #FAF5FF
+}
+
+skinparam class<<DTO>> {
+  HeaderBackgroundColor $REQSAI_LIGHTBLUE_800
+  HeaderFontColor       #FFFFFF
+  BorderColor           $REQSAI_LIGHTBLUE_800
+  BackgroundColor       #F0F9FF
+}
+
+skinparam class<<Mapper>> {
+  HeaderBackgroundColor $REQSAI_GRAY_700
+  HeaderFontColor       #FFFFFF
+  BorderColor           $REQSAI_GRAY_700
+  BackgroundColor       #F8FAFC
+}
+
+skinparam class<<Security>> {
+  HeaderBackgroundColor $REQSAI_NEUTRAL_900
+  HeaderFontColor       #FFFFFF
+  BorderColor           $REQSAI_NEUTRAL_900
+  BackgroundColor       #F1F5F9
+}
+
 hide empty members
