@@ -2496,7 +2496,7 @@ En esta sección se presenta el diagrama de base de datos del BC IAM. Incluye la
 
 ## 5.2. Bounded Context: Billing and Subscriptions
 
-El BC Billing and Subscriptions gestiona el ciclo de vida de las suscripciones de las organizaciones en Reqs-AI. Es responsable desde la asignación del plan gratuito hasta las transiciones de plan, cancelaciones y seguimiento del consumo de tokens. Implementa el patrón `PaymentProviderRef` para mantenerse desacoplado del proveedor de pagos concreto (Stripe, Culqi, etc.).
+El BC Billing and Subscriptions gestiona el ciclo de vida de las suscripciones de las organizaciones en Reqs-AI. Es responsable desde la asignación del plan gratuito hasta las transiciones de plan, cancelaciones y seguimiento del consumo de tokens. Implementa el patrón `PaymentProviderRef` para mantenerse desacoplado del proveedor de pagos concreto (Stripe, culqi, etc.).
 
 ### 5.2.1. Domain Layer
 
@@ -3015,11 +3015,684 @@ Esta capa contiene las implementaciones técnicas de los puertos definidos en Bi
 
 ### 5.3.1. Domain Layer
 
+El Bounded Context de Workspace Management gestiona las organizaciones, miembros, proyectos, roles, documentos y glosarios. Es el núcleo estructural de la plataforma: todo el trabajo de elicitación de requisitos ocurre dentro de un proyecto, que a su vez pertenece a una organización. Este BC también aplica los límites de plan definidos por Billing sobre cada organización.
+
+**Aggregate Roots**
+
+---
+
+**`Organization`** — tabla: `organizations`
+
+Representa la unidad raíz de tenencia multi-organizacional. Contiene los límites de plan activos que controlan los recursos disponibles.
+
+| Campo        | Tipo             | Descripción                                              |
+|--------------|------------------|----------------------------------------------------------|
+| `id`         | `OrganizationId` | Identificador único de la organización                   |
+| `name`       | `String`         | Nombre visible de la organización                        |
+| `slug`       | `String`         | Identificador URL único (inmutable tras creación)        |
+| `ownerId`    | `UserId`         | Referencia al usuario propietario                        |
+| `status`     | `OrgStatus`      | Estado: `ACTIVE`, `INACTIVE`, `DELETED`                  |
+| `planLimits` | `PlanLimits`     | Límites operativos actuales según el plan de facturación |
+
+| Método                         | Descripción                                             |
+|--------------------------------|---------------------------------------------------------|
+| `rename(name)`                 | Actualiza el nombre de la organización                  |
+| `updateLimits(limits)`         | Reemplaza los límites de plan tras un evento de Billing |
+| `deactivate()`                 | Cambia el estado a `INACTIVE`                           |
+| `reactivate()`                 | Cambia el estado a `ACTIVE`                             |
+| `delete()`                     | Cambia el estado a `DELETED`                            |
+
+| Excepción lanzada                        | Condición de disparo            |
+|------------------------------------------|---------------------------------|
+| `OrganizationSlugAlreadyExistsException` | El slug ya existe en el sistema |
+
+---
+
+**`Member`** — tabla: `members`
+
+Representa la pertenencia de un usuario a una organización. Los fundadores tienen `invitedBy` e `invitedAt` en `null`; los invitados siempre los tienen definidos.
+
+| Campo            | Tipo             | Descripción                                                |
+|------------------|------------------|------------------------------------------------------------|
+| `id`             | `MemberId`       | Identificador único de membresía                           |
+| `organizationId` | `OrganizationId` | Organización a la que pertenece                            |
+| `userId`         | `UserId`         | Usuario representado                                       |
+| `role`           | `OrgRole`        | Rol en la organización: `OWNER`, `ADMIN`, `MEMBER`         |
+| `status`         | `MemberStatus`   | Estado: `ACTIVE`, `PENDING`, `INACTIVE`                    |
+| `invitedBy`      | `UserId?`        | Usuario que realizó la invitación (`null` para fundadores) |
+| `invitedAt`      | `Instant?`       | Momento de la invitación (`null` para fundadores)          |
+
+| Método                  | Descripción                                               |
+|-------------------------|-----------------------------------------------------------|
+| `changeRole(role)`      | Cambia el rol del miembro dentro de la organización       |
+| `accept()`              | Cambia el estado de `PENDING` a `ACTIVE`                  |
+| `deactivate()`          | Cambia el estado a `INACTIVE`                             |
+| `reactivate()`          | Cambia el estado a `ACTIVE`                               |
+
+| Excepción lanzada                  | Condición de disparo                               |
+|------------------------------------|----------------------------------------------------|
+| `MemberAlreadyExistsException`     | El usuario ya es miembro de la organización        |
+| `MemberPlanLimitExceededException` | Se alcanzó el límite `maxMembers` del plan         |
+
+---
+
+**`Project`** — tabla: `projects`
+
+Agrupa todo el trabajo de elicitación de requisitos. Contiene el perfil técnico del proyecto y las restricciones definidas por el equipo. El `descriptionEmbedding` permite búsqueda semántica entre proyectos.
+
+| Campo                  | Tipo                      | Descripción                                                     |
+|------------------------|---------------------------|-----------------------------------------------------------------|
+| `id`                   | `ProjectId`               | Identificador único del proyecto                                |
+| `organizationId`       | `OrganizationId`          | Organización propietaria                                        |
+| `name`                 | `String`                  | Nombre del proyecto (único dentro de la organización)           |
+| `description`          | `String`                  | Descripción del alcance del proyecto                            |
+| `technicalProfile`     | `TechnicalProfile`        | Perfil técnico: lenguajes, frameworks, arquitectura, dominio    |
+| `status`               | `ProjectStatus`           | Estado: `ACTIVE`, `ARCHIVED`                                    |
+| `descriptionEmbedding` | `List<Float>?`            | Vector embedding de la descripción para búsqueda semántica      |
+| `constraints`          | `List<ProjectConstraint>` | Restricciones técnicas del proyecto (entidades compuestas)      |
+
+| Método                                               | Descripción                                        |
+|------------------------------------------------------|----------------------------------------------------|
+| `updateDetails(name, description, technicalProfile)` | Actualiza metadatos del proyecto                   |
+| `updateEmbedding(embedding)`                         | Reemplaza el vector de embedding de la descripción |
+| `addConstraint(description)`                         | Agrega una nueva restricción técnica               |
+| `removeConstraint(constraintId)`                     | Elimina una restricción existente                  |
+| `archive()`                                          | Cambia el estado a `ARCHIVED`                      |
+| `restore()`                                          | Cambia el estado a `ACTIVE`                        |
+
+| Excepción lanzada                     | Condición de disparo                                    |
+|---------------------------------------|---------------------------------------------------------|
+| `ProjectNameAlreadyExistsException`   | El nombre ya existe dentro de la misma organización     |
+| `ProjectPlanLimitExceededException`   | Se alcanzó el límite `maxProjects` del plan             |
+
+---
+
+**`ProjectRole`** — tabla: `project_roles`
+
+Define un conjunto de permisos asignables a los miembros de un proyecto. Cada proyecto puede tener múltiples roles personalizados.
+
+| Campo         | Tipo              | Descripción                                |
+|---------------|-------------------|--------------------------------------------|
+| `id`          | `ProjectRoleId`   | Identificador único del rol                |
+| `projectId`   | `ProjectId`       | Proyecto al que pertenece el rol           |
+| `name`        | `String`          | Nombre del rol (único dentro del proyecto) |
+| `permissions` | `Set<Permission>` | Conjunto de permisos asignados             |
+
+| Método                           | Descripción                       |
+|----------------------------------|-----------------------------------|
+| `rename(name)`                   | Cambia el nombre del rol          |
+| `updatePermissions(permissions)` | Reemplaza el conjunto de permisos |
+
+| Excepción lanzada                       | Condición de disparo                          |
+|-----------------------------------------|-----------------------------------------------|
+| `ProjectRoleNameAlreadyExistsException` | El nombre del rol ya existe en el proyecto    |
+
+---
+
+**`ProjectMember`** — tabla: `project_members`
+
+Relaciona un miembro de la organización con un proyecto y le asigna un rol. Los campos `assignedBy` y `assignedAt` son campos de dominio propios (no campos de auditoría heredados).
+
+| Campo          | Tipo              | Descripción                                              |
+|----------------|-------------------|----------------------------------------------------------|
+| `id`           | `ProjectMemberId` | Identificador único de la membresía de proyecto          |
+| `projectId`    | `ProjectId`       | Proyecto al que pertenece                                |
+| `memberId`     | `MemberId`        | Miembro de la organización asignado                      |
+| `roleId`       | `ProjectRoleId`   | Rol asignado dentro del proyecto                         |
+| `assignedBy`   | `UserId`          | Usuario que realizó la asignación                        |
+| `assignedAt`   | `Instant`         | Momento de la asignación                                 |
+
+| Método                  | Descripción                                             |
+|-------------------------|---------------------------------------------------------|
+| `changeRole(roleId)`    | Reasigna el rol del miembro dentro del proyecto         |
+
+| Excepción lanzada                      | Condición de disparo                            |
+|----------------------------------------|-------------------------------------------------|
+| `ProjectMemberAlreadyExistsException`  | El miembro ya está asignado al proyecto         |
+
+---
+
+**`ProjectDocument`** — tabla: `project_documents`
+
+Representa un documento cargado en el contexto de un proyecto (especificaciones, manuales, contratos). El responsable de carga se obtiene de `createdBy` heredado de `AbstractAggregateRoot`.
+
+| Campo       | Tipo                  | Descripción                                              |
+|-------------|-----------------------|----------------------------------------------------------|
+| `id`        | `ProjectDocumentId`   | Identificador único del documento                        |
+| `projectId` | `ProjectId`           | Proyecto al que pertenece                                |
+| `name`      | `String`              | Nombre descriptivo del documento                         |
+| `url`       | `String`              | URL de almacenamiento (S3 o equivalente)                 |
+| `mimeType`  | `String`              | Tipo MIME del archivo                                    |
+| `status`    | `DocumentStatus`      | Estado: `ACTIVE`, `ARCHIVED`                             |
+
+| Método      | Descripción                         |
+|-------------|-------------------------------------|
+| `archive()` | Cambia el estado a `ARCHIVED`       |
+| `restore()` | Cambia el estado a `ACTIVE`         |
+
+| Excepción lanzada                      | Condición de disparo                               |
+|----------------------------------------|----------------------------------------------------|
+| `DocumentPlanLimitExceededException`   | Se alcanzó el límite `maxDocumentsPerProject`      |
+
+---
+
+**`Glossary`** — tabla: `glossaries`
+
+Glosario de términos técnicos de un proyecto. Se crea automáticamente al crear el proyecto. Gestiona la composición de `GlossaryTerm` como entidades internas.
+
+| Campo       | Tipo                 | Descripción                       |
+|-------------|----------------------|-----------------------------------|
+| `id`        | `GlossaryId`         | Identificador único del glosario  |
+| `projectId` | `ProjectId`          | Proyecto al que pertenece (1:1)   |
+| `terms`     | `List<GlossaryTerm>` | Términos del glosario (entidades) |
+
+| Método                                         | Descripción                                           |
+|------------------------------------------------|-------------------------------------------------------|
+| `addTerm(term, definition, synonyms, addedBy)` | Agrega un nuevo término al glosario                   |
+| `removeTerm(termId)`                           | Elimina un término existente                          |
+| `updateTerm(termId, definition, synonyms)`     | Actualiza la definición y sinónimos de un término     |
+
+| Excepción lanzada                        | Condición de disparo                                  |
+|------------------------------------------|-------------------------------------------------------|
+| `GlossaryTermPlanLimitExceededException` | Se alcanzó el límite `maxGlossaryTermsPerProject`     |
+| `GlossaryTermNotFoundException`          | El término solicitado no existe en el glosario        |
+
+---
+
+**Entities**
+
+**`ProjectConstraint`** — tabla: `project_constraints`
+
+Restricción técnica o de negocio definido para un proyecto. El `embedding` permite que Requirement Discovery pueda consultarlas semánticamente.
+
+| Campo         | Tipo                    | Descripción                                              |
+|---------------|-------------------------|----------------------------------------------------------|
+| `id`          | `ProjectConstraintId`   | Identificador único de la restricción                    |
+| `projectId`   | `ProjectId`             | Proyecto al que pertenece                                |
+| `description` | `String`                | Descripción textual de la restricción                    |
+| `embedding`   | `List<Float>?`          | Vector embedding para búsqueda semántica                 |
+
+| Método                            | Descripción                                          |
+|-----------------------------------|------------------------------------------------------|
+| `updateDescription(description)`  | Actualiza el texto de la restricción                 |
+| `updateEmbedding(embedding)`      | Reemplaza el vector embedding                        |
+
+---
+
+**`GlossaryTerm`** — tabla: `glossary_terms`
+
+Término técnico con definición y sinónimos. El `embedding` permite búsqueda semántica desde Requirement Discovery durante la generación de historias de usuario.
+
+| Campo        | Tipo             | Descripción                                               |
+|--------------|------------------|-----------------------------------------------------------|
+| `id`         | `GlossaryTermId` | Identificador único del término                           |
+| `glossaryId` | `GlossaryId`     | Glosario al que pertenece                                 |
+| `term`       | `String`         | Término técnico o de dominio                              |
+| `definition` | `String`         | Definición del término                                    |
+| `synonyms`   | `List<String>`   | Lista de sinónimos o variantes                            |
+| `addedBy`    | `UserId`         | Usuario que agregó el término                             |
+| `addedAt`    | `Instant`        | Momento en que fue agregado                               |
+| `embedding`  | `List<Float>?`   | Vector embedding de la definición para búsqueda semántica |
+
+| Método                              | Descripción                                          |
+|-------------------------------------|------------------------------------------------------|
+| `update(definition, synonyms)`      | Actualiza la definición y los sinónimos              |
+| `updateEmbedding(embedding)`        | Reemplaza el vector embedding                        |
+
+---
+
+**Value Objects**
+
+**`PlanLimits`** — `com.kntrosoft.reqsai.workspace.domain.model.valueobjects`
+
+Value Object inmutable que encapsula los límites operativos de un plan de facturación. Definido como `record` de Java.
+
+| Campo                        | Tipo   | Descripción                                           |
+|------------------------------|--------|-------------------------------------------------------|
+| `maxMembers`                 | `Int`  | Número máximo de miembros en la organización          |
+| `maxProjects`                | `Int`  | Número máximo de proyectos en la organización         |
+| `maxDocumentsPerProject`     | `Int`  | Número máximo de documentos por proyecto              |
+| `maxTokensPerMonth`          | `Long` | Cuota mensual de tokens de IA                         |
+| `maxGlossaryTermsPerProject` | `Int`  | Número máximo de términos de glosario por proyecto    |
+
+---
+
+**`TechnicalProfile`** — `com.kntrosoft.reqsai.workspace.domain.model.valueobjects`
+
+Value Object inmutable que describe el contexto técnico de un proyecto. Utilizado para enriquecer el contexto de la IA durante la elicitación de requisitos.
+
+| Campo                  | Tipo           | Descripción                                    |
+|------------------------|----------------|------------------------------------------------|
+| `programmingLanguages` | `List<String>` | Lenguajes de programación usados               |
+| `frameworks`           | `List<String>` | Frameworks y bibliotecas relevantes            |
+| `architecture`         | `String`       | Estilo arquitectónico (ej. "microservicios")   |
+| `domain`               | `String`       | Dominio del negocio (ej. "fintech", "salud")   |
+
+---
+
+**Enumeraciones**
+
+| Enumeración      | Valores                                                                                                                                                            |
+|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `OrgStatus`      | `ACTIVE`, `INACTIVE`, `DELETED`                                                                                                                                    |
+| `MemberStatus`   | `ACTIVE`, `PENDING`, `INACTIVE`                                                                                                                                    |
+| `OrgRole`        | `OWNER`, `ADMIN`, `MEMBER`                                                                                                                                         |
+| `ProjectStatus`  | `ACTIVE`, `ARCHIVED`                                                                                                                                               |
+| `DocumentStatus` | `ACTIVE`, `ARCHIVED`                                                                                                                                               |
+| `Permission`     | `READ_PROJECT`, `WRITE_PROJECT`, `DELETE_PROJECT`, `MANAGE_MEMBERS`, `MANAGE_ROLES`, `UPLOAD_DOCUMENTS`, `MANAGE_GLOSSARY`, `RUN_DISCOVERY`, `MANAGE_INTEGRATIONS` |
+
+---
+
+**Domain Exceptions**
+
+Todas las excepciones se ubican en `com.kntrosoft.reqsai.workspace.domain.model.exceptions` y extienden `RuntimeException`.
+
+| Excepción                                | Mensaje representativo                                   |
+|------------------------------------------|----------------------------------------------------------|
+| `OrganizationNotFoundException`          | `"Organization not found: {id}"`                         |
+| `OrganizationSlugAlreadyExistsException` | `"Slug already in use: {slug}"`                          |
+| `MemberNotFoundException`                | `"Member not found: {id}"`                               |
+| `MemberAlreadyExistsException`           | `"User is already a member of this organization"`        |
+| `MemberPlanLimitExceededException`       | `"Member limit reached for this plan"`                   |
+| `InsufficientPermissionsException`       | `"User does not have required permission: {permission}"` |
+| `ProjectNotFoundException`               | `"Project not found: {id}"`                              |
+| `ProjectNameAlreadyExistsException`      | `"Project name already exists in this organization"`     |
+| `ProjectPlanLimitExceededException`      | `"Project limit reached for this plan"`                  |
+| `ProjectRoleNotFoundException`           | `"Project role not found: {id}"`                         |
+| `ProjectRoleNameAlreadyExistsException`  | `"Role name already exists in this project"`             |
+| `ProjectMemberNotFoundException`         | `"Project member not found: {id}"`                       |
+| `ProjectMemberAlreadyExistsException`    | `"Member is already assigned to this project"`           |
+| `ProjectDocumentNotFoundException`       | `"Document not found: {id}"`                             |
+| `DocumentPlanLimitExceededException`     | `"Document limit reached for this project"`              |
+| `GlossaryNotFoundException`              | `"Glossary not found for project: {projectId}"`          |
+| `GlossaryTermNotFoundException`          | `"Glossary term not found: {id}"`                        |
+| `GlossaryTermPlanLimitExceededException` | `"Glossary term limit reached for this project"`         |
+
+---
+
+**Domain Events**
+
+Todos los eventos se ubican en `com.kntrosoft.reqsai.workspace.domain.events`.
+
+| Evento                       | Campos principales                              | Consumidor                                      |
+|------------------------------|-------------------------------------------------|-------------------------------------------------|
+| `OrganizationCreatedEvent`   | `organizationId`, `ownerId`, `planLimits`       | Billing BC → `AssignFreeSubscriptionCommand`    |
+| `MemberInvitedEvent`         | `memberId`, `organizationId`, `email`, `role`   | Infraestructura → envío de email de invitación  |
+| `ProjectCreatedEvent`        | `projectId`, `organizationId`, `createdBy`      | Interno → creación automática de `Glossary`     |
+| `PlanLimitsUpdatedEvent`     | `organizationId`, `newLimits`                   | Interno → refresco de límites en Organization   |
+
 ### 5.3.2. Interface Layer
+
+**Controladores REST**
+
+El paquete raíz de la capa de interfaz es `com.kntrosoft.reqsai.workspace.interfaces.rest`. Cada recurso define una interfaz Swagger (`*Controller`) y una implementación (`*ControllerImpl`). Todos los endpoints requieren el header `Authorization: Bearer <token>` salvo indicación contraria.
+
+---
+
+**`OrganizationController`** — `/api/v1/organizations`
+
+| Método   | Ruta       | Descripción                                                 |
+|----------|------------|-------------------------------------------------------------|
+| `POST`   | `/`        | Crea una nueva organización y el miembro fundador (`OWNER`) |
+| `GET`    | `/{orgId}` | Obtiene los datos de una organización                       |
+| `PATCH`  | `/{orgId}` | Renombra la organización                                    |
+| `DELETE` | `/{orgId}` | Elimina lógicamente la organización (estado `DELETED`)      |
+
+---
+
+**`MemberController`** — `/api/v1/organizations/{orgId}/members`
+
+| Método   | Ruta                 | Descripción                                                      |
+|----------|----------------------|------------------------------------------------------------------|
+| `POST`   | `/invite`            | Invita a un usuario por email; crea `Member` en estado `PENDING` |
+| `POST`   | `/{memberId}/accept` | El usuario invitado acepta la invitación                         |
+| `GET`    | `/`                  | Lista los miembros de la organización                            |
+| `PATCH`  | `/{memberId}/role`   | Cambia el rol de un miembro                                      |
+| `DELETE` | `/{memberId}`        | Desactiva a un miembro de la organización                        |
+
+---
+
+**`ProjectController`** — `/api/v1/organizations/{orgId}/projects`
+
+| Método  | Ruta                   | Descripción                                    |
+|---------|------------------------|------------------------------------------------|
+| `POST`  | `/`                    | Crea un proyecto y su glosario vacío asociado  |
+| `GET`   | `/`                    | Lista los proyectos de la organización         |
+| `GET`   | `/{projectId}`         | Obtiene los datos de un proyecto               |
+| `PATCH` | `/{projectId}`         | Actualiza nombre, descripción y perfil técnico |
+| `POST`  | `/{projectId}/archive` | Archiva el proyecto                            |
+| `POST`  | `/{projectId}/restore` | Reactiva el proyecto archivado                 |
+
+---
+
+**`ProjectRoleController`** — `/api/v1/projects/{projectId}/roles`
+
+| Método   | Ruta          | Descripción                                    |
+|----------|---------------|------------------------------------------------|
+| `POST`   | `/`           | Crea un rol personalizado en el proyecto       |
+| `GET`    | `/`           | Lista los roles del proyecto                   |
+| `PATCH`  | `/{roleId}`   | Actualiza nombre y permisos del rol            |
+| `DELETE` | `/{roleId}`   | Elimina un rol del proyecto                    |
+
+---
+
+**`ProjectMemberController`** — `/api/v1/projects/{projectId}/members`
+
+| Método   | Ruta                      | Descripción                                      |
+|----------|---------------------------|--------------------------------------------------|
+| `POST`   | `/`                       | Asigna un miembro de la organización al proyecto |
+| `GET`    | `/`                       | Lista los miembros del proyecto                  |
+| `PATCH`  | `/{projectMemberId}/role` | Cambia el rol de un miembro dentro del proyecto  |
+| `DELETE` | `/{projectMemberId}`      | Elimina a un miembro del proyecto                |
+
+---
+
+**`ProjectDocumentController`** — `/api/v1/projects/{projectId}/documents`
+
+| Método | Ruta               | Descripción                                     |
+|--------|--------------------|-------------------------------------------------|
+| `POST` | `/`                | Registra un documento cargado (URL + metadatos) |
+| `GET`  | `/`                | Lista los documentos del proyecto               |
+| `POST` | `/{docId}/archive` | Archiva un documento                            |
+| `POST` | `/{docId}/restore` | Reactiva un documento archivado                 |
+
+---
+
+**`GlossaryController`** — `/api/v1/projects/{projectId}/glossary`
+
+| Método   | Ruta              | Descripción                                               |
+|----------|-------------------|-----------------------------------------------------------|
+| `GET`    | `/`               | Obtiene el glosario del proyecto con todos sus términos   |
+| `POST`   | `/terms`          | Agrega un término al glosario                             |
+| `PATCH`  | `/terms/{termId}` | Actualiza la definición y sinónimos de un término         |
+| `DELETE` | `/terms/{termId}` | Elimina un término del glosario                           |
+
+**Request/Response DTOs**
+
+Los DTO se ubican en `com.kntrosoft.reqsai.workspace.interfaces.rest.dto`. Las anotaciones de validación Jakarta (`@NotBlank`, `@Size`, `@Valid`) se aplican únicamente sobre los request DTO. Las respuestas DTO proyectan los datos necesarios para cada caso de uso.
+
+| DTO                         | Tipo     | Campos principales                                                                |
+|-----------------------------|----------|-----------------------------------------------------------------------------------|
+| `CreateOrganizationRequest` | Request  | `name: String`, `slug: String`                                                    |
+| `InviteMemberRequest`       | Request  | `email: String`, `role: OrgRole`                                                  |
+| `CreateProjectRequest`      | Request  | `name: String`, `description: String`, `technicalProfile: TechnicalProfileDto`    |
+| `UpdateProjectRequest`      | Request  | `name: String?`, `description: String?`, `technicalProfile: TechnicalProfileDto?` |
+| `CreateProjectRoleRequest`  | Request  | `name: String`, `permissions: Set<Permission>`                                    |
+| `AddProjectMemberRequest`   | Request  | `memberId: String`, `roleId: String`                                              |
+| `UploadDocumentRequest`     | Request  | `name: String`, `url: String`, `mimeType: String`                                 |
+| `AddGlossaryTermRequest`    | Request  | `term: String`, `definition: String`, `synonyms: List<String>`                    |
+| `OrganizationResponse`      | Response | `id`, `name`, `slug`, `status`, `planLimits`                                      |
+| `ProjectResponse`           | Response | `id`, `name`, `description`, `technicalProfile`, `status`, `constraints`          |
+| `GlossaryResponse`          | Response | `id`, `projectId`, `terms: List<GlossaryTermResponse>`                            |
 
 ### 5.3.3. Application Layer
 
+**Commands**
+
+Los comandos se ubican en `com.kntrosoft.reqsai.workspace.application.commands`.
+
+**Comandos de organización:**
+
+| Comando                         | Campos                                  |
+|---------------------------------|-----------------------------------------|
+| `CreateOrganizationCommand`     | `name`, `slug`, `ownerId`               |
+| `RenameOrganizationCommand`     | `organizationId`, `name`, `requestedBy` |
+| `DeactivateOrganizationCommand` | `organizationId`, `requestedBy`         |
+| `DeleteOrganizationCommand`     | `organizationId`, `requestedBy`         |
+| `ApplyPlanLimitsCommand`        | `organizationId`, `planLimits`          |
+
+**Comandos de miembro:**
+
+| Comando                   | Campos                                            |
+|---------------------------|---------------------------------------------------|
+| `InviteMemberCommand`     | `organizationId`, `email`, `role`, `requestedBy`  |
+| `AcceptInvitationCommand` | `memberId`                                        |
+| `ChangeMemberRoleCommand` | `memberId`, `role`, `requestedBy`                 |
+| `DeactivateMemberCommand` | `memberId`, `requestedBy`                         |
+
+**Comandos de proyecto:**
+
+| Comando                         | Campos                                                                     |
+|---------------------------------|----------------------------------------------------------------------------|
+| `CreateProjectCommand`          | `organizationId`, `name`, `description`, `technicalProfile`, `requestedBy` |
+| `UpdateProjectCommand`          | `projectId`, `name`, `description`, `technicalProfile`, `requestedBy`      |
+| `UpdateProjectEmbeddingCommand` | `projectId`, `embedding`                                                   |
+| `ArchiveProjectCommand`         | `projectId`, `requestedBy`                                                 |
+| `RestoreProjectCommand`         | `projectId`, `requestedBy`                                                 |
+
+**Comandos de rol de proyecto:**
+
+| Comando                    | Campos                                            |
+|----------------------------|---------------------------------------------------|
+| `CreateProjectRoleCommand` | `projectId`, `name`, `permissions`, `requestedBy` |
+| `UpdateProjectRoleCommand` | `roleId`, `name`, `permissions`, `requestedBy`    |
+| `DeleteProjectRoleCommand` | `roleId`, `requestedBy`                           |
+
+**Comandos de miembro de proyecto:**
+
+| Comando                          | Campos                                          |
+|----------------------------------|-------------------------------------------------|
+| `AddProjectMemberCommand`        | `projectId`, `memberId`, `roleId`, `assignedBy` |
+| `ChangeProjectMemberRoleCommand` | `projectMemberId`, `roleId`, `requestedBy`      |
+| `RemoveProjectMemberCommand`     | `projectMemberId`, `requestedBy`                |
+
+**Comandos de documento:**
+
+| Comando                         | Campos                                                |
+|---------------------------------|-------------------------------------------------------|
+| `UploadProjectDocumentCommand`  | `projectId`, `name`, `url`, `mimeType`, `requestedBy` |
+| `ArchiveProjectDocumentCommand` | `documentId`, `requestedBy`                           |
+| `RestoreProjectDocumentCommand` | `documentId`, `requestedBy`                           |
+
+**Comandos de glosario:**
+
+| Comando                              | Campos                                                    |
+|--------------------------------------|-----------------------------------------------------------|
+| `AddGlossaryTermCommand`             | `glossaryId`, `term`, `definition`, `synonyms`, `addedBy` |
+| `UpdateGlossaryTermCommand`          | `termId`, `definition`, `synonyms`, `requestedBy`         |
+| `RemoveGlossaryTermCommand`          | `termId`, `requestedBy`                                   |
+| `UpdateGlossaryTermEmbeddingCommand` | `termId`, `embedding`                                     |
+
+---
+
+**Queries**
+
+Los queries se ubican en `com.kntrosoft.reqsai.workspace.application.queries`.
+
+| Query                          | Campos           | Descripción                                |
+|--------------------------------|------------------|--------------------------------------------|
+| `GetOrganizationQuery`         | `organizationId` | Obtiene los datos de una organización      |
+| `ListOrganizationMembersQuery` | `organizationId` | Lista los miembros de la organización      |
+| `GetProjectQuery`              | `projectId`      | Obtiene los datos completos de un proyecto |
+| `ListProjectsQuery`            | `organizationId` | Lista los proyectos de la organización     |
+| `GetProjectRolesQuery`         | `projectId`      | Lista los roles de un proyecto             |
+| `ListProjectMembersQuery`      | `projectId`      | Lista los miembros asignados al proyecto   |
+| `GetGlossaryQuery`             | `projectId`      | Obtiene el glosario con todos sus términos |
+| `ListProjectDocumentsQuery`    | `projectId`      | Lista los documentos de un proyecto        |
+
+---
+
+**Command Handlers**
+
+Los handlers se ubican en `com.kntrosoft.reqsai.workspace.application.handlers`. Todos son `@Component` con inyección de dependencias y los que modifican estado son `@Transactional`.
+
+---
+
+**`CreateOrganizationCommandHandler`**
+
+Crea la organización y el miembro fundador en una única transacción, luego publica el evento de creación para que Billing asigne el plan gratuito.
+
+| Paso | Acción                                                                                                |
+|------|-------------------------------------------------------------------------------------------------------|
+| 1    | Verifica que el slug no exista; lanza `OrganizationSlugAlreadyExistsException` si falla               |
+| 2    | Crea `Organization` con `PlanLimits` del plan `FREE` (valores por defecto)                            |
+| 3    | Persiste la organización con `OrganizationRepository`                                                 |
+| 4    | Crea `Member` para el `ownerId` con `role=OWNER`, `status=ACTIVE`, `invitedBy=null`, `invitedAt=null` |
+| 5    | Persiste el miembro con `MemberRepository`                                                            |
+| 6    | Publica `OrganizationCreatedEvent`                                                                    |
+
+---
+
+**`InviteMemberCommandHandler`**
+
+Invita a un nuevo miembro validando que no se supere el límite del plan.
+
+| Paso | Acción                                                                                     |
+|------|--------------------------------------------------------------------------------------------|
+| 1    | Recupera la organización; lanza `OrganizationNotFoundException` si no existe               |
+| 2    | Cuenta miembros activos; lanza `MemberPlanLimitExceededException` si se alcanzó el límite  |
+| 3    | Verifica que el usuario no sea ya miembro; lanza `MemberAlreadyExistsException` si existe  |
+| 4    | Crea `Member` con `status=PENDING`, `invitedBy=requestedBy`, `invitedAt=now()`             |
+| 5    | Persiste el miembro con `MemberRepository`                                                 |
+| 6    | Publica `MemberInvitedEvent` para disparar el email de invitación                          |
+
+---
+
+**`CreateProjectCommandHandler`**
+
+Crea el proyecto validando los límites del plan y luego crea automáticamente su glosario vacío.
+
+| Paso | Acción                                                                                      |
+|------|---------------------------------------------------------------------------------------------|
+| 1    | Recupera la organización; lanza `OrganizationNotFoundException` si no existe                |
+| 2    | Cuenta proyectos activos; lanza `ProjectPlanLimitExceededException` si se alcanzó el límite |
+| 3    | Verifica unicidad del nombre en la organización; lanza `ProjectNameAlreadyExistsException`  |
+| 4    | Crea y persiste el `Project` con `ProjectRepository`                                        |
+| 5    | Crea y persiste un `Glossary` vacío asociado al proyecto                                    |
+| 6    | Publica `ProjectCreatedEvent`                                                               |
+| 7    | Despacha `UpdateProjectEmbeddingCommand` (asíncrono) para generar el embedding con IA       |
+
+---
+
+**`ApplyPlanLimitsCommandHandler`**
+
+Escucha los eventos de Billing y actualiza los límites de plan de la organización.
+
+| Paso | Acción                                                                                        |
+|------|-----------------------------------------------------------------------------------------------|
+| 1    | Recupera la organización; lanza `OrganizationNotFoundException` si no existe                  |
+| 2    | Llama a `organization.updateLimits(planLimits)`                                               |
+| 3    | Persiste los cambios con `OrganizationRepository`                                             |
+| 4    | Publica `PlanLimitsUpdatedEvent`                                                              |
+
+---
+
+**`UploadProjectDocumentCommandHandler`**
+
+Registra un documento verificando que no se supere el límite del plan.
+
+| Paso | Acción                                                                                        |
+|------|-----------------------------------------------------------------------------------------------|
+| 1    | Recupera el proyecto; lanza `ProjectNotFoundException` si no existe                           |
+| 2    | Cuenta documentos activos; lanza `DocumentPlanLimitExceededException` si se alcanzó el límite |
+| 3    | Crea y persiste `ProjectDocument` con `ProjectDocumentRepository`                             |
+
+---
+
+**`AddGlossaryTermCommandHandler`**
+
+Agrega un término al glosario verificando el límite del plan y generando el embedding del término.
+
+| Paso | Acción                                                                                     |
+|------|--------------------------------------------------------------------------------------------|
+| 1    | Recupera el `Glossary`; lanza `GlossaryNotFoundException` si no existe                     |
+| 2    | Valida el límite de términos; lanza `GlossaryTermPlanLimitExceededException` si se alcanzó |
+| 3    | Llama a `glossary.addTerm(term, definition, synonyms, addedBy)`                            |
+| 4    | Persiste el glosario con `GlossaryRepository`                                              |
+| 5    | Despacha `UpdateGlossaryTermEmbeddingCommand` (asíncrono) para generar el embedding con IA |
+
+---
+
+**Query Handlers**
+
+La query handlers son `@Transactional(readOnly = true)` y retornan respuestas DTO directamente desde los repositorios JPA.
+
+| Query Handler                         | Descripción                                                               |
+|---------------------------------------|---------------------------------------------------------------------------|
+| `GetOrganizationQueryHandler`         | Busca la organización y mapea a `OrganizationResponse`                    |
+| `ListOrganizationMembersQueryHandler` | Lista los miembros activos y mapea a `List<MemberResponse>`               |
+| `GetProjectQueryHandler`              | Busca el proyecto con sus restricciones y mapea a `ProjectResponse`       |
+| `ListProjectsQueryHandler`            | Lista los proyectos de la organización y mapea a `List<ProjectResponse>`  |
+| `GetProjectRolesQueryHandler`         | Lista los roles del proyecto y mapea a `List<ProjectRoleResponse>`        |
+| `ListProjectMembersQueryHandler`      | Lista los miembros del proyecto y mapea a `List<ProjectMemberResponse>`   |
+| `GetGlossaryQueryHandler`             | Obtiene el glosario con todos sus términos y mapea a `GlossaryResponse`   |
+| `ListProjectDocumentsQueryHandler`    | Lista los documentos activos del proyecto                                 |
+
+---
+
+**Output Ports**
+
+Los puertos de salida se ubican en `com.kntrosoft.reqsai.workspace.application.ports`.
+
+**Repository Ports:**
+
+| Puerto                       | Método principal                                                         |
+|------------------------------|--------------------------------------------------------------------------|
+| `OrganizationRepository`     | `save`, `findById`, `findBySlug`, `countActiveByPlan`                    |
+| `MemberRepository`           | `save`, `findById`, `findByOrganizationIdAndUserId`, `countActiveByOrg`  |
+| `ProjectRepository`          | `save`, `findById`, `findByOrganizationId`, `countActiveByOrg`           |
+| `ProjectRoleRepository`      | `save`, `findById`, `findByProjectId`, `existsByProjectIdAndName`        |
+| `ProjectMemberRepository`    | `save`, `findById`, `findByProjectId`, `existsByProjectIdAndMemberId`    |
+| `ProjectDocumentRepository`  | `save`, `findById`, `findByProjectId`, `countActiveByProject`            |
+| `GlossaryRepository`         | `save`, `findById`, `findByProjectId`, `countTermsByGlossary`            |
+
+**Service Ports:**
+
+| Puerto                         | Método                                      | Descripción                                      |
+|--------------------------------|---------------------------------------------|--------------------------------------------------|
+| `EmbeddingServicePort`         | `generateEmbedding(text): List<Float>`      | Genera el vector embedding de un texto usando IA |
+| `EmailNotificationServicePort` | `sendInvitationEmail(email, orgName, role)` | Envía el email de invitación a un miembro        |
+
 ### 5.3.4. Infrastructure Layer
+
+**JPA Repositories**
+
+Los repositorios JPA se ubican en `com.kntrosoft.reqsai.workspace.infrastructure.persistence.jpa` e implementan las interfaces de puerto mediante Spring Data JPA directamente sobre las entidades de dominio.
+
+| Repositorio JPA                    | Interfaz de dominio implementada    |
+|------------------------------------|-------------------------------------|
+| `OrganizationJpaRepository`        | `OrganizationRepository`            |
+| `MemberJpaRepository`              | `MemberRepository`                  |
+| `ProjectJpaRepository`             | `ProjectRepository`                 |
+| `ProjectRoleJpaRepository`         | `ProjectRoleRepository`             |
+| `ProjectMemberJpaRepository`       | `ProjectMemberRepository`           |
+| `ProjectDocumentJpaRepository`     | `ProjectDocumentRepository`         |
+| `GlossaryJpaRepository`            | `GlossaryRepository`                |
+
+---
+
+**Adapters**
+
+Los adaptadores se ubican en `com.kntrosoft.reqsai.workspace.infrastructure.adapters`.
+
+**`OpenAiEmbeddingAdapter`** — implementa `EmbeddingServicePort`
+
+Genera vectores de embedding usando el modelo `text-embedding-3-small` de OpenAI. Se utiliza para indexar descripciones de proyectos, restricciones técnicas y definiciones de términos del glosario.
+
+| Método                    | Descripción                                                           |
+|---------------------------|-----------------------------------------------------------------------|
+| `generateEmbedding(text)` | Invoca la API de OpenAI Embeddings y retorna `List<Float>` (1536 dim) |
+
+**`SmtpEmailNotificationAdapter`** — implementa `EmailNotificationServicePort`
+
+Envía correos de invitación usando JavaMailSender de Spring. Reutiliza la misma interfaz de puerto definida en IAM BC.
+
+| Método                                      | Descripción                                                    |
+|---------------------------------------------|----------------------------------------------------------------|
+| `sendInvitationEmail(email, orgName, role)` | Construye y envía el correo de invitación a la organización    |
+
+---
+
+**Event Listeners**
+
+Los listeners se ubican en `com.kntrosoft.reqsai.workspace.infrastructure.events` y están anotados con `@ApplicationModuleListener` para procesamiento asíncrono intermódulo.
+
+| Listener                              | Evento escuchado             | Acción despachada                  |
+|---------------------------------------|------------------------------|------------------------------------|
+| `SubscriptionAssignedEventListener`   | `SubscriptionAssignedEvent`  | `ApplyPlanLimitsCommand`           |
+| `SubscriptionUpgradedEventListener`   | `SubscriptionUpgradedEvent`  | `ApplyPlanLimitsCommand`           |
+
+Ambos listeners extraen el `organizationId` y los nuevos `PlanLimits` del evento de Billing y los despachan al `ApplyPlanLimitsCommandHandler` para actualizar la organización correspondiente.
 
 ### 5.3.6. Bounded Context Software Architecture Component Level Diagrams
 
@@ -3033,11 +3706,337 @@ Esta capa contiene las implementaciones técnicas de los puertos definidos en Bi
 
 ### 5.4.1. Domain Layer
 
+El Bounded Context de Requirement Discovery es el núcleo de inteligencia de la plataforma. Gestiona las sesiones de elicitación (reuniones transcritas), el procesamiento con IA para extraer historias de usuario y criterios de aceptación, y el flujo de revisión por parte del equipo. Consume contexto de Workspace Management (perfil técnico, restricciones, glosario) para enriquecer la generación automática de artefactos.
+
+**Aggregate Roots**
+
+---
+
+**`DiscoverySession`** — tabla: `discovery_sessions`
+
+Representa una sesión de levantamiento de requisitos. Encapsula el ciclo de vida desde la creación de la sesión, la carga del transcript, el procesamiento con IA y la finalización.
+
+| Campo             | Tipo                  | Descripción                                                       |
+|-------------------|-----------------------|-------------------------------------------------------------------|
+| `id`              | `DiscoverySessionId`  | Identificador único de la sesión                                  |
+| `projectId`       | `ProjectId`           | Proyecto al que pertenece la sesión                               |
+| `title`           | `String`              | Título descriptivo de la sesión                                   |
+| `transcript`      | `String?`             | Texto transcrito de la reunión (`null` hasta que se cargue)       |
+| `status`          | `SessionStatus`       | Estado del ciclo de vida de la sesión                             |
+| `processingError` | `String?`             | Mensaje de error cuando `status = FAILED`                         |
+
+| Método                         | Descripción                                                     |
+|--------------------------------|-----------------------------------------------------------------|
+| `uploadTranscript(transcript)` | Carga el texto del transcript; solo permitido en estado `DRAFT` |
+| `startProcessing()`            | Cambia el estado a `PROCESSING`; requiere transcript no nulo    |
+| `complete()`                   | Cambia el estado a `COMPLETED` tras generación exitosa          |
+| `fail(error)`                  | Cambia el estado a `FAILED` y registra el mensaje de error      |
+| `reset()`                      | Regresa al estado `DRAFT` para reprocesar                       |
+
+| Excepción lanzada                    | Condición de disparo                                         |
+|--------------------------------------|--------------------------------------------------------------|
+| `SessionAlreadyProcessingException`  | Se intenta iniciar procesamiento en una sesión ya en proceso |
+| `TranscriptRequiredException`        | Se intenta procesar sin transcript cargado                   |
+
+---
+
+**`UserStory`** — tabla: `user_stories`
+
+Historia de usuario generada por IA a partir de una sesión. El equipo la revisa y puede aprobarla, rechazarla o editar su prioridad y puntos de historia. Compone internamente los criterios de aceptación.
+
+| Campo                | Tipo                        | Descripción                                                     |
+|----------------------|-----------------------------|-----------------------------------------------------------------|
+| `id`                 | `UserStoryId`               | Identificador único de la historia                              |
+| `sessionId`          | `DiscoverySessionId`        | Sesión de origen                                                |
+| `projectId`          | `ProjectId`                 | Proyecto al que pertenece                                       |
+| `title`              | `String`                    | Título breve de la historia                                     |
+| `role`               | `String`                    | Actor beneficiado (ej. "desarrollador", "administrador")        |
+| `action`             | `String`                    | Acción que desea realizar el actor                              |
+| `benefit`            | `String`                    | Beneficio esperado de la acción                                 |
+| `priority`           | `Priority`                  | Prioridad: `LOW`, `MEDIUM`, `HIGH`, `CRITICAL`                  |
+| `storyPoints`        | `Int?`                      | Estimación de esfuerzo en puntos de historia                    |
+| `status`             | `StoryStatus`               | Estado: `DRAFT`, `APPROVED`, `REJECTED`                         |
+| `acceptanceCriteria` | `List<AcceptanceCriterion>` | Criterios de aceptación (entidades compuestas)                  |
+
+| Método                             | Descripción                                                      |
+|------------------------------------|------------------------------------------------------------------|
+| `approve()`                        | Cambia el estado a `APPROVED`; solo desde `DRAFT`                |
+| `reject()`                         | Cambia el estado a `REJECTED`; solo desde `DRAFT`                |
+| `updatePriority(priority)`         | Actualiza la prioridad de la historia                            |
+| `updateStoryPoints(points)`        | Actualiza los puntos de historia estimados                       |
+| `addCriterion(description, type)`  | Agrega un criterio de aceptación                                 |
+| `removeCriterion(criterionId)`     | Elimina un criterio de aceptación existente                      |
+
+| Excepción lanzada                   | Condición de disparo                                             |
+|-------------------------------------|------------------------------------------------------------------|
+| `InvalidStoryTransitionException`   | Se intenta una transición de estado no válida                    |
+
+---
+
+**Entities**
+
+**`AcceptanceCriterion`** — tabla: `acceptance_criteria`
+
+Criterio de aceptación asociado a una historia de usuario. Puede expresarse en formato Gherkin (`GIVEN_WHEN_THEN`) o como ítem de checklist (`CHECKLIST`).
+
+| Campo         | Tipo                    | Descripción                             |
+|---------------|-------------------------|-----------------------------------------|
+| `id`          | `AcceptanceCriterionId` | Identificador único del criterio        |
+| `storyId`     | `UserStoryId`           | Historia de usuario a la que pertenece  |
+| `description` | `String`                | Descripción del criterio de aceptación  |
+| `type`        | `CriterionType`         | Formato: `GIVEN_WHEN_THEN`, `CHECKLIST` |
+
+| Método                      | Descripción                        |
+|-----------------------------|------------------------------------|
+| `update(description, type)` | Actualiza la descripción y el tipo |
+
+---
+
+**Value Objects & Enumeraciones**
+
+| Enumeración     | Valores                                      | Descripción                                     |
+|-----------------|----------------------------------------------|-------------------------------------------------|
+| `SessionStatus` | `DRAFT`, `PROCESSING`, `COMPLETED`, `FAILED` | Ciclo de vida de una sesión de descubrimiento   |
+| `StoryStatus`   | `DRAFT`, `APPROVED`, `REJECTED`              | Estado de revisión de una historia de usuario   |
+| `Priority`      | `LOW`, `MEDIUM`, `HIGH`, `CRITICAL`          | Prioridad de una historia en el backlog         |
+| `CriterionType` | `GIVEN_WHEN_THEN`, `CHECKLIST`               | Formato de expresión del criterio de aceptación |
+
+---
+
+**Domain Exceptions**
+
+Todas las excepciones se ubican en `com.kntrosoft.reqsai.discovery.domain.model.exceptions` y extienden `RuntimeException`.
+
+| Excepción                              | Mensaje representativo                                          |
+|----------------------------------------|-----------------------------------------------------------------|
+| `DiscoverySessionNotFoundException`    | `"Discovery session not found: {id}"`                           |
+| `SessionAlreadyProcessingException`    | `"Session is already being processed"`                          |
+| `TranscriptRequiredException`          | `"A transcript must be uploaded before processing can start"`   |
+| `TokenQuotaExceededException`          | `"Monthly token quota has been exceeded for this organization"` |
+| `UserStoryNotFoundException`           | `"User story not found: {id}"`                                  |
+| `AcceptanceCriterionNotFoundException` | `"Acceptance criterion not found: {id}"`                        |
+| `InvalidStoryTransitionException`      | `"Cannot transition story from {current} to {target}"`          |
+
+---
+
+**Domain Events**
+
+Todos los eventos se ubican en `com.kntrosoft.reqsai.discovery.domain.events`.
+
+| Evento                          | Campos principales                     | Consumidor                                                 |
+|---------------------------------|----------------------------------------|------------------------------------------------------------|
+| `SessionProcessingStartedEvent` | `sessionId`, `projectId`               | Infraestructura → disparo asíncrono de la extracción       |
+| `UserStoriesGeneratedEvent`     | `sessionId`, `projectId`, `storyCount` | Infraestructura → notificación a los miembros del proyecto |
+| `AiTokensConsumedEvent`         | `organizationId`, `tokensConsumed`     | Billing BC → `IncrementTokenUsageCommand`                  |
+
 ### 5.4.2. Interface Layer
+
+**Controladores REST**
+
+El paquete raíz de la capa de interfaz es `com.kntrosoft.reqsai.discovery.interfaces.rest`. Todos los endpoints requieren el header `Authorization: Bearer <token>`.
+
+---
+
+**`DiscoverySessionController`** — `/api/v1/projects/{projectId}/sessions`
+
+| Método   | Ruta                          | Descripción                                                               |
+|----------|-------------------------------|---------------------------------------------------------------------------|
+| `POST`   | `/`                           | Crea una nueva sesión de descubrimiento en estado `DRAFT`                 |
+| `GET`    | `/`                           | Lista las sesiones del proyecto                                           |
+| `GET`    | `/{sessionId}`                | Obtiene los datos de una sesión                                           |
+| `POST`   | `/{sessionId}/transcript`     | Carga o reemplaza el transcript de la sesión                              |
+| `POST`   | `/{sessionId}/process`        | Inicia el procesamiento con IA para generar historias de usuario          |
+| `POST`   | `/{sessionId}/reset`          | Regresa la sesión a estado `DRAFT` para reprocesar                        |
+
+---
+
+**`UserStoryController`** — `/api/v1/sessions/{sessionId}/stories`
+
+| Método   | Ruta                         | Descripción                                                              |
+|----------|------------------------------|--------------------------------------------------------------------------|
+| `GET`    | `/`                          | Lista las historias de usuario de la sesión                              |
+| `GET`    | `/{storyId}`                 | Obtiene una historia de usuario con sus criterios de aceptación          |
+| `POST`   | `/{storyId}/approve`         | Aprueba una historia de usuario                                          |
+| `POST`   | `/{storyId}/reject`          | Rechaza una historia de usuario                                          |
+| `PATCH`  | `/{storyId}/priority`        | Actualiza la prioridad de la historia                                    |
+| `PATCH`  | `/{storyId}/story-points`    | Actualiza los puntos de historia estimados                               |
+| `POST`   | `/{storyId}/criteria`        | Agrega un criterio de aceptación a la historia                           |
+| `PATCH`  | `/{storyId}/criteria/{id}`   | Actualiza un criterio de aceptación                                      |
+| `DELETE` | `/{storyId}/criteria/{id}`   | Elimina un criterio de aceptación                                        |
+
+**Request/Response DTOs**
+
+Los DTOs se ubican en `com.kntrosoft.reqsai.discovery.interfaces.rest.dto`.
+
+| DTO                             | Tipo     | Campos principales                                                                                    |
+|---------------------------------|----------|-------------------------------------------------------------------------------------------------------|
+| `CreateSessionRequest`          | Request  | `title: String`                                                                                       |
+| `UploadTranscriptRequest`       | Request  | `transcript: String`                                                                                  |
+| `UpdatePriorityRequest`         | Request  | `priority: Priority`                                                                                  |
+| `UpdateStoryPointsRequest`      | Request  | `storyPoints: Int`                                                                                    |
+| `AddAcceptanceCriterionRequest` | Request  | `description: String`, `type: CriterionType`                                                          |
+| `DiscoverySessionResponse`      | Response | `id`, `projectId`, `title`, `status`, `processingError`                                               |
+| `UserStoryResponse`             | Response | `id`, `title`, `role`, `action`, `benefit`, `priority`, `storyPoints`, `status`, `acceptanceCriteria` |
 
 ### 5.4.3. Application Layer
 
+**Commands**
+
+Los comandos se ubican en `com.kntrosoft.reqsai.discovery.application.commands`.
+
+| Comando                              | Campos                                                |
+|--------------------------------------|-------------------------------------------------------|
+| `CreateDiscoverySessionCommand`      | `projectId`, `title`, `requestedBy`                   |
+| `UploadSessionTranscriptCommand`     | `sessionId`, `transcript`, `requestedBy`              |
+| `StartDiscoveryProcessingCommand`    | `sessionId`, `requestedBy`                            |
+| `ResetDiscoverySessionCommand`       | `sessionId`, `requestedBy`                            |
+| `ApproveUserStoryCommand`            | `storyId`, `requestedBy`                              |
+| `RejectUserStoryCommand`             | `storyId`, `requestedBy`                              |
+| `UpdateUserStoryPriorityCommand`     | `storyId`, `priority`, `requestedBy`                  |
+| `UpdateStoryPointsCommand`           | `storyId`, `storyPoints`, `requestedBy`               |
+| `AddAcceptanceCriterionCommand`      | `storyId`, `description`, `type`, `requestedBy`       |
+| `UpdateAcceptanceCriterionCommand`   | `criterionId`, `description`, `type`, `requestedBy`   |
+| `RemoveAcceptanceCriterionCommand`   | `criterionId`, `requestedBy`                          |
+
+---
+
+**Queries**
+
+Los queries se ubican en `com.kntrosoft.reqsai.discovery.application.queries`.
+
+| Query                         | Campos          | Descripción                                                         |
+|-------------------------------|-----------------|---------------------------------------------------------------------|
+| `ListDiscoverySessionsQuery`  | `projectId`     | Lista todas las sesiones de un proyecto                             |
+| `GetDiscoverySessionQuery`    | `sessionId`     | Obtiene los datos completos de una sesión                           |
+| `ListUserStoriesQuery`        | `sessionId`     | Lista las historias de usuario generadas en una sesión              |
+| `GetUserStoryQuery`           | `storyId`       | Obtiene una historia con sus criterios de aceptación                |
+
+---
+
+**Command Handlers**
+
+Los handlers se ubican en `com.kntrosoft.reqsai.discovery.application.handlers`.
+
+---
+
+**`StartDiscoveryProcessingCommandHandler`**
+
+Orquesta el procesamiento con IA: válida el estado de la sesión, enriquece el prompt con contexto del proyecto, invoca la extracción y persiste las historias generadas.
+
+| Paso | Acción                                                                                                     |
+|------|------------------------------------------------------------------------------------------------------------|
+| 1    | Recupera la sesión; lanza `DiscoverySessionNotFoundException` si no existe                                 |
+| 2    | Verifica que `transcript != null`; lanza `TranscriptRequiredException` si está vacío                       |
+| 3    | Llama a `session.startProcessing()`; lanza `SessionAlreadyProcessingException` si aplica                   |
+| 4    | Persiste el estado `PROCESSING` con `DiscoverySessionRepository`                                           |
+| 5    | Recupera el contexto del proyecto vía `ProjectContextPort` (perfil técnico, restricciones, glosario)       |
+| 6    | Invoca `RequirementExtractionPort.extract(transcript, projectContext)`; obtiene `ExtractionResult`         |
+| 7    | Por cada historia en `ExtractionResult.stories`: crea `UserStory` con sus `AcceptanceCriterion` y persiste |
+| 8    | Publica `AiTokensConsumedEvent` con los tokens consumidos según `ExtractionResult.tokensUsed`              |
+| 9    | Llama a `session.complete()` y persiste el estado final                                                    |
+| 10   | Publica `UserStoriesGeneratedEvent`                                                                        |
+
+Si el paso 6 lanza `TokenQuotaExceededException`: llama a `session.fail("Token quota exceeded")`, persiste y propaga la excepción.
+
+---
+
+**`CreateDiscoverySessionCommandHandler`**
+
+| Paso | Acción                                                                                     |
+|------|--------------------------------------------------------------------------------------------|
+| 1    | Crea `DiscoverySession` con `status=DRAFT` y `transcript=null`                             |
+| 2    | Persiste con `DiscoverySessionRepository`                                                  |
+
+---
+
+**`ApproveUserStoryCommandHandler`**
+
+| Paso | Acción                                                                                     |
+|------|--------------------------------------------------------------------------------------------|
+| 1    | Recupera la historia; lanza `UserStoryNotFoundException` si no existe                      |
+| 2    | Llama a `story.approve()`; lanza `InvalidStoryTransitionException` si no está en `DRAFT`   |
+| 3    | Persiste con `UserStoryRepository`                                                         |
+
+---
+
+**Query Handlers**
+
+Los query handlers son `@Transactional(readOnly = true)`.
+
+| Query Handler                       | Descripción                                                                  |
+|-------------------------------------|------------------------------------------------------------------------------|
+| `ListDiscoverySessionsQueryHandler` | Lista las sesiones de un proyecto y mapea a `List<DiscoverySessionResponse>` |
+| `GetDiscoverySessionQueryHandler`   | Obtiene una sesión y mapea a `DiscoverySessionResponse`                      |
+| `ListUserStoriesQueryHandler`       | Lista las historias de una sesión y mapea a `List<UserStoryResponse>`        |
+| `GetUserStoryQueryHandler`          | Obtiene una historia con sus criterios y mapea a `UserStoryResponse`         |
+
+---
+
+**Output Ports**
+
+Los puertos de salida se ubican en `com.kntrosoft.reqsai.discovery.application.ports`.
+
+**Repository Ports:**
+
+| Puerto                       | Métodos principales                                                 |
+|------------------------------|---------------------------------------------------------------------|
+| `DiscoverySessionRepository` | `save`, `findById`, `findByProjectId`                               |
+| `UserStoryRepository`        | `save`, `findById`, `findBySessionId`, `saveAll`                    |
+
+**Service Ports:**
+
+| Puerto                      | Método                                           | Descripción                                                         |
+|-----------------------------|--------------------------------------------------|---------------------------------------------------------------------|
+| `RequirementExtractionPort` | `extract(transcript, context): ExtractionResult` | Envía el transcript y contexto a la IA y retorna historias + tokens |
+| `ProjectContextPort`        | `getContext(projectId): ProjectContext`          | Obtiene perfil técnico, restricciones y términos del glosario       |
+
+`ExtractionResult` es un record con `stories: List<GeneratedStory>` y `tokensUsed: Long`. `GeneratedStory` contiene título, rol, acción, beneficio y criterios de aceptación en texto plano. `ProjectContext` es un record con `TechnicalProfile`, `List<String>` de restricciones y `Map<String, String>` de términos del glosario (término → definición).
+
 ### 5.4.4. Infrastructure Layer
+
+**JPA Repositories**
+
+Los repositorios JPA se ubican en `com.kntrosoft.reqsai.discovery.infrastructure.persistence.jpa`.
+
+| Repositorio JPA                   | Interfaz de dominio implementada  |
+|-----------------------------------|-----------------------------------|
+| `DiscoverySessionJpaRepository`   | `DiscoverySessionRepository`      |
+| `UserStoryJpaRepository`          | `UserStoryRepository`             |
+
+---
+
+**Adapters**
+
+Los adaptadores se ubican en `com.kntrosoft.reqsai.discovery.infrastructure.adapters`.
+
+**`OpenAiRequirementExtractionAdapter`** — implementa `RequirementExtractionPort`
+
+Invoca la API de OpenAI (modelo GPT-4o) con un prompt estructurado que incluye el transcript y el contexto del proyecto. El prompt instruye al modelo para que devuelva las historias en formato JSON estructurado con título, rol, acción, beneficio y criterios de aceptación.
+
+| Método                         | Descripción                                                                    |
+|--------------------------------|--------------------------------------------------------------------------------|
+| `extract(transcript, context)` | Construye el prompt, invoca OpenAI Chat Completions y parsea el JSON retornado |
+
+La respuesta JSON del modelo se parsea a `ExtractionResult`. Los tokens utilizados se extraen del campo `usage.total_tokens` de la respuesta de la API.
+
+**`WorkspaceContextAdapter`** — implementa `ProjectContextPort`
+
+Consulta directamente los repositorios JPA de Workspace Management para obtener el contexto del proyecto. Al ser módulos del mismo servicio Spring, el acceso es directo sin llamada HTTP.
+
+| Método                  | Descripción                                                                        |
+|-------------------------|------------------------------------------------------------------------------------|
+| `getContext(projectId)` | Obtiene `TechnicalProfile` del proyecto, sus restricciones y términos del glosario |
+
+---
+
+**Event Listeners**
+
+Los listeners se ubican en `com.kntrosoft.reqsai.discovery.infrastructure.events` y están anotados con `@ApplicationModuleListener`.
+
+| Listener                          | Evento escuchado          | Acción                                                                                                  |
+|-----------------------------------|---------------------------|---------------------------------------------------------------------------------------------------------|
+| `TokenQuotaExceededEventListener` | `TokenQuotaExceededEvent` | Falla todas las sesiones en estado `PROCESSING` de la organización con mensaje `"Token quota exceeded"` |
+| `AiTokensConsumedEventListener`   | `AiTokensConsumedEvent`   | Despacha `IncrementTokenUsageCommand` al handler de Billing BC                                          |
 
 ### 5.4.6. Bounded Context Software Architecture Component Level Diagrams
 
@@ -3051,11 +4050,324 @@ Esta capa contiene las implementaciones técnicas de los puertos definidos en Bi
 
 ### 5.5.1. Domain Layer
 
+El Bounded Context de Integration Gateway gestiona las integraciones de Reqs-AI con herramientas externas de gestión de proyectos, principalmente Jira. Permite exportar las historias de usuario aprobadas como issues al backlog del equipo y sincronizar el estado de dichos issues de vuelta a la plataforma. Este BC actúa como anticorruption layer entre el dominio de Reqs-AI y los modelos de datos de herramientas externas.
+
+**Aggregate Roots**
+
+---
+
+**`Integration`** — tabla: `integrations`
+
+Representa la conexión configurada entre un proyecto de Reqs-AI y una herramienta externa. Almacena las credenciales de acceso de forma encriptada y el mapeo de configuración necesario para la exportación.
+
+| Campo            | Tipo                  | Descripción                                               |
+|------------------|-----------------------|-----------------------------------------------------------|
+| `id`             | `IntegrationId`       | Identificador único de la integración                     |
+| `projectId`      | `ProjectId`           | Proyecto de Reqs-AI asociado                              |
+| `provider`       | `IntegrationProvider` | Proveedor externo: `JIRA`, `TRELLO`, `LINEAR`             |
+| `status`         | `IntegrationStatus`   | Estado: `ACTIVE`, `INACTIVE`, `ERROR`                     |
+| `config`         | `IntegrationConfig`   | Configuración de conexión (URL, proyecto destino, mapeos) |
+| `encryptedToken` | `String`              | Token de acceso OAuth encriptado con AES                  |
+
+| Método                        | Descripción                                     |
+|-------------------------------|-------------------------------------------------|
+| `activate()`                  | Cambia el estado a `ACTIVE`                     |
+| `deactivate()`                | Cambia el estado a `INACTIVE`                   |
+| `markError(reason)`           | Cambia el estado a `ERROR` y registra el motivo |
+| `updateConfig(config)`        | Actualiza la configuración de conexión          |
+| `rotateToken(encryptedToken)` | Rota el token de acceso almacenado              |
+
+| Excepción lanzada                   | Condición de disparo                                          |
+|-------------------------------------|---------------------------------------------------------------|
+| `IntegrationAlreadyExistsException` | Ya existe una integración activa para el proveedor y proyecto |
+| `IntegrationInactiveException`      | Se intenta exportar con una integración desactivada           |
+
+---
+
+**`ExportRecord`** — tabla: `export_records`
+
+Registra cada exportación de una historia de usuario hacia la herramienta externa. Mantiene la referencia al issue externo creado para permitir sincronización posterior.
+
+| Campo             | Tipo             | Descripción                                                     |
+|-------------------|------------------|-----------------------------------------------------------------|
+| `id`              | `ExportRecordId` | Identificador único del registro de exportación                 |
+| `integrationId`   | `IntegrationId`  | Integración usada para la exportación                           |
+| `storyId`         | `UserStoryId`    | Historia de usuario exportada                                   |
+| `externalIssueId` | `String`         | ID del issue en la herramienta externa (ej. `PROJ-123` en Jira) |
+| `externalUrl`     | `String`         | URL pública del issue externo                                   |
+| `status`          | `ExportStatus`   | Estado: `PENDING`, `EXPORTED`, `SYNCED`, `FAILED`               |
+| `failureReason`   | `String?`        | Motivo del fallo cuando `status = FAILED`                       |
+
+| Método                       | Descripción                                                |
+|------------------------------|------------------------------------------------------------|
+| `markExported(issueId, url)` | Registra el ID y URL del issue creado, cambia a `EXPORTED` |
+| `markSynced()`               | Cambia el estado a `SYNCED` tras sincronización exitosa    |
+| `markFailed(reason)`         | Cambia el estado a `FAILED` y registra el motivo           |
+
+| Excepción lanzada                  | Condición de disparo                                           |
+|------------------------------------|----------------------------------------------------------------|
+| `StoryAlreadyExportedException`    | La historia ya tiene un registro de exportación exitoso        |
+
+---
+
+**Value Objects & Enumeraciones**
+
+**`IntegrationConfig`** — `com.kntrosoft.reqsai.gateway.domain.model.valueobjects`
+
+Value Object inmutable que encapsula la configuración específica de cada integración.
+
+| Campo              | Tipo                  | Descripción                                                              |
+|--------------------|-----------------------|--------------------------------------------------------------------------|
+| `baseUrl`          | `String`              | URL base de la instancia del proveedor (ej. `https://org.atlassian.net`) |
+| `projectKey`       | `String`              | Clave del proyecto destino en la herramienta externa                     |
+| `issueTypeMapping` | `Map<String, String>` | Mapeo de tipos de historia a tipos de issue del proveedor                |
+
+| Enumeración           | Valores                                   | Descripción                           |
+|-----------------------|-------------------------------------------|---------------------------------------|
+| `IntegrationProvider` | `JIRA`, `TRELLO`, `LINEAR`                | Proveedores de integración soportados |
+| `IntegrationStatus`   | `ACTIVE`, `INACTIVE`, `ERROR`             | Estado operativo de la integración    |
+| `ExportStatus`        | `PENDING`, `EXPORTED`, `SYNCED`, `FAILED` | Estado del ciclo de exportación       |
+
+---
+
+**Domain Exceptions**
+
+Todas las excepciones se ubican en `com.kntrosoft.reqsai.gateway.domain.model.exceptions` y extienden `RuntimeException`.
+
+| Excepción                           | Mensaje representativo                                                                  |
+|-------------------------------------|-----------------------------------------------------------------------------------------|
+| `IntegrationNotFoundException`      | `"Integration not found: {id}"`                                                         |
+| `IntegrationAlreadyExistsException` | `"An active integration already exists for provider {provider} in project {projectId}"` |
+| `IntegrationInactiveException`      | `"Integration is not active"`                                                           |
+| `ExportRecordNotFoundException`     | `"Export record not found: {id}"`                                                       |
+| `StoryAlreadyExportedException`     | `"Story {storyId} has already been exported"`                                           |
+| `ExternalProviderException`         | `"External provider returned error: {message}"`                                         |
+
+---
+
+**Domain Events**
+
+Todos los eventos se ubican en `com.kntrosoft.reqsai.gateway.domain.events`.
+
+| Evento                      | Campos principales                               | Consumidor                                         |
+|-----------------------------|--------------------------------------------------|----------------------------------------------------|
+| `StoryExportedEvent`        | `exportRecordId`, `storyId`, `externalIssueId`   | Infraestructura → notificación al usuario          |
+| `ExportFailedEvent`         | `exportRecordId`, `storyId`, `reason`            | Infraestructura → alerta al usuario del fallo      |
+
 ### 5.5.2. Interface Layer
+
+**Controladores REST**
+
+El paquete raíz de la capa de interfaz es `com.kntrosoft.reqsai.gateway.interfaces.rest`. Todos los endpoints requieren el header `Authorization: Bearer <token>`.
+
+---
+
+**`IntegrationController`** — `/api/v1/projects/{projectId}/integrations`
+
+| Método   | Ruta                          | Descripción                                                  |
+|----------|-------------------------------|--------------------------------------------------------------|
+| `POST`   | `/`                           | Configura una nueva integración para el proyecto             |
+| `GET`    | `/`                           | Lista las integraciones del proyecto                         |
+| `GET`    | `/{integrationId}`            | Obtiene los datos de una integración                         |
+| `PATCH`  | `/{integrationId}`            | Actualiza la configuración o rota el token de la integración |
+| `POST`   | `/{integrationId}/activate`   | Activa una integración desactivada                           |
+| `POST`   | `/{integrationId}/deactivate` | Desactiva una integración activa                             |
+| `DELETE` | `/{integrationId}`            | Elimina la integración                                       |
+
+---
+
+**`ExportController`** — `/api/v1/integrations/{integrationId}/exports`
+
+| Método   | Ruta                   | Descripción                                                              |
+|----------|------------------------|--------------------------------------------------------------------------|
+| `POST`   | `/`                    | Exporta una o varias historias aprobadas al proveedor externo            |
+| `GET`    | `/`                    | Lista los registros de exportación de la integración                     |
+| `GET`    | `/{exportId}`          | Obtiene los detalles de un registro de exportación                       |
+| `POST`   | `/{exportId}/sync`     | Sincroniza el estado del issue externo con el registro local             |
+
+---
+
+**`WebhookController`** — `/api/v1/webhooks/integrations`
+
+Recibe notificaciones entrantes de los proveedores externos (ej. cambio de estado de un issue en Jira). No requiere autenticación Bearer; válida la firma del webhook del proveedor.
+
+| Método | Ruta    | Descripción                                                                         |
+|--------|---------|-------------------------------------------------------------------------------------|
+| `POST` | `/jira` | Recibe eventos de Jira (issue updated, issue deleted) y actualiza el `ExportRecord` |
+
+**Request/Response DTOs**
+
+Los DTOs se ubican en `com.kntrosoft.reqsai.gateway.interfaces.rest.dto`.
+
+| DTO                        | Tipo     | Campos principales                                                               |
+|----------------------------|----------|----------------------------------------------------------------------------------|
+| `CreateIntegrationRequest` | Request  | `provider: IntegrationProvider`, `config: IntegrationConfigDto`, `token: String` |
+| `UpdateIntegrationRequest` | Request  | `config: IntegrationConfigDto?`, `token: String?`                                |
+| `ExportStoriesRequest`     | Request  | `storyIds: List<String>`                                                         |
+| `IntegrationResponse`      | Response | `id`, `projectId`, `provider`, `status`, `config`                                |
+| `ExportRecordResponse`     | Response | `id`, `storyId`, `externalIssueId`, `externalUrl`, `status`                      |
 
 ### 5.5.3. Application Layer
 
+**Commands**
+
+Los comandos se ubican en `com.kntrosoft.reqsai.gateway.application.commands`.
+
+| Comando                          | Campos                                                             |
+|----------------------------------|--------------------------------------------------------------------|
+| `CreateIntegrationCommand`       | `projectId`, `provider`, `config`, `encryptedToken`, `requestedBy` |
+| `UpdateIntegrationCommand`       | `integrationId`, `config?`, `encryptedToken?`, `requestedBy`       |
+| `ActivateIntegrationCommand`     | `integrationId`, `requestedBy`                                     |
+| `DeactivateIntegrationCommand`   | `integrationId`, `requestedBy`                                     |
+| `DeleteIntegrationCommand`       | `integrationId`, `requestedBy`                                     |
+| `ExportStoriesToProviderCommand` | `integrationId`, `storyIds`, `requestedBy`                         |
+| `SyncExportRecordCommand`        | `exportRecordId`                                                   |
+
+---
+
+**Queries**
+
+Los queries se ubican en `com.kntrosoft.reqsai.gateway.application.queries`.
+
+| Query                    | Campos           | Descripción                                           |
+|--------------------------|------------------|-------------------------------------------------------|
+| `ListIntegrationsQuery`  | `projectId`      | Lista las integraciones de un proyecto                |
+| `GetIntegrationQuery`    | `integrationId`  | Obtiene los datos de una integración                  |
+| `ListExportRecordsQuery` | `integrationId`  | Lista los registros de exportación de una integración |
+| `GetExportRecordQuery`   | `exportRecordId` | Obtiene los detalles de un registro de exportación    |
+
+---
+
+**Command Handlers**
+
+Los handlers se ubican en `com.kntrosoft.reqsai.gateway.application.handlers`.
+
+---
+
+**`CreateIntegrationCommandHandler`**
+
+| Paso | Acción                                                                                                       |
+|------|--------------------------------------------------------------------------------------------------------------|
+| 1    | Verifica que no exista una integración activa del mismo proveedor; lanza `IntegrationAlreadyExistsException` |
+| 2    | Encripta el token con `TokenEncryptionPort.encrypt(token)`                                                   |
+| 3    | Crea y persiste `Integration` con `status=ACTIVE`                                                            |
+
+---
+
+**`ExportStoriesToProviderCommandHandler`**
+
+Orquesta la exportación de un conjunto de historias aprobadas al proveedor externo. Cada historia genera un `ExportRecord` individual.
+
+| Paso | Acción                                                                                                             |
+|------|--------------------------------------------------------------------------------------------------------------------|
+| 1    | Recupera la integración; lanza `IntegrationNotFoundException` si no existe                                         |
+| 2    | Verifica `status=ACTIVE`; lanza `IntegrationInactiveException` si aplica                                           |
+| 3    | Desencripta el token con `TokenEncryptionPort.decrypt(encryptedToken)`                                             |
+| 4    | Por cada `storyId`: verifica que no exista `ExportRecord` exitoso; lanza `StoryAlreadyExportedException` si aplica |
+| 5    | Recupera los datos de la historia vía `UserStoryPort.getStory(storyId)`                                            |
+| 6    | Invoca `ExternalProviderPort.createIssue(story, integration)` para crear el issue                                  |
+| 7    | Crea y persiste `ExportRecord` con `status=EXPORTED` y el `externalIssueId` retornado                              |
+| 8    | Publica `StoryExportedEvent`                                                                                       |
+
+Si el paso 6 lanza error: persiste `ExportRecord` con `status=FAILED` y pública `ExportFailedEvent`.
+
+---
+
+**`SyncExportRecordCommandHandler`**
+
+| Paso | Acción                                                                                           |
+|------|--------------------------------------------------------------------------------------------------|
+| 1    | Recupera el `ExportRecord`; lanza `ExportRecordNotFoundException` si no existe                   |
+| 2    | Invoca `ExternalProviderPort.getIssueStatus(externalIssueId, integration)`                       |
+| 3    | Actualiza el estado del `ExportRecord` a `SYNCED`                                                |
+
+---
+
+**Query Handlers**
+
+Los query handlers son `@Transactional(readOnly = true)`.
+
+| Query Handler                   | Descripción                                                                |
+|---------------------------------|----------------------------------------------------------------------------|
+| `ListIntegrationsQueryHandler`  | Lista las integraciones del proyecto y mapea a `List<IntegrationResponse>` |
+| `GetIntegrationQueryHandler`    | Obtiene una integración y mapea a `IntegrationResponse`                    |
+| `ListExportRecordsQueryHandler` | Lista los registros de exportación y mapea a `List<ExportRecordResponse>`  |
+| `GetExportRecordQueryHandler`   | Obtiene un registro y mapea a `ExportRecordResponse`                       |
+
+---
+
+**Output Ports**
+
+Los puertos de salida se ubican en `com.kntrosoft.reqsai.gateway.application.ports`.
+
+**Repository Ports:**
+
+| Puerto                   | Métodos principales                                                    |
+|--------------------------|------------------------------------------------------------------------|
+| `IntegrationRepository`  | `save`, `findById`, `findByProjectId`, `existsByProjectAndProvider`    |
+| `ExportRecordRepository` | `save`, `findById`, `findByIntegrationId`, `existsByStoryIdAndSuccess` |
+
+**Service Ports:**
+
+| Puerto                 | Método                                         | Descripción                                                     |
+|------------------------|------------------------------------------------|-----------------------------------------------------------------|
+| `ExternalProviderPort` | `createIssue(story, integration): String`      | Crea un issue en el proveedor externo y retorna el ID externo   |
+| `ExternalProviderPort` | `getIssueStatus(issueId, integration): String` | Consulta el estado actual de un issue en el proveedor           |
+| `TokenEncryptionPort`  | `encrypt(token): String`                       | Encripta el token de acceso con AES antes de persistir          |
+| `TokenEncryptionPort`  | `decrypt(encryptedToken): String`              | Desencripta el token para usarlo en llamadas al proveedor       |
+| `UserStoryPort`        | `getStory(storyId): StoryDto`                  | Obtiene los datos de una historia de usuario desde Discovery BC |
+
 ### 5.5.4. Infrastructure Layer
+
+**JPA Repositories**
+
+Los repositorios JPA se ubican en `com.kntrosoft.reqsai.gateway.infrastructure.persistence.jpa`.
+
+| Repositorio JPA                | Interfaz de dominio implementada |
+|--------------------------------|----------------------------------|
+| `IntegrationJpaRepository`     | `IntegrationRepository`          |
+| `ExportRecordJpaRepository`    | `ExportRecordRepository`         |
+
+---
+
+**Adapters**
+
+Los adaptadores se ubican en `com.kntrosoft.reqsai.gateway.infrastructure.adapters`.
+
+**`JiraProviderAdapter`** — implementa `ExternalProviderPort` para `provider=JIRA`
+
+Utiliza la API REST de Jira Cloud para crear issues y consultar su estado. El anticorruption layer traduce el modelo de `UserStory` de Reqs-AI al modelo de issue de Jira.
+
+| Método                                 | Descripción                                                                 |
+|----------------------------------------|-----------------------------------------------------------------------------|
+| `createIssue(story, integration)`      | Mapea la historia al formato de Jira y llama a `POST /rest/api/3/issue`     |
+| `getIssueStatus(issueId, integration)` | Consulta `GET /rest/api/3/issue/{issueId}` y retorna el campo `status.name` |
+
+**`AesTokenEncryptionAdapter`** — implementa `TokenEncryptionPort`
+
+Encripta y desencripta tokens OAuth usando AES-256-GCM. La clave de encriptación se inyecta desde configuración de entorno (`ENCRYPTION_KEY`).
+
+| Método                    | Descripción                                                    |
+|---------------------------|----------------------------------------------------------------|
+| `encrypt(token)`          | Encripta el token y retorna el ciphertext en Base64            |
+| `decrypt(encryptedToken)` | Desencripta el ciphertext y retorna el token original          |
+
+**`DiscoveryUserStoryAdapter`** — implementa `UserStoryPort`
+
+Accede directamente a los repositorios JPA de Requirement Discovery para obtener los datos de una historia sin llamada HTTP, aprovechando la co-ubicación en el mismo servicio Spring.
+
+| Método                  | Descripción                                                          |
+|-------------------------|----------------------------------------------------------------------|
+| `getStory(storyId)`     | Busca la historia y sus criterios de aceptación y mapea a `StoryDto` |
+
+---
+
+**Configuración de infraestructura:**
+
+| Clase                        | Propósito                                                                                           |
+|------------------------------|-----------------------------------------------------------------------------------------------------|
+| `JiraWebhookSecurityFilter`  | Valida la firma HMAC-SHA256 del header `X-Hub-Signature` en las notificaciones entrantes de Jira    |
+| `IntegrationProviderFactory` | Fábrica que retorna el `ExternalProviderPort` correcto según el `IntegrationProvider` del aggregate |
 
 ### 5.5.6. Bounded Context Software Architecture Component Level Diagrams
 
