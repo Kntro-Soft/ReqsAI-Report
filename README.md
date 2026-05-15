@@ -3005,11 +3005,23 @@ Esta capa contiene las implementaciones técnicas de los puertos definidos en Bi
 
 ### 5.2.6. Bounded Context Software Architecture Component Level Diagrams
 
+En esta sección se presenta el diagrama de componentes C4 (Nivel 3) del BC Billing and Subscriptions. El container es el módulo Spring Modulith completo. Los componentes reflejan la descomposición por capas y sus interacciones, incluyendo el scheduler de reset de cuota y la integración con proveedores de pago externos.
+
+![Billing Component Diagram](assets/diagrams/billing/billing-component.png)
+
 ### 5.2.7. Bounded Context Software Architecture Code Level Diagrams
 
 #### 5.2.7.1. Bounded Context Domain Layer Class Diagrams
 
+En esta sección se presenta el diagrama de clases UML del Domain Layer del BC Billing. Incluye el Aggregate Root `Subscription`, los Value Objects (`PaymentProviderRef`, `SubscriptionId`, `OrganizationId`), las enumeraciones (`PlanType`, `SubscriptionStatus`, `PaymentProvider`), los Domain Events publicados al Api package y las excepciones de dominio con su jerarquía de herencia desde el Shared Kernel.
+
+![Billing Domain Class Diagram](assets/diagrams/billing/billing-class.png)
+
 #### 5.2.7.2. Bounded Context Database Design Diagram
+
+En esta sección se presenta el diagrama de base de datos del BC Billing. La persistencia se reduce a una única tabla `subscriptions`, que almacena el ciclo de vida de la suscripción de cada organización. El VO `PaymentProviderRef` se persiste como columnas embebidas (`payment_provider`, `payment_external_id`). La columna `token_quota_used` acumula el consumo de tokens del período actual y se reinicia vía scheduler mensual.
+
+![Billing Database Diagram](assets/diagrams/billing/billing-database.png)
 
 ## 5.3. Bounded Context: Workspace Management
 
@@ -3696,11 +3708,23 @@ Ambos listeners extraen el `organizationId` y los nuevos `PlanLimits` del evento
 
 ### 5.3.6. Bounded Context Software Architecture Component Level Diagrams
 
+En esta sección se presenta el diagrama de componentes C4 (Nivel 3) del BC Workspace Management. El container es el módulo Spring Modulith completo. Los componentes reflejan la descomposición por capas, incluyendo los handlers de comandos y consultas para organizaciones, miembros, proyectos, roles, documentos y glosarios, así como los listeners de eventos de Billing para actualización de límites de plan.
+
+![Workspace Component Diagram](assets/diagrams/workspace/workspace-component.png)
+
 ### 5.3.7. Bounded Context Software Architecture Code Level Diagrams
 
 #### 5.3.7.1. Bounded Context Domain Layer Class Diagrams
 
+En esta sección se presenta el diagrama de clases UML del Domain Layer del BC Workspace Management. Incluye los siete Aggregate Roots (`Organization`, `Member`, `Project`, `ProjectRole`, `ProjectMember`, `ProjectDocument`, `Glossary`), los Value Objects (`PlanLimits`, `TechnicalProfile` y sus ID correspondientes), las enumeraciones (`OrgStatus`, `OrgRole`, `MemberStatus`, `ProjectStatus`, `DocumentStatus`, `Permission`), los Domain Events y las dieciocho excepciones de dominio organizadas por jerarquía.
+
+![Workspace Domain Class Diagram](assets/diagrams/workspace/workspace-class.png)
+
 #### 5.3.7.2. Bounded Context Database Design Diagram
+
+En esta sección se presenta el diagrama de base de datos del BC Workspace Management. Incluye nueve tablas relacionadas: `organizations`, `members`, `projects`, `project_constraints`, `project_roles`, `project_members`, `project_documents`, `glossaries` y `glossary_terms`. El VO `PlanLimits` se persiste como columnas embebidas `max_*` en `organizations`. El VO `TechnicalProfile` se persiste como columnas embebidas en `projects`. El glosario mantiene una relación 1:1 con el proyecto y se crea automáticamente al crear el proyecto.
+
+![Workspace Database Diagram](assets/diagrams/workspace/workspace-database.png)
 
 ## 5.4. Bounded Context: Requirement Discovery
 
@@ -4040,11 +4064,23 @@ Los listeners se ubican en `com.kntrosoft.reqsai.discovery.infrastructure.events
 
 ### 5.4.6. Bounded Context Software Architecture Component Level Diagrams
 
+En esta sección se presenta el diagrama de componentes C4 (Nivel 3) del BC Requirement Discovery. El container es el módulo Spring Modulith completo. Los componentes reflejan la descomposición por capas, incluyendo el pipeline de procesamiento con IA (transcripción → generación de historias → criterios de aceptación), los ports de integración con el LLM/STT y los listeners de eventos de Billing para control de cuota de tokens.
+
+![Discovery Component Diagram](assets/diagrams/discovery/discovery-component.png)
+
 ### 5.4.7. Bounded Context Software Architecture Code Level Diagrams
 
 #### 5.4.7.1. Bounded Context Domain Layer Class Diagrams
 
+En esta sección se presenta el diagrama de clases UML del Domain Layer del BC Requirement Discovery. Incluye los dos Aggregate Roots (`DiscoverySession`, `UserStory`), la entidad `AcceptanceCriterion` (pertenece a `UserStory`), los Value Objects de identidad, las enumeraciones (`SessionStatus`, `StoryStatus`, `Priority`, `CriterionType`), los Domain Events internos y el evento `AiTokensConsumedEvent` publicado al Api package para que Billing BC actualice el consumo de tokens.
+
+![Discovery Domain Class Diagram](assets/diagrams/discovery/discovery-class.png)
+
 #### 5.4.7.2. Bounded Context Database Design Diagram
+
+En esta sección se presenta el diagrama de base de datos del BC Requirement Discovery. Incluye tres tablas relacionadas: `discovery_sessions`, `user_stories` y `acceptance_criteria`. La tabla `project_id` en `discovery_sessions` es una referencia lógica al BC Workspace (sin FK física, BC aislados). Los criterios de aceptación se almacenan como filas en su propia tabla con su tipo (`GIVEN_WHEN_THEN` o `CHECKLIST`), en lugar de JSON embebido.
+
+![Discovery Database Diagram](assets/diagrams/discovery/discovery-database.png)
 
 ## 5.5. Bounded Context: Integration Gateway
 
@@ -4371,11 +4407,23 @@ Accede directamente a los repositorios JPA de Requirement Discovery para obtener
 
 ### 5.5.6. Bounded Context Software Architecture Component Level Diagrams
 
+En esta sección se presenta el diagrama de componentes C4 (Nivel 3) del BC Integration Gateway. El container es el módulo Spring Modulith completo. Los componentes reflejan la descomposición por capas, incluyendo los handlers de comandos para crear y gestionar integraciones y exportaciones, el `IntegrationProviderFactory` que abstrae los proveedores externos (Jira, Trello, Linear) y los adapters de infraestructura para comunicación con las API externas.
+
+![Gateway Component Diagram](assets/diagrams/gateway/gateway-component.png)
+
 ### 5.5.7. Bounded Context Software Architecture Code Level Diagrams
 
 #### 5.5.7.1. Bounded Context Domain Layer Class Diagrams
 
+En esta sección se presenta el diagrama de clases UML del Domain Layer del BC Integration Gateway. Incluye los dos Aggregate Roots (`Integration`, `ExportRecord`), el Value Object `IntegrationConfig` (con `baseUrl`, `projectKey` e `issueTypeMapping`), las enumeraciones (`IntegrationProvider` con JIRA/TRELLO/LINEAR, `IntegrationStatus`, `ExportStatus`), los Domain Events y las excepciones de dominio. El BC es agnóstico al proveedor concreto gracias al patrón Strategy implementado via `IntegrationProvider`.
+
+![Gateway Domain Class Diagram](assets/diagrams/gateway/gateway-class.png)
+
 #### 5.5.7.2. Bounded Context Database Design Diagram
+
+En esta sección se presenta el diagrama de base de datos del BC Integration Gateway. Incluye dos tablas: `integrations` y `export_records`. El VO `IntegrationConfig` se persiste como columnas embebidas (`base_url`, `project_key`, `issue_type_mapping`). El token de autenticación se almacena cifrado en reposo (AES-256) en la columna `encrypted_token`. Las referencias a proyectos (Workspace BC) y a historias (Discovery BC) son lógicas, sin FK físicas entre BC.
+
+![Gateway Database Diagram](assets/diagrams/gateway/gateway-database.png)
 
 # Capítulo VI: Solution UX Design
 
