@@ -2,25 +2,7 @@
 !include ../c4/C4_Container.puml
 !include ../c4/C4_Component.puml
 
-skinparam shadowing false
-skinparam defaultFontName Segoe UI
-skinparam Padding 4
-skinparam wrapWidth 220
-skinparam nodesep 40
-skinparam ranksep 60
-
-' ── Component layer tags ───────────────────────────────────────────
-AddComponentTag("interface",      $bgColor="#1565C0", $fontColor="#FFFFFF", $borderColor="#0D47A1", $legendText="Interface Layer (REST Controllers)")
-AddComponentTag("application",    $bgColor="#1976D2", $fontColor="#FFFFFF", $borderColor="#1565C0", $legendText="Application Layer (CQRS Handlers)")
-AddComponentTag("domain",         $bgColor="#0D47A1", $fontColor="#FFFFFF", $borderColor="#082A6B", $legendText="Domain Layer (DDD Aggregates + VOs)")
-AddComponentTag("infrastructure", $bgColor="#0288D1", $fontColor="#FFFFFF", $borderColor="#0277BD", $legendText="Infrastructure Layer (JPA + Adapters)")
-AddComponentTag("security",       $bgColor="#BF360C", $fontColor="#FFFFFF", $borderColor="#7F2407", $legendText="Security (Spring Security + JWT Filter)")
-AddComponentTag("moduleApi",      $bgColor="#4527A0", $fontColor="#FFFFFF", $borderColor="#2E1870", $legendText="Module API Facade (inter-BC contract)")
-
-' ── External / infrastructure tags ────────────────────────────────
-AddSystemTag("externalBC",   $bgColor="#455A64", $fontColor="#FFFFFF", $borderColor="#263238", $legendText="Other Bounded Context")
-AddSystemTag("externalMail", $bgColor="#546E7A", $fontColor="#FFFFFF", $borderColor="#37474F", $legendText="External SMTP Service")
-AddContainerTag("database",  $bgColor="#00695C", $fontColor="#FFFFFF", $borderColor="#004D40", $legendText="Relational Database (PostgreSQL)")
+!include ../styles/reqsai-c4-component-style.puml
 
 title Component Diagram — IAM Bounded Context (C4 Level 3)
 

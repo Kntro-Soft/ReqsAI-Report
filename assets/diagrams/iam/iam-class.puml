@@ -1,76 +1,21 @@
 @startuml iam-class
-skinparam shadowing false
-skinparam defaultFontName Segoe UI
-skinparam defaultFontSize 11
-skinparam classAttributeIconSize 0
-skinparam roundcorner 6
-skinparam ArrowColor #374151
-skinparam ArrowThickness 1.3
-
-skinparam class {
-  BackgroundColor      #F8FAFC
-  BorderColor          #475569
-  FontColor            #1E293B
-  FontSize             11
-  AttributeFontSize    10
-}
-
-' Aggregate Root  — deep navy
-skinparam class<<Aggregate Root>> {
-  HeaderBackgroundColor #1E3A5F
-  HeaderFontColor       #FFFFFF
-  BorderColor           #1E3A5F
-}
-
-' Value Object  — deep green
-skinparam class<<Value Object>> {
-  HeaderBackgroundColor #14532D
-  HeaderFontColor       #FFFFFF
-  BorderColor           #14532D
-  BackgroundColor       #F0FDF4
-}
-
-' Enum  — deep purple
-skinparam class<<Enum>> {
-  HeaderBackgroundColor #4C1D95
-  HeaderFontColor       #FFFFFF
-  BorderColor           #4C1D95
-  BackgroundColor       #FAF5FF
-}
-
-' Domain Event  — deep red
-skinparam class<<Domain Event>> {
-  HeaderBackgroundColor #7C2D12
-  HeaderFontColor       #FFFFFF
-  BorderColor           #7C2D12
-  BackgroundColor       #FFF7F4
-}
-
-' Abstract  — dark gray
-skinparam class<<Abstract>> {
-  HeaderBackgroundColor #374151
-  HeaderFontColor       #FFFFFF
-  BorderColor           #374151
-  BackgroundColor       #F9FAFB
-}
-
-hide empty members
+!include ../styles/reqsai-class-style.puml
 
 title IAM Bounded Context -- Domain Layer Class Diagram
 
 ' ── Legend ─────────────────────────────────────────────────────────
 legend top right
-  |= Estereotipo                                              |= Tipo DDD                     |
-  |<#1E3A5F><color:#FFFFFF><b> <<Aggregate Root>> </b></color>| Raiz de aggregate             |
-  |<#14532D><color:#FFFFFF><b> <<Value Object>> </b></color>  | Record inmutable y validado   |
-  |<#4C1D95><color:#FFFFFF><b> <<Enum>> </b></color>          | Enumeracion de dominio        |
-  |<#7C2D12><color:#FFFFFF><b> <<Domain Event>> </b></color>  | Evento de dominio (inmutable) |
-  |<#374151><color:#FFFFFF><b> <<Abstract>> </b></color>      | Clase abstracta Shared Kernel |
-  |= Relacion       |= Significado                           |
-  | --|>            | extends (herencia)                     |
-  | ..>             | uses / depends on                      |
-  | o--             | referencia por ID (cross-aggregate)    |
-  | ..> <<publishes>>| evento publicado por el aggregate     |
+  |= Estereotipo                                               |= Tipo DDD                     |
+  |<$REQSAI_NAVY_800><color:#FFFFFF><b> <<Aggregate Root>> </b></color>| Raiz de aggregate             |
+  |<$REQSAI_GREEN_900><color:#FFFFFF><b> <<Value Object>> </b></color> | Record inmutable y validado   |
+  |<$REQSAI_VIOLET_900><color:#FFFFFF><b> <<Enum>> </b></color>        | Enumeracion de dominio        |
+  |<$REQSAI_BROWN_900><color:#FFFFFF><b> <<Domain Event>> </b></color> | Evento de dominio (inmutable) |
+  |<$REQSAI_GRAY_700><color:#FFFFFF><b> <<Abstract>> </b></color>      | Clase abstracta Shared Kernel |
+  |<back:$REQSAI_NEUTRAL_200><b>Relacion</b>|<back:$REQSAI_NEUTRAL_200><b>Significado</b>|
+  | --\\|>            | extends (herencia)                     |
+  | ..>              | uses / depends on                      |
+  | o--              | referencia por ID (cross-aggregate)    |
+  | ..> <<publishes>>| evento publicado por el aggregate      |
 endlegend
 
 ' ── Shared Kernel ──────────────────────────────────────────────────

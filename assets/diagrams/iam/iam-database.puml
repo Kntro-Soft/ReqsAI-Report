@@ -1,98 +1,60 @@
 @startuml iam-database
-skinparam shadowing false
-skinparam defaultFontName Segoe UI
-skinparam defaultFontSize 11
-skinparam linetype ortho
-skinparam roundcorner 4
-
-' ── Table macros ────────────────────────────────────────────────────
-!define CORE(x)    entity x << (T,#1565C0) >>
-!define SESSION(x) entity x << (S,#00695C) >>
-
-hide circle
-hide empty methods
-
-skinparam entity {
-  BackgroundColor #F8FAFC
-  BorderColor     #475569
-  FontColor       #1E293B
-  FontSize        11
-}
-
-skinparam entity<<T>> {
-  HeaderBackgroundColor #1565C0
-  HeaderFontColor       #FFFFFF
-  BorderColor           #1565C0
-}
-
-skinparam entity<<S>> {
-  HeaderBackgroundColor #00695C
-  HeaderFontColor       #FFFFFF
-  BorderColor           #007A68
-  BackgroundColor       #F0FDFA
-}
-
-skinparam note {
-  BackgroundColor #FEF9C3
-  BorderColor     #CA8A04
-  FontSize        10
-}
+!include ../styles/reqsai-database-style.puml
 
 title IAM Bounded Context -- Database Design Diagram
 
 ' ── Legend ─────────────────────────────────────────────────────────
 legend top left
-  |<#1565C0><color:#FFFFFF><b> T </b></color>| Core entity table        |
-  |<#00695C><color:#FFFFFF><b> S </b></color>| Session / token table    |
-  |= Constraint |= Significado             |
-  | <<PK>>      | Primary Key              |
-  | <<FK>>      | Foreign Key              |
-  | <<NN>>      | NOT NULL                 |
-  | <<UQ>>      | UNIQUE                   |
-  | <<IDX>>     | INDEX                    |
-  |= Notacion   |= Cardinalidad            |
-  | ||--||       | Uno a uno obligatorio   |
-  | ||--o{       | Uno a muchos (0 o mas)  |
+  |= Clave |= Significado |
+  |<$REQSAI_BLUE_800><color:#FFFFFF><b> T </b></color>| Tabla core (entidad) |
+  |<$REQSAI_TEAL_800><color:#FFFFFF><b> S </b></color>| Tabla sesion / token |
+  |<<PK>>| Primary Key |
+  |<<FK>>| Foreign Key |
+  |<<NN>>| NOT NULL |
+  |<<UQ>>| UNIQUE |
+  |<<IDX>>| INDEX |
+  |1:1| Relacion 1 a 1 (obligatoria) |
+  |1:N| Relacion 1 a N (0..*) |
 endlegend
 
 ' ── Audit columns note ─────────────────────────────────────────────
 note as auditNote
   <b>Columnas de auditoria</b> (todas las tablas)
-  created_at   TIMESTAMP   <<NN>>
-  updated_at   TIMESTAMP   <<NN>>
-  created_by   VARCHAR(36)
-  updated_by   VARCHAR(36)
+  - created_at   TIMESTAMP   <<NN>>
+  - updated_at   TIMESTAMP   <<NN>>
+  - created_by   VARCHAR(36)
+  - updated_by   VARCHAR(36)
 end note
 
 ' ── Table: accounts ────────────────────────────────────────────────
 CORE(accounts) {
-  * id                           : VARCHAR(36)   <<PK>>
+  id                             : VARCHAR(36)   <<PK>>
   --
-  * email_value                  : VARCHAR(255)  <<NN, UQ, IDX>>
-  * password_hash                : VARCHAR(255)  <<NN>>
-  * status                       : VARCHAR(30)   <<NN>>
+  email_value                    : VARCHAR(255)  <<NN, UQ, IDX>>
+  password_hash                  : VARCHAR(255)  <<NN>>
+  status                         : VARCHAR(30)   <<NN>>
     verification_code            : VARCHAR(10)
     verification_code_expires_at : TIMESTAMP
   --
 }
 
 note right of accounts
-  <b>email_value</b>: columna embebida
-  del Value Object <b>Email</b>.
-  Indexada para sign-in y unicidad.
+  <b>email_value</b>
+  - Columna embebida del Value Object <b>Email</b>
+  - Indexada para sign-in y unicidad
 
-  <b>status</b> valores permitidos:
-  PENDING_VERIFICATION | ACTIVE
-  SUSPENDED | DELETED
+  <b>status</b>
+  - PENDING_VERIFICATION | ACTIVE
+  - SUSPENDED | DELETED
 end note
 
 ' ── Table: users ───────────────────────────────────────────────────
 CORE(users) {
-  * id                      : VARCHAR(36)   <<PK>>
+  id                        : VARCHAR(36)   <<PK>>
   --
-  * account_id              : VARCHAR(36)   <<FK, NN, UQ, IDX>>
-  * first_name              : VARCHAR(100)  <<NN>>
-  * last_name               : VARCHAR(100)  <<NN>>
+  account_id                : VARCHAR(36)   <<FK, NN, UQ, IDX>>
+  first_name                : VARCHAR(100)  <<NN>>
+  last_name                 : VARCHAR(100)  <<NN>>
     avatar_url              : VARCHAR(500)
     last_visited_org_id     : VARCHAR(36)
     last_visited_project_id : VARCHAR(36)
@@ -100,35 +62,32 @@ CORE(users) {
 }
 
 note right of users
-  <b>last_visited_org_id</b> y
-  <b>last_visited_project_id</b>:
-  columnas embebidas del VO
-  <b>UserPreferences</b>.
+  <b>last_visited_org_id</b> y <b>last_visited_project_id</b>
+  - Columnas embebidas del VO <b>UserPreferences</b>
 
-  <b>account_id</b>: restriccion UQ
-  garantiza relacion 1:1 con accounts.
+  <b>account_id</b>
+  - Restriccion UQ garantiza relacion 1:1 con accounts
 end note
 
 ' ── Table: refresh_tokens ──────────────────────────────────────────
 SESSION(refresh_tokens) {
-  * id          : VARCHAR(36)   <<PK>>
+  id            : VARCHAR(36)   <<PK>>
   --
-  * token_hash  : VARCHAR(255)  <<NN, UQ, IDX>>
-  * user_id     : VARCHAR(36)   <<FK, NN, IDX>>
-  * status      : VARCHAR(20)   <<NN>>
-  * expires_at  : TIMESTAMP     <<NN>>
+  token_hash    : VARCHAR(255)  <<NN, UQ, IDX>>
+  user_id       : VARCHAR(36)   <<FK, NN, IDX>>
+  status        : VARCHAR(20)   <<NN>>
+  expires_at    : TIMESTAMP     <<NN>>
     revoked_at  : TIMESTAMP
   --
 }
 
 note right of refresh_tokens
-  <b>token_hash</b>: hash SHA-256 del
-  token en texto plano.
-  Indexado para validacion
-  y rotacion de sesion.
+  <b>token_hash</b>
+  - Hash SHA-256 del token en texto plano
+  - Indexado para validacion y rotacion de sesion
 
-  <b>status</b> valores permitidos:
-  ACTIVE | REVOKED | EXPIRED
+  <b>status</b>
+  - ACTIVE | REVOKED | EXPIRED
 end note
 
 ' ── Relationships ───────────────────────────────────────────────────
