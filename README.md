@@ -134,7 +134,7 @@ TB1:
     * [4.3.3. Software Architecture Container Level Diagrams](#433-software-architecture-container-level-diagrams)
     * [4.3.4. Software Architecture Deployment Diagrams](#434-software-architecture-deployment-diagrams)
 * [Capítulo V: Tactical-Level Software Design](#capítulo-v-tactical-level-software-design)
-  * [5.1. Bounded Context: Identity and Access Management](#51-bounded-context-identity-and-access-management)
+  * [5.1. Bounded Context: IAM](#51-bounded-context-iam)
     * [5.1.1. Domain Layer](#511-domain-layer)
     * [5.1.2. Interface Layer](#512-interface-layer)
     * [5.1.3. Application Layer](#513-application-layer)
@@ -1759,559 +1759,720 @@ La infraestructura de despliegue se divide en los entornos de cliente, la red de
 
 ## 5.1. Bounded Context: IAM
 
+El BC IAM gestiona la identidad, autenticación y sesiones de los usuarios de Reqs-AI. Es responsable desde el registro de cuenta hasta la emisión y rotación de tokens de acceso, verificación de correo electrónico, actualización de perfil y almacenamiento de preferencias de navegación del usuario. No administra roles ni permisos por organización; esa responsabilidad pertenece al BC Workspace Management.
+
 ### 5.1.1. Domain Layer
 
-Este contexto se encarga de la identidad de usuario, autenticacion, verificacion de correo y gestion de sesiones. No administra roles ni permisos por organizacion; esos pertenecen al Shared Kernel con Workspace Management.
+Esta capa contiene el núcleo del negocio del BC IAM: reglas de autenticación, ciclo de vida de cuentas y gestión de sesiones mediante tokens. No depende de ningún framework externo a nivel de lógica.
 
-En esta seccion se describen los elementos del Domain Layer que encapsulan la logica central de cuentas, perfiles y sesiones.
+**Aggregate Roots**
 
-1. **`Account` (Aggregate Root)**
+**Aggregate: `Account`**
 
-Representa las credenciales y el estado de una cuenta.
+| Campo               | Detalle                                                                                                                                                                                       |
+|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Paquete**         | `com.kntrosoft.reqsai.iam.domain.model.aggregates`                                                                                                                                            |
+| **Extiende**        | `AbstractAggregateRoot<Account>`                                                                                                                                                              |
+| **Propósito**       | Representa las credenciales y el estado del ciclo de vida de una cuenta. Controla las invariantes de autenticación: una cuenta no puede autenticarse si no está verificada o está suspendida. |
+| **Anotaciones JPA** | `@Entity`, `@Table(name = "accounts")`                                                                                                                                                        |
 
-**Atributos principales:**
+**Atributos:**
 
-| Atributo | Tipo | Visibilidad | Descripcion |
-|----------|------|-------------|-------------|
-| `id` | `AccountId` | `private` | Identificador unico de la cuenta. |
-| `email` | `Email` | `private` | Correo unico de acceso. |
-| `passwordHash` | `PasswordHash` | `private` | Contrasena hasheada. |
-| `status` | `AccountStatus` | `private` | Estado de la cuenta. |
-| `createdAt` | `Instant` | `private` | Fecha de creacion. |
-| `updatedAt` | `Instant` | `private` | Fecha de actualizacion. |
-| `createdBy` | `UserId` | `private` | Usuario creador. |
-| `updatedBy` | `UserId` | `private` | Usuario modificador. |
+| Atributo                    | Tipo            | Columna JPA                    | Descripción                                                    |
+|-----------------------------|-----------------|--------------------------------|----------------------------------------------------------------|
+| `id`                        | `AccountId`     | `id`                           | Identificador único de la cuenta (UUID).                       |
+| `email`                     | `Email`         | `@Embedded`                    | Correo electrónico único de acceso, normalizado a minúsculas.  |
+| `passwordHash`              | `String`        | `password_hash`                | Hash BCrypt de la contraseña.                                  |
+| `status`                    | `AccountStatus` | `status`                       | Estado actual de la cuenta en su ciclo de vida.                |
+| `verificationCode`          | `String?`       | `verification_code`            | Código OTP de verificación de correo. Nulo una vez verificado. |
+| `verificationCodeExpiresAt` | `Instant?`      | `verification_code_expires_at` | Fecha de expiración del OTP.                                   |
 
-**Metodos principales:**
+**Constructores:**
 
-| Metodo | Tipo Retorno | Visibilidad | Descripcion |
-|--------|-------------|-------------|-------------|
-| `Account()` | `Constructor` | `public` | Constructor vacio requerido por JPA. |
-| `Account(Email, PasswordHash)` | `Constructor` | `public` | Crea cuenta en estado `PENDING_VERIFICATION`. |
-| `changePassword(PasswordHash)` | `void` | `public` | Cambia la contrasena. |
-| `verifyEmail()` | `void` | `public` | Marca la cuenta como verificada. |
-| `suspend()` | `void` | `public` | Suspende la cuenta. |
-| `activate()` | `void` | `public` | Activa la cuenta. |
-| `delete()` | `void` | `public` | Baja logica de cuenta. |
+| Constructor                                 | Visibilidad | Propósito                                                     |
+|---------------------------------------------|-------------|---------------------------------------------------------------|
+| `protected Account()`                       | `protected` | Para JPA. No instanciar directamente.                         |
+| `Account(Email email, String passwordHash)` | `public`    | Crea la cuenta en estado `PENDING_VERIFICATION`. Genera UUID. |
 
----
+**Métodos de negocio:**
 
-2. **`User` (Aggregate Root)**
+| Método                                                     | Visibilidad | Parámetros                           | Retorna | Descripción                            | Excepciones lanzadas                                                    |
+|------------------------------------------------------------|-------------|--------------------------------------|---------|----------------------------------------|-------------------------------------------------------------------------|
+| `verifyEmail(String code, Instant now)`                    | `public`    | `code: String`, `now: Instant`       | `void`  | Valida el OTP y activa la cuenta.      | `InvalidVerificationCodeException` si el código es incorrecto o expiró. |
+| `changePassword(String newPasswordHash)`                   | `public`    | `newPasswordHash: String`            | `void`  | Reemplaza el hash de contraseña.       | —                                                                       |
+| `suspend()`                                                | `public`    | —                                    | `void`  | Transición a estado `SUSPENDED`.       | `CannotSuspendAccountException` si ya está suspendida o eliminada.      |
+| `activate()`                                               | `public`    | —                                    | `void`  | Transición a estado `ACTIVE`.          | —                                                                       |
+| `delete()`                                                 | `public`    | —                                    | `void`  | Baja lógica: estado `DELETED`.         | —                                                                       |
+| `generateVerificationCode(String code, Instant expiresAt)` | `public`    | `code: String`, `expiresAt: Instant` | `void`  | Almacena nuevo OTP (usado en reenvío). | —                                                                       |
 
-Representa el perfil del usuario vinculado a una cuenta.
+**Métodos de consulta:**
 
-**Atributos principales:**
+| Método                    | Visibilidad | Retorna   | Descripción                                    |
+|---------------------------|-------------|-----------|------------------------------------------------|
+| `isPendingVerification()` | `public`    | `boolean` | `true` si el status es `PENDING_VERIFICATION`. |
+| `isActive()`              | `public`    | `boolean` | `true` si el status es `ACTIVE`.               |
+| `isSuspended()`           | `public`    | `boolean` | `true` si el status es `SUSPENDED`.            |
+| `isDeleted()`             | `public`    | `boolean` | `true` si el status es `DELETED`.              |
 
-| Atributo | Tipo | Visibilidad | Descripcion |
-|----------|------|-------------|-------------|
-| `id` | `UserId` | `private` | Identificador del usuario. |
-| `accountId` | `AccountId` | `private` | Referencia a la cuenta. |
-| `firstName` | `String` | `private` | Nombres. |
-| `lastName` | `String` | `private` | Apellidos. |
-| `avatarUrl` | `AvatarUrl?` | `private` | Foto de perfil opcional. |
-| `createdAt` | `Instant` | `private` | Fecha de creacion. |
-| `updatedAt` | `Instant` | `private` | Fecha de actualizacion. |
-| `createdBy` | `UserId` | `private` | Usuario creador. |
-| `updatedBy` | `UserId` | `private` | Usuario modificador. |
+**Relaciones:**
 
-**Metodos principales:**
-
-| Metodo | Tipo Retorno | Visibilidad | Descripcion |
-|--------|-------------|-------------|-------------|
-| `User()` | `Constructor` | `public` | Constructor vacio requerido por JPA. |
-| `User(AccountId, String, String)` | `Constructor` | `public` | Crea perfil asociado a una cuenta. |
-| `updateProfile(String, String, AvatarUrl)` | `void` | `public` | Actualiza datos del perfil. |
+| Relación                   | Tipo              | Multiplicidad | Detalles                                                         |
+|----------------------------|-------------------|---------------|------------------------------------------------------------------|
+| `Account` → `User`         | Referencia por ID | 1..1          | `User` mantiene `accountId: AccountId`. Frontera de aggregate.   |
+| `Account` → `RefreshToken` | Referencia por ID | 1..*          | `RefreshToken` mantiene `userId: UserId`. Frontera de aggregate. |
 
 ---
 
-3. **`RefreshToken` (Entity)**
+**Aggregate: `User`**
 
-Token de renovacion asociado a un usuario.
+| Campo               | Detalle                                                                                                                             |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| **Paquete**         | `com.kntrosoft.reqsai.iam.domain.model.aggregates`                                                                                  |
+| **Extiende**        | `AbstractAggregateRoot<User>`                                                                                                       |
+| **Propósito**       | Representa el perfil del usuario vinculado a una cuenta. Controla actualizaciones de datos personales y preferencias de navegación. |
+| **Anotaciones JPA** | `@Entity`, `@Table(name = "users")`                                                                                                 |
 
-**Atributos principales:**
+**Atributos:**
 
-| Atributo | Tipo | Visibilidad | Descripcion |
-|----------|------|-------------|-------------|
-| `id` | `RefreshTokenId` | `private` | Identificador del token. |
-| `tokenHash` | `TokenHash` | `private` | Hash del refresh token. |
-| `userId` | `UserId` | `private` | Usuario propietario. |
-| `status` | `TokenStatus` | `private` | Estado del token. |
-| `expiresAt` | `Instant` | `private` | Expiracion. |
-| `revokedAt` | `Instant?` | `private` | Revocacion. |
-| `createdAt` | `Instant` | `private` | Creacion. |
-| `createdBy` | `UserId` | `private` | Emisor. |
+| Atributo      | Tipo              | Columna JPA  | Descripción                             |
+|---------------|-------------------|--------------|-----------------------------------------|
+| `id`          | `UserId`          | `id`         | Identificador único del usuario (UUID). |
+| `accountId`   | `AccountId`       | `account_id` | Referencia a la cuenta asociada.        |
+| `firstName`   | `String`          | `first_name` | Nombres del usuario.                    |
+| `lastName`    | `String`          | `last_name`  | Apellidos del usuario.                  |
+| `avatarUrl`   | `String?`         | `avatar_url` | URL de foto de perfil (opcional).       |
+| `preferences` | `UserPreferences` | `@Embedded`  | Preferencias de navegación del usuario. |
 
-**Metodos principales:**
+**Constructores:**
 
-| Metodo | Tipo Retorno | Visibilidad | Descripcion |
-|--------|-------------|-------------|-------------|
-| `RefreshToken()` | `Constructor` | `public` | Constructor vacio requerido por JPA. |
-| `issue(UserId, Instant)` | `RefreshToken` | `public` | Emite un refresh token nuevo. |
-| `revoke()` | `void` | `public` | Revoca el token vigente. |
-| `rotate()` | `RefreshToken` | `public` | Rota el token y marca el anterior como revocado. |
-| `isValid()` | `boolean` | `public` | Valida estado y expiracion. |
+| Constructor                                                    | Visibilidad | Propósito                                                                      |
+|----------------------------------------------------------------|-------------|--------------------------------------------------------------------------------|
+| `protected User()`                                             | `protected` | Para JPA. No instanciar directamente.                                          |
+| `User(AccountId accountId, String firstName, String lastName)` | `public`    | Crea perfil asociado a una cuenta. Inicializa `preferences` con valores nulos. |
 
----
+**Métodos de negocio:**
 
-4. **`AccountStatus` (Value Object)**
+| Método                                                               | Visibilidad | Parámetros                                                    | Retorna | Descripción                               | Excepciones lanzadas |
+|----------------------------------------------------------------------|-------------|---------------------------------------------------------------|---------|-------------------------------------------|----------------------|
+| `updateProfile(String firstName, String lastName, String avatarUrl)` | `public`    | `firstName: String`, `lastName: String`, `avatarUrl: String?` | `void`  | Actualiza nombre y foto de perfil.        | —                    |
+| `updatePreferences(UserPreferences preferences)`                     | `public`    | `preferences: UserPreferences`                                | `void`  | Reemplaza las preferencias de navegación. | —                    |
 
-Estado actual de la cuenta del usuario.
+**Métodos de consulta:**
 
-**Atributos principales:**
+| Método          | Visibilidad | Retorna  | Descripción                           |
+|-----------------|-------------|----------|---------------------------------------|
+| `getFullName()` | `public`    | `String` | Retorna `firstName + " " + lastName`. |
 
-| Atributo | Tipo | Visibilidad | Descripcion |
-|----------|------|-------------|-------------|
-| `PENDING_VERIFICATION` | `Enum` | `public` | La cuenta esta pendiente de verificacion. |
-| `ACTIVE` | `Enum` | `public` | La cuenta esta activa. |
-| `SUSPENDED` | `Enum` | `public` | La cuenta esta suspendida. |
+**Relaciones:**
 
----
-
-5. **`TokenStatus` (Value Object)**
-
-Estado del refresh token.
-
-**Atributos principales:**
-
-| Atributo | Tipo | Visibilidad | Descripcion |
-|----------|------|-------------|-------------|
-| `ACTIVE` | `Enum` | `public` | Token vigente. |
-| `REVOKED` | `Enum` | `public` | Token revocado. |
-| `EXPIRED` | `Enum` | `public` | Token expirado. |
+| Relación                   | Tipo                      | Multiplicidad | Detalles                                                            |
+|----------------------------|---------------------------|---------------|---------------------------------------------------------------------|
+| `User` → `AccountId`       | Referencia por ID         | 1..1          | Mantiene frontera de aggregate. Nunca el objeto `Account` completo. |
+| `User` → `UserPreferences` | Composición (`@Embedded`) | 1..1          | VO embebido, siempre presente.                                      |
 
 ---
 
-6. **`Email` (Value Object)**
+**Aggregate: `RefreshToken`**
 
-Representa correo con formato valido.
+| Campo               | Detalle                                                                                                                                                                         |
+|---------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Paquete**         | `com.kntrosoft.reqsai.iam.domain.model.aggregates`                                                                                                                              |
+| **Extiende**        | `AbstractAggregateRoot<RefreshToken>`                                                                                                                                           |
+| **Propósito**       | Representa un token de renovación de sesión. Controla su ciclo de vida (emisión, rotación, revocación) y garantiza que el token solo pueda usarse si está activo y no expirado. |
+| **Anotaciones JPA** | `@Entity`, `@Table(name = "refresh_tokens")`                                                                                                                                    |
 
-**Atributos principales:**
+**Atributos:**
 
-| Atributo | Tipo | Visibilidad | Descripcion |
-|----------|------|-------------|-------------|
-| `value` | `String` | `private` | Correo normalizado. |
+| Atributo    | Tipo             | Columna JPA  | Descripción                                     |
+|-------------|------------------|--------------|-------------------------------------------------|
+| `id`        | `RefreshTokenId` | `id`         | Identificador único del token (UUID).           |
+| `tokenHash` | `String`         | `token_hash` | Hash SHA-256 del token en texto plano.          |
+| `userId`    | `UserId`         | `user_id`    | Usuario propietario del token.                  |
+| `status`    | `TokenStatus`    | `status`     | Estado actual del token.                        |
+| `expiresAt` | `Instant`        | `expires_at` | Fecha de expiración.                            |
+| `revokedAt` | `Instant?`       | `revoked_at` | Fecha de revocación explícita (nulo si activo). |
 
----
+**Constructores:**
 
-7. **`PasswordHash` (Value Object)**
+| Constructor                                                        | Visibilidad | Propósito                                |
+|--------------------------------------------------------------------|-------------|------------------------------------------|
+| `protected RefreshToken()`                                         | `protected` | Para JPA. No instanciar directamente.    |
+| `RefreshToken(String tokenHash, UserId userId, Instant expiresAt)` | `public`    | Emite un nuevo token en estado `ACTIVE`. |
 
-Hash de contrasena.
+**Métodos de negocio:**
 
-**Atributos principales:**
+| Método                      | Visibilidad | Parámetros           | Retorna | Descripción                                   | Excepciones lanzadas                                           |
+|-----------------------------|-------------|----------------------|---------|-----------------------------------------------|----------------------------------------------------------------|
+| `revoke(Instant revokedAt)` | `public`    | `revokedAt: Instant` | `void`  | Marca el token como `REVOKED`.                | `InvalidRefreshTokenException` si ya está revocado o expirado. |
+| `rotate()`                  | `public`    | —                    | `void`  | Revoca el token actual para emitir uno nuevo. | `InvalidRefreshTokenException` si no está activo.              |
 
-| Atributo | Tipo | Visibilidad | Descripcion |
-|----------|------|-------------|-------------|
-| `value` | `String` | `private` | Hash BCrypt. |
+**Métodos de consulta:**
 
----
+| Método                   | Visibilidad | Retorna   | Descripción                                       |
+|--------------------------|-------------|-----------|---------------------------------------------------|
+| `isValid(Instant now)`   | `public`    | `boolean` | `true` si el status es `ACTIVE` y no ha expirado. |
+| `isExpired(Instant now)` | `public`    | `boolean` | `true` si `expiresAt` es anterior a `now`.        |
 
-8. **`TokenHash` (Value Object)**
+**Relaciones:**
 
-Hash del refresh token.
-
-**Atributos principales:**
-
-| Atributo | Tipo | Visibilidad | Descripcion |
-|----------|------|-------------|-------------|
-| `value` | `String` | `private` | Hash del token. |
-
----
-
-9. **`FullName` (Value Object)**
-
-Nombre completo normalizado.
-
-**Atributos principales:**
-
-| Atributo | Tipo | Visibilidad | Descripcion |
-|----------|------|-------------|-------------|
-| `value` | `String` | `private` | Nombre completo. |
-
----
-
-10. **`AvatarUrl` (Value Object)**
-
-URL valida de avatar.
-
-**Atributos principales:**
-
-| Atributo | Tipo | Visibilidad | Descripcion |
-|----------|------|-------------|-------------|
-| `value` | `String` | `private` | URL de avatar. |
+| Relación                  | Tipo              | Multiplicidad | Detalles                        |
+|---------------------------|-------------------|---------------|---------------------------------|
+| `RefreshToken` → `UserId` | Referencia por ID | 1..1          | Mantiene frontera de aggregate. |
 
 ---
 
-**Relaciones clave:**
+**Value Objects**
 
-- `Account` crea exactamente un `User` (1:1).
-- `User` puede tener multiples `RefreshToken` (1:N).
+**Value Object: `Email`**
+
+| Campo         | Detalle                                                                                                                                                      |
+|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Paquete**   | `com.kntrosoft.reqsai.iam.domain.model.valueobjects`                                                                                                         |
+| **Tipo Java** | `record`                                                                                                                                                     |
+| **Propósito** | Encapsula una dirección de correo electrónico con formato válido y normalización a minúsculas. Garantiza que cualquier instancia es siempre un email válido. |
+
+**Campos:**
+
+| Campo   | Tipo     | Descripción                      |
+|---------|----------|----------------------------------|
+| `value` | `String` | Correo normalizado a minúsculas. |
+
+**Validaciones en compact constructor:**
+
+| Regla                                         | Excepción lanzada       | Error Code      |
+|-----------------------------------------------|-------------------------|-----------------|
+| No puede ser nulo o vacío                     | `InvalidValueException` | `INVALID_EMAIL` |
+| Debe tener formato de email válido (RFC 5322) | `InvalidValueException` | `INVALID_EMAIL` |
+
+**Factory method:**
+
+| Método | Firma                           | Descripción                                             |
+|--------|---------------------------------|---------------------------------------------------------|
+| `of`   | `static Email of(String value)` | Normaliza a minúsculas y llama al constructor compacto. |
+
+---
+
+**Value Object: `UserPreferences`**
+
+| Campo         | Detalle                                                                                                                                                                                               |
+|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Paquete**   | `com.kntrosoft.reqsai.iam.domain.model.valueobjects`                                                                                                                                                  |
+| **Tipo Java** | `record`                                                                                                                                                                                              |
+| **Propósito** | Almacena las preferencias de navegación del usuario. Persiste el último contexto de trabajo para restaurar la sesión al iniciar la aplicación. Respaldado por US13 (seleccionar organización activa). |
+
+**Campos:**
+
+| Campo                  | Tipo      | Descripción                                                                       |
+|------------------------|-----------|-----------------------------------------------------------------------------------|
+| `lastVisitedOrgId`     | `String?` | ID de la última organización visitada. Nulo si el usuario no ha visitado ninguna. |
+| `lastVisitedProjectId` | `String?` | ID del último proyecto visitado. Nulo si el usuario no ha visitado ninguno.       |
+
+**Validaciones en compact constructor:**
+
+| Regla                                                          | Excepción lanzada       | Error Code            |
+|----------------------------------------------------------------|-------------------------|-----------------------|
+| Si se provee `lastVisitedOrgId`, no puede ser cadena vacía     | `InvalidValueException` | `INVALID_PREFERENCES` |
+| Si se provee `lastVisitedProjectId`, no puede ser cadena vacía | `InvalidValueException` | `INVALID_PREFERENCES` |
+
+---
+
+**Value Object: `AccountStatus`**
+
+| Campo         | Detalle                                                      |
+|---------------|--------------------------------------------------------------|
+| **Paquete**   | `com.kntrosoft.reqsai.iam.domain.model.valueobjects`         |
+| **Tipo Java** | `enum`                                                       |
+| **Propósito** | Define los estados posibles del ciclo de vida de una cuenta. |
+
+**Valores:**
+
+| Valor                  | Descripción en el negocio                                                         |
+|------------------------|-----------------------------------------------------------------------------------|
+| `PENDING_VERIFICATION` | La cuenta fue creada pero el correo no ha sido verificado. No puede autenticarse. |
+| `ACTIVE`               | La cuenta está activa y puede operar normalmente.                                 |
+| `SUSPENDED`            | La cuenta fue suspendida administrativamente. No puede autenticarse.              |
+| `DELETED`              | Baja lógica de la cuenta. No puede recuperarse mediante flujos estándar.          |
+
+---
+
+**Value Object: `TokenStatus`**
+
+| Campo         | Detalle                                                            |
+|---------------|--------------------------------------------------------------------|
+| **Paquete**   | `com.kntrosoft.reqsai.iam.domain.model.valueobjects`               |
+| **Tipo Java** | `enum`                                                             |
+| **Propósito** | Define los estados posibles del ciclo de vida de un refresh token. |
+
+**Valores:**
+
+| Valor     | Descripción en el negocio                            |
+|-----------|------------------------------------------------------|
+| `ACTIVE`  | Token vigente, puede usarse para renovar la sesión.  |
+| `REVOKED` | Token revocado explícitamente (sign-out o rotación). |
+| `EXPIRED` | Token expirado por vencimiento de tiempo.            |
+
+---
+
+**Domain Exceptions**
+
+| Clase                              | Extiende                         | HTTP Status | Error Code                  | Cuándo se lanza                                          |
+|------------------------------------|----------------------------------|-------------|-----------------------------|----------------------------------------------------------|
+| `AccountNotFoundException`         | `EntityNotFoundException`        | 404         | `ACCOUNT_NOT_FOUND`         | No se encuentra la cuenta por ID o email.                |
+| `AccountAlreadyExistsException`    | `BusinessRuleViolationException` | 409         | `ACCOUNT_ALREADY_EXISTS`    | Intento de registrar un email ya existente.              |
+| `InvalidCredentialsException`      | `AuthenticationException`        | 401         | `INVALID_CREDENTIALS`       | Email o contraseña incorrectos en sign-in.               |
+| `AccountNotVerifiedException`      | `BusinessRuleViolationException` | 409         | `ACCOUNT_NOT_VERIFIED`      | Intento de autenticarse sin haber verificado el correo.  |
+| `CannotSuspendAccountException`    | `BusinessRuleViolationException` | 409         | `CANNOT_SUSPEND_ACCOUNT`    | La cuenta ya está suspendida o eliminada.                |
+| `InvalidRefreshTokenException`     | `AuthenticationException`        | 401         | `INVALID_REFRESH_TOKEN`     | El refresh token no existe, fue revocado o ya expiró.    |
+| `InvalidVerificationCodeException` | `BusinessRuleViolationException` | 409         | `INVALID_VERIFICATION_CODE` | El OTP es incorrecto o ha expirado.                      |
+| `UserNotFoundException`            | `EntityNotFoundException`        | 404         | `USER_NOT_FOUND`            | No se encuentra el perfil de usuario por ID o accountId. |
+
+---
+
+**Domain Events**
+
+| Clase                             | Paquete                    | Campos clave                                                   | Se publica cuando                                | Consumido por                                             |
+|-----------------------------------|----------------------------|----------------------------------------------------------------|--------------------------------------------------|-----------------------------------------------------------|
+| `AccountCreatedEvent`             | `iam/api/`                 | `accountId`, `userId`, `email`, `occurredAt`                   | Se completa `SignUpCommandHandler` exitosamente. | Interno.                                                  |
+| `EmailVerificationRequestedEvent` | `iam/api/`                 | `email`, `verificationCode`, `expirationMinutes`, `occurredAt` | Se crea una cuenta nueva o se reenvía el OTP.    | `EmailVerificationRequestedEventListener` (envía correo). |
+| `AccountVerifiedEvent`            | `iam/domain/model/events/` | `accountId`, `occurredAt`                                      | La cuenta transiciona a estado `ACTIVE`.         | Interno.                                                  |
+
+---
+
+**Commands**
+
+| Clase                           | Paquete                  | Campos                                                                          | Handler que lo procesa                 |
+|---------------------------------|--------------------------|---------------------------------------------------------------------------------|----------------------------------------|
+| `SignUpCommand`                 | `domain/model/commands/` | `email: String`, `password: String`, `firstName: String`, `lastName: String`    | `SignUpCommandHandler`                 |
+| `SignInCommand`                 | `domain/model/commands/` | `email: String`, `password: String`                                             | `SignInCommandHandler`                 |
+| `VerifyEmailCommand`            | `domain/model/commands/` | `email: String`, `code: String`                                                 | `VerifyEmailCommandHandler`            |
+| `ResendVerificationCodeCommand` | `domain/model/commands/` | `email: String`                                                                 | `ResendVerificationCodeCommandHandler` |
+| `ChangePasswordCommand`         | `domain/model/commands/` | `userId: String`, `currentPassword: String`, `newPassword: String`              | `ChangePasswordCommandHandler`         |
+| `RefreshSessionCommand`         | `domain/model/commands/` | `refreshToken: String`                                                          | `RefreshSessionCommandHandler`         |
+| `RevokeRefreshTokenCommand`     | `domain/model/commands/` | `refreshToken: String`                                                          | `RevokeRefreshTokenCommandHandler`     |
+| `UpdateUserProfileCommand`      | `domain/model/commands/` | `userId: String`, `firstName: String`, `lastName: String`, `avatarUrl: String?` | `UpdateUserProfileCommandHandler`      |
+| `UpdateUserPreferencesCommand`  | `domain/model/commands/` | `userId: String`, `lastVisitedOrgId: String?`, `lastVisitedProjectId: String?`  | `UpdateUserPreferencesCommandHandler`  |
+
+**Queries**
+
+| Clase                       | Paquete                 | Campos              | Handler que lo procesa             |
+|-----------------------------|-------------------------|---------------------|------------------------------------|
+| `GetAuthenticatedUserQuery` | `domain/model/queries/` | —                   | `GetAuthenticatedUserQueryHandler` |
+| `GetUserByIdQuery`          | `domain/model/queries/` | `userId: String`    | `GetUserByIdQueryHandler`          |
+| `GetUserByAccountIdQuery`   | `domain/model/queries/` | `accountId: String` | `GetUserByAccountIdQueryHandler`   |
+
+---
 
 ### 5.1.2. Interface Layer
 
-En esta capa se exponen los endpoints REST del IAM para autenticacion y verificacion de cuenta.
+Esta capa es la puerta de entrada HTTP al BC IAM. Expone los endpoints de autenticación y gestión de perfil siguiendo el patrón de separación entre interfaz Swagger e implementación.
 
-**`AuthenticationController`**
+**Controllers**
 
-| Metodo | Ruta | HTTP | Descripcion |
-|--------|------|------|-------------|
-| `signIn` | `/api/v1/authentication/sign-in` | `POST` | Autentica con credenciales, retorna tokens. |
-| `signUp` | `/api/v1/authentication/sign-up` | `POST` | Registra una nueva cuenta. |
-| `verify` | `/api/v1/authentication/verify` | `POST` | Verifica cuenta con codigo OTP. |
-| `resendCode` | `/api/v1/authentication/resend-code` | `POST` | Reenvia codigo de verificacion. |
-| `refresh` | `/api/v1/authentication/refresh` | `POST` | Rota refresh token y retorna access token. |
-| `signOut` | `/api/v1/authentication/sign-out` | `POST` | Revoca refresh token. |
+**`AuthenticationController` (Swagger Interface)**
 
-**Resources (DTOs):**
+| Campo           | Detalle                                                                          |
+|-----------------|----------------------------------------------------------------------------------|
+| **Paquete**     | `com.kntrosoft.reqsai.iam.interfaces.rest.swagger`                               |
+| **Base path**   | `ApiVersioning.BASE + "/authentication"` → `/api/v1/authentication`              |
+| **Tag OpenAPI** | `"Authentication"`                                                               |
+| **Propósito**   | Contrato OpenAPI para registro, autenticación y gestión de sesiones. Sin lógica. |
 
-| Resource | Atributos principales | Descripcion |
-|----------|-----------------------|-------------|
-| `SignInResource` | `email`, `password` | Credenciales de acceso. |
-| `SignUpResource` | `email`, `password`, `firstName`, `lastName` | Datos de registro. |
-| `VerifyEmailResource` | `email`, `code` | Verificacion OTP. |
-| `ResendVerificationCodeResource` | `email` | Solicitud de reenvio. |
-| `RefreshSessionResource` | `refreshToken` | Rotacion de sesion. |
-| `AuthenticatedUserResource` | `id`, `email`, `token`, `refreshToken` | Respuesta de autenticacion. |
-| `UserResource` | `id`, `email`, `firstName`, `lastName`, `avatarUrl` | Perfil expuesto por API. |
+| Método HTTP | Path           | Nombre del método        | Request DTO                     | Response DTO                | Códigos HTTP       |
+|-------------|----------------|--------------------------|---------------------------------|-----------------------------|--------------------|
+| `POST`      | `/sign-up`     | `signUp`                 | `SignUpRequest`                 | `AuthenticatedUserResponse` | 201, 400, 409      |
+| `POST`      | `/sign-in`     | `signIn`                 | `SignInRequest`                 | `AuthenticatedUserResponse` | 200, 400, 401, 409 |
+| `POST`      | `/verify`      | `verifyEmail`            | `VerifyEmailRequest`            | `void`                      | 200, 400, 409      |
+| `POST`      | `/resend-code` | `resendVerificationCode` | `ResendVerificationCodeRequest` | `void`                      | 200, 400, 404      |
+| `POST`      | `/refresh`     | `refreshSession`         | `RefreshSessionRequest`         | `AuthenticatedUserResponse` | 200, 401           |
+| `POST`      | `/sign-out`    | `signOut`                | `RevokeRefreshTokenRequest`     | `void`                      | 204, 401           |
 
-**Assemblers (Transform):**
+**`AuthenticationControllerImpl` (Implementation)**
 
-| Assembler | Entrada → Salida | Descripcion |
-|-----------|------------------|-------------|
-| `SignInCommandFromResourceAssembler` | `SignInResource` → `SignInCommand` | Construye el comando creando el VO `Email`. |
-| `SignUpCommandFromResourceAssembler` | `SignUpResource` → `SignUpCommand` | Mapea datos de registro. |
-| `VerifyEmailCommandFromResourceAssembler` | `VerifyEmailResource` → `VerifyEmailCommand` | Construye el comando de verificacion. |
-| `ResendVerificationCodeCommandFromResourceAssembler` | `ResendVerificationCodeResource` → `ResendVerificationCodeCommand` | Convierte DTO de reenvio a comando. |
-| `RefreshSessionCommandFromResourceAssembler` | `RefreshSessionResource` → `RefreshSessionCommand` | Convierte DTO de refresh a comando. |
-| `AuthenticatedUserResourceFromEntityAssembler` | `User` + `token` + `refreshToken` → `AuthenticatedUserResource` | Mapea user + tokens. |
-| `UserResourceFromEntityAssembler` | `User` → `UserResource` | Expone perfil basico. |
+| Campo           | Detalle                                                 |
+|-----------------|---------------------------------------------------------|
+| **Paquete**     | `com.kntrosoft.reqsai.iam.interfaces.rest.controllers`  |
+| **Anotaciones** | `@Slf4j`, `@RestController`, `@RequiredArgsConstructor` |
+| **Implementa**  | `AuthenticationController`                              |
+
+| Handler                                | Para qué endpoint   |
+|----------------------------------------|---------------------|
+| `SignUpCommandHandler`                 | `POST /sign-up`     |
+| `SignInCommandHandler`                 | `POST /sign-in`     |
+| `VerifyEmailCommandHandler`            | `POST /verify`      |
+| `ResendVerificationCodeCommandHandler` | `POST /resend-code` |
+| `RefreshSessionCommandHandler`         | `POST /refresh`     |
+| `RevokeRefreshTokenCommandHandler`     | `POST /sign-out`    |
+
+---
+
+**`UserController` (Swagger Interface)**
+
+| Campo           | Detalle                                                                            |
+|-----------------|------------------------------------------------------------------------------------|
+| **Paquete**     | `com.kntrosoft.reqsai.iam.interfaces.rest.swagger`                                 |
+| **Base path**   | `ApiVersioning.BASE + "/users"` → `/api/v1/users`                                  |
+| **Tag OpenAPI** | `"Users"`                                                                          |
+| **Propósito**   | Contrato OpenAPI para consulta y actualización del perfil del usuario autenticado. |
+
+| Método HTTP | Path              | Nombre del método      | Request DTO                | Response DTO   | Códigos HTTP  |
+|-------------|-------------------|------------------------|----------------------------|----------------|---------------|
+| `GET`       | `/me`             | `getAuthenticatedUser` | —                          | `UserResponse` | 200, 401      |
+| `PATCH`     | `/me/profile`     | `updateProfile`        | `UpdateProfileRequest`     | `UserResponse` | 200, 400, 401 |
+| `PATCH`     | `/me/preferences` | `updatePreferences`    | `UpdatePreferencesRequest` | `UserResponse` | 200, 400, 401 |
+
+**`UserControllerImpl` (Implementation)**
+
+| Campo           | Detalle                                                 |
+|-----------------|---------------------------------------------------------|
+| **Paquete**     | `com.kntrosoft.reqsai.iam.interfaces.rest.controllers`  |
+| **Anotaciones** | `@Slf4j`, `@RestController`, `@RequiredArgsConstructor` |
+| **Implementa**  | `UserController`                                        |
+
+| Handler                               | Para qué endpoint       |
+|---------------------------------------|-------------------------|
+| `GetAuthenticatedUserQueryHandler`    | `GET /me`               |
+| `UpdateUserProfileCommandHandler`     | `PATCH /me/profile`     |
+| `UpdateUserPreferencesCommandHandler` | `PATCH /me/preferences` |
+
+---
+
+**Request DTOs**
+
+| Clase                           | Paquete                        | Campos                                                                       | Validaciones Jakarta                                                |
+|---------------------------------|--------------------------------|------------------------------------------------------------------------------|---------------------------------------------------------------------|
+| `SignUpRequest`                 | `interfaces/rest/dto/request/` | `email: String`, `password: String`, `firstName: String`, `lastName: String` | `@NotBlank` en todos, `@Email` en email, `@Size(min=8)` en password |
+| `SignInRequest`                 | `interfaces/rest/dto/request/` | `email: String`, `password: String`                                          | `@NotBlank` en todos                                                |
+| `VerifyEmailRequest`            | `interfaces/rest/dto/request/` | `email: String`, `code: String`                                              | `@NotBlank` en todos                                                |
+| `ResendVerificationCodeRequest` | `interfaces/rest/dto/request/` | `email: String`                                                              | `@NotBlank`, `@Email`                                               |
+| `RefreshSessionRequest`         | `interfaces/rest/dto/request/` | `refreshToken: String`                                                       | `@NotBlank`                                                         |
+| `RevokeRefreshTokenRequest`     | `interfaces/rest/dto/request/` | `refreshToken: String`                                                       | `@NotBlank`                                                         |
+| `UpdateProfileRequest`          | `interfaces/rest/dto/request/` | `firstName: String`, `lastName: String`, `avatarUrl: String?`                | `@NotBlank` en `firstName` y `lastName`                             |
+| `UpdatePreferencesRequest`      | `interfaces/rest/dto/request/` | `lastVisitedOrgId: String?`, `lastVisitedProjectId: String?`                 | Opcionales, sin `@NotBlank`                                         |
+
+---
+
+**Response DTOs**
+
+| Clase                       | Paquete                         | Campos                                                                                                                                                     | Notas                                |
+|-----------------------------|---------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------|
+| `AuthenticatedUserResponse` | `interfaces/rest/dto/response/` | `id: String`, `email: String`, `firstName: String`, `lastName: String`, `accessToken: String`, `refreshToken: String`                                      | `@Builder` + `@Schema` en cada campo |
+| `UserResponse`              | `interfaces/rest/dto/response/` | `id: String`, `email: String`, `firstName: String`, `lastName: String`, `avatarUrl: String?`, `lastVisitedOrgId: String?`, `lastVisitedProjectId: String?` | `@Builder` + `@Schema` en cada campo |
+
+---
+
+**Mappers**
+
+**Request Mappers:**
+
+| Clase                            | Método                                                                                           | Convierte                                            |
+|----------------------------------|--------------------------------------------------------------------------------------------------|------------------------------------------------------|
+| `SignUpRequestMapper`            | `static SignUpCommand toCommand(SignUpRequest request)`                                          | DTO de registro → Command.                           |
+| `SignInRequestMapper`            | `static SignInCommand toCommand(SignInRequest request)`                                          | DTO de autenticación → Command.                      |
+| `UpdateProfileRequestMapper`     | `static UpdateUserProfileCommand toCommand(String userId, UpdateProfileRequest request)`         | Combina userId del contexto de seguridad + body.     |
+| `UpdatePreferencesRequestMapper` | `static UpdateUserPreferencesCommand toCommand(String userId, UpdatePreferencesRequest request)` | Combina userId del contexto + preferencias del body. |
+
+**Response Mappers:**
+
+| Clase                             | Método                                                                                            | Convierte                                |
+|-----------------------------------|---------------------------------------------------------------------------------------------------|------------------------------------------|
+| `AuthenticatedUserResponseMapper` | `static AuthenticatedUserResponse toResponse(User user, String accessToken, String refreshToken)` | User + tokens → DTO de autenticación.    |
+| `UserResponseMapper`              | `static UserResponse toResponse(User user, String email)`                                         | User + email de Account → DTO de perfil. |
+
+---
 
 ### 5.1.3. Application Layer
 
-En esta capa se describen los casos de uso del IAM bajo el patron CQRS.
+Esta capa orquesta los casos de uso del BC IAM. No contiene lógica de negocio; conecta la capa de interfaces con el dominio a través de puertos.
 
-**Commands:**
+**Command Handlers**
 
-- `SignUpCommand(email, password, firstName, lastName)`
-- `SignInCommand(email, password)`
-- `VerifyEmailCommand(email, code)`
-- `ResendVerificationCodeCommand(email)`
-- `ChangePasswordCommand(userId, newPassword)`
-- `RefreshSessionCommand(refreshToken)`
-- `RevokeRefreshTokenCommand(refreshToken)`
+**`SignUpCommandHandler`**
 
-**Queries:**
+| Campo                  | Detalle                                                                                               |
+|------------------------|-------------------------------------------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.iam.application.authentication.signup`                                          |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional`                                    |
+| **Command que recibe** | `SignUpCommand`                                                                                       |
+| **Retorna**            | `AuthenticatedUserResponse`                                                                           |
+| **Propósito**          | Registra una nueva cuenta y perfil de usuario, genera OTP y publica evento de verificación de correo. |
 
-- `GetAuthenticatedUserQuery()`
+**Dependencias:**
 
-**Command Handlers:**
+| Puerto                      | Para qué se usa                                    |
+|-----------------------------|----------------------------------------------------|
+| `AccountRepositoryPort`     | Verificar unicidad de email y persistir `Account`. |
+| `UserRepositoryPort`        | Persistir `User`.                                  |
+| `HashingServicePort`        | Hashear la contraseña.                             |
+| `VerificationServicePort`   | Generar OTP y tiempo de expiración.                |
+| `ApplicationEventPublisher` | Publicar `EmailVerificationRequestedEvent`.        |
 
-| Handler | Responsabilidad |
-|---------|------------------|
-| `SignUpCommandHandler` | Crea `Account` y `User`, genera OTP y publica evento. |
-| `SignInCommandHandler` | Valida credenciales y emite access/refresh token. |
-| `VerifyEmailCommandHandler` | Verifica OTP y activa la cuenta. |
-| `ResendVerificationCodeCommandHandler` | Reenvia OTP y publica evento. |
-| `ChangePasswordCommandHandler` | Cambia hash de contrasena. |
-| `RefreshSessionCommandHandler` | Rota refresh token y emite JWT. |
-| `RevokeRefreshTokenCommandHandler` | Revoca refresh token. |
+**Flujo:**
 
-**Query Handlers:**
-
-| Handler | Responsabilidad |
-|---------|------------------|
-| `GetAuthenticatedUserQueryHandler` | Retorna perfil del usuario autenticado. |
-
-**Domain Events:**
-
-- `EmailVerificationRequestedEvent(email, code, expirationMinutes)`
-
-**Domain Event Handlers:**
-
-| Handler | Responsabilidad |
-|---------|------------------|
-| `EmailVerificationRequestedEventHandler` | Envia correo de verificacion. |
-
-**ACL Facade:**
-
-- `IamContextFacade.fetchAuthenticatedUser()` -> `userId`, `accountId`, `email`.
-
-**Outbound Service Ports:**
-
-10. **`IdentityService` (Outbound Service Port)**
-
-Interfaz para obtener identidad del contexto actual.
-
-**Metodos principales:**
-
-| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
-|--------|------------------|-------------|-------------|
-| `getUserId()` | `Optional<Long>` | `public` | ID del usuario autenticado. |
-| `getUsername()` | `Optional<String>` | `public` | Username del contexto. |
+| Paso | Acción                                                                                                  | Excepción lanzada               |
+|------|---------------------------------------------------------------------------------------------------------|---------------------------------|
+| 1    | Verificar que no exista una cuenta con el mismo email.                                                  | `AccountAlreadyExistsException` |
+| 2    | Hashear la contraseña con `HashingServicePort.encode()`.                                                | —                               |
+| 3    | Crear `Account` con `new Account(Email.of(email), passwordHash)`.                                       | —                               |
+| 4    | Generar OTP con `VerificationServicePort` y llamar `account.generateVerificationCode(code, expiresAt)`. | —                               |
+| 5    | Persistir `Account` con `accountRepository.save(account)`.                                              | —                               |
+| 6    | Crear `User` con `new User(account.getId(), firstName, lastName)`.                                      | —                               |
+| 7    | Persistir `User` con `userRepository.save(user)`.                                                       | —                               |
+| 8    | Publicar `EmailVerificationRequestedEvent(email, code, expirationMinutes)`.                             | —                               |
 
 ---
 
-11. **`TokenService` (Outbound Service Port)**
+**`SignInCommandHandler`**
 
-Interfaz para emision y validacion de tokens.
+| Campo                  | Detalle                                                                        |
+|------------------------|--------------------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.iam.application.authentication.signin`                   |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional`             |
+| **Command que recibe** | `SignInCommand`                                                                |
+| **Retorna**            | `AuthenticatedUserResponse`                                                    |
+| **Propósito**          | Valida credenciales, emite access token JWT y persiste un nuevo refresh token. |
 
-**Metodos principales:**
+**Dependencias:**
 
-| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
-|--------|------------------|-------------|-------------|
-| `generateToken(String)` | `String` | `public` | Genera token a partir del username. |
-| `getUsernameFromToken(String)` | `String` | `public` | Extrae username del token. |
-| `getUserIdFromToken(String)` | `Long` | `public` | Extrae userId del token. |
-| `validateToken(String)` | `boolean` | `public` | Valida integridad/expiracion del token. |
+| Puerto                       | Para qué se usa                          |
+|------------------------------|------------------------------------------|
+| `AccountRepositoryPort`      | Cargar `Account` por email.              |
+| `UserRepositoryPort`         | Cargar `User` por accountId.             |
+| `HashingServicePort`         | Comparar contraseña con hash almacenado. |
+| `TokenServicePort`           | Emitir JWT (access token).               |
+| `RefreshTokenRepositoryPort` | Persistir el nuevo `RefreshToken`.       |
+
+**Flujo:**
+
+| Paso | Acción                                                   | Excepción lanzada                                            |
+|------|----------------------------------------------------------|--------------------------------------------------------------|
+| 1    | Cargar `Account` por email.                              | `AccountNotFoundException`                                   |
+| 2    | Verificar que la cuenta esté `ACTIVE`.                   | `AccountNotVerifiedException`, `InvalidCredentialsException` |
+| 3    | Comparar contraseña con `HashingServicePort.matches()`.  | `InvalidCredentialsException`                                |
+| 4    | Cargar `User` por `account.getId()`.                     | `UserNotFoundException`                                      |
+| 5    | Emitir JWT con `TokenServicePort.generateToken(userId)`. | —                                                            |
+| 6    | Crear y persistir nuevo `RefreshToken`.                  | —                                                            |
+| 7    | Retornar `AuthenticatedUserResponse` con tokens.         | —                                                            |
 
 ---
 
-12. **`RefreshTokenService` (Outbound Service Port)**
+**`VerifyEmailCommandHandler`**
 
-Interfaz para emision, rotacion y revocacion de refresh tokens.
+| Campo                  | Detalle                                                            |
+|------------------------|--------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.iam.application.authentication.verify`       |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional` |
+| **Command que recibe** | `VerifyEmailCommand`                                               |
+| **Retorna**            | `void`                                                             |
+| **Propósito**          | Verifica el OTP de correo y activa la cuenta.                      |
 
-**Metodos principales:**
+**Flujo:**
 
-| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
-|--------|------------------|-------------|-------------|
-| `issue(UserId)` | `String` | `public` | Emite refresh token y persiste hash. |
-| `rotate(String)` | `String` | `public` | Revoca anterior y emite uno nuevo. |
-| `revoke(String)` | `void` | `public` | Revoca el refresh token. |
+| Paso | Acción                                             | Excepción lanzada                  |
+|------|----------------------------------------------------|------------------------------------|
+| 1    | Cargar `Account` por email.                        | `AccountNotFoundException`         |
+| 2    | Llamar `account.verifyEmail(code, Instant.now())`. | `InvalidVerificationCodeException` |
+| 3    | Persistir `Account` actualizado.                   | —                                  |
 
 ---
 
-13. **`VerificationService` (Outbound Service Port)**
+**`ResendVerificationCodeCommandHandler`**
 
-Interfaz para generacion de codigos de verificacion.
+| Campo                  | Detalle                                                                       |
+|------------------------|-------------------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.iam.application.authentication.resend`                  |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional`            |
+| **Command que recibe** | `ResendVerificationCodeCommand`                                               |
+| **Retorna**            | `void`                                                                        |
+| **Propósito**          | Genera un nuevo OTP y publica evento para reenviar el correo de verificación. |
 
-**Metodos principales:**
+**Flujo:**
 
-| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
-|--------|------------------|-------------|-------------|
-| `generateCode()` | `String` | `public` | Genera un codigo por defecto. |
-| `generateExpirationMinutes()` | `Integer` | `public` | Define minutos de expiracion. |
-| `verifyCode(String, String, Instant)` | `boolean` | `public` | Verifica coincidencia y vigencia. |
+| Paso | Acción                                                                  | Excepción lanzada                |
+|------|-------------------------------------------------------------------------|----------------------------------|
+| 1    | Cargar `Account` por email.                                             | `AccountNotFoundException`       |
+| 2    | Verificar que la cuenta esté en estado `PENDING_VERIFICATION`.          | `BusinessRuleViolationException` |
+| 3    | Generar nuevo OTP con `VerificationServicePort`.                        | —                                |
+| 4    | Llamar `account.generateVerificationCode(code, expiresAt)` y persistir. | —                                |
+| 5    | Publicar `EmailVerificationRequestedEvent`.                             | —                                |
+
+---
+
+**`RefreshSessionCommandHandler`**
+
+| Campo                  | Detalle                                                             |
+|------------------------|---------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.iam.application.authentication.refresh`       |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional`  |
+| **Command que recibe** | `RefreshSessionCommand`                                             |
+| **Retorna**            | `AuthenticatedUserResponse`                                         |
+| **Propósito**          | Valida el refresh token, lo rota y emite un nuevo access token JWT. |
+
+**Flujo:**
+
+| Paso | Acción                                                        | Excepción lanzada              |
+|------|---------------------------------------------------------------|--------------------------------|
+| 1    | Cargar `RefreshToken` por hash del token recibido.            | `InvalidRefreshTokenException` |
+| 2    | Verificar validez con `refreshToken.isValid(Instant.now())`.  | `InvalidRefreshTokenException` |
+| 3    | Llamar `refreshToken.rotate()` y persistir el token revocado. | —                              |
+| 4    | Crear nuevo `RefreshToken` y persistir.                       | —                              |
+| 5    | Cargar `User` y emitir JWT con `TokenServicePort`.            | —                              |
+| 6    | Retornar `AuthenticatedUserResponse` con los nuevos tokens.   | —                              |
+
+---
+
+**`RevokeRefreshTokenCommandHandler`**
+
+| Campo                  | Detalle                                                            |
+|------------------------|--------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.iam.application.authentication.signout`      |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional` |
+| **Command que recibe** | `RevokeRefreshTokenCommand`                                        |
+| **Retorna**            | `void`                                                             |
+| **Propósito**          | Revoca el refresh token del usuario (sign-out).                    |
+
+**Flujo:**
+
+| Paso | Acción                                                   | Excepción lanzada              |
+|------|----------------------------------------------------------|--------------------------------|
+| 1    | Cargar `RefreshToken` por hash del token.                | `InvalidRefreshTokenException` |
+| 2    | Llamar `refreshToken.revoke(Instant.now())` y persistir. | —                              |
+
+---
+
+**`UpdateUserProfileCommandHandler`**
+
+| Campo                  | Detalle                                                            |
+|------------------------|--------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.iam.application.user.updateprofile`          |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional` |
+| **Command que recibe** | `UpdateUserProfileCommand`                                         |
+| **Retorna**            | `User`                                                             |
+| **Propósito**          | Actualiza nombre y foto de perfil del usuario autenticado.         |
+
+**Flujo:**
+
+| Paso | Acción                                                       | Excepción lanzada       |
+|------|--------------------------------------------------------------|-------------------------|
+| 1    | Cargar `User` por userId.                                    | `UserNotFoundException` |
+| 2    | Llamar `user.updateProfile(firstName, lastName, avatarUrl)`. | —                       |
+| 3    | Persistir `User` actualizado.                                | —                       |
+
+---
+
+**`UpdateUserPreferencesCommandHandler`**
+
+| Campo                  | Detalle                                                            |
+|------------------------|--------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.iam.application.user.updatepreferences`      |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional` |
+| **Command que recibe** | `UpdateUserPreferencesCommand`                                     |
+| **Retorna**            | `User`                                                             |
+| **Propósito**          | Actualiza las preferencias de navegación del usuario autenticado.  |
+
+**Flujo:**
+
+| Paso | Acción                                                               | Excepción lanzada                                       |
+|------|----------------------------------------------------------------------|---------------------------------------------------------|
+| 1    | Cargar `User` por userId.                                            | `UserNotFoundException`                                 |
+| 2    | Construir `UserPreferences(lastVisitedOrgId, lastVisitedProjectId)`. | `InvalidValueException` si algún campo es cadena vacía. |
+| 3    | Llamar `user.updatePreferences(preferences)` y persistir.            | —                                                       |
+
+---
+
+**Query Handlers**
+
+| Clase                              | Paquete                     | Query que recibe            | Retorna | Notas                                                                                       |
+|------------------------------------|-----------------------------|-----------------------------|---------|---------------------------------------------------------------------------------------------|
+| `GetAuthenticatedUserQueryHandler` | `application/user/queries/` | `GetAuthenticatedUserQuery` | `User`  | Obtiene `userId` del `SecurityContextHolder` y carga `User`. Lanza `UserNotFoundException`. |
+| `GetUserByIdQueryHandler`          | `application/user/queries/` | `GetUserByIdQuery`          | `User`  | Carga `User` por ID. Lanza `UserNotFoundException`.                                         |
+| `GetUserByAccountIdQueryHandler`   | `application/user/queries/` | `GetUserByAccountIdQuery`   | `User`  | Carga `User` por `accountId`. Usado internamente entre handlers.                            |
+
+---
+
+**Event Listeners**
+
+| Clase                                     | Evento que escucha                | Qué hace                                                      | Puertos que usa                |
+|-------------------------------------------|-----------------------------------|---------------------------------------------------------------|--------------------------------|
+| `EmailVerificationRequestedEventListener` | `EmailVerificationRequestedEvent` | Envía correo de verificación con OTP mediante plantilla HTML. | `EmailNotificationServicePort` |
+
+---
+
+**Output Ports**
+
+**Repository Ports** — `application/ports/repositories/`:
+
+| Interfaz                     | Método              | Firma                                                 | Descripción                                |
+|------------------------------|---------------------|-------------------------------------------------------|--------------------------------------------|
+| `AccountRepositoryPort`      | `save`              | `Account save(Account account)`                       | Persiste o actualiza.                      |
+|                              | `findById`          | `Optional<Account> findById(String id)`               | Busca por ID.                              |
+|                              | `findByEmail`       | `Optional<Account> findByEmail(Email email)`          | Busca por email.                           |
+|                              | `existsByEmail`     | `boolean existsByEmail(Email email)`                  | Verifica unicidad de email.                |
+| `UserRepositoryPort`         | `save`              | `User save(User user)`                                | Persiste o actualiza.                      |
+|                              | `findById`          | `Optional<User> findById(String id)`                  | Busca por ID.                              |
+|                              | `findByAccountId`   | `Optional<User> findByAccountId(AccountId accountId)` | Busca por cuenta.                          |
+| `RefreshTokenRepositoryPort` | `save`              | `RefreshToken save(RefreshToken token)`               | Persiste o actualiza.                      |
+|                              | `findByTokenHash`   | `Optional<RefreshToken> findByTokenHash(String hash)` | Busca por hash SHA-256.                    |
+|                              | `deleteAllByUserId` | `void deleteAllByUserId(String userId)`               | Limpieza de tokens al eliminar un usuario. |
+
+**Service Ports** — `application/ports/`:
+
+| Interfaz                       | Paquete               | Métodos clave                                                                                                              | Implementación en infra         |
+|--------------------------------|-----------------------|----------------------------------------------------------------------------------------------------------------------------|---------------------------------|
+| `TokenServicePort`             | `ports/token/`        | `generateToken(String userId): String`, `validateToken(String token): boolean`, `getUserIdFromToken(String token): String` | `JwtTokenServiceAdapter`        |
+| `HashingServicePort`           | `ports/hashing/`      | `encode(String raw): String`, `matches(String raw, String hash): boolean`                                                  | `BCryptHashingServiceAdapter`   |
+| `VerificationServicePort`      | `ports/verification/` | `generateCode(): String`, `generateExpirationMinutes(): int`                                                               | `OtpVerificationServiceAdapter` |
+| `EmailNotificationServicePort` | `ports/email/`        | `sendVerificationEmail(String to, String code, int expirationMinutes): void`                                               | `SmtpEmailNotificationAdapter`  |
+
+---
 
 ### 5.1.4. Infrastructure Layer
 
-Esta capa implementa persistencia, seguridad y servicios externos.
+Esta capa contiene las implementaciones técnicas de los puertos definidos en la capa de aplicación. El dominio no conoce esta capa.
 
-1. **`AccountRepository` (Repository Interface)**
+**JPA Repositories**
 
-Interfaz de acceso a datos para cuentas (Spring Data JPA).
+| Clase                    | Extiende                              | Implementa                   | Propósito                                                                    |
+|--------------------------|---------------------------------------|------------------------------|------------------------------------------------------------------------------|
+| `AccountRepository`      | `JpaRepository<Account, String>`      | `AccountRepositoryPort`      | Persistencia de cuentas. Spring Data genera queries por VO `Email` embebido. |
+| `UserRepository`         | `JpaRepository<User, String>`         | `UserRepositoryPort`         | Persistencia de perfiles de usuario. Soporta búsqueda por `AccountId`.       |
+| `RefreshTokenRepository` | `JpaRepository<RefreshToken, String>` | `RefreshTokenRepositoryPort` | Persistencia de tokens. Soporta búsqueda por hash y borrado por userId.      |
 
-**Metodos principales:**
+**Métodos derivados (Spring Data):**
 
-| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
-|--------|------------------|-------------|-------------|
-| `findById(Long id)` | `Optional<Account>` | `public` | Busca una cuenta por su identificador. |
-| `save(Account account)` | `Account` | `public` | Persiste o actualiza una cuenta. |
-| `findByEmail(Email email)` | `Optional<Account>` | `public` | Obtiene una cuenta por su email. |
-| `existsByEmail(Email email)` | `boolean` | `public` | Verifica existencia por correo. |
-
----
-
-2. **`UserRepository` (Repository Interface)**
-
-Interfaz de acceso a datos para usuarios (Spring Data JPA).
-
-**Metodos principales:**
-
-| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
-|--------|------------------|-------------|-------------|
-| `findById(Long id)` | `Optional<User>` | `public` | Busca un usuario por su identificador. |
-| `save(User user)` | `User` | `public` | Persiste o actualiza un usuario. |
-| `findByAccountId(AccountId accountId)` | `Optional<User>` | `public` | Obtiene un usuario por cuenta. |
+| Repositorio              | Firma                                                      | Descripción                                 |
+|--------------------------|------------------------------------------------------------|---------------------------------------------|
+| `AccountRepository`      | `Optional<Account> findByEmail(Email email)`               | Búsqueda por VO embebido.                   |
+| `AccountRepository`      | `boolean existsByEmail(Email email)`                       | Verificación de unicidad de email.          |
+| `UserRepository`         | `Optional<User> findByAccountId(AccountId accountId)`      | Búsqueda de perfil por referencia a cuenta. |
+| `RefreshTokenRepository` | `Optional<RefreshToken> findByTokenHash(String tokenHash)` | Búsqueda de token por hash SHA-256.         |
+| `RefreshTokenRepository` | `void deleteAllByUserId(String userId)`                    | Limpieza de tokens al eliminar un usuario.  |
 
 ---
 
-3. **`RefreshTokenRepository` (Repository Interface)**
+**Adapters Externos**
 
-Interfaz de acceso a datos para refresh tokens (Spring Data JPA).
-
-**Metodos principales:**
-
-| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
-|--------|------------------|-------------|-------------|
-| `save(RefreshToken token)` | `RefreshToken` | `public` | Persiste o actualiza un refresh token. |
-| `findByTokenHash(TokenHash tokenHash)` | `Optional<RefreshToken>` | `public` | Obtiene un token por su hash. |
-| `findActiveByUserId(UserId userId)` | `Optional<RefreshToken>` | `public` | Busca token activo del usuario. |
+| Clase                           | Implementa                     | Servicio externo        | Tecnología                                                    | Propósito                                                       |
+|---------------------------------|--------------------------------|-------------------------|---------------------------------------------------------------|-----------------------------------------------------------------|
+| `JwtTokenServiceAdapter`        | `TokenServicePort`             | —                       | JJWT (HS256, clave y expiración configurables por properties) | Emite y valida JWT. Claims: `sub`, `userId`.                    |
+| `BCryptHashingServiceAdapter`   | `HashingServicePort`           | —                       | Spring Security `BCryptPasswordEncoder`                       | Hashea y verifica contraseñas con BCrypt.                       |
+| `OtpVerificationServiceAdapter` | `VerificationServicePort`      | —                       | `SecureRandom`                                                | Genera códigos OTP numéricos de 6 dígitos con TTL configurable. |
+| `SmtpEmailNotificationAdapter`  | `EmailNotificationServicePort` | SMTP (SendGrid / Gmail) | Spring Mail                                                   | Envía correo de verificación con plantilla HTML.                |
 
 ---
 
-4. **`WebSecurityConfiguration` (Security Config)**
+**Configuración de Seguridad**
 
-Configuracion Spring Security (stateless, JWT, CORS).
-
-**Metodos/Beans principales:**
-
-| Metodo/Bean | Tipo de Retorno | Visibilidad | Descripcion |
-|-------------|------------------|-------------|-------------|
-| `authorizationRequestFilter()` | `BearerAuthorizationRequestFilter` | `public` | Filtro que extrae, valida JWT y autentica en el contexto. |
-| `authenticationManager(config)` | `AuthenticationManager` | `public` | Expone el `AuthenticationManager`. |
-| `authenticationProvider()` | `DaoAuthenticationProvider` | `public` | Provider con `UserDetailsService` y `PasswordEncoder (BCrypt)`. |
-| `passwordEncoder()` | `PasswordEncoder` | `public` | Usa `BCryptHashingService` como encoder. |
-| `filterChain(HttpSecurity http)` | `SecurityFilterChain` | `public` | CORS, CSRF off, 401 handler, stateless, `permitAll` a `/api/v1/authentication/**` y Swagger. |
-
----
-
-5. **`BearerAuthorizationRequestFilter` (Security Filter)**
-
-Filtro JWT que autentica peticiones con token Bearer.
-
-**Metodos principales:**
-
-| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
-|--------|------------------|-------------|-------------|
-| `doFilterInternal(request, response, chain)` | `void` | `protected` | Extrae token, valida, carga `UserDetails` y establece la autenticacion. |
-
----
-
-6. **`UnauthorizedRequestHandlerEntryPoint` (Auth EntryPoint)**
-
-Maneja respuestas 401 no autorizadas.
-
-**Metodos principales:**
-
-| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
-|--------|------------------|-------------|-------------|
-| `commence(request, response, authException)` | `void` | `public` | Responde con `401 Unauthorized`. |
-
----
-
-7. **`UserDetailsServiceImpl` (UserDetailsService)**
-
-Carga cuentas para Spring Security desde `AccountRepository`.
-
-**Metodos principales:**
-
-| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
-|--------|------------------|-------------|-------------|
-| `loadUserByUsername(String user)` | `UserDetails` | `public` | Carga cuenta por email (username). |
-
----
-
-8. **`UserDetailsImpl` (Security Model)**
-
-Adaptador con authorities basadas en identidad.
-
-**Metodos principales:**
-
-| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
-|--------|------------------|-------------|-------------|
-| `build(Account account)` | `UserDetailsImpl` | `public` | Construye desde entidad `Account`. |
-
----
-
-9. **`UsernamePasswordAuthenticationTokenBuilder` (Helper)**
-
-Crea `UsernamePasswordAuthenticationToken` con detalles de request.
-
-**Metodos principales:**
-
-| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
-|--------|------------------|-------------|-------------|
-| `build(UserDetails principal, HttpServletRequest req)` | `UsernamePasswordAuthenticationToken` | `public` | Genera el token de autenticacion con detalles web. |
-
----
-
-10. **`TokenServiceImpl` (JWT Service)**
-
-Servicio JWT basado en JJWT (HS key, expiracion configurable).
-
-**Metodos principales:**
-
-| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
-|--------|------------------|-------------|-------------|
-| `generateToken(Authentication auth)` | `String` | `public` | Genera JWT desde `Authentication`. |
-| `generateToken(String username)` | `String` | `public` | Genera JWT desde username. |
-| `getUsernameFromToken(String token)` | `String` | `public` | Extrae `sub` (username). |
-| `getUserIdFromToken(String token)` | `Long` | `public` | Extrae claim `userId`. |
-| `validateToken(String token)` | `boolean` | `public` | Valida firma/fecha/estructura del JWT. |
-| `getBearerTokenFrom(HttpServletRequest)` | `String` | `public` | Obtiene el token del header `Authorization`. |
-
----
-
-11. **`BearerTokenService` (Interface)**
-
-Contrato para manejo de JWT Bearer (extiende `TokenService`).
-
-**Metodos principales:**
-
-| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
-|--------|------------------|-------------|-------------|
-| `getBearerTokenFrom(HttpServletRequest)` | `String` | `public` | Extrae token Bearer del request. |
-| `generateToken(Authentication auth)` | `String` | `public` | Genera token desde `Authentication`. |
-
----
-
-12. **`RefreshTokenServiceImpl` (Refresh Token Service)**
-
-Implementacion para emitir, rotar y revocar refresh tokens.
-
-**Metodos principales:**
-
-| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
-|--------|------------------|-------------|-------------|
-| `issue(UserId userId)` | `String` | `public` | Emite refresh token y persiste hash. |
-| `rotate(String token)` | `String` | `public` | Revoca anterior y emite uno nuevo. |
-| `revoke(String token)` | `void` | `public` | Revoca el token. |
-
----
-
-13. **`HashingServiceImpl` / `BCryptHashingService` (BCrypt Service)**
-
-Implementacion de hashing de contrasenas con `BCryptPasswordEncoder`.
-
-**Metodos principales:**
-
-| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
-|--------|------------------|-------------|-------------|
-| `encode(CharSequence)` | `String` | `public` | Genera hash BCrypt. |
-| `matches(CharSequence, String)` | `boolean` | `public` | Compara texto plano vs hash. |
-
----
-
-14. **`VerificationServiceImpl` (OTP Service)**
-
-Generacion y validacion de codigos OTP con configuracion externa.
-
-**Metodos principales:**
-
-| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
-|--------|------------------|-------------|-------------|
-| `generateCode()` | `String` | `public` | Genera codigo con longitud por defecto. |
-| `generateExpirationMinutes()` | `Integer` | `public` | Minutos de expiracion desde propiedades. |
-| `verifyCode(String, String, Instant)` | `boolean` | `public` | Verifica coincidencia y vigencia. |
-
----
-
-15. **`NotificationEmailServiceImpl` (Email Service)**
-
-Implementacion del servicio de email usando un `TemplatedEmailService`.
-
-**Metodos principales:**
-
-| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
-|--------|------------------|-------------|-------------|
-| `sendVerificationEmail(String, String, int)` | `void` | `public` | Envia correo de verificacion con plantilla. |
-
----
-
-16. **`CurrentUserProviderImpl` (Identity Service Impl)**
-
-Implementacion de `IdentityService` basada en `SecurityContextHolder` de Spring Security.
-
-**Metodos principales:**
-
-| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
-|--------|------------------|-------------|-------------|
-| `getUserId()` | `Optional<Long>` | `public` | ID del usuario del contexto de seguridad. |
-| `getUsername()` | `Optional<String>` | `public` | Username (email) del contexto. |
+| Clase                                  | Propósito                                                                                                                                                                                                 |
+|----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `WebSecurityConfiguration`             | Define la cadena de filtros Spring Security: CORS habilitado, CSRF deshabilitado, sesión stateless, `permitAll` en `/api/v1/authentication/**` y Swagger UI. Registra `BearerAuthorizationRequestFilter`. |
+| `BearerAuthorizationRequestFilter`     | Intercepta cada request, extrae el Bearer token del header `Authorization`, lo valida con `TokenServicePort` y establece la autenticación en el `SecurityContextHolder`.                                  |
+| `UnauthorizedRequestHandlerEntryPoint` | Responde con `401 Unauthorized` ante cualquier acceso sin token válido.                                                                                                                                   |
+| `UserDetailsServiceImpl`               | Implementa `UserDetailsService` de Spring Security. Carga `Account` por email para el proceso de autenticación del filtro.                                                                                |
 
 **JWT (Access Token):**
-
-- Claims: `sub`, `userId`, `accountId`.
-- No incluye `org_id` ni permisos; la autorizacion por organizacion se resuelve en Workspace Management.
+- Claims incluidos: `sub` (email), `userId`.
+- No incluye `orgId` ni permisos de organización; la autorización por organización se resuelve en el BC Workspace Management.
+- Expiración configurable por properties de entorno.
 
 ### 5.1.6. Bounded Context Software Architecture Component Level Diagrams
 
