@@ -42,7 +42,6 @@
 
 <div style="page-break-before: always"></div>
 
-
 # Registro de Versiones del Informe
 
 | Versión | Fecha      | Autor                             | Descripción de modificación                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
@@ -115,74 +114,74 @@ TB1:
   * [3.4. Impact Mapping](#34-impact-mapping)
 * [Capítulo IV: Strategic-Level Product Design](#capítulo-iv-strategic-level-product-design)
   * [4.1. Strategic-Level Attribute-Driven Design](#41-strategic-level-attribute-driven-design)
-    * [4.1.1.	Design Purpose](#411-design-purpose)
-    * [4.1.2.	Attribute-Driven Design Inputs](#412-attribute-driven-design-inputs)
-      * [4.1.2.1.	Primary Functionality (Primary User Stories)](#4121-primary-functionality-primary-user-stories)
-      * [4.1.2.2.	Quality attribute Scenarios](#4122-quality-attribute-scenarios)
-        * [4.1.2.3.	Constraints](#4123-constraints)
-    * [4.1.3.	Architectural Drivers Backlog](#413-architectural-drivers-backlog)
-    * [4.1.4.	Architectural Design Decisions](#414-architectural-design-decisions)
-    * [4.1.5.	Quality Attribute Scenario Refinements](#415-quality-attribute-scenario-refinements)
-  * [4.2.	Strategic-Level Domain-Driven Design](#42-strategic-level-domain-driven-design)
-    * [4.2.1.	EventStorming](#421-eventstorming)
-    * [4.2.2.	Candidate Context Discovery](#422-candidate-context-discovery)
-    * [4.2.3.	Domain Message Flows Modeling](#423-domain-message-flows-modeling)
-    * [4.2.4.	Bounded Context Canvases](#424-bounded-context-canvases)
-    * [4.2.5.	Context Mapping](#425-context-mapping)
-  * [4.3.	Software Architecture](#43-software-architecture)
-    * [4.3.1.	Software Architecture System Landscape Diagram](#431-software-architecture-system-landscape-diagram)
-    * [4.3.2.	Software Architecture Context Level Diagrams](#432-software-architecture-context-level-diagrams)
-    * [4.3.3.	Software Architecture Container Level Diagrams](#433-software-architecture-container-level-diagrams)
-    * [4.3.4.	Software Architecture Deployment Diagrams](#434-software-architecture-deployment-diagrams)
+    * [4.1.1. Design Purpose](#411-design-purpose)
+    * [4.1.2. Attribute-Driven Design Inputs](#412-attribute-driven-design-inputs)
+      * [4.1.2.1. Primary Functionality (Primary User Stories)](#4121-primary-functionality-primary-user-stories)
+      * [4.1.2.2. Quality attribute Scenarios](#4122-quality-attribute-scenarios)
+      * [4.1.2.3. Constraints](#4123-constraints)
+    * [4.1.3. Architectural Drivers Backlog](#413-architectural-drivers-backlog)
+    * [4.1.4. Architectural Design Decisions](#414-architectural-design-decisions)
+    * [4.1.5. Quality Attribute Scenario Refinements](#415-quality-attribute-scenario-refinements)
+  * [4.2. Strategic-Level Domain-Driven Design](#42-strategic-level-domain-driven-design)
+    * [4.2.1. EventStorming](#421-eventstorming)
+    * [4.2.2. Candidate Context Discovery](#422-candidate-context-discovery)
+    * [4.2.3. Domain Message Flows Modeling](#423-domain-message-flows-modeling)
+    * [4.2.4. Bounded Context Canvases](#424-bounded-context-canvases)
+    * [4.2.5. Context Mapping](#425-context-mapping)
+  * [4.3. Software Architecture](#43-software-architecture)
+    * [4.3.1. Software Architecture System Landscape Diagram](#431-software-architecture-system-landscape-diagram)
+    * [4.3.2. Software Architecture Context Level Diagrams](#432-software-architecture-context-level-diagrams)
+    * [4.3.3. Software Architecture Container Level Diagrams](#433-software-architecture-container-level-diagrams)
+    * [4.3.4. Software Architecture Deployment Diagrams](#434-software-architecture-deployment-diagrams)
 * [Capítulo V: Tactical-Level Software Design](#capítulo-v-tactical-level-software-design)
-  * [5.X.	Bounded Context: <Bounded Context Name>](#5x-bounded-context-bounded-context-name)
-    * [5.X.1.	Domain Layer](#5x1-domain-layer)
-    * [5.X.2.	Interface Layer](#5x2-interface-layer)
-    * [5.X.3.	Application Layer](#5x3-application-layer)
-    * [5.X.4.	Infrastructure Layer](#5x4-infrastructure-layer)
-    * [5.X.6.	Bounded Context Software Architecture Component Level Diagrams](#5x6-bounded-context-software-architecture-component-level-diagrams)
-    * [5.X.7.	Bounded Context Software Architecture Code Level Diagrams](#5x7-bounded-context-software-architecture-code-level-diagrams)
-      * [5.X.7.1.	Bounded Context Domain Layer Class Diagrams](#5x71-bounded-context-domain-layer-class-diagrams)
-      * [5.X.7.2.	Bounded Context Database Design Diagram](#5x72-bounded-context-database-design-diagram)
+  * [5.X. Bounded Context: <Bounded Context Name>](#5x-bounded-context-bounded-context-name)
+    * [5.X.1. Domain Layer](#5x1-domain-layer)
+    * [5.X.2. Interface Layer](#5x2-interface-layer)
+    * [5.X.3. Application Layer](#5x3-application-layer)
+    * [5.X.4. Infrastructure Layer](#5x4-infrastructure-layer)
+    * [5.X.6. Bounded Context Software Architecture Component Level Diagrams](#5x6-bounded-context-software-architecture-component-level-diagrams)
+    * [5.X.7. Bounded Context Software Architecture Code Level Diagrams](#5x7-bounded-context-software-architecture-code-level-diagrams)
+      * [5.X.7.1. Bounded Context Domain Layer Class Diagrams](#5x71-bounded-context-domain-layer-class-diagrams)
+      * [5.X.7.2. Bounded Context Database Design Diagram](#5x72-bounded-context-database-design-diagram)
 * [Capítulo VI: Solution UX Design](#capítulo-vi-solution-ux-design)
-  * [6.1.	Style Guidelines](#61-style-guidelines)
-    * [6.1.1.	General Style Guidelines](#611-general-style-guidelines)
-    * [6.1.2.	Web, Mobile & Devices Style Guidelines](#612-web-mobile--devices-style-guidelines)
-  * [6.2.	Information Architecture](#62-information-architecture)
-    * [6.2.2.	Labeling Systems](#622-labeling-systems)
-    * [6.2.3.	Searching Systems](#623-searching-systems)
-    * [6.2.4.	SEO Tags and Meta Tags](#624-seo-tags-and-meta-tags)
-    * [6.2.5.	Navigation Systems](#625-navigation-systems)
-  * [6.3.	Landing Page UI Design](#63-landing-page-ui-design)
-    * [6.3.1.	Landing Page Wireframe](#631-landing-page-wireframe)
-    * [6.3.2.	Landing Page Mock-up](#632-landing-page-mock-up)
-  * [6.4.	Applications UX/UI Design](#64-applications-uxui-design)
-    * [6.4.1.	Applications Wireframes](#641-applications-wireframes)
-    * [6.4.2.	Applications Wireflow Diagrams](#642-applications-wireflow-diagrams)
-    * [6.4.2.	Applications Mock-ups](#642-applications-mock-ups)
-    * [6.4.3.	Applications User Flow Diagrams](#643-applications-user-flow-diagrams)
-  * [6.5.	Applications Prototyping](#65-applications-prototyping)
+  * [6.1. Style Guidelines](#61-style-guidelines)
+    * [6.1.1. General Style Guidelines](#611-general-style-guidelines)
+    * [6.1.2. Web, Mobile & Devices Style Guidelines](#612-web-mobile--devices-style-guidelines)
+  * [6.2. Information Architecture](#62-information-architecture)
+    * [6.2.2. Labeling Systems](#622-labeling-systems)
+    * [6.2.3. Searching Systems](#623-searching-systems)
+    * [6.2.4. SEO Tags and Meta Tags](#624-seo-tags-and-meta-tags)
+    * [6.2.5. Navigation Systems](#625-navigation-systems)
+  * [6.3. Landing Page UI Design](#63-landing-page-ui-design)
+    * [6.3.1. Landing Page Wireframe](#631-landing-page-wireframe)
+    * [6.3.2. Landing Page Mock-up](#632-landing-page-mock-up)
+  * [6.4. Applications UX/UI Design](#64-applications-uxui-design)
+    * [6.4.1. Applications Wireframes](#641-applications-wireframes)
+    * [6.4.2. Applications Wireflow Diagrams](#642-applications-wireflow-diagrams)
+    * [6.4.2. Applications Mock-ups](#642-applications-mock-ups)
+    * [6.4.3. Applications User Flow Diagrams](#643-applications-user-flow-diagrams)
+  * [6.5. Applications Prototyping](#65-applications-prototyping)
 * [Capítulo VII: Product Implementation, Validation & Deployment](#capítulo-vii-product-implementation-validation--deployment)
-  * [7.1.	Software Configuration Management](#71-software-configuration-management)
-    * [7.1.1.	Software Development Environment Configuration](#711-software-development-environment-configuration)
-    * [7.1.2.	Source Code Management](#712-source-code-management)
-    * [7.1.3.	Source Code Style Guide & Conventions](#713-source-code-style-guide--conventions)
-    * [7.1.4.	Software Deployment Configuration](#714-software-deployment-configuration)
-  * [7.2.	Solution Implementation](#72-solution-implementation)
-    * [7.2.X.	Sprint n](#72x-sprint-n)
-      * [7.2.X.1.	Sprint Planning n](#72x1-sprint-planning-n)
-      * [7.2.X.2.	Sprint Backlog n](#72x2-sprint-backlog-n)
-      * [7.2.X.3.	Development Evidence for Sprint Review](#72x3-development-evidence-for-sprint-review)
-      * [7.2.X.4.	Testing Suite Evidence for Sprint Review](#72x4-testing-suite-evidence-for-sprint-review)
-      * [7.2.X.5.	Execution Evidence for Sprint Review](#72x5-execution-evidence-for-sprint-review)
-      * [7.2.X.6.	Services Documentation Evidence for Sprint Review](#72x6-services-documentation-evidence-for-sprint-review)
-      * [7.2.X.7.	Software Deployment Evidence for Sprint Review](#72x7-software-deployment-evidence-for-sprint-review)
-      * [7.2.X.8.	Team Collaboration Insights during Sprint](#72x8-team-collaboration-insights-during-sprint)
-  * [7.3.	Validation Interviews](#73-validation-interviews)
-    * [7.3.1.	Diseño de Entrevistas](#731-diseño-de-entrevistas)
-    * [7.3.2.	Registro de Entrevistas](#732-registro-de-entrevistas)
-    * [7.3.3.	Evaluaciones según heurísticas](#733-evaluaciones-según-heurísticas)
-  * [7.4.	Video About-the-Product](#74-video-about-the-product)
+  * [7.1. Software Configuration Management](#71-software-configuration-management)
+    * [7.1.1. Software Development Environment Configuration](#711-software-development-environment-configuration)
+    * [7.1.2. Source Code Management](#712-source-code-management)
+    * [7.1.3. Source Code Style Guide & Conventions](#713-source-code-style-guide--conventions)
+    * [7.1.4. Software Deployment Configuration](#714-software-deployment-configuration)
+  * [7.2. Solution Implementation](#72-solution-implementation)
+    * [7.2.X. Sprint n](#72x-sprint-n)
+      * [7.2.X.1. Sprint Planning n](#72x1-sprint-planning-n)
+      * [7.2.X.2. Sprint Backlog n](#72x2-sprint-backlog-n)
+      * [7.2.X.3. Development Evidence for Sprint Review](#72x3-development-evidence-for-sprint-review)
+      * [7.2.X.4. Testing Suite Evidence for Sprint Review](#72x4-testing-suite-evidence-for-sprint-review)
+      * [7.2.X.5. Execution Evidence for Sprint Review](#72x5-execution-evidence-for-sprint-review)
+      * [7.2.X.6. Services Documentation Evidence for Sprint Review](#72x6-services-documentation-evidence-for-sprint-review)
+      * [7.2.X.7. Software Deployment Evidence for Sprint Review](#72x7-software-deployment-evidence-for-sprint-review)
+      * [7.2.X.8. Team Collaboration Insights during Sprint](#72x8-team-collaboration-insights-during-sprint)
+  * [7.3. Validation Interviews](#73-validation-interviews)
+    * [7.3.1. Diseño de Entrevistas](#731-diseño-de-entrevistas)
+    * [7.3.2. Registro de Entrevistas](#732-registro-de-entrevistas)
+    * [7.3.3. Evaluaciones según heurísticas](#733-evaluaciones-según-heurísticas)
+  * [7.4. Video About-the-Product](#74-video-about-the-product)
 * [Conclusiones](#conclusiones)
 * [Bibliografía](#bibliografía)
 * [Anexos](#anexos)
@@ -200,10 +199,10 @@ El curso contribuye al cumplimiento del Student Outcome ABET:
 
 En el siguiente cuadro se describen las acciones realizadas y los enunciados de conclusiones por parte del grupo, los cuales permiten sustentar el haber alcanzado el logro del ABET – EAC - Student Outcome 3.
 
-| **Criterio específico** | **Acciones realizadas** | **Conclusiones** |
-|---|---|---|
-| **Comunica oralmente sus ideas y/o resultados con objetividad a público de diferentes especialidades y niveles jerárquicos, en el marco del desarrollo de un proyecto en ingeniería.** | **AV1**<br><br>**Gutiérrez Soto, Jhosepmyr Orlando – 202317638**<br>Trabajé comunicando oralmente los aspectos generales del proyecto relacionados con el Capítulo I y parte del Capítulo IV. Expliqué la descripción de la startup, la propuesta de solución y los fundamentos estratégicos del producto, procurando presentar las ideas de manera clara, ordenada y comprensible para una audiencia académica.<br><br>**Hernández Tuiro, Eric Ernesto – 20221C857**<br>Trabajé comunicando oralmente los contenidos vinculados al Capítulo I y Capítulo IV. Presenté ideas relacionadas con el perfil de la solución, el enfoque estratégico del producto y las decisiones generales de diseño, utilizando un lenguaje objetivo y adecuado para explicar la relación entre la problemática identificada y la solución propuesta.<br><br>**Ramirez Mestanza, Salim Ignacio – 20201E843**<br>Trabajé comunicando oralmente los avances desarrollados en el Capítulo II, principalmente los resultados del análisis de requerimientos, entrevistas, competidores y hallazgos del proceso de need finding. Mi participación permitió explicar cómo se identificaron necesidades relevantes para orientar el desarrollo del producto.<br><br>**Varela Bustinza, Marcelo Alessandro – 202319668**<br>Trabajé comunicando oralmente los resultados correspondientes al Capítulo II, especialmente el análisis competitivo, las estrategias frente a competidores, el diseño y análisis de entrevistas, así como los principales hallazgos obtenidos sobre los usuarios. Busqué explicar la información de manera objetiva, conectando los resultados con la definición de requerimientos del proyecto.<br><br>**TB1**<br>Comuniqué oralmente los resultados del diseño UX/UI de la aplicación web de Reqs-AI, explicando el flujo completo desde la autenticación y creación del workspace hasta la gestión de proyectos, sesiones de descubrimiento, revisión de historias de usuario, integración con Jira, facturación y configuración del equipo. Además, sustenté la relación entre wireframes, wireflows y mock-ups, destacando cómo cada pantalla mantiene coherencia visual, navegación consistente y alineación con las funcionalidades principales del producto.<br><br>**Sulca Gonzales, Paul Fernando – 20221C486**<br>Trabajé comunicando oralmente los contenidos del Capítulo III, relacionados con la especificación de requerimientos, user stories, product backlog e impact mapping. Expliqué cómo los hallazgos obtenidos en etapas anteriores se transformaron en requisitos y elementos priorizados para el desarrollo de la solución. | Como equipo, se logró comunicar oralmente los avances del proyecto de manera clara, organizada y objetiva. Cada integrante explicó los resultados correspondientes a su participación, conectando los capítulos desarrollados con el propósito general de la solución. Asimismo, la exposición permitió adaptar el lenguaje técnico a una audiencia académica, integrando aspectos de negocio, usuarios, requerimientos y diseño de ingeniería. |
-| **Comunica en forma escrita ideas y/o resultados con objetividad a público de diferentes especialidades y niveles jerárquicos, en el marco del desarrollo de un proyecto en ingeniería.** | **AV1**<br><br>**Gutiérrez Soto, Jhosepmyr Orlando – 202317638**<br>Trabajé comunicando de forma escrita los contenidos relacionados con el Capítulo I y parte del Capítulo IV. Redacté información sobre el perfil de la startup, la propuesta de solución y los elementos estratégicos del diseño del producto, procurando mantener una estructura clara y una redacción adecuada para el contexto académico y de ingeniería.<br><br>**Hernández Tuiro, Eric Ernesto – 20221C857**<br>Trabajé comunicando de forma escrita los apartados vinculados al Capítulo I y Capítulo IV. Mi aporte se centró en organizar y redactar ideas sobre la solución propuesta, su relación con la problemática y los criterios estratégicos del producto, asegurando coherencia entre el enfoque del proyecto y las decisiones de diseño.<br><br>**Ramirez Mestanza, Salim Ignacio – 20201E843**<br>Trabajé comunicando de forma escrita los contenidos del Capítulo II, principalmente en los apartados de análisis de requerimientos, entrevistas, competidores, identificación de necesidades y lenguaje ubicuo. Mi aporte permitió documentar los hallazgos de manera ordenada y orientada a sustentar la definición de requerimientos.<br><br>**Varela Bustinza, Marcelo Alessandro – 202319668**<br>Trabajé comunicando de forma escrita los resultados del Capítulo II, incluyendo el análisis competitivo, estrategias frente a competidores, diseño y análisis de entrevistas, user personas, mapas de empatía y escenarios actuales. Mi trabajo contribuyó a presentar evidencia relevante sobre las necesidades del usuario y su relación con los requerimientos del producto.<br><br>**TB1**<br>Comuniqué de forma escrita la documentación del Capítulo VI: Solution UX Design, desarrollando secciones relacionadas con style guidelines, information architecture, wireframes, wireflows y mock-ups de la web application. Redacté subtítulos y descripciones para cada imagen, organicé los recursos visuales con nombres consistentes y expliqué cómo cada pantalla representa una acción o estado funcional dentro del flujo de Reqs-AI. Este trabajo permitió evidenciar la evolución desde la estructura de baja fidelidad hasta la propuesta visual final de la plataforma.<br><br>**Sulca Gonzales, Paul Fernando – 20221C486**<br>Trabajé comunicando de forma escrita los contenidos del Capítulo III, enfocados en to-be scenario mapping, user stories, product backlog e impact mapping. Mi aporte permitió transformar los hallazgos del análisis en requisitos claros, priorizados y alineados con los objetivos del producto. | Como equipo, se logró comunicar por escrito las ideas, resultados y decisiones del proyecto de manera estructurada y objetiva. El documento integra información sobre negocio, usuarios, requerimientos y diseño estratégico, manteniendo una secuencia lógica entre los capítulos. Además, la redacción permitió presentar el proyecto de forma comprensible para audiencias con distintos niveles de conocimiento técnico. |
+| **Criterio específico**                                                                                                                                                                   | **Acciones realizadas**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | **Conclusiones**                                                                                                                                                                                                                                                                                                                                                                                                                                |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Comunica oralmente sus ideas y/o resultados con objetividad a público de diferentes especialidades y niveles jerárquicos, en el marco del desarrollo de un proyecto en ingeniería.**    | **AV1**<br><br>**Gutiérrez Soto, Jhosepmyr Orlando – 202317638**<br>Trabajé comunicando oralmente los aspectos generales del proyecto relacionados con el Capítulo I y parte del Capítulo IV. Expliqué la descripción de la startup, la propuesta de solución y los fundamentos estratégicos del producto, procurando presentar las ideas de manera clara, ordenada y comprensible para una audiencia académica.<br><br>**Hernández Tuiro, Eric Ernesto – 20221C857**<br>Trabajé comunicando oralmente los contenidos vinculados al Capítulo I y Capítulo IV. Presenté ideas relacionadas con el perfil de la solución, el enfoque estratégico del producto y las decisiones generales de diseño, utilizando un lenguaje objetivo y adecuado para explicar la relación entre la problemática identificada y la solución propuesta.<br><br>**Ramirez Mestanza, Salim Ignacio – 20201E843**<br>Trabajé comunicando oralmente los avances desarrollados en el Capítulo II, principalmente los resultados del análisis de requerimientos, entrevistas, competidores y hallazgos del proceso de need finding. Mi participación permitió explicar cómo se identificaron necesidades relevantes para orientar el desarrollo del producto.<br><br>**Varela Bustinza, Marcelo Alessandro – 202319668**<br>Trabajé comunicando oralmente los resultados correspondientes al Capítulo II, especialmente el análisis competitivo, las estrategias frente a competidores, el diseño y análisis de entrevistas, así como los principales hallazgos obtenidos sobre los usuarios. Busqué explicar la información de manera objetiva, conectando los resultados con la definición de requerimientos del proyecto.<br><br>**TB1**<br>Comuniqué oralmente los resultados del diseño UX/UI de la aplicación web de Reqs-AI, explicando el flujo completo desde la autenticación y creación del workspace hasta la gestión de proyectos, sesiones de descubrimiento, revisión de historias de usuario, integración con Jira, facturación y configuración del equipo. Además, sustenté la relación entre wireframes, wireflows y mock-ups, destacando cómo cada pantalla mantiene coherencia visual, navegación consistente y alineación con las funcionalidades principales del producto.<br><br>**Sulca Gonzales, Paul Fernando – 20221C486**<br>Trabajé comunicando oralmente los contenidos del Capítulo III, relacionados con la especificación de requerimientos, user stories, product backlog e impact mapping. Expliqué cómo los hallazgos obtenidos en etapas anteriores se transformaron en requisitos y elementos priorizados para el desarrollo de la solución. | Como equipo, se logró comunicar oralmente los avances del proyecto de manera clara, organizada y objetiva. Cada integrante explicó los resultados correspondientes a su participación, conectando los capítulos desarrollados con el propósito general de la solución. Asimismo, la exposición permitió adaptar el lenguaje técnico a una audiencia académica, integrando aspectos de negocio, usuarios, requerimientos y diseño de ingeniería. |
+| **Comunica en forma escrita ideas y/o resultados con objetividad a público de diferentes especialidades y niveles jerárquicos, en el marco del desarrollo de un proyecto en ingeniería.** | **AV1**<br><br>**Gutiérrez Soto, Jhosepmyr Orlando – 202317638**<br>Trabajé comunicando de forma escrita los contenidos relacionados con el Capítulo I y parte del Capítulo IV. Redacté información sobre el perfil de la startup, la propuesta de solución y los elementos estratégicos del diseño del producto, procurando mantener una estructura clara y una redacción adecuada para el contexto académico y de ingeniería.<br><br>**Hernández Tuiro, Eric Ernesto – 20221C857**<br>Trabajé comunicando de forma escrita los apartados vinculados al Capítulo I y Capítulo IV. Mi aporte se centró en organizar y redactar ideas sobre la solución propuesta, su relación con la problemática y los criterios estratégicos del producto, asegurando coherencia entre el enfoque del proyecto y las decisiones de diseño.<br><br>**Ramirez Mestanza, Salim Ignacio – 20201E843**<br>Trabajé comunicando de forma escrita los contenidos del Capítulo II, principalmente en los apartados de análisis de requerimientos, entrevistas, competidores, identificación de necesidades y lenguaje ubicuo. Mi aporte permitió documentar los hallazgos de manera ordenada y orientada a sustentar la definición de requerimientos.<br><br>**Varela Bustinza, Marcelo Alessandro – 202319668**<br>Trabajé comunicando de forma escrita los resultados del Capítulo II, incluyendo el análisis competitivo, estrategias frente a competidores, diseño y análisis de entrevistas, user personas, mapas de empatía y escenarios actuales. Mi trabajo contribuyó a presentar evidencia relevante sobre las necesidades del usuario y su relación con los requerimientos del producto.<br><br>**TB1**<br>Comuniqué de forma escrita la documentación del Capítulo VI: Solution UX Design, desarrollando secciones relacionadas con style guidelines, information architecture, wireframes, wireflows y mock-ups de la web application. Redacté subtítulos y descripciones para cada imagen, organicé los recursos visuales con nombres consistentes y expliqué cómo cada pantalla representa una acción o estado funcional dentro del flujo de Reqs-AI. Este trabajo permitió evidenciar la evolución desde la estructura de baja fidelidad hasta la propuesta visual final de la plataforma.<br><br>**Sulca Gonzales, Paul Fernando – 20221C486**<br>Trabajé comunicando de forma escrita los contenidos del Capítulo III, enfocados en to-be scenario mapping, user stories, product backlog e impact mapping. Mi aporte permitió transformar los hallazgos del análisis en requisitos claros, priorizados y alineados con los objetivos del producto.          | Como equipo, se logró comunicar por escrito las ideas, resultados y decisiones del proyecto de manera estructurada y objetiva. El documento integra información sobre negocio, usuarios, requerimientos y diseño estratégico, manteniendo una secuencia lógica entre los capítulos. Además, la redacción permitió presentar el proyecto de forma comprensible para audiencias con distintos niveles de conocimiento técnico.                    |
 
 <div style="page-break-before: always"></div>
 
@@ -281,7 +280,6 @@ Nuestro producto, Reqs-AI, abordará esta brecha mediante un motor de inteligenc
 Nuestro enfoque inicial serán las Startups tecnológicas y empresas de desarrollo de software que operan bajo metodologías ágiles y necesitan una transición inmediata y sin errores desde la fase de descubrimiento hasta el inicio de la codificación.
 
 Sabremos que hemos tenido éxito cuando observemos una reducción del 40% en las reuniones de seguimiento para aclaración de requisitos, una disminución significativa en el tiempo que el analista dedica al postprocesamiento de la información y una tasa de aceptación de historias de usuario superior al 80% en la primera iteración de revisión con el equipo de desarrollo.
-
 
 #### 1.2.2.2. Lean UX Assumptions
 
@@ -757,7 +755,6 @@ Los user personas sintetizan patrones de comportamiento, objetivos, frustracione
 
 <img src="assets/user-research/personas/persona-analyst.png" alt="User Persona Analista de Sistemas Enterprise" style="width: 800px">
 
-
 ### 2.3.2. User Task Matrix
 
 En este User Task Matrix se detallan las tareas que realizan los dos segmentos objetivos considerados en Reqs-AI: el Líder Técnico de Startup y el Analista de Sistemas Enterprise. Las tareas descritas corresponden al trabajo real de levantamiento, validación y transferencia de requisitos, y se ejecutan independientemente de la existencia de una herramienta de software.
@@ -775,7 +772,6 @@ En este User Task Matrix se detallan las tareas que realizan los dos segmentos o
 | Mantener trazabilidad de acuerdos, versiones y decisiones para auditoría y control                  |                         sometimes                          |                           medium                            |                                     always                                      |                                       high                                       |
 | Revisar grabaciones/minutas y depurar documentación para cerrar vacíos de información               |                         sometimes                          |                           medium                            |                                     always                                      |                                       high                                       |
 | Coordinar reuniones de seguimiento por dudas o contradicciones detectadas después del levantamiento |                         sometimes                          |                           medium                            |                                    sometimes                                    |                                       high                                       |
-
 
 La principal diferencia está en el enfoque operativo: el Líder Técnico de Startup prioriza velocidad de ejecución y alineación práctica para codificar cuanto antes, mientras que el Analista de Sistemas Enterprise prioriza estandarización, trazabilidad y control de riesgo. Por ello, en el segmento enterprise aumentan la frecuencia e importancia de actividades formales como redacción estructurada, revisión exhaustiva de evidencias y gestión de cambios bajo criterios de gobernanza.
 
@@ -1113,7 +1109,7 @@ La trazabilidad final se mantiene en formato **Goal -> Persona -> Impact -> Deli
 
 ## 4.1. Strategic-Level Attribute-Driven Design
 
-### 4.1.1.	Design Purpose
+### 4.1.1. Design Purpose
 
 El propósito del proceso de diseño de Reqs-AI es establecer una arquitectura de software capaz de resolver tecnológicamente la desconexión y pérdida de información que ocurre durante el levantamiento de requisitos. El diseño está concebido como un sistema creado desde cero orientado a construir una solución robusta, escalable y en tiempo real que traduzca la voz del cliente directamente en especificaciones técnicas de alto valor.
 
@@ -1123,11 +1119,11 @@ Este diseño está directamente orientado a satisfacer las necesidades críticas
 
 A nivel de negocio para la startup Kntro-Soft, el diseño tiene el propósito de habilitar el modelo de distribución SaaS (Software as a Service). La arquitectura debe soportar el sistema de suscripciones y facturación, gestionar los límites de consumo de los motores de IA (LLM) para mantener la rentabilidad, y asegurar que la plataforma pueda escalar el procesamiento de múltiples organizaciones concurrentes sin degradar la experiencia de usuario.
 
-### 4.1.2.	Attribute-Driven Design Inputs
+### 4.1.2. Attribute-Driven Design Inputs
 
 En esta sección se presentan las entradas fundamentales requeridas para ejecutar el proceso de diseño arquitectónico basado en el método Attribute-Driven Design (ADD). Estos inputs proporcionan el contexto, las metas y los límites que guiarán la toma de decisiones técnicas para la plataforma Reqs-AI. A continuación, el contenido se divide en tres categorías principales dictadas por la metodología: la funcionalidad primaria, los escenarios de atributos de calidad y las restricciones.
 
-#### 4.1.2.1.	Primary Functionality (Primary User Stories)
+#### 4.1.2.1. Primary Functionality (Primary User Stories)
 
 A continuación, se detallan las Historias de Usuario primarias que tienen el mayor impacto arquitectónico en el diseño de Reqs-AI. Estas funcionalidades han sido seleccionadas porque introducen requerimientos complejos de procesamiento asíncrono (análisis de audio en tiempo real), integración con servicios de Inteligencia Artificial (LLM) y aislamiento estricto de datos (Multitenancy), elementos que dictarán la topología base del sistema.
 
@@ -1137,7 +1133,7 @@ A continuación, se detallan las Historias de Usuario primarias que tienen el ma
 | **US21**             | Cargar documentos del cliente      | Como miembro, quiero subir documentos del cliente al proyecto, para que las historias generadas reflejen el vocabulario del negocio (RAG).                                                      | **Given** un usuario configurando un proyecto<br>**When** sube un glosario en PDF válido<br>**Then** el sistema debe fragmentar (chunking), vectorizar y persistir el documento en una base de datos vectorial en menos de 10 segundos                                           | EP04                      |
 | **US37**             | Generación automática de historias | Como analista, quiero que el sistema procese el audio en vivo y redacte automáticamente historias de usuario estructuradas con criterios de aceptación, para ahorrar horas de redacción manual. | **Given** una sesión de captura de audio activa<br>**When** el sistema recibe y transcribe el flujo de voz<br>**Then** el motor de IA procesa el texto generado<br>**And** redacta una historia de usuario en formato Gherkin<br>**And** la añade al backlog de la sesión actual | EP06                      |
 
-#### 4.1.2.2.	Quality attribute Scenarios
+#### 4.1.2.2. Quality attribute Scenarios
 
 En esta sección se definen los escenarios de atributos de calidad más críticos que guiarán las decisiones arquitectónicas de Reqs-AI. Se ha priorizado el Rendimiento (necesario para el procesamiento de audio en tiempo real), la Seguridad (aislamiento de datos), la Disponibilidad (para tolerar fallas externas) y la Modificabilidad (cambio de proveedores de IA).
 
@@ -1149,7 +1145,7 @@ En esta sección se definen los escenarios de atributos de calidad más crítico
 | **Availability (Disponibilidad)**   | Proveedor externo de IA (API)       | El servicio del LLM no responde (Timeout) o devuelve un error 500 durante una sesión en vivo.           | Motor de Integración de IA               | Entorno degradado (Falla de dependencia externa). | El sistema persiste la transcripción con estado Pendiente y encola la solicitud en memoria mediante Eventos de Spring asíncronos para reintentar la conexión. | Se recupera la operación con **0 bytes perdidos**.                                   |
 | **Modifiability (Modificabilidad)** | Arquitecto de Software              | El negocio decide cambiar de proveedor de LLM (ej. de OpenAI a Anthropic) por un incremento de precios. | Módulo de Integración de IA              | Tiempo de diseño/desarrollo.                      | El desarrollador implementa un nuevo adaptador (Adapter) para la nueva API sin alterar la lógica de negocio core.                                             | El cambio se completa e integra en **menos de 16 horas de desarrollo**.              |
 
-##### 4.1.2.3.	Constraints
+#### 4.1.2.3. Constraints
 
 Esta sección describe las restricciones innegociables impuestas por el modelo de negocio, las capacidades técnicas del equipo y la viabilidad del proyecto. Las principales restricciones incluyen la dependencia de API de LLM externos y el uso del stack tecnológico (Java/Spring Boot y Angular/Vue.js). A continuación, se detallan:
 
@@ -1159,7 +1155,7 @@ Esta sección describe las restricciones innegociables impuestas por el modelo d
 | **CON-02**         | Uso de APIs de LLM externas          | Como Arquitecto de Software, debo integrar el sistema con APIs de modelos de terceros (ej. OpenAI, Anthropic), ya que no alojaremos modelos propios.                   | **Given** la necesidad de generar Gherkin<br>**When** el sistema realice una inferencia<br>**Then** la petición debe enrutarse hacia la API REST del proveedor seleccionado.                         | EP04                      |
 | **CON-03**         | Despliegue en Cloud Pública          | Como responsable de infraestructura, debo asegurar que los componentes sean desplegados en la nube (AWS, Azure o GCP), para evitar costos *on-premise*.                | **Given** la liberación de una nueva versión<br>**When** se ejecute el pipeline de despliegue<br>**Then** los artefactos deben aprovisionarse en la nube pública seleccionada.                       | Todas                     |
 
-### 4.1.3.	Architectural Drivers Backlog
+### 4.1.3. Architectural Drivers Backlog
 
 En esta sección se establece el conjunto de Architectural Drivers acordados por el equipo, resultado del proceso iterativo en nuestro Quality Attribute Workshop (QAW). El Architectural Drivers Backlog consolida los Functional Drivers seleccionados (provenientes de las historias de usuario críticas), los Quality Attribute Drivers seleccionados (Performance, Security, Availability, Modifiability) y todos los Constraints del negocio y la tecnología. Todos los Drivers se presentan a continuación, habiendo sido priorizados de forma descendente colocando primero aquellos que representan una Alta importancia para los Stakeholders y un Alto impacto en la Complejidad Técnica de la Arquitectura.
 
@@ -1174,7 +1170,7 @@ En esta sección se establece el conjunto de Architectural Drivers acordados por
 | **AD-07** | Despliegue en Cloud Pública                               | Todos los componentes deben ser contenerizados y desplegados en una nube pública como AWS o Azure para minimizar costos *on-premise* y permitir la escalabilidad.                                                                  | Medium                                            | Medium                                                           |
 | **AD-08** | Stack Tecnológico Base de Desarrollo                      | El backend debe desarrollarse en Java (Spring Boot) y el frontend en Angular/Vue.js debido al conocimiento técnico previo del equipo, limitando la adopción de otros lenguajes core.                                               | Medium                                            | Low                                                              |
 
-### 4.1.4.	Architectural Design Decisions
+### 4.1.4. Architectural Design Decisions
 
 En esta sección se detalla el proceso seguido durante las iteraciones (Stages) del *Quality Attribute Workshop* para definir la arquitectura de Reqs-AI. En cada etapa, el equipo enfrentó un conjunto específico de *Architectural Drivers* y evaluó distintos patrones o tácticas de diseño, sopesando sus pros y contras (Trade-offs) para asegurar que la solución cumpla con los atributos de calidad exigidos sin incurrir en *over-engineering* para la etapa actual de la startup.
 
@@ -1198,8 +1194,7 @@ La siguiente matriz resume la evaluación de los patrones candidatos considerado
 | **AD-03** | Tolerancia a Fallos en Servicios Externos | **Cola en Memoria RAM local (Patrón Observer con @Async)** *(Elegido)*<br>**Pro:** Muy rápido (latencia mínima), simplicidad de código y no requiere aprovisionar infraestructura extra (RabbitMQ/Kafka).<br>**Con:** Si el servidor se reinicia abruptamente, los eventos en memoria se pierden, por lo que el estado debe respaldarse en Base de Datos. | **Message Broker Persistente (ej. RabbitMQ / Kafka)** *(Descartado)*<br>**Pro:** Garantiza la durabilidad total de los mensajes y retries automáticos si el pod falla.<br>**Con:** Exceso de ingeniería (Overengineering) para la etapa actual del proyecto. Requiere aprovisionar, configurar y pagar por otro componente pesado en el cloud. | *(No se evaluó un 3er patrón)*                                                                                                                                                                                           |
 | **AD-06** | Modificabilidad de Proveedores IA         | **Arquitectura Monolítica en Capas**<br>**Pro:** Modelo mental simple para el equipo (Controllers, Services, Repositories).<br>**Con:** Lógica de negocio altamente acoplada al SDK del proveedor de IA. Tomaría semanas migrar. *(Descartado)*                                                                                                           | **Arquitectura Hexagonal (Ports & Adapters)** *(Elegido)*<br>**Pro:** El dominio ignora qué IA se usa. Cambiar a Anthropic solo exige escribir un nuevo Adapter para el Port correspondiente en <16h.<br>**Con:** Exige escribir más código *boilerplate* y dominar Inyección de Dependencias.                                                 | *(No se evaluó un 3er patrón)*                                                                                                                                                                                           |
 
-### 4.1.5.	Quality Attribute Scenario Refinements
-
+### 4.1.5. Quality Attribute Scenario Refinements
 
 Tras finalizar las iteraciones del *Quality Attribute Workshop* y definir los patrones arquitectónicos base (WebSockets para el streaming, Shared DB con Row Level Security para el multitenancy, y Arquitectura Orientada Eventos en Memoria para la tolerancia a fallos), procedemos a refinar los escenarios de atributos de calidad priorizados. Estos refinamientos incorporan los artefactos tecnológicos que ahora conocemos y mapean directamente los escenarios con los objetivos de negocio (Business Goals) de la plataforma SaaS, identificando además las preguntas abiertas y riesgos remanentes (Issues).
 
@@ -1370,9 +1365,9 @@ A continuación, se presenta la versión final de los escenarios refinados en or
   </tr>
 </table>
 
-## 4.2.	Strategic-Level Domain-Driven Design
+## 4.2. Strategic-Level Domain-Driven Design
 
-### 4.2.1.	EventStorming
+### 4.2.1. EventStorming
 
 Para establecer una base sólida en el diseño guiado por el dominio (DDD) y facilitar el descubrimiento de nuestros Bounded Contexts, el equipo de Kntro-Soft llevó a cabo una sesión de **Design-Level Event Storming** utilizando la herramienta colaborativa Miro. La sesión tuvo una duración aproximada de 2 horas. El objetivo principal fue transicionar del espacio del problema (entendido en los capítulos anteriores) al espacio de la solución, mapeando la línea de tiempo completa del negocio de Reqs-AI. Al utilizar un enfoque de nivel de diseño, pudimos no solo explorar los eventos que ocurren en el sistema (como la captura de audio o la generación de Gherkin), sino también agrupar lógicamente las reglas de negocio para descubrir los Agregados (Aggregates) estructurales del código antes de definir las fronteras de los subdominios.
 
@@ -1418,7 +1413,7 @@ El resultado de la sesión de Design-Level Event Storming fue un mapa exhaustivo
 
 El paso final metodológico del Event Storming, que consiste en agrupar estos Agregados dentro de las fronteras lógicas de los Bounded Contexts correspondientes, se abordará en detalle en la siguiente sección, donde evaluaremos las relaciones semánticas y cohesivas para definir la arquitectura final del dominio.
 
-### 4.2.2.	Candidate Context Discovery
+### 4.2.2. Candidate Context Discovery
 
 A partir del dominio modelado en nuestra sesión de EventStorming, el equipo llevó a cabo un taller colaborativo de descubrimiento de contextos (Candidate Context Discovery) de aproximadamente 2 horas. El objetivo de esta fase fue trazar fronteras lógicas alrededor de los Agregados identificados previamente, con el fin de descomponer el sistema en módulos altamente cohesivos y con bajo acoplamiento (Bounded Contexts).
 
@@ -1437,7 +1432,6 @@ Buscamos los Eventos Pivote que marcan hitos críticos en la vida del cliente.
 Evaluamos las integraciones postprocesamiento.
 *   Después de que las historias son generadas, deben enviarse a plataformas externas (ej. Jira). Para proteger nuestro Core Domain de los constantes cambios en las API de terceros, aplicamos el patrón Anti-Corruption Layer (ACL) aislando el agregado ExternalConnection en el **Integration Gateway**.
 
-
 **Resumen de Bounded Contexts Descubiertos**
 A través de este proceso analítico y evolutivo, el sistema quedó dividido arquitectónicamente en los siguientes 5 Candidate Bounded Contexts:
 
@@ -1451,7 +1445,7 @@ A través de este proceso analítico y evolutivo, el sistema quedó dividido arq
 
 ![CCD](assets/ddd/bounded-contexts.jpg)
 
-### 4.2.3.	Domain Message Flows Modeling
+### 4.2.3. Domain Message Flows Modeling
 
 En esta sección, aplicamos una variante técnica de Domain Storytelling enfocado en el flujo de mensajes para evidenciar cómo colaboran los 5 Bounded Contexts consolidados (**Requirement Discovery**, **Workspace Management**, **IAM**, **Billing & Subscription**, e **Integration Gateway**) y así resolver los casos principales del negocio.
 
@@ -1498,7 +1492,7 @@ Este es un flujo netamente operativo y postprocesamiento. Ocurre después de que
 
 ![Domain Message Flow](assets/ddd/domain-message-flow-3.jpg)
 
-### 4.2.4.	Bounded Context Canvases
+### 4.2.4. Bounded Context Canvases
 
 En esta sección el equipo diseña sus candidate bounded contexts, detallando los criterios de diseño. El equipo seleccionó cada bounded context, por orden de importancia, para elaborar su Bounded Context Canvas.
 
@@ -1532,7 +1526,7 @@ Capa Anticorrupción (ACL) que protege el Core Domain de los cambios en API de t
 
 ![Canvas5](assets/ddd/bc-canvas-gateway.jpg)
 
-### 4.2.5.	Context Mapping
+### 4.2.5. Context Mapping
 
 En esta sección evidenciamos el proceso de elaboración de nuestro Context Map. Para llegar al diseño estructural definitivo de nuestros 5 Bounded Contexts, el equipo evaluó el modelo sometiéndolo a un análisis crítico, respondiendo a las preguntas estratégicas de diseño sugeridas. Además, aplicamos rigurosamente los patrones de integración definidos por el repositorio oficial de Context Mapping de DDD Crew.
 
@@ -1605,11 +1599,11 @@ A continuación presentamos la visualización de las relaciones estructurales co
 
 ![Context Map](assets/ddd/context-map.png)
 
-## 4.3.	Software Architecture
+## 4.3. Software Architecture
 
 En este capítulo, el equipo detalla la arquitectura de software de Reqs-AI aplicando el modelo C4. Este modelo jerárquico permite documentar el sistema desde su ecosistema más amplio hasta sus componentes desplegables y su entorno de infraestructura final. Todas las decisiones reflejadas en estos diagramas están alineadas con los Atributos de Calidad y Restricciones analizados previamente, como el uso del Monolito Modular, la tolerancia a fallos en memoria y el multitenancy seguro.
 
-### 4.3.1.	Software Architecture System Landscape Diagram
+### 4.3.1. Software Architecture System Landscape Diagram
 
 El *System Landscape Diagram* proporciona una vista panorámica del ecosistema tecnológico en el que habita Reqs-AI. A diferencia de un simple diagrama de contexto que solo mira hacia adentro, este diagrama ilustra cómo nuestro sistema principal (agrupado dentro de los límites de la empresa *Kntro-Soft Enterprise*) interactúa no solo con los usuarios, sino también con el entorno de herramientas de terceros que el usuario final ya utiliza en su día a día corporativo.
 
@@ -1628,7 +1622,7 @@ A continuación, se presenta la topología del paisaje del sistema:
     *   **Project Management Tool Jira:** El diagrama evidencia que el *Technical Lead* gestiona sus Sprints directamente en Jira. ReqsAI actúa como un puente inteligente que exporta las historias de usuario aprobadas hacia esta herramienta, cerrando la brecha entre el levantamiento de requerimientos y la ejecución ágil.
     *   **Email Service Provider:** El *Enterprise Analyst* recibe notificaciones de su organización a través de su proveedor de correo, alimentadas por los eventos disparados desde nuestro sistema.
 
-### 4.3.2.	Software Architecture Context Level Diagrams
+### 4.3.2. Software Architecture Context Level Diagrams
 
 Mientras que el Diagrama Landscape nos mostró el panorama del negocio, el **Diagrama de Contexto (Context Level Diagram)** del modelo C4 cambia el foco hacia el interior, centrando toda la atención arquitectónica exclusivamente en el **Reqs-AI System**. Este diagrama responde a la pregunta de "¿Cuáles son las fronteras inmediatas de nuestra solución?".
 
@@ -1649,7 +1643,7 @@ A nivel de contexto, eliminamos las interacciones directas entre los usuarios y 
     *   **LLM API (Inteligencia Generativa):** Es consumida por dos Bounded Contexts distintos. **Workspace Management** la utiliza para convertir el texto extraído de documentos del cliente en vectores de embeddings que alimentan el RAG. **Requirement Discovery** la invoca para la inferencia generativa, enviando un *prompt* que combina la transcripción de la reunión y el contexto recuperado del RAG, recibiendo como respuesta un bloque JSON estructurado en Gherkin.
     *   **Project Management Tool:** Recibe las historias de usuario aprobadas y formateadas para crear automáticamente *Issues* en el backlog del equipo (por ejemplo en Jira).
 
-### 4.3.3.	Software Architecture Container Level Diagrams
+### 4.3.3. Software Architecture Container Level Diagrams
 
 En esta sección presentamos el diagrama de contenedores para el sistema Reqs-AI. Este nivel hace un enfoque al sistema principal para revelar los contenedores de software que lo componen (aplicaciones móviles, web, API, bases de datos), mostrando cómo se distribuyen las responsabilidades, las decisiones tecnológicas de alto nivel y cómo estos componentes se comunican entre sí y con los sistemas externos.
 
@@ -1692,7 +1686,7 @@ La arquitectura define un flujo de comunicación moderno y orientado a servicios
     *   **Requirement Discovery** envía los audios de las reuniones al **STT API** para convertirlos a texto, y delega al **LLM API** la inferencia generativa para producir las historias en formato Gherkin.
     *   **Integration Gateway** exporta finalmente las historias de usuario hacia la herramienta de gestión mediante la **Project Management API** (Jira).
 
-### 4.3.4.	Software Architecture Deployment Diagrams
+### 4.3.4. Software Architecture Deployment Diagrams
 
 En esta sección se presenta el diagrama de despliegue, el cual ilustra cómo los contenedores de software de Reqs-AI se mapean a la infraestructura de la nube. Este diagrama detalla los nodos de ejecución, los entornos operativos y la topología de red, priorizando una arquitectura viable, escalable y optimizada en costos.
 
@@ -1727,23 +1721,23 @@ La infraestructura de despliegue se divide en los entornos de cliente, la red de
 
 # Capítulo V: Tactical-Level Software Design
 
-## 5.X.	Bounded Context: <Bounded Context Name>
+## 5.X. Bounded Context: <Bounded Context Name>
 
-### 5.X.1.	Domain Layer
+### 5.X.1. Domain Layer
 
-### 5.X.2.	Interface Layer
+### 5.X.2. Interface Layer
 
-### 5.X.3.	Application Layer
+### 5.X.3. Application Layer
 
-### 5.X.4.	Infrastructure Layer
+### 5.X.4. Infrastructure Layer
 
-### 5.X.6.	Bounded Context Software Architecture Component Level Diagrams
+### 5.X.6. Bounded Context Software Architecture Component Level Diagrams
 
-### 5.X.7.	Bounded Context Software Architecture Code Level Diagrams
+### 5.X.7. Bounded Context Software Architecture Code Level Diagrams
 
-#### 5.X.7.1.	Bounded Context Domain Layer Class Diagrams
+#### 5.X.7.1. Bounded Context Domain Layer Class Diagrams
 
-#### 5.X.7.2.	Bounded Context Database Design Diagram
+#### 5.X.7.2. Bounded Context Database Design Diagram
 
 # Capítulo VI: Solution UX Design
 
@@ -1753,7 +1747,7 @@ En esta sección se definen los lineamientos visuales y de experiencia que guía
 
 El diseño de la aplicación sigue una estética limpia, similar a herramientas de productividad como Notion, priorizando espacios en blanco, jerarquía visual clara, navegación lateral persistente y componentes reutilizables. Esta decisión permite que el usuario se concentre en la revisión de proyectos, sesiones, historias generadas por IA e integraciones sin distraerse con elementos visuales innecesarios.
 
-<img src="assets/ui/web/style-guidelines/03_component_style_examples_reqsa_ai.png" alt="Reqs-AI Component Style Examples" width="100%">
+<img src="assets/ui/style-guidelines/component-style-examples.png" alt="Reqs-AI Component Style Examples" style="width: 800px">
 
 ### 6.1.1. General Style Guidelines
 
@@ -1761,11 +1755,11 @@ Los lineamientos generales de estilo de Reqs-AI se enfocan en transmitir precisi
 
 La paleta visual se apoya principalmente en tonos neutros, fondos claros y un azul principal para acciones relevantes. El azul se utiliza en botones primarios, enlaces, estados activos y elementos de navegación seleccionados. Los tonos grises se reservan para contenedores, bordes, textos secundarios y fondos de separación. Además, se incorporan colores semánticos para comunicar estados específicos: verde para acciones completadas, amarillo para advertencias, rojo para errores y un acento violeta o azul intenso para elementos relacionados con inteligencia artificial.
 
-<img src="assets/ui/web/style-guidelines/01_color_palette_reqsa_ai.png" alt="Reqs-AI Color Palette" width="100%">
+<img src="assets/ui/style-guidelines/color-palette.png" alt="Reqs-AI Color Palette" style="width: 800px">
 
 A nivel tipográfico, se propone el uso de una familia sans serif moderna y legible para interfaces digitales. Los títulos deben tener mayor peso visual para diferenciar secciones principales, mientras que los textos descriptivos deben mantener un tamaño cómodo para lectura en pantallas. La jerarquía recomendada distingue entre títulos de página, subtítulos, nombres de módulos, cuerpo de texto, etiquetas, metadatos y mensajes de ayuda.
 
-<img src="assets/ui/web/style-guidelines/02_typography_scale_reqsa_ai.png" alt="Reqs-AI Typography Scale" width="100%">
+<img src="assets/ui/style-guidelines/typography-scale.png" alt="Reqs-AI Typography Scale" style="width: 800px">
 
 Los componentes siguen criterios de consistencia. Los botones principales se reservan para acciones críticas como crear workspace, iniciar sesión en vivo, aprobar historia o conectar Jira. Los botones secundarios se utilizan para editar, cancelar, visualizar detalles o navegar entre estados. Los formularios deben mostrar etiquetas claras, placeholders descriptivos y mensajes de validación visibles cuando exista un error. Las tarjetas se utilizan para agrupar información de proyectos, sesiones, historias y métricas de uso.
 
@@ -1775,7 +1769,7 @@ En cuanto a accesibilidad, se prioriza el contraste entre texto y fondo, el uso 
 
 Para la web application, Reqs-AI utiliza una estructura de aplicación empresarial basada en tres zonas principales: sidebar lateral, topbar superior y área central de contenido. La sidebar permite acceder a módulos como Dashboard, Projects, Sessions, User Stories, Integrations, Billing y Settings. La topbar concentra el selector de workspace, la búsqueda global, acciones rápidas y el menú de perfil. El área central se adapta al módulo activo mediante tablas, tarjetas, modales y paneles laterales.
 
-<img src="assets/ui/web/style-guidelines/05_navigation_system_reqsa_ai.png" alt="Reqs-AI Navigation System" width="100%">
+<img src="assets/ui/style-guidelines/navigation-system.png" alt="Reqs-AI Navigation System" style="width: 800px">
 
 En escritorio, la aplicación debe aprovechar el ancho disponible para mostrar información densa, como listados de sesiones, tableros de historias, métricas de consumo, configuración de integraciones y paneles de revisión. En estos casos, se recomienda usar layouts de dos columnas o paneles laterales para evitar abrir demasiadas pantallas nuevas. Por ejemplo, una historia de usuario puede listarse en el tablero y abrirse en un drawer lateral para revisar criterios Gherkin, confianza de IA y acciones de aprobación.
 
@@ -1789,7 +1783,7 @@ La arquitectura de información de Reqs-AI organiza los contenidos de la platafo
 
 La estructura principal se divide en módulos globales: Authentication, Workspace, Dashboard, Projects, Discovery Sessions, User Stories, Integrations, Billing y Settings. Cada módulo agrupa acciones relacionadas y mantiene una nomenclatura consistente para reducir ambigüedad. De esta forma, el usuario puede comprender dónde iniciar una tarea, dónde revisar resultados y dónde configurar aspectos administrativos.
 
-<img src="assets/ui/web/style-guidelines/04_information_architecture_map_reqsa_ai.png" alt="Reqs-AI Information Architecture Map" width="100%">
+<img src="assets/ui/style-guidelines/information-architecture-map.png" alt="Reqs-AI Information Architecture Map" style="width: 800px">
 
 ### 6.2.2. Labeling Systems
 
@@ -1797,7 +1791,7 @@ El sistema de etiquetado de Reqs-AI utiliza términos breves, consistentes y ori
 
 Las etiquetas de navegación deben indicar claramente el contenido del módulo. “Projects” agrupa iniciativas por cliente o producto; “Sessions” representa reuniones procesadas o en vivo; “User Stories” contiene historias generadas por IA; “Integrations” centraliza conexiones con Jira u otras herramientas; “Billing” administra plan y consumo; y “Settings” concentra la configuración organizacional y de equipo.
 
-<img src="assets/ui/web/style-guidelines/06_labeling_system_reqsa_ai.png" alt="Reqs-AI Labeling System" width="100%">
+<img src="assets/ui/style-guidelines/labeling-system.png" alt="Reqs-AI Labeling System" style="width: 800px">
 
 Para las acciones, se recomienda utilizar verbos directos que indiquen intención: Create Workspace, Start Live Session, Create Project, Approve Story, Export to Jira, Invite Member y Connect Integration. Para los estados, se deben usar etiquetas que permitan comprender el avance del flujo: Draft, Active, Processing, Pending Review, Approved, Exported, Failed y Archived.
 
@@ -1807,9 +1801,9 @@ Este sistema de etiquetado ayuda a reducir la carga cognitiva porque el usuario 
 
 El sistema de búsqueda de Reqs-AI debe facilitar la localización rápida de proyectos, sesiones, historias de usuario, miembros e integraciones. La búsqueda principal se ubica en la topbar para estar disponible desde cualquier módulo de la aplicación. Esto permite que el usuario no dependa únicamente de la navegación lateral cuando necesita encontrar información específica.
 
-<img src="assets/ui/web/style-guidelines/07_searching_system_reqsa_ai.png" alt="Reqs-AI Searching System" width="100%">
+<img src="assets/ui/style-guidelines/searching-system.png" alt="Reqs-AI Searching System" style="width: 800px">
 
-La búsqueda global debe aceptar palabras clave relacionadas con nombres de proyectos, títulos de sesiones, identificadores de historias, estados de revisión, miembros del equipo y referencias externas como tickets de Jira. Además, cada módulo debe contar con filtros contextuales. En Projects, los filtros pueden ser estado, cliente o fecha de actualización. En Sessions, los filtros pueden ser proyecto, estado de procesamiento o fecha. En User Stories, los filtros pueden ser estado, prioridad, confianza de IA, similitud detectada o exportación.
+La búsqueda global debe aceptar palabras clave relacionadas con nombres de proyectos, títulos de sesiones, identificadores de historias, estados de revisión, miembros del equipo y referencias externas como tickets de Jira. Además, cada módulo debe contar con filtros contextuales. En Projects, los filtros pueden ser estados, cliente o fecha de actualización. En Sessions, los filtros pueden ser proyecto, estado de procesamiento o fecha. En User Stories, los filtros pueden ser estados, prioridad, confianza de IA, similitud detectada o exportación.
 
 Para mejorar la experiencia, los resultados deben mostrar información resumida: nombre del elemento, tipo, estado, fecha de actualización y acción rápida. Esto permite que el usuario decida si desea abrir el detalle, editar, aprobar o exportar sin ingresar a múltiples pantallas.
 
@@ -1817,9 +1811,9 @@ Para mejorar la experiencia, los resultados deben mostrar información resumida:
 
 Los SEO Tags y Meta Tags se aplican principalmente a la landing page pública de Reqs-AI, ya que la aplicación interna se encuentra protegida por autenticación y no debe indexarse en buscadores. La landing page debe estar optimizada para comunicar la propuesta de valor del producto, captar leads y explicar cómo la plataforma convierte reuniones de discovery en historias de usuario estructuradas con apoyo de IA.
 
-<img src="assets/ui/web/style-guidelines/08_seo_meta_tags_reqsa_ai.png" alt="Reqs-AI SEO and Meta Tags" width="100%">
+<img src="assets/ui/style-guidelines/seo-meta-tags.png" alt="Reqs-AI SEO and Meta Tags" style="width: 800px">
 
-Se propone utilizar un título claro y orientado al beneficio, una descripción breve con palabras clave relacionadas al dominio y etiquetas Open Graph para mejorar la presentación cuando el enlace sea compartido en redes sociales o canales profesionales. También se recomienda definir una imagen de previsualización, metadatos de idioma, autor, viewport responsive y robots index/follow para las páginas públicas.
+Se propone utilizar un título claro y orientado al beneficio, una descripción breve con palabras clave relacionadas con el dominio y etiquetas Open Graph para mejorar la presentación cuando el enlace sea compartido en redes sociales o canales profesionales. También se recomienda definir una imagen de previsualización, metadatos de idioma, autor, viewport responsive y robots index/follow para las páginas públicas.
 
 Ejemplo de metadatos recomendados:
 
@@ -1833,7 +1827,7 @@ Ejemplo de metadatos recomendados:
 <meta property="og:title" content="Reqs-AI | Requirements with AI">
 <meta property="og:description" content="Generate clear user stories from client meetings with AI assistance.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="assets/ui/web/landing/reqs-ai-preview.png">
+<meta property="og:image" content="assets/ui/landing/reqs-ai-preview.png">
 ```
 
 ### 6.2.5. Navigation Systems
@@ -1846,11 +1840,11 @@ Dentro de cada módulo se utilizan breadcrumbs, tabs, botones de acción y panel
 
 Este sistema de navegación busca mantener continuidad entre los flujos. El usuario puede pasar de una sesión de discovery a las historias generadas, luego revisar una historia, aprobarla y finalmente exportarla hacia Jira sin perder el contexto del proyecto ni del workspace activo.
 
-## 6.3.	Landing Page UI Design
+## 6.3. Landing Page UI Design
 
-### 6.3.1.	Landing Page Wireframe
+### 6.3.1. Landing Page Wireframe
 
-### 6.3.2.	Landing Page Mock-up
+### 6.3.2. Landing Page Mock-up
 
 ## 6.4. Applications UX/UI Design
 
@@ -1864,215 +1858,215 @@ Los wireframes de la aplicación web representan la versión de baja fidelidad d
 
 Estos wireframes cubren el recorrido principal del usuario: autenticación, creación del workspace, navegación por el dashboard, gestión de proyectos, configuración de sesiones, revisión de historias generadas por IA, integración con Jira, administración de facturación y configuración del equipo.
 
-#### Autenticación y acceso
+**Autenticación y acceso**
 
-##### Google Auth External Authorization Wireframe
+**Google Auth External Authorization Wireframe**
 
 **Descripción:** Representa la pantalla de autorización externa mediante Google. En baja fidelidad permite validar la ubicación del bloque de acceso federado, los permisos solicitados y el retorno seguro hacia Reqs-AI.
 
-<img src="assets/ui/web/wireframes/00_google_auth_external_authorization_wireframe.png" alt="Google Auth External Authorization Wireframe" width="100%">
+<img src="assets/ui/wireframes/google-auth-external-authorization.png" alt="Google Auth External Authorization Wireframe" style="width: 800px">
 
-##### Login Screen Wireframe
+**Login Screen Wireframe**
 
 **Descripción:** Muestra la estructura base del inicio de sesión. Define la jerarquía de campos, acciones principales y acceso alternativo para que el usuario registrado ingrese a su workspace.
 
-<img src="assets/ui/web/wireframes/01_login_screen_wireframe.png" alt="Login Screen Wireframe" width="100%">
+<img src="assets/ui/wireframes/login-screen.png" alt="Login Screen Wireframe" style="width: 800px">
 
-##### Signup Screen Wireframe
+**Signup Screen Wireframe**
 
 **Descripción:** Presenta la composición inicial del formulario de registro. Permite validar la disposición de campos, botones y enlaces necesarios para crear una cuenta en la plataforma.
 
-<img src="assets/ui/web/wireframes/02_signup_screen_wireframe.png" alt="Signup Screen Wireframe" width="100%">
+<img src="assets/ui/wireframes/signup-screen.png" alt="Signup Screen Wireframe" style="width: 800px">
 
-#### Onboarding y creación de workspace
+**Onboarding y creación de workspace**
 
-##### Dashboard Empty State Before Workspace Wireframe
+**Dashboard Empty State Before Workspace Wireframe**
 
-**Descripción:** Expone el estado vacío del dashboard cuando el usuario aún no tiene un workspace. Este wireframe valida el mensaje guía y el llamado a la acción para iniciar el onboarding.
+**Descripción:** Expone el estado vacío del dashboard cuando el usuario aún no tiene un workspace. Este wireframe válida el mensaje guía y el llamado a la acción para iniciar el onboarding.
 
-<img src="assets/ui/web/wireframes/03_dashboard_empty_state_before_workspace_wireframe.png" alt="Dashboard Empty State Before Workspace Wireframe" width="100%">
+<img src="assets/ui/wireframes/dashboard-empty-state-before-workspace.png" alt="Dashboard Empty State Before Workspace Wireframe" style="width: 800px">
 
-##### Workspace Creation Modal Empty Fields Wireframe
+**Workspace Creation Modal Empty Fields Wireframe**
 
 **Descripción:** Muestra el modal de creación de workspace sin datos ingresados. Sirve para validar la estructura del formulario y los campos mínimos requeridos para crear una organización.
 
-<img src="assets/ui/web/wireframes/04_workspace_creation_modal_empty_fields_wireframe.png" alt="Workspace Creation Modal Empty Fields Wireframe" width="100%">
+<img src="assets/ui/wireframes/workspace-creation-modal-empty-fields.png" alt="Workspace Creation Modal Empty Fields Wireframe" style="width: 800px">
 
-##### Workspace Creation Validation Errors Wireframe
+**Workspace Creation Validation Errors Wireframe**
 
 **Descripción:** Representa los mensajes de validación del formulario. Permite comprobar cómo se informan errores cuando faltan datos obligatorios o cuando la información no cumple las reglas.
 
-<img src="assets/ui/web/wireframes/05_workspace_creation_validation_errors_wireframe.png" alt="Workspace Creation Validation Errors Wireframe" width="100%">
+<img src="assets/ui/wireframes/workspace-creation-validation-errors.png" alt="Workspace Creation Validation Errors Wireframe" style="width: 800px">
 
-##### Workspace Company Type Dropdown Open Wireframe
+**Workspace Company Type Dropdown Open Wireframe**
 
 **Descripción:** Muestra el selector de tipo de compañía abierto. Este estado permite validar cómo el usuario escoge el perfil de organización para contextualizar el uso inicial de Reqs-AI.
 
-<img src="assets/ui/web/wireframes/06_workspace_company_type_dropdown_open_wireframe.png" alt="Workspace Company Type Dropdown Open Wireframe" width="100%">
+<img src="assets/ui/wireframes/workspace-company-type-dropdown-open.png" alt="Workspace Company Type Dropdown Open Wireframe" style="width: 800px">
 
-##### Workspace Team Size Dropdown Open Wireframe
+**Workspace Team Size Dropdown Open Wireframe**
 
 **Descripción:** Presenta el selector de tamaño de equipo. Este wireframe ayuda a validar la captura de información necesaria para adaptar la experiencia del workspace.
 
-<img src="assets/ui/web/wireframes/07_workspace_team_size_dropdown_open_wireframe.png" alt="Workspace Team Size Dropdown Open Wireframe" width="100%">
+<img src="assets/ui/wireframes/workspace-team-size-dropdown-open.png" alt="Workspace Team Size Dropdown Open Wireframe" style="width: 800px">
 
-##### Workspace Creation Form Filled Wireframe
+**Workspace Creation Form Filled Wireframe**
 
 **Descripción:** Muestra el formulario de workspace completado. Permite revisar cómo se presentan los datos antes de confirmar la creación del espacio de trabajo.
 
-<img src="assets/ui/web/wireframes/08_workspace_creation_form_filled_wireframe.png" alt="Workspace Creation Form Filled Wireframe" width="100%">
+<img src="assets/ui/wireframes/workspace-creation-form-filled.png" alt="Workspace Creation Form Filled Wireframe" style="width: 800px">
 
-##### Workspace Use Case Selection State Wireframe
+**Workspace Use Case Selection State Wireframe**
 
 **Descripción:** Representa la selección del caso de uso principal del workspace. Permite validar la organización visual de opciones vinculadas a discovery, requisitos, documentación e integración.
 
-<img src="assets/ui/web/wireframes/09_workspace_use_case_selection_state_wireframe.png" alt="Workspace Use Case Selection State Wireframe" width="100%">
+<img src="assets/ui/wireframes/workspace-use-case-selection-state.png" alt="Workspace Use Case Selection State Wireframe" style="width: 800px">
 
-##### Workspace Creation Loading State Wireframe
+**Workspace Creation Loading State Wireframe**
 
 **Descripción:** Muestra el estado de carga durante la creación del workspace. Su objetivo es validar la retroalimentación visual mientras el sistema configura el entorno.
 
-<img src="assets/ui/web/wireframes/10_workspace_creation_loading_state_wireframe.png" alt="Workspace Creation Loading State Wireframe" width="100%">
+<img src="assets/ui/wireframes/workspace-creation-loading-state.png" alt="Workspace Creation Loading State Wireframe" style="width: 800px">
 
-##### Workspace Created Success Modal Wireframe
+**Workspace Created Success Modal Wireframe**
 
-**Descripción:** Presenta la confirmación de creación exitosa del workspace. Este wireframe valida el cierre del onboarding y la transición hacia el dashboard principal.
+**Descripción:** Presenta la confirmación de creación exitosa del workspace. Este wireframe válida el cierre del onboarding y la transición hacia el dashboard principal.
 
-<img src="assets/ui/web/wireframes/11_workspace_created_success_modal_wireframe.png" alt="Workspace Created Success Modal Wireframe" width="100%">
+<img src="assets/ui/wireframes/workspace-created-success-modal.png" alt="Workspace Created Success Modal Wireframe" style="width: 800px">
 
-#### Dashboard y navegación principal
+**Dashboard y navegación principal**
 
-##### Workspace Dashboard Home Wireframe
+**Workspace Dashboard Home Wireframe**
 
 **Descripción:** Muestra la estructura general del dashboard con navegación lateral, barra superior, métricas y accesos rápidos. Permite validar la organización inicial de la aplicación interna.
 
-<img src="assets/ui/web/wireframes/12_workspace_dashboard_home_wireframe.png" alt="Workspace Dashboard Home Wireframe" width="100%">
+<img src="assets/ui/wireframes/workspace-dashboard-home.png" alt="Workspace Dashboard Home Wireframe" style="width: 800px">
 
-##### Workspace Switcher Menu Open Wireframe
+**Workspace Switcher Menu Open Wireframe**
 
 **Descripción:** Representa el selector de workspace abierto. Permite validar el cambio de contexto entre organizaciones o espacios de trabajo sin perder consistencia en la navegación.
 
-<img src="assets/ui/web/wireframes/13_workspace_switcher_menu_open_wireframe.png" alt="Workspace Switcher Menu Open Wireframe" width="100%">
+<img src="assets/ui/wireframes/workspace-switcher-menu-open.png" alt="Workspace Switcher Menu Open Wireframe" style="width: 800px">
 
-##### User Profile Menu Open Wireframe
+**User Profile Menu Open Wireframe**
 
-**Descripción:** Muestra el menú de perfil del usuario. Valida la ubicación de opciones personales, configuración de cuenta y cierre de sesión dentro de la interfaz global.
+**Descripción:** Muestra el menú de perfil del usuario. Válida la ubicación de opciones personales, configuración de cuenta y cierre de sesión dentro de la interfaz global.
 
-<img src="assets/ui/web/wireframes/14_user_profile_menu_open_wireframe.png" alt="User Profile Menu Open Wireframe" width="100%">
+<img src="assets/ui/wireframes/user-profile-menu-open.png" alt="User Profile Menu Open Wireframe" style="width: 800px">
 
-#### Gestión de proyectos
+**Gestión de proyectos**
 
-##### Projects Page Overview Wireframe
+**Projects Page Overview Wireframe**
 
 **Descripción:** Presenta la vista general de proyectos. Permite validar la organización de listados, estados, acciones y acceso a la creación de nuevos proyectos dentro del workspace.
 
-<img src="assets/ui/web/wireframes/15_projects_page_overview_wireframe.png" alt="Projects Page Overview Wireframe" width="100%">
+<img src="assets/ui/wireframes/projects-page-overview.png" alt="Projects Page Overview Wireframe" style="width: 800px">
 
-##### Create New Project Modal Wireframe
+**Create New Project Modal Wireframe**
 
 **Descripción:** Muestra el modal para crear un proyecto. Permite validar la captura de información inicial del proyecto y la selección de plantilla o configuración base.
 
-<img src="assets/ui/web/wireframes/16_create_new_project_modal_wireframe.png" alt="Create New Project Modal Wireframe" width="100%">
+<img src="assets/ui/wireframes/create-new-project-modal.png" alt="Create New Project Modal Wireframe" style="width: 800px">
 
-#### Sesiones de descubrimiento
+**Sesiones de descubrimiento**
 
-##### Discovery Sessions Page Wireframe
+**Discovery Sessions Page Wireframe**
 
 **Descripción:** Representa la vista de sesiones de descubrimiento. Sirve para validar la tabla de sesiones, filtros, estados y acciones asociadas al procesamiento de reuniones.
 
-<img src="assets/ui/web/wireframes/17_discovery_sessions_page_wireframe.png" alt="Discovery Sessions Page Wireframe" width="100%">
+<img src="assets/ui/wireframes/discovery-sessions-page.png" alt="Discovery Sessions Page Wireframe" style="width: 800px">
 
-##### Live Session Configuration Modal Wireframe
+**Live Session Configuration Modal Wireframe**
 
 **Descripción:** Muestra la configuración previa para iniciar una sesión en vivo. Permite validar campos, permisos y opciones necesarias para activar la captura asistida por IA.
 
-<img src="assets/ui/web/wireframes/18_live_session_configuration_modal_wireframe.png" alt="Live Session Configuration Modal Wireframe" width="100%">
+<img src="assets/ui/wireframes/live-session-configuration-modal.png" alt="Live Session Configuration Modal Wireframe" style="width: 800px">
 
-#### Historias de usuario generadas por IA
+**Historias de usuario generadas por IA**
 
-##### User Stories Review Board Wireframe
+**User Stories Review Board Wireframe**
 
 **Descripción:** Presenta el tablero de historias generadas por IA. Permite validar la disposición de tarjetas, métricas, estados de revisión y acciones de aprobación.
 
-<img src="assets/ui/web/wireframes/19_user_stories_review_board_wireframe.png" alt="User Stories Review Board Wireframe" width="100%">
+<img src="assets/ui/wireframes/user-stories-review-board.png" alt="User Stories Review Board Wireframe" style="width: 800px">
 
-##### User Story Detail Review Drawer Wireframe
+**User Story Detail Review Drawer Wireframe**
 
 **Descripción:** Muestra el detalle de una historia de usuario, incluyendo criterios de aceptación y revisión. Sirve para validar el panel lateral de edición, confianza y aprobación.
 
-<img src="assets/ui/web/wireframes/20_user_story_detail_review_drawer_wireframe.png" alt="User Story Detail Review Drawer Wireframe" width="100%">
+<img src="assets/ui/wireframes/user-story-detail-review-drawer.png" alt="User Story Detail Review Drawer Wireframe" style="width: 800px">
 
-#### Integraciones externas
+**Integraciones externas**
 
-##### Integrations Page Jira Connection Wireframe
+**Integrations Page Jira Connection Wireframe**
 
-**Descripción:** Representa la página de integraciones externas. Valida la ubicación de la conexión con Jira, el estado de integración y las acciones de configuración.
+**Descripción:** Representa la página de integraciones externas. Válida la ubicación de la conexión con Jira, el estado de integración y las acciones de configuración.
 
-<img src="assets/ui/web/wireframes/21_integrations_page_jira_connection_wireframe.png" alt="Integrations Page Jira Connection Wireframe" width="100%">
+<img src="assets/ui/wireframes/integrations-page-jira-connection.png" alt="Integrations Page Jira Connection Wireframe" style="width: 800px">
 
-##### Jira Connection Modal Wireframe
+**Jira Connection Modal Wireframe**
 
 **Descripción:** Muestra el asistente de conexión con Jira. Permite validar el flujo de autenticación, mapeo de proyectos y configuración de sincronización con Atlassian.
 
-<img src="assets/ui/web/wireframes/22_jira_connection_modal_wireframe.png" alt="Jira Connection Modal Wireframe" width="100%">
+<img src="assets/ui/wireframes/jira-connection-modal.png" alt="Jira Connection Modal Wireframe" style="width: 800px">
 
-#### Billing y configuración
+**Billing y configuración**
 
-##### Billing Subscription Page Wireframe
+**Billing Subscription Page Wireframe**
 
 **Descripción:** Presenta la página de suscripción y facturación. Sirve para validar la visualización del plan activo, consumo, límites y opciones de actualización.
 
-<img src="assets/ui/web/wireframes/23_billing_subscription_page_wireframe.png" alt="Billing Subscription Page Wireframe" width="100%">
+<img src="assets/ui/wireframes/billing-subscription-page.png" alt="Billing Subscription Page Wireframe" style="width: 800px">
 
-##### Settings Workspace Configuration Wireframe
+**Settings Workspace Configuration Wireframe**
 
 **Descripción:** Muestra la configuración general del workspace. Permite validar la organización de secciones relacionadas con datos, preferencias, plan y controles administrativos.
 
-<img src="assets/ui/web/wireframes/24_settings_workspace_configuration_wireframe.png" alt="Settings Workspace Configuration Wireframe" width="100%">
+<img src="assets/ui/wireframes/settings-workspace-configuration.png" alt="Settings Workspace Configuration Wireframe" style="width: 800px">
 
-##### Settings Team Members Management Wireframe
+**Settings Team Members Management Wireframe**
 
 **Descripción:** Representa la subsección de miembros o perfil dentro de settings. Permite validar la gestión de usuarios, roles, invitaciones y control de acceso al workspace.
 
-<img src="assets/ui/web/wireframes/25_settings_team_members_management_wireframe.png" alt="Settings Team Members Management Wireframe" width="100%">
+<img src="assets/ui/wireframes/settings-team-members-management.png" alt="Settings Team Members Management Wireframe" style="width: 800px">
 
-##### Navigation Consistency Check Frame Wireframe
+**Navigation Consistency Check Frame Wireframe**
 
 **Descripción:** Evidencia la consistencia de navegación entre pantallas. Permite comprobar que sidebar, barra superior, perfil y acciones principales se mantienen uniformes.
 
-<img src="assets/ui/web/wireframes/26_navigation_consistency_check_frame_wireframe.png" alt="Navigation Consistency Check Frame Wireframe" width="100%">
+<img src="assets/ui/wireframes/navigation-consistency-check-frame.png" alt="Navigation Consistency Check Frame Wireframe" style="width: 800px">
 
-#### Variantes complementarias del onboarding
+**Variantes complementarias del onboarding**
 
-##### Workspace Creation Form Filled Alternative Wireframe
+**Workspace Creation Form Filled Alternative Wireframe**
 
 **Descripción:** Presenta una variante del formulario de workspace completado. Se usa para contrastar distribución de campos y confirmar que el flujo mantiene claridad antes de guardar.
 
-<img src="assets/ui/web/wireframes/27_workspace_creation_form_filled_alternative_wireframe.png" alt="Workspace Creation Form Filled Alternative Wireframe" width="100%">
+<img src="assets/ui/wireframes/workspace-creation-form-filled-alternative.png" alt="Workspace Creation Form Filled Alternative Wireframe" style="width: 800px">
 
-##### Workspace Settings Company Type Dropdown Wireframe
+**Workspace Settings Company Type Dropdown Wireframe**
 
 **Descripción:** Muestra una variante del selector de tipo de empresa dentro del flujo de configuración. Permite validar la selección del contexto organizacional.
 
-<img src="assets/ui/web/wireframes/28_workspace_settings_company_type_dropdown_wireframe.png" alt="Workspace Settings Company Type Dropdown Wireframe" width="100%">
+<img src="assets/ui/wireframes/workspace-settings-company-type-dropdown.png" alt="Workspace Settings Company Type Dropdown Wireframe" style="width: 800px">
 
-##### Workspace Use Case Selection Modal Wireframe
+**Workspace Use Case Selection Modal Wireframe**
 
 **Descripción:** Representa una versión alternativa del modal de selección de caso de uso. Ayuda a validar la lectura de opciones y la continuidad del onboarding.
 
-<img src="assets/ui/web/wireframes/29_workspace_use_case_selection_modal_wireframe.png" alt="Workspace Use Case Selection Modal Wireframe" width="100%">
+<img src="assets/ui/wireframes/workspace-use-case-selection-modal.png" alt="Workspace Use Case Selection Modal Wireframe" style="width: 800px">
 
-##### Workspace Initialization Loading Modal Wireframe
+**Workspace Initialization Loading Modal Wireframe**
 
 **Descripción:** Muestra una variante del estado de inicialización del workspace. Permite validar la comunicación de progreso mientras se preparan recursos internos.
 
-<img src="assets/ui/web/wireframes/30_workspace_initialization_loading_modal_wireframe.png" alt="Workspace Initialization Loading Modal Wireframe" width="100%">
+<img src="assets/ui/wireframes/workspace-initialization-loading-modal.png" alt="Workspace Initialization Loading Modal Wireframe" style="width: 800px">
 
-##### Workspace Created Success Details Wireframe
+**Workspace Created Success Details Wireframe**
 
 **Descripción:** Presenta una variante del mensaje de éxito con mayor detalle. Sirve para validar el cierre del flujo y la confirmación de elementos creados dentro del workspace.
 
-<img src="assets/ui/web/wireframes/31_workspace_created_success_details_wireframe.png" alt="Workspace Created Success Details Wireframe" width="100%">
+<img src="assets/ui/wireframes/workspace-created-success-details.png" alt="Workspace Created Success Details Wireframe" style="width: 800px">
 
 ### 6.4.2. Applications Wireflow Diagrams
 
@@ -2080,417 +2074,451 @@ Los wireflows de la aplicación web de Reqs-AI representan la conexión entre pa
 
 Cada wireflow incluye una flecha que indica la transición principal entre pantallas, permitiendo validar la continuidad de la experiencia, la coherencia de navegación y la relación entre módulos de la web application.
 
-#### Flujo de autenticación y acceso
+**Flujo de autenticación y acceso**
 
-##### Registro hacia inicio de sesión
+**Registro hacia inicio de sesión**
 
 **Descripción:** El flujo muestra cómo un visitante que se encuentra en la pantalla de registro puede volver al inicio de sesión mediante el enlace de acceso. Esta transición valida la navegación bidireccional entre autenticación y creación de cuenta.
 
-<img src="assets/ui/web/wireflows/00_signup_to_login_wireflow.png" alt="Registro hacia inicio de sesión" width="100%">
+<img src="assets/ui/wireflows/signup-to-login.png" alt="Registro hacia inicio de sesión" style="width: 800px">
 
-##### Inicio de sesión hacia autenticación con Google
+**Inicio de sesión hacia autenticación con Google**
 
 **Descripción:** El flujo evidencia que el usuario puede seleccionar la opción de continuar con Google desde el login. Luego es redirigido al selector de cuenta externo, reduciendo fricción en el acceso.
 
-<img src="assets/ui/web/wireflows/01_login_to_google_auth_wireflow.png" alt="Inicio de sesión hacia autenticación con Google" width="100%">
+<img src="assets/ui/wireflows/login-to-google-auth.png" alt="Inicio de sesión hacia autenticación con Google" style="width: 800px">
 
-##### Registro hacia autenticación con Google
+**Registro hacia autenticación con Google**
 
 **Descripción:** El flujo representa la alternativa de crear una cuenta usando Google desde la pantalla de registro. Permite validar que el onboarding también soporta autenticación federada.
 
-<img src="assets/ui/web/wireflows/02_signup_to_google_auth_wireflow.png" alt="Registro hacia autenticación con Google" width="100%">
+<img src="assets/ui/wireflows/signup-to-google-auth.png" alt="Registro hacia autenticación con Google" style="width: 800px">
 
-##### Inicio de sesión hacia confirmación de workspace creado
+**Inicio de sesión hacia confirmación de workspace creado**
 
 **Descripción:** El flujo muestra que, luego de autenticarse correctamente, el usuario puede ser llevado al estado de confirmación del workspace. Este paso cierra el acceso inicial y conecta con las acciones posteriores del entorno de trabajo.
 
-<img src="assets/ui/web/wireflows/03_login_to_workspace_created_success_wireflow.png" alt="Inicio de sesión hacia confirmación de workspace creado" width="100%">
+<img src="assets/ui/wireflows/login-to-workspace-created-success.png" alt="Inicio de sesión hacia confirmación de workspace creado" style="width: 800px">
 
-#### Flujo de onboarding y creación de workspace
+**Flujo de onboarding y creación de workspace**
 
-##### Confirmación de workspace hacia carga de configuración
+**Confirmación de workspace hacia carga de configuración**
 
-**Descripción:** El flujo inicia en el modal de workspace creado y continúa hacia un estado de construcción del entorno. Valida que el sistema comunica el progreso mientras prepara módulos, contexto de IA y configuración inicial.
+**Descripción:** El flujo inicia en el modal de workspace creado y continúa hacia un estado de construcción del entorno. Válida que el sistema comunica el progreso mientras prepara módulos, contexto de IA y configuración inicial.
 
-<img src="assets/ui/web/wireflows/04_workspace_created_to_workspace_building_loading_wireflow.png" alt="Confirmación de workspace hacia carga de configuración" width="100%">
+<img src="assets/ui/wireflows/workspace-created-to-workspace-building-loading.png" alt="Confirmación de workspace hacia carga de configuración" style="width: 800px">
 
-##### Workspace creado hacia configuración de tipo de empresa
+**Workspace creado hacia configuración de tipo de empresa**
 
 **Descripción:** El flujo permite pasar desde el modal de éxito a la configuración del workspace. Se evidencia la selección del tipo de compañía para adaptar la experiencia al contexto de la organización.
 
-<img src="assets/ui/web/wireflows/05_workspace_created_to_company_type_settings_wireflow.png" alt="Workspace creado hacia configuración de tipo de empresa" width="100%">
+<img src="assets/ui/wireflows/workspace-created-to-company-type-settings.png" alt="Workspace creado hacia configuración de tipo de empresa" style="width: 800px">
 
-##### Tipo de empresa hacia selección de caso de uso
+**Tipo de empresa hacia selección de caso de uso**
 
 **Descripción:** El flujo muestra cómo, después de seleccionar el tipo de organización, el usuario continúa hacia la definición del caso de uso principal. Esta transición ayuda a personalizar el workspace según el objetivo de trabajo.
 
-<img src="assets/ui/web/wireflows/06_company_type_dropdown_to_use_case_selection_wireflow.png" alt="Tipo de empresa hacia selección de caso de uso" width="100%">
+<img src="assets/ui/wireflows/company-type-dropdown-to-use-case-selection.png" alt="Tipo de empresa hacia selección de caso de uso" style="width: 800px">
 
-##### Selección de caso de uso hacia formulario de workspace
+**Selección de caso de uso hacia formulario de workspace**
 
 **Descripción:** El flujo representa el paso desde la selección de usos del workspace hacia el formulario de creación. Permite validar que el usuario puede completar la configuración general luego de definir su enfoque de trabajo.
 
-<img src="assets/ui/web/wireflows/07_use_case_selection_to_workspace_creation_form_wireflow.png" alt="Selección de caso de uso hacia formulario de workspace" width="100%">
+<img src="assets/ui/wireflows/use-case-selection-to-workspace-creation-form.png" alt="Selección de caso de uso hacia formulario de workspace" style="width: 800px">
 
-##### Formulario completo hacia validación de nuevo workspace
+**Formulario completo hacia validación de nuevo workspace**
 
 **Descripción:** El flujo muestra la acción de crear workspace desde un formulario completado y su transición a una variante de validación. Evidencia cómo la interfaz comunica errores o campos requeridos antes de guardar.
 
-<img src="assets/ui/web/wireflows/08_workspace_form_to_new_workspace_validation_wireflow.png" alt="Formulario completo hacia validación de nuevo workspace" width="100%">
+<img src="assets/ui/wireflows/workspace-form-to-new-workspace-validation.png" alt="Formulario completo hacia validación de nuevo workspace" style="width: 800px">
 
-##### Estado vacío hacia creación de workspace
+**Estado vacío hacia creación de workspace**
 
 **Descripción:** El flujo parte del dashboard sin workspace y lleva al modal de creación. Esta transición valida el onboarding principal cuando el usuario aún no tiene un espacio activo.
 
-<img src="assets/ui/web/wireflows/09_empty_workspace_to_create_workspace_modal_wireflow.png" alt="Estado vacío hacia creación de workspace" width="100%">
+<img src="assets/ui/wireflows/empty-workspace-to-create-workspace-modal.png" alt="Estado vacío hacia creación de workspace" style="width: 800px">
 
-##### Crear workspace hacia desplegable de tipo de compañía
+**Crear workspace hacia desplegable de tipo de compañía**
 
 **Descripción:** El flujo muestra la apertura del selector de tipo de compañía dentro del formulario. Permite comprobar que el usuario puede clasificar su organización antes de finalizar la creación.
 
-<img src="assets/ui/web/wireflows/10_create_workspace_to_company_type_dropdown_wireflow.png" alt="Crear workspace hacia desplegable de tipo de compañía" width="100%">
+<img src="assets/ui/wireflows/create-workspace-to-company-type-dropdown.png" alt="Crear workspace hacia desplegable de tipo de compañía" style="width: 800px">
 
-##### Tipo de compañía hacia caso de uso principal
+**Tipo de compañía hacía caso de uso principal**
 
 **Descripción:** El flujo evidencia que, al completar la información organizacional, el usuario puede definir el propósito principal del workspace. Esta selección orienta el uso de Reqs-AI hacia requisitos, discovery o planificación.
 
-<img src="assets/ui/web/wireflows/11_company_type_selection_to_primary_use_case_wireflow.png" alt="Tipo de compañía hacia caso de uso principal" width="100%">
+<img src="assets/ui/wireflows/company-type-selection-to-primary-use-case.png" alt="Tipo de compañía hacia caso de uso principal" style="width: 800px">
 
-##### Tamaño de equipo hacia selección de usos principales
+**Tamaño de equipo hacia selección de usos principales**
 
 **Descripción:** El flujo muestra la selección del tamaño del equipo y su avance hacia la pantalla de casos de uso. Permite validar que el onboarding recopila datos de escala y preferencias funcionales.
 
-<img src="assets/ui/web/wireflows/12_team_size_dropdown_to_primary_use_cases_wireflow.png" alt="Tamaño de equipo hacia selección de usos principales" width="100%">
+<img src="assets/ui/wireflows/team-size-dropdown-to-primary-use-cases.png" alt="Tamaño de equipo hacia selección de usos principales" style="width: 800px">
 
-##### Progreso de creación hacia workspace creado
+**Progreso de creación hacia workspace creado**
 
-**Descripción:** El flujo representa la transición desde el estado de creación en progreso hasta la confirmación exitosa. Valida que el usuario recibe retroalimentación clara cuando el espacio termina de configurarse.
+**Descripción:** El flujo representa la transición desde el estado de creación en progreso hasta la confirmación exitosa. Válida que el usuario recibe retroalimentación clara cuando el espacio termina de configurarse.
 
-<img src="assets/ui/web/wireflows/13_workspace_creation_progress_to_success_wireflow.png" alt="Progreso de creación hacia workspace creado" width="100%">
+<img src="assets/ui/wireflows/workspace-creation-progress-to-success.png" alt="Progreso de creación hacia workspace creado" style="width: 800px">
 
-##### Workspace creado hacia página principal
+**Workspace creado hacia página principal**
 
 **Descripción:** El flujo muestra cómo el usuario pasa desde el modal de éxito hacia el home del workspace. Esta transición permite iniciar la gestión de proyectos, sesiones e insights desde el dashboard.
 
-<img src="assets/ui/web/wireflows/14_workspace_success_to_workspace_home_wireflow.png" alt="Workspace creado hacia página principal" width="100%">
+<img src="assets/ui/wireflows/workspace-success-to-workspace-home.png" alt="Workspace creado hacia página principal" style="width: 800px">
 
-#### Flujo de navegación principal e historias de usuario
+**Flujo de navegación principal e historias de usuario**
 
-##### Home del workspace hacia historias de usuario
+**Home del workspace hacia historias de usuario**
 
 **Descripción:** El flujo evidencia la navegación desde el dashboard principal hacia el módulo de User Stories. Permite validar el acceso al backlog generado por IA desde el menú lateral.
 
-<img src="assets/ui/web/wireflows/15_workspace_home_to_user_stories_wireflow.png" alt="Home del workspace hacia historias de usuario" width="100%">
+<img src="assets/ui/wireflows/workspace-home-to-user-stories.png" alt="Home del workspace hacia historias de usuario" style="width: 800px">
 
-##### Listado de historias hacia panel de revisión
+**Listado de historias hacia panel de revisión**
 
 **Descripción:** El flujo muestra cómo una historia del listado se abre en un drawer de revisión. Allí se visualizan estado, prioridad, confianza de IA, descripción y criterios Gherkin para su aprobación.
 
-<img src="assets/ui/web/wireflows/16_user_stories_to_story_review_drawer_wireflow.png" alt="Listado de historias hacia panel de revisión" width="100%">
+<img src="assets/ui/wireflows/user-stories-to-story-review-drawer.png" alt="Listado de historias hacia panel de revisión" style="width: 800px">
 
-##### Selector de workspace hacia menú de perfil
+**Selector de workspace hacia menú de perfil**
 
-**Descripción:** El flujo evidencia dos componentes globales de navegación: el selector de workspace y el menú de perfil. Valida que el usuario puede cambiar contexto y acceder a opciones personales desde la cabecera.
+**Descripción:** El flujo evidencia dos componentes globales de navegación: el selector de workspace y el menú de perfil. Válida que el usuario puede cambiar contexto y acceder a opciones personales desde la cabecera.
 
-<img src="assets/ui/web/wireflows/17_workspace_switcher_to_user_profile_menu_wireflow.png" alt="Selector de workspace hacia menú de perfil" width="100%">
+<img src="assets/ui/wireflows/workspace-switcher-to-user-profile-menu.png" alt="Selector de workspace hacia menú de perfil" style="width: 800px">
 
-#### Flujo de proyectos y sesiones de descubrimiento
+**Flujo de proyectos y sesiones de descubrimiento**
 
-##### Selector de workspace hacia proyectos
+**Selector de workspace hacía proyectos**
 
 **Descripción:** El flujo muestra la transición desde la navegación global hacia la página de proyectos. Permite comprobar que el usuario puede ubicarse en un workspace y administrar sus iniciativas.
 
-<img src="assets/ui/web/wireflows/18_workspace_switcher_to_projects_page_wireflow.png" alt="Selector de workspace hacia proyectos" width="100%">
+<img src="assets/ui/wireflows/workspace-switcher-to-projects-page.png" alt="Selector de workspace hacia proyectos" style="width: 800px">
 
-##### Proyectos hacia creación de nuevo proyecto
+**Proyectos hacia creación de nuevo proyecto**
 
 **Descripción:** El flujo parte del listado de proyectos y abre el modal de creación. Permite validar la captura del nombre, descripción, plantilla y visibilidad del proyecto.
 
-<img src="assets/ui/web/wireflows/19_projects_page_to_create_project_modal_wireflow.png" alt="Proyectos hacia creación de nuevo proyecto" width="100%">
+<img src="assets/ui/wireflows/projects-page-to-create-project-modal.png" alt="Proyectos hacia creación de nuevo proyecto" style="width: 800px">
 
-##### Menú de perfil hacia sesiones
+**Menú de perfil hacia sesiones**
 
 **Descripción:** El flujo muestra la navegación hacia el módulo de Sessions desde la estructura interna de la aplicación. Permite validar la consulta de reuniones procesadas, métricas y acciones disponibles.
 
-<img src="assets/ui/web/wireflows/20_profile_menu_to_sessions_page_wireflow.png" alt="Menú de perfil hacia sesiones" width="100%">
+<img src="assets/ui/wireflows/profile-menu-to-sessions-page.png" alt="Menú de perfil hacia sesiones" style="width: 800px">
 
-##### Sesiones hacia vista de discovery sessions
+**Sesiones hacia vista de discovery sessions**
 
 **Descripción:** El flujo representa el cambio desde la vista completa de sesiones hacia una vista resumida de discovery sessions. Permite revisar métricas, sesiones recientes y estado de procesamiento.
 
-<img src="assets/ui/web/wireflows/21_sessions_page_to_discovery_sessions_overview_wireflow.png" alt="Sesiones hacia vista de discovery sessions" width="100%">
+<img src="assets/ui/wireflows/sessions-page-to-discovery-sessions-overview.png" alt="Sesiones hacia vista de discovery sessions" style="width: 800px">
 
-##### Discovery sessions hacia inicio de sesión en vivo
+**Discovery sessions hacia inicio de sesión en vivo**
 
 **Descripción:** El flujo muestra cómo el usuario abre el modal para iniciar una sesión de descubrimiento en vivo. Se configuran título, proyecto asociado, modo de facilitación y opciones de captura antes de lanzar la sesión.
 
-<img src="assets/ui/web/wireflows/22_start_live_session_modal_wireflow.png" alt="Discovery sessions hacia inicio de sesión en vivo" width="100%">
+<img src="assets/ui/wireflows/start-live-session-modal.png" alt="Discovery sessions hacia inicio de sesión en vivo" style="width: 800px">
 
-##### Sesiones hacia integraciones
+**Sesiones hacia integraciones**
 
 **Descripción:** El flujo evidencia la navegación desde sesiones hacia el módulo de integraciones. Permite conectar los resultados del levantamiento con herramientas externas como Jira, Confluence, GitHub, Slack o Miro.
 
-<img src="assets/ui/web/wireflows/23_sessions_to_integrations_page_wireflow.png" alt="Sesiones hacia integraciones" width="100%">
+<img src="assets/ui/wireflows/sessions-to-integrations-page.png" alt="Sesiones hacia integraciones" style="width: 800px">
 
-#### Flujo de integraciones, billing y configuración
+**Flujo de integraciones, billing y configuración**
 
-##### Integraciones hacia conexión con Jira
+**Integraciones hacia conexión con Jira**
 
 **Descripción:** El flujo muestra cómo el usuario inicia la configuración de Jira desde la página de integraciones. El modal guía la autenticación, la conexión del sitio Atlassian y la preparación del mapeo.
 
-<img src="assets/ui/web/wireflows/24_integrations_to_jira_connection_modal_wireflow.png" alt="Integraciones hacia conexión con Jira" width="100%">
+<img src="assets/ui/wireflows/integrations-to-jira-connection-modal.png" alt="Integraciones hacia conexión con Jira" style="width: 800px">
 
-##### Billing hacia configuración del workspace
+**Billing hacia configuración del workspace**
 
 **Descripción:** El flujo conecta la página de facturación con settings. Permite validar que el usuario puede revisar su plan, consumo y método de pago, y luego administrar configuración organizacional.
 
-<img src="assets/ui/web/wireflows/25_billing_to_settings_page_wireflow.png" alt="Billing hacia configuración del workspace" width="100%">
+<img src="assets/ui/wireflows/billing-to-settings-page.png" alt="Billing hacia configuración del workspace" style="width: 800px">
 
-##### Settings hacia gestión de equipo
+**Settings hacia gestión de equipo**
 
 **Descripción:** El flujo muestra la navegación desde la configuración general hacia Team Management. Permite administrar miembros, invitaciones, roles, permisos y alertas del equipo.
 
-<img src="assets/ui/web/wireflows/26_settings_to_team_management_wireflow.png" alt="Settings hacia gestión de equipo" width="100%">
+<img src="assets/ui/wireflows/settings-to-team-management.png" alt="Settings hacia gestión de equipo" style="width: 800px">
 
-##### Gestión de equipo hacia home con notificaciones
+**Gestión de equipo hacia home con notificaciones**
 
 **Descripción:** El flujo evidencia el retorno desde Team Management hacia el dashboard principal, donde se despliega el panel de notificaciones. Permite validar la continuidad de navegación y comunicación de eventos del sistema.
 
-<img src="assets/ui/web/wireflows/27_team_management_to_home_notifications_wireflow.png" alt="Gestión de equipo hacia home con notificaciones" width="100%">
+<img src="assets/ui/wireflows/team-management-to-home-notifications.png" alt="Gestión de equipo hacia home con notificaciones" style="width: 800px">
 
 ### 6.4.2. Applications Mock-ups
 
 Los siguientes mock-ups presentan la versión de alta fidelidad de la aplicación web de Reqs-AI. La secuencia evidencia el recorrido principal del usuario dentro de la plataforma: autenticación, creación del workspace, navegación inicial, gestión de proyectos, sesiones de descubrimiento, revisión de historias generadas por IA, integraciones, facturación y configuración del equipo.
 
-#### Autenticación y acceso
+**Autenticación y acceso**
 
-##### Google Auth External Authorization
+**Google Auth External Authorization**
+
 **Descripción:** Esta pantalla representa el flujo de autorización externa mediante Google. Permite evidenciar que Reqs-AI contempla un acceso rápido y seguro usando una cuenta existente, reduciendo la fricción del registro manual.
 
-<img src="assets/ui/web/mock-ups/00_google_auth_external_authorization.png" alt="Google Auth External Authorization" width="100%">
+<img src="assets/ui/mockups/google-auth-external-authorization.png" alt="Google Auth External Authorization" style="width: 800px">
 
-##### Login Screen
+**Login Screen**
+
 **Descripción:** Este mock-up muestra la pantalla de inicio de sesión de Reqs-AI. Aquí el usuario ingresa sus credenciales para acceder a sus proyectos, sesiones e historial dentro de la organización activa.
 
-<img src="assets/ui/web/mock-ups/01_login_screen.png" alt="Login Screen" width="100%">
+<img src="assets/ui/mockups/login-screen.png" alt="Login Screen" style="width: 800px">
 
-##### Signup Screen
+**Signup Screen**
+
 **Descripción:** Esta pantalla representa el registro de una nueva cuenta. El formulario permite que un visitante se convierta en usuario de la plataforma para posteriormente crear o asociarse a un workspace.
 
-<img src="assets/ui/web/mock-ups/02_signup_screen.png" alt="Signup Screen" width="100%">
+<img src="assets/ui/mockups/signup-screen.png" alt="Signup Screen" style="width: 800px">
 
-#### Onboarding y creación de workspace
+**Onboarding y creación de workspace**
 
-##### Dashboard Empty State Before Workspace
+**Dashboard Empty State Before Workspace**
+
 **Descripción:** Este mock-up muestra el estado inicial del dashboard cuando el usuario aún no ha creado ningún workspace. Funciona como punto de onboarding y guía al usuario hacia la creación de su primer espacio de trabajo.
 
-<img src="assets/ui/web/mock-ups/03_dashboard_empty_state_before_workspace.png" alt="Dashboard Empty State Before Workspace" width="100%">
+<img src="assets/ui/mockups/dashboard-empty-state-before-workspace.png" alt="Dashboard Empty State Before Workspace" style="width: 800px">
 
-##### Workspace Creation Modal Empty Fields
-**Descripción:** Esta pantalla presenta el modal inicial de creación de workspace con los campos vacíos. Su propósito es capturar los datos básicos de la organización o equipo que usará Reqs-AI.
+**Workspace Creation Modal Empty Fields**
 
-<img src="assets/ui/web/mock-ups/04_workspace_creation_modal_empty_fields.png" alt="Workspace Creation Modal Empty Fields" width="100%">
+**Descripción:** Esta pantalla presenta la modal inicial de creación de workspace con los campos vacíos. Su propósito es capturar los datos básicos de la organización o equipo que usará Reqs-AI.
 
-##### Workspace Creation Validation Errors
+<img src="assets/ui/mockups/workspace-creation-modal-empty-fields.png" alt="Workspace Creation Modal Empty Fields" style="width: 800px">
+
+**Workspace Creation Validation Errors**
+
 **Descripción:** Este mock-up evidencia las validaciones del formulario de creación de workspace. La interfaz informa al usuario cuando faltan campos obligatorios o cuando la información ingresada no cumple las reglas esperadas.
 
-<img src="assets/ui/web/mock-ups/05_workspace_creation_validation_errors.png" alt="Workspace Creation Validation Errors" width="100%">
+<img src="assets/ui/mockups/workspace-creation-validation-errors.png" alt="Workspace Creation Validation Errors" style="width: 800px">
 
-##### Workspace Creation Company Type Dropdown Open
+**Workspace Creation Company Type Dropdown Open**
+
 **Descripción:** Esta pantalla muestra el selector desplegable para elegir el tipo de empresa u organización. Este dato ayuda a contextualizar el uso de Reqs-AI según el perfil del equipo.
 
-<img src="assets/ui/web/mock-ups/06_workspace_creation_company_type_dropdown_open.png" alt="Workspace Creation Company Type Dropdown Open" width="100%">
+<img src="assets/ui/mockups/workspace-creation-company-type-dropdown-open.png" alt="Workspace Creation Company Type Dropdown Open" style="width: 800px">
 
-##### Workspace Creation Form Filled Private Visibility
+**Workspace Creation Form Filled Private Visibility**
+
 **Descripción:** Este mock-up representa el formulario de workspace completado, incluyendo la configuración de visibilidad privada. Permite revisar la información antes de confirmar la creación del entorno.
 
-<img src="assets/ui/web/mock-ups/07_workspace_creation_form_filled_private_visibility.png" alt="Workspace Creation Form Filled Private Visibility" width="100%">
+<img src="assets/ui/mockups/workspace-creation-form-filled-private-visibility.png" alt="Workspace Creation Form Filled Private Visibility" style="width: 800px">
 
-##### Workspace Creation Team Size Dropdown Open
+**Workspace Creation Team Size Dropdown Open**
+
 **Descripción:** Esta pantalla muestra el selector de tamaño del equipo. La selección permite adaptar la experiencia inicial y las recomendaciones del sistema según la cantidad de miembros del workspace.
 
-<img src="assets/ui/web/mock-ups/08_workspace_creation_team_size_dropdown_open.png" alt="Workspace Creation Team Size Dropdown Open" width="100%">
+<img src="assets/ui/mockups/workspace-creation-team-size-dropdown-open.png" alt="Workspace Creation Team Size Dropdown Open" style="width: 800px">
 
-##### Workspace Settings Company Type Dropdown Open
+**Workspace Settings Company Type Dropdown Open**
+
 **Descripción:** Este mock-up representa un estado de configuración donde se puede revisar o ajustar el tipo de organización. Refuerza que los datos del workspace pueden actualizarse según la realidad del equipo.
 
-<img src="assets/ui/web/mock-ups/09_workspace_settings_company_type_dropdown_open.png" alt="Workspace Settings Company Type Dropdown Open" width="100%">
+<img src="assets/ui/mockups/workspace-settings-company-type-dropdown-open.png" alt="Workspace Settings Company Type Dropdown Open" style="width: 800px">
 
-##### Workspace Onboarding Use Case Selection State
+**Workspace Onboarding Use Case Selection State**
+
 **Descripción:** Esta pantalla muestra la selección del caso de uso principal del workspace. Permite orientar la plataforma hacia discovery, levantamiento de requisitos, generación de historias o integración con herramientas ágiles.
 
-<img src="assets/ui/web/mock-ups/10_workspace_onboarding_use_case_selection_state.png" alt="Workspace Onboarding Use Case Selection State" width="100%">
+<img src="assets/ui/mockups/workspace-onboarding-use-case-selection-state.png" alt="Workspace Onboarding Use Case Selection State" style="width: 800px">
 
-##### Workspace Use Case Selection Modal
+**Workspace Use Case Selection Modal**
+
 **Descripción:** Este mock-up presenta el modal donde el usuario define el enfoque inicial de uso de Reqs-AI. Esta decisión ayuda a personalizar el onboarding y las siguientes acciones dentro de la plataforma.
 
-<img src="assets/ui/web/mock-ups/11_workspace_use_case_selection_modal.png" alt="Workspace Use Case Selection Modal" width="100%">
+<img src="assets/ui/mockups/workspace-use-case-selection-modal.png" alt="Workspace Use Case Selection Modal" style="width: 800px">
 
-##### Workspace Setup Summary Form Filled
+**Workspace Setup Summary Form Filled**
+
 **Descripción:** Esta pantalla funciona como resumen previo a la creación definitiva del workspace. El usuario puede validar los datos ingresados antes de confirmar el espacio de trabajo.
 
-<img src="assets/ui/web/mock-ups/12_workspace_setup_summary_form_filled.png" alt="Workspace Setup Summary Form Filled" width="100%">
+<img src="assets/ui/mockups/workspace-setup-summary-form-filled.png" alt="Workspace Setup Summary Form Filled" style="width: 800px">
 
-##### Workspace Creation Loading State
+**Workspace Creation Loading State**
+
 **Descripción:** Este mock-up muestra el estado de carga después de confirmar la creación del workspace. Comunica que el sistema está procesando la solicitud y evita acciones repetidas.
 
-<img src="assets/ui/web/mock-ups/13_workspace_creation_loading_state.png" alt="Workspace Creation Loading State" width="100%">
+<img src="assets/ui/mockups/workspace-creation-loading-state.png" alt="Workspace Creation Loading State" style="width: 800px">
 
-##### Workspace Creation Progress Loading State
+**Workspace Creation Progress Loading State**
+
 **Descripción:** Esta pantalla representa un estado de progreso durante la creación del workspace. Muestra que el sistema está configurando el entorno, preparando datos iniciales y habilitando el acceso.
 
-<img src="assets/ui/web/mock-ups/14_workspace_creation_progress_loading_state.png" alt="Workspace Creation Progress Loading State" width="100%">
+<img src="assets/ui/mockups/workspace-creation-progress-loading-state.png" alt="Workspace Creation Progress Loading State" style="width: 800px">
 
-##### Workspace Created Success Modal
+**Workspace Created Success Modal**
+
 **Descripción:** Este mock-up evidencia la confirmación de creación exitosa del workspace. La interfaz informa que el espacio ya está listo y permite continuar hacia el dashboard principal.
 
-<img src="assets/ui/web/mock-ups/15_workspace_created_success_modal.png" alt="Workspace Created Success Modal" width="100%">
+<img src="assets/ui/mockups/workspace-created-success-modal.png" alt="Workspace Created Success Modal" style="width: 800px">
 
-##### Workspace Created Success Details Modal
+**Workspace Created Success Details Modal**
+
 **Descripción:** Esta pantalla complementa el mensaje de éxito con detalles del workspace creado. Refuerza el cierre del flujo de onboarding y da claridad sobre el nuevo entorno de trabajo.
 
-<img src="assets/ui/web/mock-ups/16_workspace_created_success_details_modal.png" alt="Workspace Created Success Details Modal" width="100%">
+<img src="assets/ui/mockups/workspace-created-success-details-modal.png" alt="Workspace Created Success Details Modal" style="width: 800px">
 
-#### Dashboard y navegación principal
+**Dashboard y navegación principal**
 
-##### Workspace Dashboard Home
+**Workspace Dashboard Home**
+
 **Descripción:** Este mock-up muestra el dashboard principal luego de crear el workspace. Presenta una vista general de actividad, accesos rápidos y métricas iniciales.
 
-<img src="assets/ui/web/mock-ups/17_workspace_dashboard_home.png" alt="Workspace Dashboard Home" width="100%">
+<img src="assets/ui/mockups/workspace-dashboard-home.png" alt="Workspace Dashboard Home" style="width: 800px">
 
-##### Workspace Switcher Menu Open
+**Workspace Switcher Menu Open**
+
 **Descripción:** Esta pantalla evidencia el selector de workspace abierto. Permite cambiar entre organizaciones o espacios de trabajo, asegurando que el usuario opere en el contexto correcto.
 
-<img src="assets/ui/web/mock-ups/18_workspace_switcher_menu_open.png" alt="Workspace Switcher Menu Open" width="100%">
+<img src="assets/ui/mockups/workspace-switcher-menu-open.png" alt="Workspace Switcher Menu Open" style="width: 800px">
 
-##### User Profile Menu Open
+**User Profile Menu Open**
+
 **Descripción:** Este mock-up muestra el menú de perfil del usuario. Desde esta sección se accede a opciones personales, configuración de cuenta o cierre de sesión.
 
-<img src="assets/ui/web/mock-ups/19_user_profile_menu_open.png" alt="User Profile Menu Open" width="100%">
+<img src="assets/ui/mockups/user-profile-menu-open.png" alt="User Profile Menu Open" style="width: 800px">
 
-#### Gestión de proyectos
+**Gestión de proyectos**
 
-##### Projects Page Overview
+**Projects Page Overview**
+
 **Descripción:** Este mock-up presenta la vista principal de proyectos dentro del workspace. Permite visualizar proyectos activos, su estado y accesos para crear o administrar iniciativas.
 
-<img src="assets/ui/web/mock-ups/20_projects_page_overview.png" alt="Projects Page Overview" width="100%">
+<img src="assets/ui/mockups/projects-page-overview.png" alt="Projects Page Overview" style="width: 800px">
 
-##### Projects Board Overview
+**Projects Board Overview**
+
 **Descripción:** Esta pantalla muestra una vista tipo tablero de proyectos. Facilita comparar proyectos, revisar su avance y acceder a sesiones o historias relacionadas.
 
-<img src="assets/ui/web/mock-ups/21_projects_board_overview.png" alt="Projects Board Overview" width="100%">
+<img src="assets/ui/mockups/projects-board-overview.png" alt="Projects Board Overview" style="width: 800px">
 
-##### Live Discovery Session Modal Configuration
+**Live Discovery Session Modal Configuration**
+
 **Descripción:** Esta pantalla representa la configuración de una sesión de descubrimiento en vivo. El usuario puede preparar la captura de audio y activar el soporte de IA para convertir la conversación en historias de usuario.
 
-<img src="assets/ui/web/mock-ups/22_live_discovery_session_modal_configuration.png" alt="Live Discovery Session Modal Configuration" width="100%">
+<img src="assets/ui/mockups/live-discovery-session-modal-configuration.png" alt="Live Discovery Session Modal Configuration" style="width: 800px">
 
-#### Historias de usuario generadas por IA
+**Historias de usuario generadas por IA**
 
-##### User Stories Page Review Board
+**User Stories Page Review Board**
+
 **Descripción:** Este mock-up muestra el tablero de revisión de historias de usuario generadas por IA. Las historias pueden organizarse por estado, revisarse, editarse y aprobarse antes de pasar al backlog.
 
-<img src="assets/ui/web/mock-ups/23_user_stories_page_review_board.png" alt="User Stories Page Review Board" width="100%">
+<img src="assets/ui/mockups/user-stories-page-review-board.png" alt="User Stories Page Review Board" style="width: 800px">
 
-#### Integraciones, billing y configuración
+**Integraciones, billing y configuración**
 
-##### Integrations Page Jira Connection
+**Integrations Page Jira Connection**
+
 **Descripción:** Este mock-up muestra la página de integraciones externas, destacando la conexión con Jira. Permite evidenciar cómo Reqs-AI facilita llevar historias aprobadas hacia herramientas ágiles.
 
-<img src="assets/ui/web/mock-ups/24_integrations_page_jira_connection.png" alt="Integrations Page Jira Connection" width="100%">
+<img src="assets/ui/mockups/integrations-page-jira-connection.png" alt="Integrations Page Jira Connection" style="width: 800px">
 
-##### Jira Connection Modal OAuth Flow
+**Jira Connection Modal OAuth Flow**
+
 **Descripción:** Esta pantalla representa el modal de conexión con Jira mediante autorización OAuth. El objetivo es vincular Reqs-AI con Atlassian de forma segura, sin exponer credenciales directamente.
 
-<img src="assets/ui/web/mock-ups/25_jira_connection_modal_oauth_flow.png" alt="Jira Connection Modal OAuth Flow" width="100%">
+<img src="assets/ui/mockups/jira-connection-modal-oauth-flow.png" alt="Jira Connection Modal OAuth Flow" style="width: 800px">
 
-##### Billing Subscription Page
+**Billing Subscription Page**
+
 **Descripción:** Este mock-up presenta la página de suscripción y facturación. Permite visualizar el plan activo, consumo, límites y opciones de actualización del modelo SaaS.
 
-<img src="assets/ui/web/mock-ups/26_billing_subscription_page.png" alt="Billing Subscription Page" width="100%">
+<img src="assets/ui/mockups/billing-subscription-page.png" alt="Billing Subscription Page" style="width: 800px">
 
-##### Settings Workspace Configuration Page
+**Settings Workspace Configuration Page**
+
 **Descripción:** Esta pantalla muestra la configuración general del workspace. Desde aquí se gestionan datos de la organización, preferencias del entorno y ajustes principales.
 
-<img src="assets/ui/web/mock-ups/27_settings_workspace_configuration_page.png" alt="Settings Workspace Configuration Page" width="100%">
+<img src="assets/ui/mockups/settings-workspace-configuration-page.png" alt="Settings Workspace Configuration Page" style="width: 800px">
 
-##### Navigation Consistency Check Frame
+**Navigation Consistency Check Frame**
+
 **Descripción:** Esta pantalla evidencia la consistencia visual de la navegación en la aplicación. Mantiene sidebar, barra superior, acciones principales y perfil de usuario de forma uniforme.
 
-<img src="assets/ui/web/mock-ups/28_navigation_consistency_check_frame.png" alt="Navigation Consistency Check Frame" width="100%">
+<img src="assets/ui/mockups/navigation-consistency-check-frame.png" alt="Navigation Consistency Check Frame" style="width: 800px">
 
-##### Settings Team Members Management Page
+**Settings Team Members Management Page**
+
 **Descripción:** Este mock-up representa la administración de miembros del equipo. Permite invitar usuarios, revisar integrantes, gestionar roles y controlar accesos al workspace.
 
-<img src="assets/ui/web/mock-ups/29_settings_team_members_management_page.png" alt="Settings Team Members Management Page" width="100%">
+<img src="assets/ui/mockups/settings-team-members-management-page.png" alt="Settings Team Members Management Page" style="width: 800px">
 
-#### Sesiones de descubrimiento
+**Sesiones de descubrimiento**
 
-##### Discovery Sessions Page Simple Overview
+**Discovery Sessions Page Simple Overview**
+
 **Descripción:** Esta pantalla muestra una vista general de las sesiones de descubrimiento. Permite revisar reuniones registradas, su estado y el acceso a sesiones anteriores.
 
-<img src="assets/ui/web/mock-ups/30_discovery_sessions_page_simple_overview.png" alt="Discovery Sessions Page Simple Overview" width="100%">
+<img src="assets/ui/mockups/discovery-sessions-page-simple-overview.png" alt="Discovery Sessions Page Simple Overview" style="width: 800px">
 
-##### Discovery Sessions Page Metrics And Export
+**Discovery Sessions Page Metrics And Export**
+
 **Descripción:** Este mock-up amplía la vista de sesiones con métricas y acciones de exportación. Permite evidenciar el valor generado por Reqs-AI mediante sesiones procesadas y resultados obtenidos.
 
-<img src="assets/ui/web/mock-ups/31_discovery_sessions_page_metrics_and_export.png" alt="Discovery Sessions Page Metrics And Export" width="100%">
+<img src="assets/ui/mockups/discovery-sessions-page-metrics-and-export.png" alt="Discovery Sessions Page Metrics And Export" style="width: 800px">
 
-##### User Story Review Drawer With Gherkin
+**User Story Review Drawer With Gherkin**
+
 **Descripción:** Esta pantalla presenta el panel lateral de detalle de una historia de usuario. Incluye descripción, criterios de aceptación en formato Gherkin, nivel de confianza y acciones de edición o aprobación.
 
-<img src="assets/ui/web/mock-ups/32_user_story_review_drawer_with_gherkin.png" alt="User Story Review Drawer With Gherkin" width="100%">
+<img src="assets/ui/mockups/user-story-review-drawer-with-gherkin.png" alt="User Story Review Drawer With Gherkin" style="width: 800px">
 
-##### Create New Project Modal Template Selection
+**Create New Project Modal Template Selection**
+
 **Descripción:** Este mock-up representa el modal de creación de un nuevo proyecto. Incluye la selección de plantilla o tipo de proyecto para configurar rápidamente un espacio de levantamiento de requisitos.
 
-<img src="assets/ui/web/mock-ups/33_create_new_project_modal_template_selection.png" alt="Create New Project Modal Template Selection" width="100%">
+<img src="assets/ui/mockups/create-new-project-modal-template-selection.png" alt="Create New Project Modal Template Selection" style="width: 800px">
 
-### 6.4.3.	Applications User Flow Diagrams
+### 6.4.3. Applications User Flow Diagrams
 
-## 6.5.	Applications Prototyping
+## 6.5. Applications Prototyping
 
 # Capítulo VII: Product Implementation, Validation & Deployment
 
-## 7.1.	Software Configuration Management
+## 7.1. Software Configuration Management
 
-### 7.1.1.	Software Development Environment Configuration
+### 7.1.1. Software Development Environment Configuration
 
-### 7.1.2.	Source Code Management
+### 7.1.2. Source Code Management
 
-### 7.1.3.	Source Code Style Guide & Conventions
+### 7.1.3. Source Code Style Guide & Conventions
 
-### 7.1.4.	Software Deployment Configuration
+### 7.1.4. Software Deployment Configuration
 
-## 7.2.	Solution Implementation
+## 7.2. Solution Implementation
 
-### 7.2.X.	Sprint n
+### 7.2.X. Sprint n
 
-#### 7.2.X.1.	Sprint Planning n
+#### 7.2.X.1. Sprint Planning n
 
-#### 7.2.X.2.	Sprint Backlog n
+#### 7.2.X.2. Sprint Backlog n
 
-#### 7.2.X.3.	Development Evidence for Sprint Review
+#### 7.2.X.3. Development Evidence for Sprint Review
 
-#### 7.2.X.4.	Testing Suite Evidence for Sprint Review
+#### 7.2.X.4. Testing Suite Evidence for Sprint Review
 
-#### 7.2.X.5.	Execution Evidence for Sprint Review
+#### 7.2.X.5. Execution Evidence for Sprint Review
 
-#### 7.2.X.6.	Services Documentation Evidence for Sprint Review
+#### 7.2.X.6. Services Documentation Evidence for Sprint Review
 
-#### 7.2.X.7.	Software Deployment Evidence for Sprint Review
+#### 7.2.X.7. Software Deployment Evidence for Sprint Review
 
-#### 7.2.X.8.	Team Collaboration Insights during Sprint
+#### 7.2.X.8. Team Collaboration Insights during Sprint
 
-## 7.3.	Validation Interviews
+## 7.3. Validation Interviews
 
-### 7.3.1.	Diseño de Entrevistas
+### 7.3.1. Diseño de Entrevistas
 
-### 7.3.2.	Registro de Entrevistas
+### 7.3.2. Registro de Entrevistas
 
-### 7.3.3.	Evaluaciones según heurísticas
+### 7.3.3. Evaluaciones según heurísticas
 
-## 7.4.	Video About-the-Product
+## 7.4. Video About-the-Product
 
 # Conclusiones
 
@@ -2511,7 +2539,6 @@ Como siguientes pasos, se recomienda priorizar un MVP enfocado en el flujo crít
 >Pulse of the Profession (2018) Success in Disruptive Times. Project Management Institute. Recuperado el 15 de Abril de 2025, de https://www.pmi.org/learning/thought-leadership/pulse/pulse-of-the-profession-2018
 
 >Jhonson J (2020) CHAOS Report: Beyond Infinity. Standish Group. Recuperado el 15 de Abril de 2025, de https://www.standishgroup.com/products/copy-of-chaos-report-beyond-infinity-digital-version
-
 
 # Anexos
 
