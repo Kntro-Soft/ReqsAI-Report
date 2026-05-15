@@ -1,4 +1,4 @@
-<body>
+﻿<body>
     <div style="text-align: center; font-weight: bolder">
         <p>Universidad Peruana de Ciencias Aplicadas - Ingeniería de Software - 8 Ciclo</p>
         <img src="assets/brand/logo-upc.png" alt="logo of UPC"/>
@@ -2496,13 +2496,512 @@ En esta sección se presenta el diagrama de base de datos del BC IAM. Incluye la
 
 ## 5.2. Bounded Context: Billing and Subscriptions
 
+El BC Billing and Subscriptions gestiona el ciclo de vida de las suscripciones de las organizaciones en Reqs-AI. Es responsable desde la asignación del plan gratuito hasta las transiciones de plan, cancelaciones y seguimiento del consumo de tokens. Implementa el patrón `PaymentProviderRef` para mantenerse desacoplado del proveedor de pagos concreto (Stripe, Culqi, etc.).
+
 ### 5.2.1. Domain Layer
+
+Esta capa contiene las reglas de negocio de suscripciones, cuotas de uso y ciclo de vida de planes, sin dependencia de frameworks externos.
+
+**Aggregate Roots**
+
+**Aggregate: `Subscription`**
+
+| Campo               | Detalle                                                                                                                                                                                   |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Paquete**         | `com.kntrosoft.reqsai.billing.domain.model.aggregates`                                                                                                                                    |
+| **Extiende**        | `AbstractAggregateRoot<Subscription>`                                                                                                                                                     |
+| **Propósito**       | Representa la suscripción de una organización a un plan. Controla las transiciones de plan, cancelaciones, reactivaciones y el seguimiento del consumo de tokens contra la cuota mensual. |
+| **Anotaciones JPA** | `@Entity`, `@Table(name = "subscriptions")`                                                                                                                                               |
+
+**Atributos:**
+
+| Atributo             | Tipo                  | Columna JPA            | Descripción                                                  |
+|----------------------|-----------------------|------------------------|--------------------------------------------------------------|
+| `id`                 | `SubscriptionId`      | `id`                   | Identificador único de la suscripción (UUID).                |
+| `organizationId`     | `OrganizationId`      | `organization_id`      | Referencia a la organización propietaria.                    |
+| `planType`           | `PlanType`            | `plan_type`            | Plan actual: FREE, PRO o ENTERPRISE.                         |
+| `status`             | `SubscriptionStatus`  | `status`               | Estado actual de la suscripción en su ciclo de vida.         |
+| `providerRef`        | `PaymentProviderRef?` | `@Embedded`            | Referencia al proveedor de pagos externo. Nulo en plan FREE. |
+| `currentPeriodStart` | `Instant`             | `current_period_start` | Inicio del período de facturación vigente.                   |
+| `currentPeriodEnd`   | `Instant`             | `current_period_end`   | Fin del período de facturación vigente.                      |
+| `tokenQuotaUsed`     | `Long`                | `token_quota_used`     | Tokens consumidos en el período actual.                      |
+| `cancelledAt`        | `Instant?`            | `cancelled_at`         | Fecha de cancelación. Nulo si no ha sido cancelada.          |
+
+**Constructores:**
+
+| Constructor                                   | Visibilidad | Propósito                                                                       |
+|-----------------------------------------------|-------------|---------------------------------------------------------------------------------|
+| `protected Subscription()`                    | `protected` | Para JPA. No instanciar directamente.                                           |
+| `Subscription(OrganizationId organizationId)` | `public`    | Crea suscripción gratuita en estado `ACTIVE`. Inicializa `tokenQuotaUsed` en 0. |
+
+**Métodos de negocio:**
+
+| Método                                                                                                 | Visibilidad | Parámetros                                            | Retorna | Descripción                                                            | Excepciones lanzadas                                                        |
+|--------------------------------------------------------------------------------------------------------|-------------|-------------------------------------------------------|---------|------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| `upgradeTo(PlanType planType, PaymentProviderRef providerRef, Instant periodStart, Instant periodEnd)` | `public`    | `planType`, `providerRef`, `periodStart`, `periodEnd` | `void`  | Transiciona a un plan superior y registra la referencia del proveedor. | `CannotUpgradeSubscriptionException` si está cancelada o ya tiene ese plan. |
+| `cancel(Instant cancelledAt)`                                                                          | `public`    | `cancelledAt: Instant`                                | `void`  | Cancela la suscripción.                                                | `CannotCancelSubscriptionException` si ya está cancelada.                   |
+| `reactivate(Instant periodStart, Instant periodEnd)`                                                   | `public`    | `periodStart`, `periodEnd: Instant`                   | `void`  | Reactiva la suscripción cancelada.                                     | `CannotReactivateSubscriptionException` si no está en estado `CANCELLED`.   |
+| `incrementTokenUsage(Long tokens)`                                                                     | `public`    | `tokens: Long`                                        | `void`  | Suma tokens al consumo del período actual.                             | —                                                                           |
+| `resetQuota()`                                                                                         | `public`    | —                                                     | `void`  | Reinicia `tokenQuotaUsed` a 0 al inicio de nuevo período.              | —                                                                           |
+| `applyProviderRef(PaymentProviderRef providerRef)`                                                     | `public`    | `providerRef: PaymentProviderRef`                     | `void`  | Actualiza la referencia del proveedor externo.                         | —                                                                           |
+
+**Métodos de consulta:**
+
+| Método                            | Visibilidad | Retorna   | Descripción                              |
+|-----------------------------------|-------------|-----------|------------------------------------------|
+| `isActive()`                      | `public`    | `boolean` | `true` si el status es `ACTIVE`.         |
+| `isCancelled()`                   | `public`    | `boolean` | `true` si el status es `CANCELLED`.      |
+| `isPastDue()`                     | `public`    | `boolean` | `true` si el status es `PAST_DUE`.       |
+| `isQuotaExceeded(Long maxTokens)` | `public`    | `boolean` | `true` si `tokenQuotaUsed >= maxTokens`. |
+| `isFree()`                        | `public`    | `boolean` | `true` si `planType` es `FREE`.          |
+
+**Relaciones:**
+
+| Relación                              | Tipo                      | Multiplicidad | Detalles                        |
+|---------------------------------------|---------------------------|---------------|---------------------------------|
+| `Subscription` → `OrganizationId`     | Referencia por ID         | 1..1          | Mantiene frontera de aggregate. |
+| `Subscription` → `PaymentProviderRef` | Composición (`@Embedded`) | 0..1          | VO embebido, nulo en plan FREE. |
+
+---
+
+**Value Objects**
+
+**Value Object: `PaymentProviderRef`**
+
+| Campo         | Detalle                                                                                                                                           |
+|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Paquete**   | `com.kntrosoft.reqsai.billing.domain.model.valueobjects`                                                                                          |
+| **Tipo Java** | `record`                                                                                                                                          |
+| **Propósito** | Encapsula la referencia a un proveedor de pagos externo. Permite cambiar de proveedor (Stripe → Culqi) sin modificar el aggregate `Subscription`. |
+
+**Campos:**
+
+| Campo        | Tipo              | Descripción                                       |
+|--------------|-------------------|---------------------------------------------------|
+| `provider`   | `PaymentProvider` | Proveedor que emitió la suscripción externa.      |
+| `externalId` | `String`          | ID de la suscripción en el sistema del proveedor. |
+
+**Validaciones en compact constructor:**
+
+| Regla                                  | Excepción lanzada       | Error Code                     |
+|----------------------------------------|-------------------------|--------------------------------|
+| `provider` no puede ser nulo           | `InvalidValueException` | `INVALID_PAYMENT_PROVIDER_REF` |
+| `externalId` no puede ser nulo o vacío | `InvalidValueException` | `INVALID_PAYMENT_PROVIDER_REF` |
+
+---
+
+**Value Object: `PaymentProvider`**
+
+| Campo         | Detalle                                                                         |
+|---------------|---------------------------------------------------------------------------------|
+| **Paquete**   | `com.kntrosoft.reqsai.billing.domain.model.valueobjects`                        |
+| **Tipo Java** | `enum`                                                                          |
+| **Propósito** | Identifica el proveedor de pagos externo con el que se gestiona la suscripción. |
+
+**Valores:**
+
+| Valor          | Descripción en el negocio                  |
+|----------------|--------------------------------------------|
+| `STRIPE`       | Proveedor Stripe (mercado internacional).  |
+| `CULQI`        | Proveedor Culqi (mercado latinoamericano). |
+| `PAYPAL`       | Proveedor PayPal.                          |
+| `MERCADO_PAGO` | Proveedor Mercado Pago.                    |
+
+---
+
+**Value Object: `PlanType`**
+
+| Campo         | Detalle                                                  |
+|---------------|----------------------------------------------------------|
+| **Paquete**   | `com.kntrosoft.reqsai.billing.domain.model.valueobjects` |
+| **Tipo Java** | `enum`                                                   |
+| **Propósito** | Define los tipos de plan disponibles en Reqs-AI.         |
+
+**Valores:**
+
+| Valor        | Descripción en el negocio                                           |
+|--------------|---------------------------------------------------------------------|
+| `FREE`       | Plan gratuito con cuotas reducidas. Sin proveedor de pagos externo. |
+| `PRO`        | Plan de pago mensual con cuotas ampliadas.                          |
+| `ENTERPRISE` | Plan corporativo con cuotas máximas y soporte dedicado.             |
+
+---
+
+**Value Object: `SubscriptionStatus`**
+
+| Campo         | Detalle                                                           |
+|---------------|-------------------------------------------------------------------|
+| **Paquete**   | `com.kntrosoft.reqsai.billing.domain.model.valueobjects`          |
+| **Tipo Java** | `enum`                                                            |
+| **Propósito** | Define los estados posibles del ciclo de vida de una suscripción. |
+
+**Valores:**
+
+| Valor       | Descripción en el negocio                                            |
+|-------------|----------------------------------------------------------------------|
+| `ACTIVE`    | Suscripción activa y vigente.                                        |
+| `CANCELLED` | Suscripción cancelada. Acceso puede mantenerse hasta fin de período. |
+| `PAST_DUE`  | Pago fallido. Acceso restringido hasta regularizar.                  |
+| `TRIALING`  | En período de prueba.                                                |
+
+---
+
+**Domain Exceptions**
+
+| Clase                                   | Extiende                         | HTTP Status | Error Code                       | Cuándo se lanza                                              |
+|-----------------------------------------|----------------------------------|-------------|----------------------------------|--------------------------------------------------------------|
+| `SubscriptionNotFoundException`         | `EntityNotFoundException`        | 404         | `SUBSCRIPTION_NOT_FOUND`         | No se encuentra la suscripción por ID u organizationId.      |
+| `SubscriptionAlreadyExistsException`    | `BusinessRuleViolationException` | 409         | `SUBSCRIPTION_ALREADY_EXISTS`    | La organización ya tiene una suscripción activa.             |
+| `CannotUpgradeSubscriptionException`    | `BusinessRuleViolationException` | 409         | `CANNOT_UPGRADE_SUBSCRIPTION`    | La suscripción está cancelada o ya tiene el plan solicitado. |
+| `CannotCancelSubscriptionException`     | `BusinessRuleViolationException` | 409         | `CANNOT_CANCEL_SUBSCRIPTION`     | La suscripción ya está cancelada.                            |
+| `CannotReactivateSubscriptionException` | `BusinessRuleViolationException` | 409         | `CANNOT_REACTIVATE_SUBSCRIPTION` | La suscripción no está en estado `CANCELLED`.                |
+| `TokenQuotaExceededException`           | `BusinessRuleViolationException` | 409         | `TOKEN_QUOTA_EXCEEDED`           | El consumo de tokens supera la cuota del plan.               |
+
+---
+
+**Domain Events**
+
+| Clase                        | Paquete                        | Campos clave                                                           | Se publica cuando                                | Consumido por                                                |
+|------------------------------|--------------------------------|------------------------------------------------------------------------|--------------------------------------------------|--------------------------------------------------------------|
+| `SubscriptionAssignedEvent`  | `billing/api/`                 | `subscriptionId`, `organizationId`, `planType`, `occurredAt`           | Se asigna el plan FREE a una organización nueva. | BC Workspace (aplica `PlanLimits` a la organización).        |
+| `SubscriptionUpgradedEvent`  | `billing/api/`                 | `subscriptionId`, `organizationId`, `oldPlan`, `newPlan`, `occurredAt` | Se completa `UpgradeSubscriptionCommandHandler`. | BC Workspace (actualiza `PlanLimits`).                       |
+| `SubscriptionCancelledEvent` | `billing/domain/model/events/` | `subscriptionId`, `organizationId`, `occurredAt`                       | La suscripción pasa a estado `CANCELLED`.        | Interno.                                                     |
+| `TokenQuotaExceededEvent`    | `billing/api/`                 | `subscriptionId`, `organizationId`, `quotaUsed`, `occurredAt`          | `tokenQuotaUsed` alcanza el máximo del plan.     | BC Req Discovery (bloquea procesamiento de nuevas sesiones). |
+
+---
+
+**Commands**
+
+| Clase                           | Paquete                  | Campos                                                                                         | Handler que lo procesa                 |
+|---------------------------------|--------------------------|------------------------------------------------------------------------------------------------|----------------------------------------|
+| `AssignFreeSubscriptionCommand` | `domain/model/commands/` | `organizationId: String`                                                                       | `AssignFreeSubscriptionCommandHandler` |
+| `UpgradeSubscriptionCommand`    | `domain/model/commands/` | `subscriptionId: String`, `planType: String`, `providerExternalId: String`, `provider: String` | `UpgradeSubscriptionCommandHandler`    |
+| `CancelSubscriptionCommand`     | `domain/model/commands/` | `subscriptionId: String`                                                                       | `CancelSubscriptionCommandHandler`     |
+| `ReactivateSubscriptionCommand` | `domain/model/commands/` | `subscriptionId: String`                                                                       | `ReactivateSubscriptionCommandHandler` |
+| `IncrementTokenUsageCommand`    | `domain/model/commands/` | `organizationId: String`, `tokens: Long`                                                       | `IncrementTokenUsageCommandHandler`    |
+| `ResetQuotaCommand`             | `domain/model/commands/` | `subscriptionId: String`                                                                       | `ResetQuotaCommandHandler`             |
+
+**Queries**
+
+| Clase                                | Paquete                 | Campos                   | Handler que lo procesa                      |
+|--------------------------------------|-------------------------|--------------------------|---------------------------------------------|
+| `GetSubscriptionByOrganizationQuery` | `domain/model/queries/` | `organizationId: String` | `GetSubscriptionByOrganizationQueryHandler` |
+| `GetSubscriptionByIdQuery`           | `domain/model/queries/` | `subscriptionId: String` | `GetSubscriptionByIdQueryHandler`           |
+
+---
 
 ### 5.2.2. Interface Layer
 
+Esta capa expone los endpoints REST del BC Billing para consulta y gestión de suscripciones, y recibe webhooks de proveedores de pago.
+
+**Controllers**
+
+**`SubscriptionController` (Swagger Interface)**
+
+| Campo           | Detalle                                                                      |
+|-----------------|------------------------------------------------------------------------------|
+| **Paquete**     | `com.kntrosoft.reqsai.billing.interfaces.rest.swagger`                       |
+| **Base path**   | `ApiVersioning.BASE + "/subscriptions"` → `/api/v1/subscriptions`            |
+| **Tag OpenAPI** | `"Subscriptions"`                                                            |
+| **Propósito**   | Contrato OpenAPI para consulta y gestión del ciclo de vida de suscripciones. |
+
+| Método HTTP | Path                             | Nombre del método               | Request DTO                     | Response DTO           | Códigos HTTP            |
+|-------------|----------------------------------|---------------------------------|---------------------------------|------------------------|-------------------------|
+| `GET`       | `/organization/{organizationId}` | `getSubscriptionByOrganization` | — (path variable)               | `SubscriptionResponse` | 200, 401, 404           |
+| `POST`      | `/`                              | `assignFreeSubscription`        | `AssignFreeSubscriptionRequest` | `SubscriptionResponse` | 201, 400, 401, 409      |
+| `PUT`       | `/{id}/upgrade`                  | `upgradeSubscription`           | `UpgradeSubscriptionRequest`    | `SubscriptionResponse` | 200, 400, 401, 404, 409 |
+| `PUT`       | `/{id}/cancel`                   | `cancelSubscription`            | —                               | `SubscriptionResponse` | 200, 401, 404, 409      |
+| `PUT`       | `/{id}/reactivate`               | `reactivateSubscription`        | —                               | `SubscriptionResponse` | 200, 401, 404, 409      |
+
+**`SubscriptionControllerImpl` (Implementation)**
+
+| Campo           | Detalle                                                    |
+|-----------------|------------------------------------------------------------|
+| **Paquete**     | `com.kntrosoft.reqsai.billing.interfaces.rest.controllers` |
+| **Anotaciones** | `@Slf4j`, `@RestController`, `@RequiredArgsConstructor`    |
+| **Implementa**  | `SubscriptionController`                                   |
+
+| Handler                                     | Para qué endpoint                    |
+|---------------------------------------------|--------------------------------------|
+| `GetSubscriptionByOrganizationQueryHandler` | `GET /organization/{organizationId}` |
+| `AssignFreeSubscriptionCommandHandler`      | `POST /`                             |
+| `UpgradeSubscriptionCommandHandler`         | `PUT /{id}/upgrade`                  |
+| `CancelSubscriptionCommandHandler`          | `PUT /{id}/cancel`                   |
+| `ReactivateSubscriptionCommandHandler`      | `PUT /{id}/reactivate`               |
+
+---
+
+**`BillingWebhookController` (Swagger Interface)**
+
+| Campo           | Detalle                                                                                         |
+|-----------------|-------------------------------------------------------------------------------------------------|
+| **Paquete**     | `com.kntrosoft.reqsai.billing.interfaces.rest.swagger`                                          |
+| **Base path**   | `ApiVersioning.BASE + "/billing/webhooks"` → `/api/v1/billing/webhooks`                         |
+| **Tag OpenAPI** | `"Billing Webhooks"`                                                                            |
+| **Propósito**   | Recibe notificaciones de eventos de proveedores de pago (pagos exitosos, fallos, renovaciones). |
+
+| Método HTTP | Path      | Nombre del método     | Request DTO            | Response DTO | Códigos HTTP |
+|-------------|-----------|-----------------------|------------------------|--------------|--------------|
+| `POST`      | `/stripe` | `handleStripeWebhook` | `String` (payload raw) | `void`       | 200, 400     |
+| `POST`      | `/culqi`  | `handleCulqiWebhook`  | `String` (payload raw) | `void`       | 200, 400     |
+
+**`BillingWebhookControllerImpl` (Implementation)**
+
+| Campo           | Detalle                                                    |
+|-----------------|------------------------------------------------------------|
+| **Paquete**     | `com.kntrosoft.reqsai.billing.interfaces.rest.controllers` |
+| **Anotaciones** | `@Slf4j`, `@RestController`, `@RequiredArgsConstructor`    |
+| **Implementa**  | `BillingWebhookController`                                 |
+
+| Handler                                                                  | Para qué endpoint                  |
+|--------------------------------------------------------------------------|------------------------------------|
+| `PaymentProviderPort`                                                    | Verificación de firma del webhook. |
+| `UpgradeSubscriptionCommandHandler` / `CancelSubscriptionCommandHandler` | Según evento del proveedor.        |
+
+---
+
+**Request DTOs**
+
+| Clase                           | Paquete                        | Campos                                                               | Validaciones Jakarta |
+|---------------------------------|--------------------------------|----------------------------------------------------------------------|----------------------|
+| `AssignFreeSubscriptionRequest` | `interfaces/rest/dto/request/` | `organizationId: String`                                             | `@NotBlank`          |
+| `UpgradeSubscriptionRequest`    | `interfaces/rest/dto/request/` | `planType: String`, `provider: String`, `providerExternalId: String` | `@NotBlank` en todos |
+
+**Response DTOs**
+
+| Clase                  | Paquete                         | Campos                                                                                                                                                                                                                                        | Notas                  |
+|------------------------|---------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------|
+| `SubscriptionResponse` | `interfaces/rest/dto/response/` | `id: String`, `organizationId: String`, `planType: String`, `status: String`, `provider: String?`, `providerExternalId: String?`, `currentPeriodStart: Instant`, `currentPeriodEnd: Instant`, `tokenQuotaUsed: Long`, `cancelledAt: Instant?` | `@Builder` + `@Schema` |
+
+**Mappers**
+
+**Request Mappers:**
+
+| Clase                                 | Método                                                                                       | Convierte                                                                   |
+|---------------------------------------|----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| `AssignFreeSubscriptionRequestMapper` | `static AssignFreeSubscriptionCommand toCommand(AssignFreeSubscriptionRequest request)`      | DTO → Command.                                                              |
+| `UpgradeSubscriptionRequestMapper`    | `static UpgradeSubscriptionCommand toCommand(String id, UpgradeSubscriptionRequest request)` | Combina path variable + body en el Command. Construye `PaymentProviderRef`. |
+
+**Response Mappers:**
+
+| Clase                        | Método                                                              | Convierte                                                                 |
+|------------------------------|---------------------------------------------------------------------|---------------------------------------------------------------------------|
+| `SubscriptionResponseMapper` | `static SubscriptionResponse toResponse(Subscription subscription)` | Aggregate → DTO. Extrae `provider.name()` y `externalId` del VO embebido. |
+
+---
+
 ### 5.2.3. Application Layer
 
+Esta capa orquesta los casos de uso de Billing. Coordina la validación de negocio, la persistencia y la publicación de eventos sin contener lógica de dominio.
+
+**Command Handlers**
+
+**`AssignFreeSubscriptionCommandHandler`**
+
+| Campo                  | Detalle                                                                                                                    |
+|------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.billing.application.subscription.assignfree`                                                         |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional`                                                         |
+| **Command que recibe** | `AssignFreeSubscriptionCommand`                                                                                            |
+| **Retorna**            | `Subscription`                                                                                                             |
+| **Propósito**          | Asigna el plan FREE a una organización recién creada. Generalmente invocado por el BC Workspace al crear una organización. |
+
+**Dependencias:**
+
+| Puerto                       | Para qué se usa                                |
+|------------------------------|------------------------------------------------|
+| `SubscriptionRepositoryPort` | Verificar unicidad y persistir `Subscription`. |
+| `ApplicationEventPublisher`  | Publicar `SubscriptionAssignedEvent`.          |
+
+**Flujo:**
+
+| Paso | Acción                                                       | Excepción lanzada                    |
+|------|--------------------------------------------------------------|--------------------------------------|
+| 1    | Verificar que la organización no tenga ya una suscripción.   | `SubscriptionAlreadyExistsException` |
+| 2    | Crear `Subscription` con `new Subscription(organizationId)`. | —                                    |
+| 3    | Persistir con `subscriptionRepository.save(subscription)`.   | —                                    |
+| 4    | Publicar `SubscriptionAssignedEvent`.                        | —                                    |
+
+---
+
+**`UpgradeSubscriptionCommandHandler`**
+
+| Campo                  | Detalle                                                                                     |
+|------------------------|---------------------------------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.billing.application.subscription.upgrade`                             |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional`                          |
+| **Command que recibe** | `UpgradeSubscriptionCommand`                                                                |
+| **Retorna**            | `Subscription`                                                                              |
+| **Propósito**          | Actualiza la suscripción a un plan superior y registra la referencia del proveedor externo. |
+
+**Dependencias:**
+
+| Puerto                       | Para qué se usa                             |
+|------------------------------|---------------------------------------------|
+| `SubscriptionRepositoryPort` | Cargar y persistir `Subscription`.          |
+| `PaymentProviderPort`        | Confirmar el pago con el proveedor externo. |
+| `ApplicationEventPublisher`  | Publicar `SubscriptionUpgradedEvent`.       |
+
+**Flujo:**
+
+| Paso | Acción                                                                          | Excepción lanzada                    |
+|------|---------------------------------------------------------------------------------|--------------------------------------|
+| 1    | Cargar `Subscription` por ID.                                                   | `SubscriptionNotFoundException`      |
+| 2    | Confirmar pago con `PaymentProviderPort.confirmUpgrade()`.                      | `PaymentProviderException`           |
+| 3    | Construir `PaymentProviderRef(provider, externalId)`.                           | —                                    |
+| 4    | Llamar `subscription.upgradeTo(planType, providerRef, periodStart, periodEnd)`. | `CannotUpgradeSubscriptionException` |
+| 5    | Persistir y publicar `SubscriptionUpgradedEvent`.                               | —                                    |
+
+---
+
+**`CancelSubscriptionCommandHandler`**
+
+| Campo                  | Detalle                                                            |
+|------------------------|--------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.billing.application.subscription.cancel`     |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional` |
+| **Command que recibe** | `CancelSubscriptionCommand`                                        |
+| **Retorna**            | `void`                                                             |
+| **Propósito**          | Cancela la suscripción activa.                                     |
+
+**Flujo:**
+
+| Paso | Acción                                             | Excepción lanzada                   |
+|------|----------------------------------------------------|-------------------------------------|
+| 1    | Cargar `Subscription` por ID.                      | `SubscriptionNotFoundException`     |
+| 2    | Llamar `subscription.cancel(Instant.now())`.       | `CannotCancelSubscriptionException` |
+| 3    | Persistir y publicar `SubscriptionCancelledEvent`. | —                                   |
+
+---
+
+**`ReactivateSubscriptionCommandHandler`**
+
+| Campo                  | Detalle                                                            |
+|------------------------|--------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.billing.application.subscription.reactivate` |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional` |
+| **Command que recibe** | `ReactivateSubscriptionCommand`                                    |
+| **Retorna**            | `Subscription`                                                     |
+| **Propósito**          | Reactiva una suscripción previamente cancelada.                    |
+
+**Flujo:**
+
+| Paso | Acción                                                    | Excepción lanzada                       |
+|------|-----------------------------------------------------------|-----------------------------------------|
+| 1    | Cargar `Subscription` por ID.                             | `SubscriptionNotFoundException`         |
+| 2    | Llamar `subscription.reactivate(periodStart, periodEnd)`. | `CannotReactivateSubscriptionException` |
+| 3    | Persistir `Subscription` actualizado.                     | —                                       |
+
+---
+
+**`IncrementTokenUsageCommandHandler`**
+
+| Campo                  | Detalle                                                                                                                                     |
+|------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.billing.application.subscription.tokenusage`                                                                          |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional`                                                                          |
+| **Command que recibe** | `IncrementTokenUsageCommand`                                                                                                                |
+| **Retorna**            | `void`                                                                                                                                      |
+| **Propósito**          | Incrementa el consumo de tokens de la organización. Publica evento si se alcanza la cuota. Invocado internamente desde el BC Req Discovery. |
+
+**Flujo:**
+
+| Paso | Acción                                                                            | Excepción lanzada               |
+|------|-----------------------------------------------------------------------------------|---------------------------------|
+| 1    | Cargar `Subscription` por `organizationId`.                                       | `SubscriptionNotFoundException` |
+| 2    | Llamar `subscription.incrementTokenUsage(tokens)`.                                | —                               |
+| 3    | Persistir `Subscription`.                                                         | —                               |
+| 4    | Si `subscription.isQuotaExceeded(maxTokens)`, publicar `TokenQuotaExceededEvent`. | —                               |
+
+---
+
+**`ResetQuotaCommandHandler`**
+
+| Campo                  | Detalle                                                                                                                             |
+|------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.billing.application.subscription.resetquota`                                                                  |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional`                                                                  |
+| **Command que recibe** | `ResetQuotaCommand`                                                                                                                 |
+| **Retorna**            | `void`                                                                                                                              |
+| **Propósito**          | Reinicia el contador de tokens al inicio de cada período de facturación. Invocado por un scheduler mensual o webhook del proveedor. |
+
+**Flujo:**
+
+| Paso | Acción                                          | Excepción lanzada               |
+|------|-------------------------------------------------|---------------------------------|
+| 1    | Cargar `Subscription` por ID.                   | `SubscriptionNotFoundException` |
+| 2    | Llamar `subscription.resetQuota()` y persistir. | —                               |
+
+---
+
+**Query Handlers**
+
+| Clase                                       | Paquete                             | Query que recibe                     | Retorna        | Notas                                               |
+|---------------------------------------------|-------------------------------------|--------------------------------------|----------------|-----------------------------------------------------|
+| `GetSubscriptionByOrganizationQueryHandler` | `application/subscription/queries/` | `GetSubscriptionByOrganizationQuery` | `Subscription` | Lanza `SubscriptionNotFoundException` si no existe. |
+| `GetSubscriptionByIdQueryHandler`           | `application/subscription/queries/` | `GetSubscriptionByIdQuery`           | `Subscription` | Lanza `SubscriptionNotFoundException` si no existe. |
+
+---
+
+**Event Listeners**
+
+| Clase                               | Evento que escucha          | Qué hace                                                                              | Puertos que usa                    |
+|-------------------------------------|-----------------------------|---------------------------------------------------------------------------------------|------------------------------------|
+| `SubscriptionAssignedEventListener` | `SubscriptionAssignedEvent` | Notifica al BC Workspace para aplicar los `PlanLimits` correspondientes al plan FREE. | `WorkspaceModuleApi` (in-process). |
+| `SubscriptionUpgradedEventListener` | `SubscriptionUpgradedEvent` | Notifica al BC Workspace para actualizar los `PlanLimits` al nuevo plan.              | `WorkspaceModuleApi` (in-process). |
+
+---
+
+**Output Ports**
+
+**Repository Ports** — `application/ports/repositories/`:
+
+| Interfaz                     | Método                   | Firma                                                                | Descripción                         |
+|------------------------------|--------------------------|----------------------------------------------------------------------|-------------------------------------|
+| `SubscriptionRepositoryPort` | `save`                   | `Subscription save(Subscription subscription)`                       | Persiste o actualiza.               |
+|                              | `findById`               | `Optional<Subscription> findById(String id)`                         | Busca por ID.                       |
+|                              | `findByOrganizationId`   | `Optional<Subscription> findByOrganizationId(String organizationId)` | Busca por organización.             |
+|                              | `existsByOrganizationId` | `boolean existsByOrganizationId(String organizationId)`              | Verifica unicidad por organización. |
+
+**Service Ports** — `application/ports/`:
+
+| Interfaz              | Paquete          | Métodos clave                                                                                                          | Implementación en infra                                       |
+|-----------------------|------------------|------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|
+| `PaymentProviderPort` | `ports/payment/` | `confirmUpgrade(String externalId, PaymentProvider provider): boolean`, `cancelExternal(PaymentProviderRef ref): void` | `StripePaymentProviderAdapter`, `CulqiPaymentProviderAdapter` |
+
+---
+
 ### 5.2.4. Infrastructure Layer
+
+Esta capa contiene las implementaciones técnicas de los puertos definidos en Billing. El dominio no conoce esta capa.
+
+**JPA Repositories**
+
+| Clase                    | Extiende                              | Implementa                   | Propósito                                                                       |
+|--------------------------|---------------------------------------|------------------------------|---------------------------------------------------------------------------------|
+| `SubscriptionRepository` | `JpaRepository<Subscription, String>` | `SubscriptionRepositoryPort` | Persistencia de suscripciones. Spring Data genera queries por `organizationId`. |
+
+**Métodos derivados (Spring Data):**
+
+| Repositorio              | Firma                                                                | Descripción                                          |
+|--------------------------|----------------------------------------------------------------------|------------------------------------------------------|
+| `SubscriptionRepository` | `Optional<Subscription> findByOrganizationId(String organizationId)` | Búsqueda de la suscripción vigente por organización. |
+| `SubscriptionRepository` | `boolean existsByOrganizationId(String organizationId)`              | Verificación de unicidad.                            |
+
+---
+
+**Adapters Externos**
+
+| Clase                          | Implementa            | Servicio externo | Tecnología                   | Propósito                                                                                                  |
+|--------------------------------|-----------------------|------------------|------------------------------|------------------------------------------------------------------------------------------------------------|
+| `StripePaymentProviderAdapter` | `PaymentProviderPort` | Stripe API       | Stripe Java SDK              | Confirma pagos, crea y cancela suscripciones en Stripe. Verifica firma de webhooks con `Stripe-Signature`. |
+| `CulqiPaymentProviderAdapter`  | `PaymentProviderPort` | Culqi API        | Culqi Java SDK / HTTP client | Confirma pagos y gestiona suscripciones en Culqi para el mercado latinoamericano.                          |
+
+**Configuración de infraestructura:**
+
+| Clase                           | Propósito                                                                                                                                                 |
+|---------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `BillingSchedulerConfiguration` | Define el scheduler mensual (`@Scheduled`) que dispara `ResetQuotaCommand` para todas las suscripciones activas al inicio de cada período de facturación. |
 
 ### 5.2.6. Bounded Context Software Architecture Component Level Diagrams
 
