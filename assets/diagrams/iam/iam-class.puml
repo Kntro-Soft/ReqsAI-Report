@@ -11,9 +11,17 @@ legend top right
   |<$REQSAI_VIOLET_900><color:#FFFFFF><b> <<Enum>> </b></color>        | Enumeracion de dominio        |
   |<$REQSAI_BROWN_900><color:#FFFFFF><b> <<Domain Event>> </b></color> | Evento de dominio (inmutable) |
   |<$REQSAI_GRAY_700><color:#FFFFFF><b> <<Abstract>> </b></color>      | Clase abstracta Shared Kernel |
+  |<$REQSAI_BLUE_800><color:#FFFFFF><b> <<Handler>> </b></color>        | Caso de uso (application)     |
+  |<$REQSAI_TEAL_900><color:#FFFFFF><b> <<Port>> </b></color>           | Puerto (interface)            |
+  |<$REQSAI_ORANGE_900><color:#FFFFFF><b> <<Adapter>> </b></color>      | Adaptador (infrastructure)    |
+  |<$REQSAI_PURPLE_700><color:#FFFFFF><b> <<Controller>> </b></color>   | Entrada HTTP (interfaces)     |
+  |<$REQSAI_LIGHTBLUE_800><color:#FFFFFF><b> <<DTO>> </b></color>       | DTO request/response          |
+  |<$REQSAI_GRAY_700><color:#FFFFFF><b> <<Mapper>> </b></color>         | Mapper DTO <-> Command/Domain |
+  |<$REQSAI_NEUTRAL_900><color:#FFFFFF><b> <<Security>> </b></color>    | Seguridad / filtros           |
   |<back:$REQSAI_NEUTRAL_200><b>Relacion</b>|<back:$REQSAI_NEUTRAL_200><b>Significado</b>|
   | --\\|>            | extends (herencia)                     |
   | ..>              | uses / depends on                      |
+  | ..|>             | implements (interface)                 |
   | o--              | referencia por ID (cross-aggregate)    |
   | ..> <<publishes>>| evento publicado por el aggregate      |
 endlegend
@@ -147,6 +155,97 @@ package "iam/api" {
   }
 }
 
+' ── Application Layer (Use Cases) ───────────────────────────────────
+package "com.kntrosoft.reqsai.iam.application.authentication" {
+  class SignUpCommandHandler <<Handler>>
+  class SignInCommandHandler <<Handler>>
+  class VerifyEmailCommandHandler <<Handler>>
+  class ResendVerificationCodeCommandHandler <<Handler>>
+  class RefreshSessionCommandHandler <<Handler>>
+  class RevokeRefreshTokenCommandHandler <<Handler>>
+}
+
+package "com.kntrosoft.reqsai.iam.application.user" {
+  class UpdateUserProfileCommandHandler <<Handler>>
+  class UpdateUserPreferencesCommandHandler <<Handler>>
+  class GetAuthenticatedUserQueryHandler <<Handler>>
+}
+
+' ── Application Ports ───────────────────────────────────────────────
+package "com.kntrosoft.reqsai.iam.application.ports" {
+  interface AccountRepositoryPort <<Port>>
+  interface UserRepositoryPort <<Port>>
+  interface RefreshTokenRepositoryPort <<Port>>
+
+  interface TokenServicePort <<Port>>
+  interface HashingServicePort <<Port>>
+  interface VerificationServicePort <<Port>>
+  interface EmailNotificationServicePort <<Port>>
+}
+
+' ── Interface Layer (HTTP) ──────────────────────────────────────────
+package "com.kntrosoft.reqsai.iam.interfaces.rest.swagger" {
+  interface AuthenticationController <<Controller>>
+  interface UserController <<Controller>>
+}
+
+package "com.kntrosoft.reqsai.iam.interfaces.rest.controllers" {
+  class AuthenticationControllerImpl <<Controller>>
+  class UserControllerImpl <<Controller>>
+}
+
+package "com.kntrosoft.reqsai.iam.interfaces.rest.dto.request" {
+  class SignUpRequest <<DTO>>
+  class SignInRequest <<DTO>>
+  class VerifyEmailRequest <<DTO>>
+  class ResendVerificationCodeRequest <<DTO>>
+  class RefreshSessionRequest <<DTO>>
+  class RevokeRefreshTokenRequest <<DTO>>
+  class UpdateProfileRequest <<DTO>>
+  class UpdatePreferencesRequest <<DTO>>
+}
+
+package "com.kntrosoft.reqsai.iam.interfaces.rest.dto.response" {
+  class AuthenticatedUserResponse <<DTO>>
+  class UserResponse <<DTO>>
+}
+
+package "com.kntrosoft.reqsai.iam.interfaces.rest.mappers" {
+  class SignUpRequestMapper <<Mapper>>
+  class SignInRequestMapper <<Mapper>>
+  class UpdateProfileRequestMapper <<Mapper>>
+  class UpdatePreferencesRequestMapper <<Mapper>>
+  class AuthenticatedUserResponseMapper <<Mapper>>
+  class UserResponseMapper <<Mapper>>
+}
+
+' ── Infrastructure Layer (Adapters) ─────────────────────────────────
+package "com.kntrosoft.reqsai.iam.infrastructure.persistence.jpa" {
+  class AccountRepository <<Adapter>>
+  class UserRepository <<Adapter>>
+  class RefreshTokenRepository <<Adapter>>
+}
+
+package "com.kntrosoft.reqsai.iam.infrastructure.security" {
+  class WebSecurityConfiguration <<Security>>
+  class BearerAuthorizationRequestFilter <<Security>>
+}
+
+package "com.kntrosoft.reqsai.iam.infrastructure.adapters" {
+  class JwtTokenServiceAdapter <<Adapter>>
+  class BCryptHashingServiceAdapter <<Adapter>>
+  class OtpVerificationServiceAdapter <<Adapter>>
+  class SmtpEmailNotificationAdapter <<Adapter>>
+}
+
+package "com.kntrosoft.reqsai.iam.infrastructure.events" {
+  class EmailVerificationRequestedEventListener <<Adapter>>
+}
+
+package "com.kntrosoft.reqsai.iam.module" {
+  class IamModuleApiImpl
+}
+
 ' ── Inheritance ────────────────────────────────────────────────────
 Account      --|> AbstractAggregateRoot : extends
 User         --|> AbstractAggregateRoot : extends
@@ -165,5 +264,82 @@ RefreshToken "1" o-- "1" UserId     : userId (reference)
 ' ── Domain Events published ────────────────────────────────────────
 Account ..> AccountCreatedEvent             : <<publishes>>
 Account ..> EmailVerificationRequestedEvent : <<publishes>>
+
+' ── Application dependencies ────────────────────────────────────────
+SignUpCommandHandler  ..> AccountRepositoryPort
+SignUpCommandHandler  ..> UserRepositoryPort
+SignUpCommandHandler  ..> HashingServicePort
+SignUpCommandHandler  ..> VerificationServicePort
+SignUpCommandHandler  ..> EmailVerificationRequestedEvent : <<publishes>>
+
+SignInCommandHandler  ..> AccountRepositoryPort
+SignInCommandHandler  ..> UserRepositoryPort
+SignInCommandHandler  ..> HashingServicePort
+SignInCommandHandler  ..> TokenServicePort
+SignInCommandHandler  ..> RefreshTokenRepositoryPort
+
+VerifyEmailCommandHandler            ..> AccountRepositoryPort
+ResendVerificationCodeCommandHandler ..> AccountRepositoryPort
+ResendVerificationCodeCommandHandler ..> VerificationServicePort
+ResendVerificationCodeCommandHandler ..> EmailVerificationRequestedEvent : <<publishes>>
+RefreshSessionCommandHandler         ..> RefreshTokenRepositoryPort
+RefreshSessionCommandHandler         ..> TokenServicePort
+RevokeRefreshTokenCommandHandler     ..> RefreshTokenRepositoryPort
+
+UpdateUserProfileCommandHandler     ..> UserRepositoryPort
+UpdateUserPreferencesCommandHandler ..> UserRepositoryPort
+GetAuthenticatedUserQueryHandler    ..> UserRepositoryPort
+GetAuthenticatedUserQueryHandler    ..> AccountRepositoryPort
+
+' ── Ports implemented by adapters ───────────────────────────────────
+AccountRepository      ..|> AccountRepositoryPort
+UserRepository         ..|> UserRepositoryPort
+RefreshTokenRepository ..|> RefreshTokenRepositoryPort
+
+JwtTokenServiceAdapter        ..|> TokenServicePort
+BCryptHashingServiceAdapter   ..|> HashingServicePort
+OtpVerificationServiceAdapter ..|> VerificationServicePort
+SmtpEmailNotificationAdapter  ..|> EmailNotificationServicePort
+
+EmailVerificationRequestedEventListener ..> EmailNotificationServicePort
+EmailVerificationRequestedEventListener ..> EmailVerificationRequestedEvent
+
+' ── HTTP wiring (contracts -> impl -> handlers) ─────────────────────
+AuthenticationControllerImpl ..|> AuthenticationController
+UserControllerImpl           ..|> UserController
+
+AuthenticationControllerImpl ..> SignUpCommandHandler
+AuthenticationControllerImpl ..> SignInCommandHandler
+AuthenticationControllerImpl ..> VerifyEmailCommandHandler
+AuthenticationControllerImpl ..> ResendVerificationCodeCommandHandler
+AuthenticationControllerImpl ..> RefreshSessionCommandHandler
+AuthenticationControllerImpl ..> RevokeRefreshTokenCommandHandler
+
+UserControllerImpl ..> GetAuthenticatedUserQueryHandler
+UserControllerImpl ..> UpdateUserProfileCommandHandler
+UserControllerImpl ..> UpdateUserPreferencesCommandHandler
+
+' ── DTO mapping ─────────────────────────────────────────────────────
+SignUpRequestMapper            ..> SignUpRequest
+SignInRequestMapper            ..> SignInRequest
+UpdateProfileRequestMapper     ..> UpdateProfileRequest
+UpdatePreferencesRequestMapper ..> UpdatePreferencesRequest
+
+AuthenticatedUserResponseMapper ..> AuthenticatedUserResponse
+UserResponseMapper              ..> UserResponse
+
+AuthenticationControllerImpl ..> SignUpRequest
+AuthenticationControllerImpl ..> SignInRequest
+AuthenticationControllerImpl ..> VerifyEmailRequest
+AuthenticationControllerImpl ..> ResendVerificationCodeRequest
+AuthenticationControllerImpl ..> RefreshSessionRequest
+AuthenticationControllerImpl ..> RevokeRefreshTokenRequest
+
+UserControllerImpl ..> UpdateProfileRequest
+UserControllerImpl ..> UpdatePreferencesRequest
+
+' ── Security dependencies ───────────────────────────────────────────
+WebSecurityConfiguration ..> BearerAuthorizationRequestFilter
+BearerAuthorizationRequestFilter ..> TokenServicePort
 
 @enduml
