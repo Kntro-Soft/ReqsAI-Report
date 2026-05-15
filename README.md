@@ -1695,7 +1695,7 @@ El sistema Reqs-AI está compuesto por los siguientes contenedores principales:
     *   **Mobile App:** Proporciona accesibilidad móvil a los usuarios, permitiéndoles interactuar con el sistema, grabar reuniones o revisar el estado de los requerimientos desde cualquier lugar. Se optó por **Flutter** para asegurar un desarrollo multiplataforma eficiente (iOS y Android) con una base de código unificada.
 
 2.  **Distribución y Enrutamiento Perimetral (Edge):**
-    *   **CDN & Reverse Proxy (Amazon CloudFront):** Sirve exclusivamente los activos estáticos del SPA Angular desde Edge Locations globales (HTML, CSS, JS), cachea respuestas, mitiga ataques DDoS y enruta el tráfico dinámico de API hacia el API Gateway. **La app móvil no pasa por CloudFront** — es una aplicación nativa instalada desde el App Store/Google Play que llama directamente al API Gateway.
+    *   **CDN & Reverse Proxy (Amazon CloudFront):** Sirve exclusivamente los activos estáticos del SPA Angular desde Edge Locations globales (HTML, CSS, JS), cachea respuestas, mitiga ataques DDoS y enruta el tráfico dinámico de API hacia el API Gateway. **La app móvil no pasa por CloudFront** — es una aplicación nativa instalada desde el App Store/Google Play que llama directamente la API Gateway.
     *   **API Gateway (AWS API Gateway):** Punto de entrada unificado para todas las peticiones REST y WebSocket, tanto de la app web (enrutadas desde CloudFront) como de la app móvil (conexión directa). Gestiona throttling, métricas de consumo y terminación SSL.
 
 3.  **Lógica Core (Backend — Monolito Modular):**
@@ -1717,7 +1717,7 @@ El sistema Reqs-AI está compuesto por los siguientes contenedores principales:
 La arquitectura define un flujo de comunicación diferenciado según el canal:
 
 *   **Canal Web:** El navegador carga el SPA Angular desde **CloudFront** (activos estáticos cacheados en el Edge). Las llamadas de API del SPA viajan por CloudFront → API Gateway → Backend.
-*   **Canal Móvil:** La app Flutter (instalada desde App Store/Google Play) realiza llamadas HTTPS directamente al **API Gateway**, sin pasar por CloudFront, ya que no es una aplicación web servida desde un servidor.
+*   **Canal Móvil:** La app Flutter (instalada desde App Store/Google Play) realiza llamadas HTTPS directamente la **API Gateway**, sin pasar por CloudFront, ya que no es una aplicación web servida desde un servidor.
 *   **Comunicación Interna:** La API Gateway enruta todas las peticiones hacia el contenedor del backend. Internamente, los Bounded Contexts se comunican mediante Domain Events en memoria y persisten en la base de datos compartida (AWS RDS PostgreSQL).
 *   **Integración con Sistemas Externos:** Las integraciones están descentralizadas, asignadas al Bounded Context que las necesita:
     *   **IAM** envía correos transaccionales vía **Email Service Provider**.
@@ -1748,7 +1748,7 @@ La infraestructura de despliegue se divide en los entornos de cliente, la red de
     La lógica de negocio se aloja en la región de AWS North America, elegida por su alta disponibilidad y ecosistema completo de servicios administrados.
     *   **AWS API Gateway:** Recibe el tráfico dinámico desde CloudFront (web) y directamente desde la app móvil, funcionando como orquestador de peticiones REST y WebSocket hacia el backend.
     *   **ECS Cluster (AWS ECS + Fargate):** El backend se despliega como un contenedor Docker en **AWS ECS con Fargate** (serverless containers). Fargate abstrae completamente la gestión de servidores EC2 subyacentes, provisionando cómputo bajo demanda con autoescalado automático. La task definition del ECS define dos contenedores en la misma unidad de ejecución: el **ReqsAI Backend Service** (Java 25 + Spring Boot 4) y el **Grafana Alloy** como sidecar de observabilidad.
-    *   **Observability Server (AWS EC2 + Docker Compose):** Una instancia EC2 dedicada ejecuta el stack de observabilidad completo mediante Docker Compose: **Prometheus** (almacén de métricas, consultado con PromQL), **Loki** (agregación de logs, consultado con LogQL), **Tempo** (trazas distribuidas, consultado con TraceQL) y **Grafana** (dashboard unificado que visualiza las tres fuentes). Grafana Alloy, corriendo como sidecar en el ECS Cluster, colecta métricas del endpoint `/actuator/prometheus`, logs del stdout del contenedor y trazas OTLP, enviándolos al servidor de observabilidad mediante push.
+    *   **Observability Server (AWS EC2 + Docker Compose):** Una instancia EC2 dedicada ejecuta el stack de observabilidad completo mediante Docker Compose: **Prometheus** (almacén de métricas, consultado con PromQL), **Loki** (agregación de logs, consultado con LogQL), **Tempo** (trazas distribuidas, consultado con TraceQL) y **Grafana** (dashboard unificado que visualiza las tres fuentes). Grafana Alloy, corriendo como sidecar en el ECS Cluster, colecta las métricas del endpoint `/actuator/prometheus`, logs del stdout del contenedor y trazas OTLP, enviándolos al servidor de observabilidad mediante push.
 
 4.  **Entorno de Nube - Persistencia (AWS RDS):**
     *   **AWS RDS (PostgreSQL + pgvector):** La base de datos principal se gestiona completamente en **Amazon RDS**, el servicio de base de datos relacional administrado de AWS. Se utiliza **PostgreSQL** con la extensión **pgvector** habilitada, esencial para el almacenamiento de embeddings vectoriales que alimentan el motor RAG. RDS provee backups automáticos, failover multi-AZ y actualizaciones de parches sin downtime.
@@ -1756,7 +1756,7 @@ La infraestructura de despliegue se divide en los entornos de cliente, la red de
 **Comunicación e Interacción de Nodos**
 
 *   **App Web:** El navegador carga el SPA Angular desde **CloudFront** (Edge Location más cercano). Las llamadas de API del SPA viajan CloudFront → API Gateway → ECS Backend.
-*   **App Móvil:** La app Flutter instalada en el dispositivo del usuario realiza llamadas HTTPS **directamente al API Gateway**, sin pasar por CloudFront, ya que no es una aplicación web servida desde CDN.
+*   **App Móvil:** La app Flutter instalada en el dispositivo del usuario realiza llamadas HTTPS **directamente la API Gateway**, sin pasar por CloudFront, ya que no es una aplicación web servida desde CDN.
 *   **Observabilidad:** Grafana Alloy (sidecar en ECS) colecta continuamente métricas, logs y trazas del backend y los envía al Observability Server en EC2. Grafana consulta Prometheus, Loki y Tempo para mostrar el estado del sistema en tiempo real.
 *   **Persistencia:** El backend se conecta a **AWS RDS** via JDBC/JPA para todas las operaciones transaccionales de los 5 Bounded Contexts.
 
