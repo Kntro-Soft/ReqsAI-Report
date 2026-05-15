@@ -36,6 +36,10 @@ package "Shared Kernel" {
     + getIdValue() : String
     + isNew() : boolean
   }
+
+  abstract class EntityNotFoundException <<Abstract>>
+  abstract class BusinessRuleViolationException <<Abstract>>
+  abstract class AuthenticationException <<Abstract>>
 }
 
 package "com.kntrosoft.reqsai.iam.domain.model.aggregates" {
@@ -165,10 +169,6 @@ package "com.kntrosoft.reqsai.iam.domain.model.events" {
 }
 
 package "com.kntrosoft.reqsai.iam.domain.model.exceptions" {
-  abstract class EntityNotFoundException <<Abstract>>
-  abstract class BusinessRuleViolationException <<Abstract>>
-  abstract class AuthenticationException <<Abstract>>
-
   class AccountNotFoundException <<Abstract>>
   class AccountAlreadyExistsException <<Abstract>>
   class InvalidCredentialsException <<Abstract>>
