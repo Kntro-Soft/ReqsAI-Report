@@ -1,0 +1,179 @@
+@startuml iam-class
+skinparam defaultFontName Segoe UI
+skinparam defaultFontSize 11
+skinparam classAttributeIconSize 0
+
+skinparam class {
+    BackgroundColor #FAFAFA
+    BorderColor #555555
+    FontColor #1A1A1A
+    HeaderBackgroundColor #1E3A5F
+    FontColor<<Aggregate Root>> #FFFFFF
+    HeaderBackgroundColor<<Aggregate Root>> #1E3A5F
+    HeaderBackgroundColor<<Value Object>> #14532D
+    HeaderBackgroundColor<<Enum>> #581C87
+    HeaderBackgroundColor<<Domain Event>> #7C2D12
+    HeaderBackgroundColor<<Abstract>> #374151
+}
+
+skinparam stereotypeCBackgroundColor #DBEAFE
+skinparam stereotypeABackgroundColor #DCFCE7
+skinparam stereotypeEBackgroundColor #F3E8FF
+skinparam arrowColor #374151
+skinparam roundcorner 6
+hide empty members
+
+title IAM Bounded Context — Domain Layer Class Diagram
+
+legend top right
+  |= Estereotipo             |= Tipo DDD                     |
+  | <<Aggregate Root>>       | Raíz de aggregate             |
+  | <<Value Object>>         | Record inmutable, validado    |
+  | <<Enum>>                 | Enumeración de estados        |
+  | <<Domain Event>>         | Evento de dominio (inmutable) |
+  |══════════════════════════|═══════════════════════════════|
+  |= Relación                |= Significado                  |
+  | ──────▷                  | extends (herencia)            |
+  | ◇──────                  | referencia por ID             |
+  | ·······►                 | uses / <<publishes>>          |
+endlegend
+
+' ── Shared Kernel ──────────────────────────────────────────────────
+abstract class AbstractAggregateRoot<T> <<Abstract>> {
+  # createdAt : Instant
+  # updatedAt : Instant
+  # createdBy : String
+  # updatedBy : String
+  --
+  + getIdValue() : String
+  + isNew() : boolean
+}
+
+' ── Aggregate Roots ────────────────────────────────────────────────
+class Account <<Aggregate Root>> {
+  - id : AccountId
+  - email : Email
+  - passwordHash : String
+  - status : AccountStatus
+  - verificationCode : String
+  - verificationCodeExpiresAt : Instant
+  --
+  # Account()
+  + Account(email : Email, passwordHash : String)
+  ..Business Methods..
+  + verifyEmail(code : String, now : Instant) : void
+  + changePassword(newPasswordHash : String) : void
+  + suspend() : void
+  + activate() : void
+  + delete() : void
+  + generateVerificationCode(code : String, expiresAt : Instant) : void
+  ..Query Methods..
+  + isPendingVerification() : boolean
+  + isActive() : boolean
+  + isSuspended() : boolean
+  + isDeleted() : boolean
+}
+
+class User <<Aggregate Root>> {
+  - id : UserId
+  - accountId : AccountId
+  - firstName : String
+  - lastName : String
+  - avatarUrl : String
+  - preferences : UserPreferences
+  --
+  # User()
+  + User(accountId : AccountId, firstName : String, lastName : String)
+  ..Business Methods..
+  + updateProfile(firstName : String, lastName : String, avatarUrl : String) : void
+  + updatePreferences(preferences : UserPreferences) : void
+  ..Query Methods..
+  + getFullName() : String
+}
+
+class RefreshToken <<Aggregate Root>> {
+  - id : RefreshTokenId
+  - tokenHash : String
+  - userId : UserId
+  - status : TokenStatus
+  - expiresAt : Instant
+  - revokedAt : Instant
+  --
+  # RefreshToken()
+  + RefreshToken(tokenHash : String, userId : UserId, expiresAt : Instant)
+  ..Business Methods..
+  + revoke(revokedAt : Instant) : void
+  + rotate() : void
+  ..Query Methods..
+  + isValid(now : Instant) : boolean
+  + isExpired(now : Instant) : boolean
+}
+
+' ── Value Objects ──────────────────────────────────────────────────
+class Email <<Value Object>> {
+  - value : String
+  --
+  + Email(value : String)
+  + {static} of(value : String) : Email
+  + value() : String
+}
+
+class UserPreferences <<Value Object>> {
+  - lastVisitedOrgId : String
+  - lastVisitedProjectId : String
+  --
+  + UserPreferences(lastVisitedOrgId : String, lastVisitedProjectId : String)
+  + lastVisitedOrgId() : String
+  + lastVisitedProjectId() : String
+}
+
+' ── Enums ──────────────────────────────────────────────────────────
+enum AccountStatus <<Enum>> {
+  PENDING_VERIFICATION
+  ACTIVE
+  SUSPENDED
+  DELETED
+}
+
+enum TokenStatus <<Enum>> {
+  ACTIVE
+  REVOKED
+  EXPIRED
+}
+
+' ── Domain Events ──────────────────────────────────────────────────
+class AccountCreatedEvent <<Domain Event>> {
+  + accountId : String
+  + userId : String
+  + email : String
+  + occurredAt : Instant
+  --
+  + {static} of(accountId : String, userId : String, email : String) : AccountCreatedEvent
+}
+
+class EmailVerificationRequestedEvent <<Domain Event>> {
+  + email : String
+  + verificationCode : String
+  + expirationMinutes : int
+  + occurredAt : Instant
+  --
+  + {static} of(email : String, code : String, minutes : int) : EmailVerificationRequestedEvent
+}
+
+' ── Relaciones ─────────────────────────────────────────────────────
+Account     --|> AbstractAggregateRoot : extends
+User        --|> AbstractAggregateRoot : extends
+RefreshToken --|> AbstractAggregateRoot : extends
+
+Account     ..> Email          : uses
+Account     ..> AccountStatus  : uses
+User        ..> UserPreferences : uses
+RefreshToken ..> TokenStatus   : uses
+
+User        "1" o-- "1" AccountId    : accountId\n(reference)
+RefreshToken "1" o-- "1" UserId      : userId\n(reference)
+
+Account ..> AccountCreatedEvent               : <<publishes>>
+Account ..> EmailVerificationRequestedEvent   : <<publishes>>
+
+@enduml
