@@ -2035,36 +2035,278 @@ En esta capa se describen los casos de uso del IAM bajo el patron CQRS.
 
 - `IamContextFacade.fetchAuthenticatedUser()` -> `userId`, `accountId`, `email`.
 
+**Outbound Service Ports:**
+
+10. **`IdentityService` (Outbound Service Port)**
+
+Interfaz para obtener identidad del contexto actual.
+
+**Metodos principales:**
+
+| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
+|--------|------------------|-------------|-------------|
+| `getUserId()` | `Optional<Long>` | `public` | ID del usuario autenticado. |
+| `getUsername()` | `Optional<String>` | `public` | Username del contexto. |
+
+---
+
+11. **`TokenService` (Outbound Service Port)**
+
+Interfaz para emision y validacion de tokens.
+
+**Metodos principales:**
+
+| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
+|--------|------------------|-------------|-------------|
+| `generateToken(String)` | `String` | `public` | Genera token a partir del username. |
+| `getUsernameFromToken(String)` | `String` | `public` | Extrae username del token. |
+| `getUserIdFromToken(String)` | `Long` | `public` | Extrae userId del token. |
+| `validateToken(String)` | `boolean` | `public` | Valida integridad/expiracion del token. |
+
+---
+
+12. **`RefreshTokenService` (Outbound Service Port)**
+
+Interfaz para emision, rotacion y revocacion de refresh tokens.
+
+**Metodos principales:**
+
+| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
+|--------|------------------|-------------|-------------|
+| `issue(UserId)` | `String` | `public` | Emite refresh token y persiste hash. |
+| `rotate(String)` | `String` | `public` | Revoca anterior y emite uno nuevo. |
+| `revoke(String)` | `void` | `public` | Revoca el refresh token. |
+
+---
+
+13. **`VerificationService` (Outbound Service Port)**
+
+Interfaz para generacion de codigos de verificacion.
+
+**Metodos principales:**
+
+| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
+|--------|------------------|-------------|-------------|
+| `generateCode()` | `String` | `public` | Genera un codigo por defecto. |
+| `generateExpirationMinutes()` | `Integer` | `public` | Define minutos de expiracion. |
+| `verifyCode(String, String, Instant)` | `boolean` | `public` | Verifica coincidencia y vigencia. |
+
 ### 5.1.4. Infrastructure Layer
 
 Esta capa implementa persistencia, seguridad y servicios externos.
 
-**Repositories (Spring Data JPA):**
+1. **`AccountRepository` (Repository Interface)**
 
-| Repository | Metodos clave |
-|-----------|---------------|
-| `AccountRepository` | `save`, `findByEmail`, `existsByEmail` |
-| `UserRepository` | `save`, `findById`, `findByAccountId` |
-| `RefreshTokenRepository` | `save`, `findByTokenHash`, `findActiveByUserId` |
+Interfaz de acceso a datos para cuentas (Spring Data JPA).
 
-**Security Infrastructure:**
+**Metodos principales:**
 
-- `WebSecurityConfiguration`: JWT stateless, CORS, rutas publicas de auth.
-- `BearerAuthorizationRequestFilter`: extrae y valida el token en cada request.
-- `UnauthorizedRequestHandlerEntryPoint`: responde 401.
-- `UserDetailsServiceImpl`: carga cuenta por email.
-- `UserDetailsImpl`: adapta `Account` a `UserDetails`.
+| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
+|--------|------------------|-------------|-------------|
+| `findById(Long id)` | `Optional<Account>` | `public` | Busca una cuenta por su identificador. |
+| `save(Account account)` | `Account` | `public` | Persiste o actualiza una cuenta. |
+| `findByEmail(Email email)` | `Optional<Account>` | `public` | Obtiene una cuenta por su email. |
+| `existsByEmail(Email email)` | `boolean` | `public` | Verifica existencia por correo. |
 
-**Service Implementations:**
+---
 
-| Servicio | Responsabilidad |
-|----------|------------------|
-| `TokenServiceImpl` | Genera y valida JWT de sesion. |
-| `RefreshTokenServiceImpl` | Hash, rotacion y revocacion. |
-| `BCryptHashingService` | Hash de contrasenas. |
-| `VerificationServiceImpl` | Genera y valida OTP. |
-| `NotificationEmailServiceImpl` | Envia correos de verificacion. |
-| `CurrentUserProviderImpl` | Lee identidad desde `SecurityContext`. |
+2. **`UserRepository` (Repository Interface)**
+
+Interfaz de acceso a datos para usuarios (Spring Data JPA).
+
+**Metodos principales:**
+
+| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
+|--------|------------------|-------------|-------------|
+| `findById(Long id)` | `Optional<User>` | `public` | Busca un usuario por su identificador. |
+| `save(User user)` | `User` | `public` | Persiste o actualiza un usuario. |
+| `findByAccountId(AccountId accountId)` | `Optional<User>` | `public` | Obtiene un usuario por cuenta. |
+
+---
+
+3. **`RefreshTokenRepository` (Repository Interface)**
+
+Interfaz de acceso a datos para refresh tokens (Spring Data JPA).
+
+**Metodos principales:**
+
+| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
+|--------|------------------|-------------|-------------|
+| `save(RefreshToken token)` | `RefreshToken` | `public` | Persiste o actualiza un refresh token. |
+| `findByTokenHash(TokenHash tokenHash)` | `Optional<RefreshToken>` | `public` | Obtiene un token por su hash. |
+| `findActiveByUserId(UserId userId)` | `Optional<RefreshToken>` | `public` | Busca token activo del usuario. |
+
+---
+
+4. **`WebSecurityConfiguration` (Security Config)**
+
+Configuracion Spring Security (stateless, JWT, CORS).
+
+**Metodos/Beans principales:**
+
+| Metodo/Bean | Tipo de Retorno | Visibilidad | Descripcion |
+|-------------|------------------|-------------|-------------|
+| `authorizationRequestFilter()` | `BearerAuthorizationRequestFilter` | `public` | Filtro que extrae, valida JWT y autentica en el contexto. |
+| `authenticationManager(config)` | `AuthenticationManager` | `public` | Expone el `AuthenticationManager`. |
+| `authenticationProvider()` | `DaoAuthenticationProvider` | `public` | Provider con `UserDetailsService` y `PasswordEncoder (BCrypt)`. |
+| `passwordEncoder()` | `PasswordEncoder` | `public` | Usa `BCryptHashingService` como encoder. |
+| `filterChain(HttpSecurity http)` | `SecurityFilterChain` | `public` | CORS, CSRF off, 401 handler, stateless, `permitAll` a `/api/v1/authentication/**` y Swagger. |
+
+---
+
+5. **`BearerAuthorizationRequestFilter` (Security Filter)**
+
+Filtro JWT que autentica peticiones con token Bearer.
+
+**Metodos principales:**
+
+| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
+|--------|------------------|-------------|-------------|
+| `doFilterInternal(request, response, chain)` | `void` | `protected` | Extrae token, valida, carga `UserDetails` y establece la autenticacion. |
+
+---
+
+6. **`UnauthorizedRequestHandlerEntryPoint` (Auth EntryPoint)**
+
+Maneja respuestas 401 no autorizadas.
+
+**Metodos principales:**
+
+| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
+|--------|------------------|-------------|-------------|
+| `commence(request, response, authException)` | `void` | `public` | Responde con `401 Unauthorized`. |
+
+---
+
+7. **`UserDetailsServiceImpl` (UserDetailsService)**
+
+Carga cuentas para Spring Security desde `AccountRepository`.
+
+**Metodos principales:**
+
+| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
+|--------|------------------|-------------|-------------|
+| `loadUserByUsername(String user)` | `UserDetails` | `public` | Carga cuenta por email (username). |
+
+---
+
+8. **`UserDetailsImpl` (Security Model)**
+
+Adaptador con authorities basadas en identidad.
+
+**Metodos principales:**
+
+| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
+|--------|------------------|-------------|-------------|
+| `build(Account account)` | `UserDetailsImpl` | `public` | Construye desde entidad `Account`. |
+
+---
+
+9. **`UsernamePasswordAuthenticationTokenBuilder` (Helper)**
+
+Crea `UsernamePasswordAuthenticationToken` con detalles de request.
+
+**Metodos principales:**
+
+| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
+|--------|------------------|-------------|-------------|
+| `build(UserDetails principal, HttpServletRequest req)` | `UsernamePasswordAuthenticationToken` | `public` | Genera el token de autenticacion con detalles web. |
+
+---
+
+10. **`TokenServiceImpl` (JWT Service)**
+
+Servicio JWT basado en JJWT (HS key, expiracion configurable).
+
+**Metodos principales:**
+
+| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
+|--------|------------------|-------------|-------------|
+| `generateToken(Authentication auth)` | `String` | `public` | Genera JWT desde `Authentication`. |
+| `generateToken(String username)` | `String` | `public` | Genera JWT desde username. |
+| `getUsernameFromToken(String token)` | `String` | `public` | Extrae `sub` (username). |
+| `getUserIdFromToken(String token)` | `Long` | `public` | Extrae claim `userId`. |
+| `validateToken(String token)` | `boolean` | `public` | Valida firma/fecha/estructura del JWT. |
+| `getBearerTokenFrom(HttpServletRequest)` | `String` | `public` | Obtiene el token del header `Authorization`. |
+
+---
+
+11. **`BearerTokenService` (Interface)**
+
+Contrato para manejo de JWT Bearer (extiende `TokenService`).
+
+**Metodos principales:**
+
+| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
+|--------|------------------|-------------|-------------|
+| `getBearerTokenFrom(HttpServletRequest)` | `String` | `public` | Extrae token Bearer del request. |
+| `generateToken(Authentication auth)` | `String` | `public` | Genera token desde `Authentication`. |
+
+---
+
+12. **`RefreshTokenServiceImpl` (Refresh Token Service)**
+
+Implementacion para emitir, rotar y revocar refresh tokens.
+
+**Metodos principales:**
+
+| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
+|--------|------------------|-------------|-------------|
+| `issue(UserId userId)` | `String` | `public` | Emite refresh token y persiste hash. |
+| `rotate(String token)` | `String` | `public` | Revoca anterior y emite uno nuevo. |
+| `revoke(String token)` | `void` | `public` | Revoca el token. |
+
+---
+
+13. **`HashingServiceImpl` / `BCryptHashingService` (BCrypt Service)**
+
+Implementacion de hashing de contrasenas con `BCryptPasswordEncoder`.
+
+**Metodos principales:**
+
+| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
+|--------|------------------|-------------|-------------|
+| `encode(CharSequence)` | `String` | `public` | Genera hash BCrypt. |
+| `matches(CharSequence, String)` | `boolean` | `public` | Compara texto plano vs hash. |
+
+---
+
+14. **`VerificationServiceImpl` (OTP Service)**
+
+Generacion y validacion de codigos OTP con configuracion externa.
+
+**Metodos principales:**
+
+| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
+|--------|------------------|-------------|-------------|
+| `generateCode()` | `String` | `public` | Genera codigo con longitud por defecto. |
+| `generateExpirationMinutes()` | `Integer` | `public` | Minutos de expiracion desde propiedades. |
+| `verifyCode(String, String, Instant)` | `boolean` | `public` | Verifica coincidencia y vigencia. |
+
+---
+
+15. **`NotificationEmailServiceImpl` (Email Service)**
+
+Implementacion del servicio de email usando un `TemplatedEmailService`.
+
+**Metodos principales:**
+
+| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
+|--------|------------------|-------------|-------------|
+| `sendVerificationEmail(String, String, int)` | `void` | `public` | Envia correo de verificacion con plantilla. |
+
+---
+
+16. **`CurrentUserProviderImpl` (Identity Service Impl)**
+
+Implementacion de `IdentityService` basada en `SecurityContextHolder` de Spring Security.
+
+**Metodos principales:**
+
+| Metodo | Tipo de Retorno | Visibilidad | Descripcion |
+|--------|------------------|-------------|-------------|
+| `getUserId()` | `Optional<Long>` | `public` | ID del usuario del contexto de seguridad. |
+| `getUsername()` | `Optional<String>` | `public` | Username (email) del contexto. |
 
 **JWT (Access Token):**
 
