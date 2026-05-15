@@ -1,8 +1,9 @@
 @startuml iam-class
 !include ../styles/reqsai-class-style.puml
 
-title IAM Bounded Context -- Tactical Class Diagram
+top to bottom direction
 
+title IAM Bounded Context -- Tactical Class Diagram
 ' ── Legend ─────────────────────────────────────────────────────────
 legend top right
   |= Estereotipo                                               |= Tipo DDD                     |
@@ -26,7 +27,7 @@ legend top right
   | ..> <<publishes>>| evento publicado por el aggregate      |
 endlegend
 
-package "Shared Kernel" {
+package "Shared Kernel" as SharedKernel {
   abstract class AbstractAggregateRoot<T> <<Abstract>> {
     # createdAt : Instant
     # updatedAt : Instant
@@ -42,7 +43,11 @@ package "Shared Kernel" {
   abstract class AuthenticationException <<Abstract>>
 }
 
-package "com.kntrosoft.reqsai.iam.domain.model.aggregates" {
+package "IAM" {
+
+  package "Domain" {
+    package "Model" {
+      package "Aggregates" as DomainAggregates {
   class Account <<Aggregate Root>> {
     - id : AccountId
     - email : Email
@@ -101,9 +106,13 @@ package "com.kntrosoft.reqsai.iam.domain.model.aggregates" {
     + isValid(now : Instant) : boolean
     + isExpired(now : Instant) : boolean
   }
-}
+      }
+    }
+  }
 
-package "com.kntrosoft.reqsai.iam.domain.model.valueobjects" {
+  package "Domain" {
+    package "Model" {
+      package "Value Objects" as DomainValueObjects {
   class AccountId <<Value Object>>
   class UserId <<Value Object>>
   class RefreshTokenId <<Value Object>>
@@ -137,9 +146,11 @@ package "com.kntrosoft.reqsai.iam.domain.model.valueobjects" {
     REVOKED
     EXPIRED
   }
-}
+      }
+    }
+  }
 
-package "iam/api" {
+  package "Api" as ApiEvents {
   class AccountCreatedEvent <<Domain Event>> {
     + accountId : String
     + userId : String
@@ -159,7 +170,9 @@ package "iam/api" {
   }
 }
 
-package "com.kntrosoft.reqsai.iam.domain.model.events" {
+  package "Domain" {
+    package "Model" {
+      package "Events" as DomainEvents {
   class AccountVerifiedEvent <<Domain Event>> {
     + accountId : String
     + occurredAt : Instant
@@ -168,7 +181,9 @@ package "com.kntrosoft.reqsai.iam.domain.model.events" {
   }
 }
 
-package "com.kntrosoft.reqsai.iam.domain.model.exceptions" {
+  package "Domain" {
+    package "Model" {
+      package "Exceptions" as DomainExceptions {
   class AccountNotFoundException <<Abstract>>
   class AccountAlreadyExistsException <<Abstract>>
   class InvalidCredentialsException <<Abstract>>
@@ -177,7 +192,17 @@ package "com.kntrosoft.reqsai.iam.domain.model.exceptions" {
   class InvalidRefreshTokenException <<Abstract>>
   class InvalidVerificationCodeException <<Abstract>>
   class UserNotFoundException <<Abstract>>
+      }
+    }
+  }
+
 }
+
+
+' ── Inheritance ────────────────────────────────────────────────────
+Account      --|> AbstractAggregateRoot : extends
+User         --|> AbstractAggregateRoot : extends
+RefreshToken --|> AbstractAggregateRoot : extends
 
 AccountNotFoundException         --|> EntityNotFoundException
 UserNotFoundException            --|> EntityNotFoundException
@@ -189,300 +214,6 @@ InvalidVerificationCodeException --|> BusinessRuleViolationException
 
 InvalidCredentialsException      --|> AuthenticationException
 InvalidRefreshTokenException     --|> AuthenticationException
-
-package "com.kntrosoft.reqsai.iam.domain.model.commands" {
-  class SignUpCommand {
-    + email : String
-    + password : String
-    + firstName : String
-    + lastName : String
-  }
-
-  class SignInCommand {
-    + email : String
-    + password : String
-  }
-
-  class VerifyEmailCommand {
-    + email : String
-    + code : String
-  }
-
-  class ResendVerificationCodeCommand {
-    + email : String
-  }
-
-  class ChangePasswordCommand {
-    + userId : String
-    + currentPassword : String
-    + newPassword : String
-  }
-
-  class RefreshSessionCommand {
-    + refreshToken : String
-  }
-
-  class RevokeRefreshTokenCommand {
-    + refreshToken : String
-  }
-
-  class UpdateUserProfileCommand {
-    + userId : String
-    + firstName : String
-    + lastName : String
-    + avatarUrl : String
-  }
-
-  class UpdateUserPreferencesCommand {
-    + userId : String
-    + lastVisitedOrgId : String
-    + lastVisitedProjectId : String
-  }
-}
-
-package "com.kntrosoft.reqsai.iam.domain.model.queries" {
-  class GetAuthenticatedUserQuery
-
-  class GetUserByIdQuery {
-    + userId : String
-  }
-
-  class GetUserByAccountIdQuery {
-    + accountId : String
-  }
-}
-
-' ── Application Layer (Use Cases) ───────────────────────────────────
-package "com.kntrosoft.reqsai.iam.application.authentication" {
-  class SignUpCommandHandler <<Handler>> {
-    + handle(cmd : SignUpCommand) : AuthenticatedUserResponse
-  }
-  class SignInCommandHandler <<Handler>> {
-    + handle(cmd : SignInCommand) : AuthenticatedUserResponse
-  }
-  class VerifyEmailCommandHandler <<Handler>> {
-    + handle(cmd : VerifyEmailCommand) : void
-  }
-  class ResendVerificationCodeCommandHandler <<Handler>> {
-    + handle(cmd : ResendVerificationCodeCommand) : void
-  }
-  class RefreshSessionCommandHandler <<Handler>> {
-    + handle(cmd : RefreshSessionCommand) : AuthenticatedUserResponse
-  }
-  class RevokeRefreshTokenCommandHandler <<Handler>> {
-    + handle(cmd : RevokeRefreshTokenCommand) : void
-  }
-}
-
-package "com.kntrosoft.reqsai.iam.application.user" {
-  class UpdateUserProfileCommandHandler <<Handler>> {
-    + handle(cmd : UpdateUserProfileCommand) : User
-  }
-  class UpdateUserPreferencesCommandHandler <<Handler>> {
-    + handle(cmd : UpdateUserPreferencesCommand) : User
-  }
-  class GetAuthenticatedUserQueryHandler <<Handler>> {
-    + handle(query : GetAuthenticatedUserQuery) : User
-  }
-}
-
-' ── Application Ports ───────────────────────────────────────────────
-package "com.kntrosoft.reqsai.iam.application.ports" {
-  interface AccountRepositoryPort <<Port>> {
-    + save(account : Account) : Account
-    + findById(id : String) : Optional<Account>
-    + findByEmail(email : Email) : Optional<Account>
-    + existsByEmail(email : Email) : boolean
-  }
-
-  interface UserRepositoryPort <<Port>> {
-    + save(user : User) : User
-    + findById(id : String) : Optional<User>
-    + findByAccountId(accountId : AccountId) : Optional<User>
-  }
-
-  interface RefreshTokenRepositoryPort <<Port>> {
-    + save(token : RefreshToken) : RefreshToken
-    + findByTokenHash(hash : String) : Optional<RefreshToken>
-    + deleteAllByUserId(userId : String) : void
-  }
-
-  interface TokenServicePort <<Port>> {
-    + generateToken(userId : String) : String
-    + validateToken(token : String) : boolean
-    + getUserIdFromToken(token : String) : String
-  }
-
-  interface HashingServicePort <<Port>> {
-    + encode(raw : String) : String
-    + matches(raw : String, hash : String) : boolean
-  }
-
-  interface VerificationServicePort <<Port>> {
-    + generateCode() : String
-    + generateExpirationMinutes() : int
-  }
-
-  interface EmailNotificationServicePort <<Port>> {
-    + sendVerificationEmail(to : String, code : String, expirationMinutes : int) : void
-  }
-}
-
-' ── Interface Layer (HTTP) ──────────────────────────────────────────
-package "com.kntrosoft.reqsai.iam.interfaces.rest.swagger" {
-  interface AuthenticationController <<Controller>> {
-    + signUp(request : SignUpRequest) : AuthenticatedUserResponse
-    + signIn(request : SignInRequest) : AuthenticatedUserResponse
-    + verifyEmail(request : VerifyEmailRequest) : void
-    + resendVerificationCode(request : ResendVerificationCodeRequest) : void
-    + refreshSession(request : RefreshSessionRequest) : AuthenticatedUserResponse
-    + signOut(request : RevokeRefreshTokenRequest) : void
-  }
-
-  interface UserController <<Controller>> {
-    + getAuthenticatedUser() : UserResponse
-    + updateProfile(request : UpdateProfileRequest) : UserResponse
-    + updatePreferences(request : UpdatePreferencesRequest) : UserResponse
-  }
-}
-
-package "com.kntrosoft.reqsai.iam.interfaces.rest.controllers" {
-  class AuthenticationControllerImpl <<Controller>>
-  class UserControllerImpl <<Controller>>
-}
-
-package "com.kntrosoft.reqsai.iam.interfaces.rest.dto.request" {
-  class SignUpRequest <<DTO>> {
-    + email : String
-    + password : String
-    + firstName : String
-    + lastName : String
-  }
-
-  class SignInRequest <<DTO>> {
-    + email : String
-    + password : String
-  }
-
-  class VerifyEmailRequest <<DTO>> {
-    + email : String
-    + code : String
-  }
-
-  class ResendVerificationCodeRequest <<DTO>> {
-    + email : String
-  }
-
-  class RefreshSessionRequest <<DTO>> {
-    + refreshToken : String
-  }
-
-  class RevokeRefreshTokenRequest <<DTO>> {
-    + refreshToken : String
-  }
-
-  class UpdateProfileRequest <<DTO>> {
-    + firstName : String
-    + lastName : String
-    + avatarUrl : String
-  }
-
-  class UpdatePreferencesRequest <<DTO>> {
-    + lastVisitedOrgId : String
-    + lastVisitedProjectId : String
-  }
-}
-
-package "com.kntrosoft.reqsai.iam.interfaces.rest.dto.response" {
-  class AuthenticatedUserResponse <<DTO>> {
-    + id : String
-    + email : String
-    + firstName : String
-    + lastName : String
-    + accessToken : String
-    + refreshToken : String
-  }
-
-  class UserResponse <<DTO>> {
-    + id : String
-    + email : String
-    + firstName : String
-    + lastName : String
-    + avatarUrl : String
-    + lastVisitedOrgId : String
-    + lastVisitedProjectId : String
-  }
-}
-
-package "com.kntrosoft.reqsai.iam.interfaces.rest.mappers" {
-  class SignUpRequestMapper <<Mapper>> {
-    + {static} toCommand(request : SignUpRequest) : SignUpCommand
-  }
-
-  class SignInRequestMapper <<Mapper>> {
-    + {static} toCommand(request : SignInRequest) : SignInCommand
-  }
-
-  class UpdateProfileRequestMapper <<Mapper>> {
-    + {static} toCommand(userId : String, request : UpdateProfileRequest) : UpdateUserProfileCommand
-  }
-
-  class UpdatePreferencesRequestMapper <<Mapper>> {
-    + {static} toCommand(userId : String, request : UpdatePreferencesRequest) : UpdateUserPreferencesCommand
-  }
-
-  class AuthenticatedUserResponseMapper <<Mapper>> {
-    + {static} toResponse(user : User, accessToken : String, refreshToken : String) : AuthenticatedUserResponse
-  }
-
-  class UserResponseMapper <<Mapper>> {
-    + {static} toResponse(user : User, email : String) : UserResponse
-  }
-}
-
-' ── Infrastructure Layer (Adapters) ─────────────────────────────────
-package "com.kntrosoft.reqsai.iam.infrastructure.persistence.jpa" {
-  class AccountRepository <<Adapter>> {
-    + findByEmail(email : Email) : Optional<Account>
-    + existsByEmail(email : Email) : boolean
-  }
-
-  class UserRepository <<Adapter>> {
-    + findByAccountId(accountId : AccountId) : Optional<User>
-  }
-
-  class RefreshTokenRepository <<Adapter>> {
-    + findByTokenHash(tokenHash : String) : Optional<RefreshToken>
-    + deleteAllByUserId(userId : String) : void
-  }
-}
-
-package "com.kntrosoft.reqsai.iam.infrastructure.security" {
-  class WebSecurityConfiguration <<Security>>
-  class BearerAuthorizationRequestFilter <<Security>>
-  class UnauthorizedRequestHandlerEntryPoint <<Security>>
-  class UserDetailsServiceImpl <<Security>>
-}
-
-package "com.kntrosoft.reqsai.iam.infrastructure.adapters" {
-  class JwtTokenServiceAdapter <<Adapter>>
-  class BCryptHashingServiceAdapter <<Adapter>>
-  class OtpVerificationServiceAdapter <<Adapter>>
-  class SmtpEmailNotificationAdapter <<Adapter>>
-}
-
-package "com.kntrosoft.reqsai.iam.infrastructure.events" {
-  class EmailVerificationRequestedEventListener <<Adapter>>
-}
-
-package "com.kntrosoft.reqsai.iam.module" {
-  class IamModuleApiImpl
-}
-
-' ── Inheritance ────────────────────────────────────────────────────
-Account      --|> AbstractAggregateRoot : extends
-User         --|> AbstractAggregateRoot : extends
-RefreshToken --|> AbstractAggregateRoot : extends
 
 ' ── Dependencies ───────────────────────────────────────────────────
 Account      ..> Email           : uses
@@ -499,98 +230,5 @@ Account ..> AccountCreatedEvent             : <<publishes>>
 Account ..> EmailVerificationRequestedEvent : <<publishes>>
 Account ..> AccountVerifiedEvent            : <<publishes>>
 
-' ── Application dependencies ────────────────────────────────────────
-SignUpCommandHandler  ..> AccountRepositoryPort
-SignUpCommandHandler  ..> UserRepositoryPort
-SignUpCommandHandler  ..> HashingServicePort
-SignUpCommandHandler  ..> VerificationServicePort
-SignUpCommandHandler  ..> EmailVerificationRequestedEvent : <<publishes>>
-
-SignInCommandHandler  ..> AccountRepositoryPort
-SignInCommandHandler  ..> UserRepositoryPort
-SignInCommandHandler  ..> HashingServicePort
-SignInCommandHandler  ..> TokenServicePort
-SignInCommandHandler  ..> RefreshTokenRepositoryPort
-
-VerifyEmailCommandHandler            ..> AccountRepositoryPort
-ResendVerificationCodeCommandHandler ..> AccountRepositoryPort
-ResendVerificationCodeCommandHandler ..> VerificationServicePort
-ResendVerificationCodeCommandHandler ..> EmailVerificationRequestedEvent : <<publishes>>
-RefreshSessionCommandHandler         ..> RefreshTokenRepositoryPort
-RefreshSessionCommandHandler         ..> TokenServicePort
-RevokeRefreshTokenCommandHandler     ..> RefreshTokenRepositoryPort
-
-UpdateUserProfileCommandHandler     ..> UserRepositoryPort
-UpdateUserPreferencesCommandHandler ..> UserRepositoryPort
-GetAuthenticatedUserQueryHandler    ..> UserRepositoryPort
-GetAuthenticatedUserQueryHandler    ..> AccountRepositoryPort
-
-' ── Ports implemented by adapters ───────────────────────────────────
-AccountRepository      ..|> AccountRepositoryPort
-UserRepository         ..|> UserRepositoryPort
-RefreshTokenRepository ..|> RefreshTokenRepositoryPort
-
-JwtTokenServiceAdapter        ..|> TokenServicePort
-BCryptHashingServiceAdapter   ..|> HashingServicePort
-OtpVerificationServiceAdapter ..|> VerificationServicePort
-SmtpEmailNotificationAdapter  ..|> EmailNotificationServicePort
-
-EmailVerificationRequestedEventListener ..> EmailNotificationServicePort
-EmailVerificationRequestedEventListener ..> EmailVerificationRequestedEvent
-
-' ── HTTP wiring (contracts -> impl -> handlers) ─────────────────────
-AuthenticationControllerImpl ..|> AuthenticationController
-UserControllerImpl           ..|> UserController
-
-AuthenticationControllerImpl ..> SignUpCommandHandler
-AuthenticationControllerImpl ..> SignInCommandHandler
-AuthenticationControllerImpl ..> VerifyEmailCommandHandler
-AuthenticationControllerImpl ..> ResendVerificationCodeCommandHandler
-AuthenticationControllerImpl ..> RefreshSessionCommandHandler
-AuthenticationControllerImpl ..> RevokeRefreshTokenCommandHandler
-
-UserControllerImpl ..> GetAuthenticatedUserQueryHandler
-UserControllerImpl ..> UpdateUserProfileCommandHandler
-UserControllerImpl ..> UpdateUserPreferencesCommandHandler
-
-' ── DTO mapping ─────────────────────────────────────────────────────
-SignUpRequestMapper            ..> SignUpRequest
-SignInRequestMapper            ..> SignInRequest
-UpdateProfileRequestMapper     ..> UpdateProfileRequest
-UpdatePreferencesRequestMapper ..> UpdatePreferencesRequest
-
-AuthenticatedUserResponseMapper ..> AuthenticatedUserResponse
-UserResponseMapper              ..> UserResponse
-
-AuthenticationControllerImpl ..> SignUpRequest
-AuthenticationControllerImpl ..> SignInRequest
-AuthenticationControllerImpl ..> VerifyEmailRequest
-AuthenticationControllerImpl ..> ResendVerificationCodeRequest
-AuthenticationControllerImpl ..> RefreshSessionRequest
-AuthenticationControllerImpl ..> RevokeRefreshTokenRequest
-
-UserControllerImpl ..> UpdateProfileRequest
-UserControllerImpl ..> UpdatePreferencesRequest
-
-SignUpRequestMapper        ..> SignUpCommand
-SignInRequestMapper        ..> SignInCommand
-UpdateProfileRequestMapper ..> UpdateUserProfileCommand
-UpdatePreferencesRequestMapper ..> UpdateUserPreferencesCommand
-
-SignUpCommandHandler  ..> SignUpCommand
-SignInCommandHandler  ..> SignInCommand
-VerifyEmailCommandHandler ..> VerifyEmailCommand
-ResendVerificationCodeCommandHandler ..> ResendVerificationCodeCommand
-RefreshSessionCommandHandler ..> RefreshSessionCommand
-RevokeRefreshTokenCommandHandler ..> RevokeRefreshTokenCommand
-
-UpdateUserProfileCommandHandler ..> UpdateUserProfileCommand
-UpdateUserPreferencesCommandHandler ..> UpdateUserPreferencesCommand
-GetAuthenticatedUserQueryHandler ..> GetAuthenticatedUserQuery
-
-' ── Security dependencies ───────────────────────────────────────────
-WebSecurityConfiguration ..> BearerAuthorizationRequestFilter
-BearerAuthorizationRequestFilter ..> TokenServicePort
-UserDetailsServiceImpl ..> AccountRepositoryPort
 
 @enduml
