@@ -1645,18 +1645,20 @@ El *System Landscape Diagram* proporciona una vista panorámica del ecosistema t
 
 A continuación, se presenta la topología del paisaje del sistema:
 
-![SystemLandscapeDiagram](assets/architecture/system-landscape.png)
+![SystemLandscapeDiagram](assets/diagrams/architecture/system-landscape.png)
 
 **Análisis de Interacciones en el Ecosistema:**
 
-1.  **Límite Empresarial Kntro-Soft Enterprise:** Agrupa a nuestros actores principales (Technical Lead y Enterprise Analyst) interactuando centralmente con el **ReqsAI System**. Este es el núcleo de valor donde se graban las reuniones, se analizan los requerimientos y se estructuran en historias de usuario.
-2.  **Proveedores de Inteligencia y Procesamiento (Core Dependencies):** En la parte inferior, observamos las dependencias críticas (SaaS) que Reqs-AI delega para cumplir sus objetivos complejos:
-    *   **STT API (Speech-to-Text):** Recibe los fragmentos de audio en tiempo real y devuelve el texto.
-    *   **LLM API (Large Language Model):** Sirve a dos consumidores internos: **Workspace Management** lo usa para generar embeddings vectoriales de los documentos del cliente (base del RAG), y **Requirement Discovery** lo usa para inferir historias en formato Gherkin inyectando la transcripción y el contexto recuperado.
+1.  **Límite Empresarial Kntro-Soft Enterprise:** Agrupa a nuestros actores principales (Technical Lead y Enterprise Analyst) interactuando centralmente con el **ReqsAI System**. Este es el núcleo de valor donde se procesan las transcripciones, se analizan los requerimientos y se estructuran en historias de usuario.
+2.  **Proveedores de Inteligencia y Procesamiento (Core Dependencies):** Las dependencias tecnológicas críticas que Reqs-AI delega para cumplir sus objetivos:
+    *   **STT API (Speech-to-Text):** Recibe los fragmentos de audio en tiempo real y devuelve el texto transcrito.
+    *   **Embedding API:** Convierte texto en vectores numéricos para el índice RAG. Es utilizada por **Workspace Management** (vectorización de documentos y glosario) y por **Requirement Discovery** (vectorización de historias de usuario generadas para búsqueda semántica).
+    *   **LLM API (Large Language Model generativo):** Procesa y genera texto de alto nivel. **Workspace Management** la invoca para extraer y estructurar el contenido de documentos subidos por el cliente, produciendo fragmentos de calidad para el RAG. **Requirement Discovery** la invoca para inferir historias de usuario en formato Gherkin a partir de la transcripción y el contexto recuperado del RAG.
     *   **Payment Gateway:** Procesa las transacciones de las suscripciones B2B corporativas.
-3.  **Herramientas de Ecosistema del Cliente (The Landscape Effect):** La verdadera amplitud del ecosistema se observa en los bordes laterales:
-    *   **Project Management Tool Jira:** El diagrama evidencia que el *Technical Lead* gestiona sus Sprints directamente en Jira. ReqsAI actúa como un puente inteligente que exporta las historias de usuario aprobadas hacia esta herramienta, cerrando la brecha entre el levantamiento de requerimientos y la ejecución ágil.
-    *   **Email Service Provider:** El *Enterprise Analyst* recibe notificaciones de su organización a través de su proveedor de correo, alimentadas por los eventos disparados desde nuestro sistema.
+3.  **Herramientas de Ecosistema del Cliente (The Landscape Effect):** La verdadera amplitud del ecosistema se evidencia en las relaciones laterales entre los usuarios y las herramientas que ya usan **independientemente** de ReqsAI:
+    *   **Video Conferencing Tool (Google Meet, Zoom, MS Teams):** El *Technical Lead* y el *Enterprise Analyst* realizan sus reuniones de levantamiento de requisitos en estas plataformas. Exportan las grabaciones de audio y las suben manualmente a ReqsAI para su procesamiento. Esta es la fuente upstream del audio que alimenta el pipeline de IA.
+    *   **Project Management Tool (Jira, Trello, Linear):** El *Technical Lead* gestiona sus Sprints directamente en la herramienta de su equipo. ReqsAI exporta las historias aprobadas hacia ella, cerrando la brecha entre el levantamiento de requerimientos y la ejecución ágil.
+    *   **Email Service Provider:** El *Enterprise Analyst* recibe notificaciones e invitaciones de su organización a través de su proveedor de correo corporativo.
 
 ### 4.3.2. Software Architecture Context Level Diagrams
 
@@ -1664,7 +1666,7 @@ Mientras que el Diagrama Landscape nos mostró el panorama del negocio, el **Dia
 
 A nivel de contexto, eliminamos las interacciones directas entre los usuarios y los sistemas de terceros (ej. el Technical Lead consultando Jira por su cuenta) y nos limitamos a mapear cómo nuestro sistema es el único orquestador responsable de comunicarse con el mundo exterior para cumplir sus objetivos.
 
-![System Context Diagram](assets/architecture/system-context.png)
+![System Context Diagram](assets/diagrams/architecture/system-context.png)
 
 **Análisis de Entradas y Salidas del Sistema Central:**
 
@@ -1676,14 +1678,15 @@ A nivel de contexto, eliminamos las interacciones directas entre los usuarios y 
     *   **Email Service Provider:** Recibe peticiones vía REST API para enviar los correos transaccionales de recuperación de contraseña y validación de cuentas.
 *   **Sistemas Core (Outbound Tecnológico):**
     *   **STT API (Speech-to-Text):** Recibe el streaming continuo de audio de las reuniones y retorna texto fragmentado con latencia inferior a 2 segundos.
-    *   **LLM API (Inteligencia Generativa):** Es consumida por dos Bounded Contexts distintos. **Workspace Management** la utiliza para convertir el texto extraído de documentos del cliente en vectores de embeddings que alimentan el RAG. **Requirement Discovery** la invoca para la inferencia generativa, enviando un *prompt* que combina la transcripción de la reunión y el contexto recuperado del RAG, recibiendo como respuesta un bloque JSON estructurado en Gherkin.
+    *   **Embedding API:** Transforma texto en vectores numéricos para el motor RAG. **Workspace Management** la invoca al ingerir documentos y el glosario técnico del cliente, almacenando los vectores en pgvector. **Requirement Discovery** la invoca para vectorizar las historias de usuario generadas, habilitando búsquedas semánticas sobre el historial del proyecto.
+    *   **LLM API (Inteligencia Generativa):** Genera y procesa lenguaje de alto nivel. **Workspace Management** la invoca para extraer y estructurar el contenido significativo de los documentos subidos por el cliente antes de vectorizarlos, mejorando la calidad de recuperación del RAG. **Requirement Discovery** la invoca para la inferencia generativa: envía un *prompt* que combina la transcripción de la reunión con el contexto recuperado del RAG y recibe como respuesta un bloque JSON estructurado en formato Gherkin.
     *   **Project Management Tool:** Recibe las historias de usuario aprobadas y formateadas para crear automáticamente *Issues* en el backlog del equipo (por ejemplo en Jira).
 
 ### 4.3.3. Software Architecture Container Level Diagrams
 
 En esta sección presentamos el diagrama de contenedores para el sistema Reqs-AI. Este nivel hace un enfoque al sistema principal para revelar los contenedores de software que lo componen (aplicaciones móviles, web, API, bases de datos), mostrando cómo se distribuyen las responsabilidades, las decisiones tecnológicas de alto nivel y cómo estos componentes se comunican entre sí y con los sistemas externos.
 
-![Container Diagram](assets/architecture/container-diagram.png)
+![Container Diagram](assets/diagrams/architecture/container-diagram.png)
 
 El sistema Reqs-AI está compuesto por los siguientes contenedores principales:
 
@@ -1692,11 +1695,11 @@ El sistema Reqs-AI está compuesto por los siguientes contenedores principales:
     *   **Mobile App:** Proporciona accesibilidad móvil a los usuarios, permitiéndoles interactuar con el sistema, grabar reuniones o revisar el estado de los requerimientos desde cualquier lugar. Se optó por **Flutter** para asegurar un desarrollo multiplataforma eficiente (iOS y Android) con una base de código unificada.
 
 2.  **Distribución y Enrutamiento Perimetral (Edge):**
-    *   **CDN & Reverse Proxy:** Se posiciona como el intermediario absoluto entre las interfaces de usuario (Internet) y la infraestructura interna. Actúa como proxy inverso interceptando todas las peticiones web y móviles. Su función es servir los archivos estáticos de la Web App a alta velocidad desde ubicaciones globales, almacenar respuestas en caché, mitigar ataques (DDoS) y enrutar las peticiones dinámicas (API) hacia el Gateway. En el entorno AWS, la tecnología elegida es **Amazon CloudFront**.
-    *   **API Gateway:** Actúa como la puerta de entrada para todas las peticiones dinámicas (Requests) enrutadas desde el Reverse Proxy. Su responsabilidad es dirigir estas solicitudes hacia los servicios de backend correspondientes, gestionando el *throttling*, métricas de consumo y terminación SSL.
+    *   **CDN & Reverse Proxy (Amazon CloudFront):** Sirve exclusivamente los activos estáticos del SPA Angular desde Edge Locations globales (HTML, CSS, JS), cachea respuestas, mitiga ataques DDoS y enruta el tráfico dinámico de API hacia el API Gateway. **La app móvil no pasa por CloudFront** — es una aplicación nativa instalada desde el App Store/Google Play que llama directamente al API Gateway.
+    *   **API Gateway (AWS API Gateway):** Punto de entrada unificado para todas las peticiones REST y WebSocket, tanto de la app web (enrutadas desde CloudFront) como de la app móvil (conexión directa). Gestiona throttling, métricas de consumo y terminación SSL.
 
 3.  **Lógica Core (Backend — Monolito Modular):**
-    *   **Reqs-AI Backend Application:** Desarrollado en **Java 25 con Spring Boot 3**, se despliega como una única unidad de ejecución que concentra toda la inteligencia de negocio del producto. Está estructurado internamente como un **Monolito Modular**: los 5 Bounded Contexts operan como módulos independientes con fronteras de acceso estrictas, comunicándose entre sí mediante interfaces públicas y eventos en memoria —sin tráfico de red interno—, lo que elimina la latencia distribuida y garantiza la coherencia transaccional durante las sesiones de elicitación en tiempo real. Esta decisión prioriza la simplicidad operativa y el *Time-to-Market* en la etapa actual, manteniendo la arquitectura preparada para una migración selectiva a servicios independientes si el volumen futuro lo justifica.
+    *   **Reqs-AI Backend Application:** Desarrollado en **Java 25 con Spring Boot 4**, se despliega como un único contenedor Docker que concentra toda la inteligencia de negocio del producto. Está estructurado internamente como un **Monolito Modular** con Spring Modulith: los 5 Bounded Contexts operan como módulos independientes con fronteras de acceso estrictas, comunicándose entre sí mediante interfaces públicas y eventos en memoria —sin tráfico de red interno—, lo que elimina la latencia distribuida y garantiza la coherencia transaccional. Esta decisión prioriza la simplicidad operativa y el *Time-to-Market* en la etapa actual, manteniendo la arquitectura preparada para una migración selectiva si el volumen futuro lo justifica.
 
     | # | Bounded Context        | Responsabilidad principal                                                                                   |
     |---|------------------------|-------------------------------------------------------------------------------------------------------------|
@@ -1706,27 +1709,28 @@ El sistema Reqs-AI está compuesto por los siguientes contenedores principales:
     | 4 | Billing & Subscription | Planes de suscripción, control de cuotas e integración con la pasarela de pagos.                            |
     | 5 | Integration Gateway    | Exportación de historias aprobadas hacia las herramientas de gestión que el cliente ya utiliza.             |
 
-4.  **Almacenamiento de Datos:**
-    *   **Database:** Es la base de datos principal de Reqs-AI. Almacena toda la información del dominio. La elección de **PostgreSQL** con la extensión **pgvector** es una decisión estratégica crítica, ya que permite almacenar y consultar *embeddings* vectoriales, facilitando el procesamiento avanzado de IA (RAG) y las búsquedas semánticas.
+4.  **Almacenamiento de Datos (AWS RDS):**
+    *   **Database:** Base de datos relacional administrada en **AWS RDS** con **PostgreSQL** y la extensión **pgvector**. La elección de pgvector es una decisión estratégica crítica que permite almacenar y consultar *embeddings* vectoriales directamente en la base de datos relacional, habilitando el motor RAG y las búsquedas semánticas sin necesidad de una base de datos vectorial separada.
 
 **Comunicación e Integración de Contenedores**
 
-La arquitectura define un flujo de comunicación moderno y orientado a servicios:
+La arquitectura define un flujo de comunicación diferenciado según el canal:
 
-*   **Comunicación Cliente-Servidor (Internet):** Tanto la aplicación móvil como la web interactúan inicialmente con el **CDN & Reverse Proxy (CloudFront)** a través de **HTTPS**. El proxy inverso sirve la Web App (Angular) y enruta las llamadas de datos hacia el **API Gateway**. Todo el tráfico utiliza conexiones seguras (REST y WebSockets para el streaming de audio).
-*   **Comunicación Interna:** La API Gateway enruta las llamadas procesadas hacia el *Reqs-AI Backend Application*. Internamente, los Bounded Contexts se comunican mediante eventos en memoria (Domain Events) y persisten su estado de manera síncrona en la base de datos compartida (PostgreSQL).
-*   **Integración con Sistemas Externos:** En lugar de centralizar todas las salidas, las integraciones están descentralizadas y asignadas al Bounded Context correspondiente que las necesita:
-    *   **IAM** envía credenciales y alertas a través del **Email Service Provider**.
-    *   **Billing & Subscription** procesa transacciones a través del **Payment Gateway**.
-    *   **Workspace Management** delega al **LLM API** la generación de embeddings vectoriales de los documentos del cliente para construir y mantener el índice RAG del proyecto.
-    *   **Requirement Discovery** envía los audios de las reuniones al **STT API** para convertirlos a texto, y delega al **LLM API** la inferencia generativa para producir las historias en formato Gherkin.
-    *   **Integration Gateway** exporta finalmente las historias de usuario hacia la herramienta de gestión mediante la **Project Management API** (Jira).
+*   **Canal Web:** El navegador carga el SPA Angular desde **CloudFront** (activos estáticos cacheados en el Edge). Las llamadas de API del SPA viajan por CloudFront → API Gateway → Backend.
+*   **Canal Móvil:** La app Flutter (instalada desde App Store/Google Play) realiza llamadas HTTPS directamente al **API Gateway**, sin pasar por CloudFront, ya que no es una aplicación web servida desde un servidor.
+*   **Comunicación Interna:** La API Gateway enruta todas las peticiones hacia el contenedor del backend. Internamente, los Bounded Contexts se comunican mediante Domain Events en memoria y persisten en la base de datos compartida (AWS RDS PostgreSQL).
+*   **Integración con Sistemas Externos:** Las integraciones están descentralizadas, asignadas al Bounded Context que las necesita:
+    *   **IAM** envía correos transaccionales vía **Email Service Provider**.
+    *   **Billing & Subscription** procesa pagos vía **Payment Gateway**.
+    *   **Workspace Management** vectoriza documentos y glosario vía **Embedding API**, y procesa el contenido de documentos para el RAG vía **LLM API**.
+    *   **Requirement Discovery** transcribe audio vía **STT API**, vectoriza historias generadas vía **Embedding API** e infiere historias en Gherkin vía **LLM API**.
+    *   **Integration Gateway** exporta historias aprobadas vía **Project Management API** (Jira, Trello, Linear).
 
 ### 4.3.4. Software Architecture Deployment Diagrams
 
 En esta sección se presenta el diagrama de despliegue, el cual ilustra cómo los contenedores de software de Reqs-AI se mapean a la infraestructura de la nube. Este diagrama detalla los nodos de ejecución, los entornos operativos y la topología de red, priorizando una arquitectura viable, escalable y optimizada en costos.
 
-![Deployment Diagram](assets/architecture/deployment-diagram.png)
+![Deployment Diagram](assets/diagrams/architecture/deployment-diagram.png)
 
 **Nodos de Despliegue y Distribución de Componentes**
 
@@ -1740,20 +1744,21 @@ La infraestructura de despliegue se divide en los entornos de cliente, la red de
     Para garantizar baja latencia y alta seguridad antes de que el tráfico llegue a los servidores principales, se utilizan los nodos Edge de AWS distribuidos globalmente.
     *   **Amazon CloudFront (CDN & Reverse Proxy):** Actúa como el primer punto de contacto (Proxy Inverso). Almacena en caché los archivos estáticos de la Web App en ubicaciones cercanas al usuario para cargas instantáneas, y enruta de forma segura y eficiente el tráfico dinámico hacia la región principal de AWS.
 
-3.  **Entorno de Nube - Procesamiento (Server-Side - AWS North America):**
-    La lógica de negocio se aloja en AWS North America (us-east-1, Virginia), elegida por su alta disponibilidad y ecosistema completo de servicios.
-    *   **AWS API Gateway:** Recibe el tráfico dinámico enrutado desde CloudFront y funciona como el orquestador de las peticiones REST y WebSockets hacia el backend.
-    *   **AWS Elastic Beanstalk:** Es el entorno PaaS (Platform as a Service) encargado de alojar el **Reqs-AI Backend Application**. Elastic Beanstalk abstrae la complejidad de la infraestructura, aprovisionando servidores EC2 subyacentes, autoescalado y monitoreo, permitiendo al equipo enfocarse únicamente en el código del runtime de Java.
+3.  **Entorno de Nube - Procesamiento (AWS North America — us-east-1, Virginia):**
+    La lógica de negocio se aloja en la región de AWS North America, elegida por su alta disponibilidad y ecosistema completo de servicios administrados.
+    *   **AWS API Gateway:** Recibe el tráfico dinámico desde CloudFront (web) y directamente desde la app móvil, funcionando como orquestador de peticiones REST y WebSocket hacia el backend.
+    *   **ECS Cluster (AWS ECS + Fargate):** El backend se despliega como un contenedor Docker en **AWS ECS con Fargate** (serverless containers). Fargate abstrae completamente la gestión de servidores EC2 subyacentes, provisionando cómputo bajo demanda con autoescalado automático. La task definition del ECS define dos contenedores en la misma unidad de ejecución: el **ReqsAI Backend Service** (Java 25 + Spring Boot 4) y el **Grafana Alloy** como sidecar de observabilidad.
+    *   **Observability Server (AWS EC2 + Docker Compose):** Una instancia EC2 dedicada ejecuta el stack de observabilidad completo mediante Docker Compose: **Prometheus** (almacén de métricas, consultado con PromQL), **Loki** (agregación de logs, consultado con LogQL), **Tempo** (trazas distribuidas, consultado con TraceQL) y **Grafana** (dashboard unificado que visualiza las tres fuentes). Grafana Alloy, corriendo como sidecar en el ECS Cluster, colecta métricas del endpoint `/actuator/prometheus`, logs del stdout del contenedor y trazas OTLP, enviándolos al servidor de observabilidad mediante push.
 
-4.  **Entorno de Nube - Persistencia (Database as a Service):**
-    *   **Supabase Cloud (PostgreSQL):** Se delegó el almacenamiento a Supabase, una plataforma BaaS (Backend as a Service). Esta decisión permite aprovechar una base de datos PostgreSQL robusta, gestionada y con la extensión **pgvector** nativa (esencial para los *embeddings* y RAG de los requerimientos), reduciendo drásticamente la carga operativa y los costos.
+4.  **Entorno de Nube - Persistencia (AWS RDS):**
+    *   **AWS RDS (PostgreSQL + pgvector):** La base de datos principal se gestiona completamente en **Amazon RDS**, el servicio de base de datos relacional administrado de AWS. Se utiliza **PostgreSQL** con la extensión **pgvector** habilitada, esencial para el almacenamiento de embeddings vectoriales que alimentan el motor RAG. RDS provee backups automáticos, failover multi-AZ y actualizaciones de parches sin downtime.
 
 **Comunicación e Interacción de Nodos**
 
-*   Las aplicaciones (Mobile y Web) se comunican vía internet mediante **HTTPS** con el **Amazon CloudFront** ubicado en el *Edge Location* más cercano.
-*   CloudFront sirve los recursos estáticos web directamente y enruta las solicitudes API hacia el **AWS API Gateway** en la región de AWS North America.
-*   La API Gateway enruta el tráfico internamente hacia el entorno de **AWS Elastic Beanstalk**, donde reside la lógica del Monolito Modular.
-*   El backend de Spring Boot se conecta de manera externa y segura hacia el clúster gestionado en **Supabase Cloud** para realizar operaciones transaccionales (*Reads and writes*) sobre la base de datos compartida.
+*   **App Web:** El navegador carga el SPA Angular desde **CloudFront** (Edge Location más cercano). Las llamadas de API del SPA viajan CloudFront → API Gateway → ECS Backend.
+*   **App Móvil:** La app Flutter instalada en el dispositivo del usuario realiza llamadas HTTPS **directamente al API Gateway**, sin pasar por CloudFront, ya que no es una aplicación web servida desde CDN.
+*   **Observabilidad:** Grafana Alloy (sidecar en ECS) colecta continuamente métricas, logs y trazas del backend y los envía al Observability Server en EC2. Grafana consulta Prometheus, Loki y Tempo para mostrar el estado del sistema en tiempo real.
+*   **Persistencia:** El backend se conecta a **AWS RDS** via JDBC/JPA para todas las operaciones transaccionales de los 5 Bounded Contexts.
 
 # Capítulo V: Tactical-Level Software Design
 
