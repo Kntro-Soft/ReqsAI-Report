@@ -1761,11 +1761,315 @@ La infraestructura de despliegue se divide en los entornos de cliente, la red de
 
 ### 5.1.1. Domain Layer
 
+Este contexto se encarga de la identidad de usuario, autenticacion, verificacion de correo y gestion de sesiones. No administra roles ni permisos por organizacion; esos pertenecen al Shared Kernel con Workspace Management.
+
+En esta seccion se describen los elementos del Domain Layer que encapsulan la logica central de cuentas, perfiles y sesiones.
+
+1. **`Account` (Aggregate Root)**
+
+Representa las credenciales y el estado de una cuenta.
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripcion |
+|----------|------|-------------|-------------|
+| `id` | `AccountId` | `private` | Identificador unico de la cuenta. |
+| `email` | `Email` | `private` | Correo unico de acceso. |
+| `passwordHash` | `PasswordHash` | `private` | Contrasena hasheada. |
+| `status` | `AccountStatus` | `private` | Estado de la cuenta. |
+| `createdAt` | `Instant` | `private` | Fecha de creacion. |
+| `updatedAt` | `Instant` | `private` | Fecha de actualizacion. |
+| `createdBy` | `UserId` | `private` | Usuario creador. |
+| `updatedBy` | `UserId` | `private` | Usuario modificador. |
+
+**Metodos principales:**
+
+| Metodo | Tipo Retorno | Visibilidad | Descripcion |
+|--------|-------------|-------------|-------------|
+| `Account()` | `Constructor` | `public` | Constructor vacio requerido por JPA. |
+| `Account(Email, PasswordHash)` | `Constructor` | `public` | Crea cuenta en estado `PENDING_VERIFICATION`. |
+| `changePassword(PasswordHash)` | `void` | `public` | Cambia la contrasena. |
+| `verifyEmail()` | `void` | `public` | Marca la cuenta como verificada. |
+| `suspend()` | `void` | `public` | Suspende la cuenta. |
+| `activate()` | `void` | `public` | Activa la cuenta. |
+| `delete()` | `void` | `public` | Baja logica de cuenta. |
+
+---
+
+2. **`User` (Aggregate Root)**
+
+Representa el perfil del usuario vinculado a una cuenta.
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripcion |
+|----------|------|-------------|-------------|
+| `id` | `UserId` | `private` | Identificador del usuario. |
+| `accountId` | `AccountId` | `private` | Referencia a la cuenta. |
+| `firstName` | `String` | `private` | Nombres. |
+| `lastName` | `String` | `private` | Apellidos. |
+| `avatarUrl` | `AvatarUrl?` | `private` | Foto de perfil opcional. |
+| `createdAt` | `Instant` | `private` | Fecha de creacion. |
+| `updatedAt` | `Instant` | `private` | Fecha de actualizacion. |
+| `createdBy` | `UserId` | `private` | Usuario creador. |
+| `updatedBy` | `UserId` | `private` | Usuario modificador. |
+
+**Metodos principales:**
+
+| Metodo | Tipo Retorno | Visibilidad | Descripcion |
+|--------|-------------|-------------|-------------|
+| `User()` | `Constructor` | `public` | Constructor vacio requerido por JPA. |
+| `User(AccountId, String, String)` | `Constructor` | `public` | Crea perfil asociado a una cuenta. |
+| `updateProfile(String, String, AvatarUrl)` | `void` | `public` | Actualiza datos del perfil. |
+
+---
+
+3. **`RefreshToken` (Entity)**
+
+Token de renovacion asociado a un usuario.
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripcion |
+|----------|------|-------------|-------------|
+| `id` | `RefreshTokenId` | `private` | Identificador del token. |
+| `tokenHash` | `TokenHash` | `private` | Hash del refresh token. |
+| `userId` | `UserId` | `private` | Usuario propietario. |
+| `status` | `TokenStatus` | `private` | Estado del token. |
+| `expiresAt` | `Instant` | `private` | Expiracion. |
+| `revokedAt` | `Instant?` | `private` | Revocacion. |
+| `createdAt` | `Instant` | `private` | Creacion. |
+| `createdBy` | `UserId` | `private` | Emisor. |
+
+**Metodos principales:**
+
+| Metodo | Tipo Retorno | Visibilidad | Descripcion |
+|--------|-------------|-------------|-------------|
+| `RefreshToken()` | `Constructor` | `public` | Constructor vacio requerido por JPA. |
+| `issue(UserId, Instant)` | `RefreshToken` | `public` | Emite un refresh token nuevo. |
+| `revoke()` | `void` | `public` | Revoca el token vigente. |
+| `rotate()` | `RefreshToken` | `public` | Rota el token y marca el anterior como revocado. |
+| `isValid()` | `boolean` | `public` | Valida estado y expiracion. |
+
+---
+
+4. **`AccountStatus` (Value Object)**
+
+Estado actual de la cuenta del usuario.
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripcion |
+|----------|------|-------------|-------------|
+| `PENDING_VERIFICATION` | `Enum` | `public` | La cuenta esta pendiente de verificacion. |
+| `ACTIVE` | `Enum` | `public` | La cuenta esta activa. |
+| `SUSPENDED` | `Enum` | `public` | La cuenta esta suspendida. |
+
+---
+
+5. **`TokenStatus` (Value Object)**
+
+Estado del refresh token.
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripcion |
+|----------|------|-------------|-------------|
+| `ACTIVE` | `Enum` | `public` | Token vigente. |
+| `REVOKED` | `Enum` | `public` | Token revocado. |
+| `EXPIRED` | `Enum` | `public` | Token expirado. |
+
+---
+
+6. **`Email` (Value Object)**
+
+Representa correo con formato valido.
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripcion |
+|----------|------|-------------|-------------|
+| `value` | `String` | `private` | Correo normalizado. |
+
+---
+
+7. **`PasswordHash` (Value Object)**
+
+Hash de contrasena.
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripcion |
+|----------|------|-------------|-------------|
+| `value` | `String` | `private` | Hash BCrypt. |
+
+---
+
+8. **`TokenHash` (Value Object)**
+
+Hash del refresh token.
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripcion |
+|----------|------|-------------|-------------|
+| `value` | `String` | `private` | Hash del token. |
+
+---
+
+9. **`FullName` (Value Object)**
+
+Nombre completo normalizado.
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripcion |
+|----------|------|-------------|-------------|
+| `value` | `String` | `private` | Nombre completo. |
+
+---
+
+10. **`AvatarUrl` (Value Object)**
+
+URL valida de avatar.
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripcion |
+|----------|------|-------------|-------------|
+| `value` | `String` | `private` | URL de avatar. |
+
+---
+
+**Relaciones clave:**
+
+- `Account` crea exactamente un `User` (1:1).
+- `User` puede tener multiples `RefreshToken` (1:N).
+
 ### 5.1.2. Interface Layer
+
+En esta capa se exponen los endpoints REST del IAM para autenticacion y verificacion de cuenta.
+
+**`AuthenticationController`**
+
+| Metodo | Ruta | HTTP | Descripcion |
+|--------|------|------|-------------|
+| `signIn` | `/api/v1/authentication/sign-in` | `POST` | Autentica con credenciales, retorna tokens. |
+| `signUp` | `/api/v1/authentication/sign-up` | `POST` | Registra una nueva cuenta. |
+| `verify` | `/api/v1/authentication/verify` | `POST` | Verifica cuenta con codigo OTP. |
+| `resendCode` | `/api/v1/authentication/resend-code` | `POST` | Reenvia codigo de verificacion. |
+| `refresh` | `/api/v1/authentication/refresh` | `POST` | Rota refresh token y retorna access token. |
+| `signOut` | `/api/v1/authentication/sign-out` | `POST` | Revoca refresh token. |
+
+**Resources (DTOs):**
+
+| Resource | Atributos principales | Descripcion |
+|----------|-----------------------|-------------|
+| `SignInResource` | `email`, `password` | Credenciales de acceso. |
+| `SignUpResource` | `email`, `password`, `firstName`, `lastName` | Datos de registro. |
+| `VerifyEmailResource` | `email`, `code` | Verificacion OTP. |
+| `ResendVerificationCodeResource` | `email` | Solicitud de reenvio. |
+| `RefreshSessionResource` | `refreshToken` | Rotacion de sesion. |
+| `AuthenticatedUserResource` | `id`, `email`, `token`, `refreshToken` | Respuesta de autenticacion. |
+| `UserResource` | `id`, `email`, `firstName`, `lastName`, `avatarUrl` | Perfil expuesto por API. |
+
+**Assemblers (Transform):**
+
+| Assembler | Entrada → Salida | Descripcion |
+|-----------|------------------|-------------|
+| `SignInCommandFromResourceAssembler` | `SignInResource` → `SignInCommand` | Construye el comando creando el VO `Email`. |
+| `SignUpCommandFromResourceAssembler` | `SignUpResource` → `SignUpCommand` | Mapea datos de registro. |
+| `VerifyEmailCommandFromResourceAssembler` | `VerifyEmailResource` → `VerifyEmailCommand` | Construye el comando de verificacion. |
+| `ResendVerificationCodeCommandFromResourceAssembler` | `ResendVerificationCodeResource` → `ResendVerificationCodeCommand` | Convierte DTO de reenvio a comando. |
+| `RefreshSessionCommandFromResourceAssembler` | `RefreshSessionResource` → `RefreshSessionCommand` | Convierte DTO de refresh a comando. |
+| `AuthenticatedUserResourceFromEntityAssembler` | `User` + `token` + `refreshToken` → `AuthenticatedUserResource` | Mapea user + tokens. |
+| `UserResourceFromEntityAssembler` | `User` → `UserResource` | Expone perfil basico. |
 
 ### 5.1.3. Application Layer
 
+En esta capa se describen los casos de uso del IAM bajo el patron CQRS.
+
+**Commands:**
+
+- `SignUpCommand(email, password, firstName, lastName)`
+- `SignInCommand(email, password)`
+- `VerifyEmailCommand(email, code)`
+- `ResendVerificationCodeCommand(email)`
+- `ChangePasswordCommand(userId, newPassword)`
+- `RefreshSessionCommand(refreshToken)`
+- `RevokeRefreshTokenCommand(refreshToken)`
+
+**Queries:**
+
+- `GetAuthenticatedUserQuery()`
+
+**Command Handlers:**
+
+| Handler | Responsabilidad |
+|---------|------------------|
+| `SignUpCommandHandler` | Crea `Account` y `User`, genera OTP y publica evento. |
+| `SignInCommandHandler` | Valida credenciales y emite access/refresh token. |
+| `VerifyEmailCommandHandler` | Verifica OTP y activa la cuenta. |
+| `ResendVerificationCodeCommandHandler` | Reenvia OTP y publica evento. |
+| `ChangePasswordCommandHandler` | Cambia hash de contrasena. |
+| `RefreshSessionCommandHandler` | Rota refresh token y emite JWT. |
+| `RevokeRefreshTokenCommandHandler` | Revoca refresh token. |
+
+**Query Handlers:**
+
+| Handler | Responsabilidad |
+|---------|------------------|
+| `GetAuthenticatedUserQueryHandler` | Retorna perfil del usuario autenticado. |
+
+**Domain Events:**
+
+- `EmailVerificationRequestedEvent(email, code, expirationMinutes)`
+
+**Domain Event Handlers:**
+
+| Handler | Responsabilidad |
+|---------|------------------|
+| `EmailVerificationRequestedEventHandler` | Envia correo de verificacion. |
+
+**ACL Facade:**
+
+- `IamContextFacade.fetchAuthenticatedUser()` -> `userId`, `accountId`, `email`.
+
 ### 5.1.4. Infrastructure Layer
+
+Esta capa implementa persistencia, seguridad y servicios externos.
+
+**Repositories (Spring Data JPA):**
+
+| Repository | Metodos clave |
+|-----------|---------------|
+| `AccountRepository` | `save`, `findByEmail`, `existsByEmail` |
+| `UserRepository` | `save`, `findById`, `findByAccountId` |
+| `RefreshTokenRepository` | `save`, `findByTokenHash`, `findActiveByUserId` |
+
+**Security Infrastructure:**
+
+- `WebSecurityConfiguration`: JWT stateless, CORS, rutas publicas de auth.
+- `BearerAuthorizationRequestFilter`: extrae y valida el token en cada request.
+- `UnauthorizedRequestHandlerEntryPoint`: responde 401.
+- `UserDetailsServiceImpl`: carga cuenta por email.
+- `UserDetailsImpl`: adapta `Account` a `UserDetails`.
+
+**Service Implementations:**
+
+| Servicio | Responsabilidad |
+|----------|------------------|
+| `TokenServiceImpl` | Genera y valida JWT de sesion. |
+| `RefreshTokenServiceImpl` | Hash, rotacion y revocacion. |
+| `BCryptHashingService` | Hash de contrasenas. |
+| `VerificationServiceImpl` | Genera y valida OTP. |
+| `NotificationEmailServiceImpl` | Envia correos de verificacion. |
+| `CurrentUserProviderImpl` | Lee identidad desde `SecurityContext`. |
+
+**JWT (Access Token):**
+
+- Claims: `sub`, `userId`, `accountId`.
+- No incluye `org_id` ni permisos; la autorizacion por organizacion se resuelve en Workspace Management.
 
 ### 5.1.6. Bounded Context Software Architecture Component Level Diagrams
 
