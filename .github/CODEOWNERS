@@ -39,6 +39,9 @@ assets/ddd/                      @jhosepmyr
 # ─── Chapter IV: Software Architecture (C4) ─────────────────────────────────
 assets/architecture/             @jhosepmyr
 
+# ─── Chapter VI: Solution UX Design (wireframes, wireflows, mockups, style) ─
+assets/ui/                       @jhosepmyr
+
 # ─── Annexes ────────────────────────────────────────────────────────────────
 assets/annexes/                  @jhosepmyr
 
