@@ -4534,9 +4534,119 @@ Este sistema de navegación busca mantener continuidad entre los flujos. El usua
 
 ## 6.3. Landing Page UI Design
 
+El diseño de la interfaz de usuario (UI) para la Landing Page de Reqs-AI ha sido estructurado como el puente directo entre la propuesta de valor técnica de Kntro-Soft y las necesidades cognitivas de nuestros segmentos objetivo. Para lograrlo, traducimos los hallazgos del proceso de Need Finding y la arquitectura de información en una disposición visual que prioriza la claridad, la accesibilidad y el profesionalismo. Cada componente de la interfaz responde a decisiones estratégicas de diseño inclusivo: desde el uso de contrastes tipográficos que guían el flujo de lectura del usuario, hasta una jerarquía visual rigurosa que destaca de inmediato soluciones clave como la documentación instantánea en Gherkin y el asistente consultivo en tiempo real. Así, transformamos los requisitos funcionales de la plataforma en una experiencia digital intuitiva, limpia y optimizada para mitigar la fricción desde el primer punto de contacto.
+
 ### 6.3.1. Landing Page Wireframe
 
+**Hero Section Wireframe**
+
+El Hero Section se posiciona en la parte superior de la página aplicando el principio de proximidad y foco visual, donde un titular de alto contraste comunica instantáneamente la propuesta de valor de Reqs-AI ("Documentación de requisitos asistida por IA en tiempo real"), acompañada de un subtítulo persuasivo y un botón de Call to Action (CTA) altamente accesible. Su disposición está optimizada arquitectónicamente mediante una estructura de una sola columna central en dispositivos móviles para facilitar el scrolling vertical, y un diseño de dos columnas en formato desktop que equilibra el texto con una captura intuitiva de la plataforma, guiando de forma fluida el recorrido visual del usuario sin generar sobrecarga cognitiva.
+
+![Reqs-AI Hero Section Wireframe](./assets/ui/landing/wireframes/hero-section-wireframe.png)
+
+**Benefits Section Wireframe**
+
+Esta sección presenta las funcionalidades clave mediante un diseño modular y limpio que respeta el principio de simplicidad, agrupando cada beneficio (documentación instantánea, asistencia en vivo y contexto inteligente) con un ícono descriptivo para agilizar la consistencia y el reconocimiento visual. En la versión web de escritorio se despliega una cuadrícula horizontal de tres columnas para una lectura comparativa rápida, mientras que en la versión móvil se adapta a una lista vertical de una sola columna que garantiza la adaptabilidad y una navegación táctil cómoda y fluida.
+
+![Reqs-AI Benefits Section Wireframe](./assets/ui/landing/wireframes/benefits-section-wireframe.png)
+
+**Features Section Wireframe**
+
+Esta sección expone el funcionamiento técnico de la plataforma mediante un flujo visual continuo que aplica el principio de secuencia lógica y continuidad. En la versión de escritorio, el proceso se divide en un diseño asimétrico de dos columnas alternadas que guían el recorrido del usuario paso a paso, mientras que la versión móvil lo consolida en una sola columna vertical con espaciados optimizados, asegurando una asimilación intuitiva y una alta legibilidad en pantallas táctiles.
+
+![Reqs-AI Features Section Wireframe](./assets/ui/landing/wireframes/features-section-wireframe.png)
+
+**Target Segments Section Wireframe**
+
+Esta sección expone los públicos objetivos aplicando el principio de contraste y segmentación clara de la información para diferenciar ambos perfiles. En la interfaz de escritorio se despliegan dos tarjetas simétricas en paralelo que permiten una comparativa directa e inmediata, mientras que en la versión móvil se apilan verticalmente para mantener una lectura limpia, un scroll cómodo y una correcta accesibilidad táctil.
+
+![Reqs-AI Target Segments Section Wireframe](./assets/ui/landing/wireframes/target-segments-section-wireframe.png)
+
+**Testimonials Section Wireframe**
+
+Esta sección refuerza la confianza de la plataforma aplicando el principio de prueba social mediante un diseño modular y limpio. En la versión de escritorio, los testimonios se organizan en una cuadrícula horizontal de tres columnas que permite una lectura rápida de las experiencias de los usuarios, mientras que en la versión móvil se adaptan a un carrusel o lista vertical de una sola columna que optimiza el espacio y facilita la navegación táctil.
+
+![Reqs-AI Testimonials Section Wireframe](./assets/ui/landing/wireframes/testimonials-section-wireframe.png)
+
+**Pricing Section Wireframe**
+
+Esta sección presenta los planes de suscripción de la plataforma aplicando el principio de contraste e incentivo visual para guiar la conversión de los distintos segmentos. En la versión de escritorio se despliega una estructura de tres columnas en paralelo destacando el plan "Professional" con una inversión de color (tarjeta negra), mientras que en la versión móvil las tarjetas se apilan verticalmente, manteniendo botones de acción (CTA) amplios y accesibles para una óptima interacción táctil.
+
+![Reqs-AI Pricing Section Wireframe](./assets/ui/landing/wireframes/pricing-section-wireframe.png)
+
+**Contact Section Wireframe**
+
+Esta sección facilita la conversión y el soporte directo aplicando los principios de claridad y accesibilidad en los canales de comunicación. En la interfaz de escritorio, los datos de contacto corporativo (correo electrónico y dirección física) se distribuyen de forma asimétrica junto a una descripción concisa para optimizar el espacio en pantalla, mientras que en la versión móvil los elementos se unifican en un flujo vertical de una sola columna que garantiza un acceso táctil inmediato y libre de fricciones.
+
+![Reqs-AI Contact Section Wireframe](./assets/ui/landing/wireframes/contact-section-wireframe.png)
+
+**Final CTA Section Wireframe**
+
+Esta sección actúa como el cierre de conversión de la página aplicando el principio de foco absoluto y aislamiento visual mediante un fondo oscuro de alto contraste. Su estructura simétrica de una sola columna centralizada, idéntica tanto en la versión de escritorio como en la móvil, elimina cualquier distracción secundaria para dirigir toda la atención del usuario hacia el botón principal de registro ("Get Started Now"), maximizando la accesibilidad y la intención de clic.
+
+![Reqs-AI Final CTA Section Wireframe](./assets/ui/landing/wireframes/final-cta-section-wireframe.png)
+
+**Footer Section Wireframe**
+
+Esta sección consolida el cierre de la página aplicando los principios de consistencia y arquitectura de información estructurada para la navegación secundaria. En la interfaz de escritorio se organiza mediante un diseño de cuadrícula asimétrica multicolumna que separa los derechos de autor y enlaces de redes sociales a la izquierda, distribuyendo de forma limpia las columnas temáticas de enlaces (Producto, Empresa, Soporte y Legal) a la derecha; mientras que en la versión móvil se unifica en una única columna de bloques apilados secuencialmente que optimiza el área táctil y la legibilidad en pantallas compactas.
+
+![Reqs-AI Footer Section Wireframe](./assets/ui/landing/wireframes/footer-section-wireframe.png)
+
 ### 6.3.2. Landing Page Mock-up
+
+**Hero Section Mock-up**
+
+El Mock-up del Hero Section consolida la identidad visual del producto aplicando el Design System mediante una paleta de colores oscuros de alta fidelidad con acentos morados y una tipografía moderna Sans-Serif de alto contraste (blanco sobre fondo oscuro), garantizando la accesibilidad (WCAG). En la versión de escritorio se plasma la arquitectura de dos columnas donde el texto persuasivo coexiste armónicamente con una maqueta detallada de la interfaz de Reqs-AI, mientras que la versión móvil sintetiza este espacio en una disposición centralizada de una sola columna que optimiza la interacción táctil en los botones principales (Call to Action).
+
+![Reqs-AI Hero Section Mock-up](./assets/ui/landing/mockups/hero-section-mockup.png)
+
+**Benefits Section Mock-up**
+
+El Mock-up de la sección de beneficios consolida visualmente el núcleo de la problemática aplicando el Design System mediante un sofisticado fondo azul noche de baja luminosidad, el cual genera un contraste idóneo con los textos en blanco y los acentos en verde esmeralda para garantizar la conformidad con las pautas de accesibilidad. En la versión de escritorio, las tres tarjetas de problemáticas identificadas (pérdida de información, feedback infinito y costos exponenciales) se organizan en una cuadrícula simétrica de tres columnas equipadas con íconos vectoriales minimalistas que agilizan el reconocimiento visual, mientras que la interfaz móvil las unifica en una secuencia vertical de lectura directa que facilita la interacción táctil y preserva el balance del espacio negativo.
+
+![Reqs-AI Benefits Section Mock-up](./assets/ui/landing/mockups/benefits-section-mockup.png)
+
+**Features Section Mock-up**
+
+El Mock-up de esta sección implementa un fondo claro y limpio que destaca las cuatro funcionalidades principales mediante tarjetas individuales con bordes suavizados, respetando el principio de consistencia técnica del Design System. En la versión de escritorio, se aplica una distribución horizontal de cuatro columnas equipadas con contenedores de íconos en tonalidades pastel que agilizan la navegación visual, mientras que en la interfaz móvil este flujo se transforma en un desplazamiento vertical unificado para asegurar la accesibilidad tipográfica y una cómoda interacción táctil.
+
+![Reqs-AI Features Section Mock-up](./assets/ui/landing/mockups/features-section-mockup.png)
+
+**Target Segments Section Mock-up**
+
+El Mock-up de esta sección segmenta con precisión a los usuarios aplicando el Design System a través de dos grandes contenedores simétricos con sutiles bordes redondeados y tipografía oscura de alta legibilidad sobre un fondo gris claro neutro. En la versión de escritorio, las tarjetas de "Tech Leaders" y "Systems Analysts" se posicionan en paralelo para facilitar una lectura comparativa de sus dolores y beneficios específicos, integrando checkmarks de color verde esmeralda para una rápida asimilación visual; mientras que en la versión móvil se apilan de forma vertical para asegurar un escalado limpio y una óptima accesibilidad táctil.
+
+![Reqs-AI Target Segments Section Mock-up](./assets/ui/landing/mockups/target-segments-section-mockup.png)
+
+**Testimonials Section Mock-up**
+
+El Mock-up de esta sección materializa la prueba social aplicando el Design System mediante tarjetas individuales blancas que incorporan avatares circulares de alta definición y tipografía en cursiva para los testimonios corporativos. En la versión de escritorio, las opiniones se distribuyen horizontalmente en una cuadrícula simétrica de tres columnas que organiza la información de los líderes de la industria de forma limpia, mientras que en la versión móvil se adaptan a un ordenamiento vertical de una sola columna que garantiza la legibilidad tipográfica y una cómoda navegación táctil.
+
+![Reqs-AI Testimonials Section Mock-up](./assets/ui/landing/mockups/testimonials-section-mockup.png)
+
+**Pricing Section Mock-up**
+
+El Mock-up de la sección de precios plasma el modelo de monetización aplicando el Design System mediante tres tarjetas con tipografía limpia de gran escala para las tarifas (como el plan Starter de $49/mo enfocado en startups). En la versión de escritorio, se utiliza el principio de asimetría visual al destacar el plan "Professional" con un fondo azul oscuro profundo y un botón CTA verde esmeralda para atraer la conversión, mientras que en la versión móvil la interfaz se adapta a un apilamiento vertical que resguarda la proporción del espacio y garantiza la accesibilidad en la lectura de las características técnicas.
+
+![Reqs-AI Pricing Section Mock-up](./assets/ui/landing/mockups/pricing-section-mockup.png)
+
+**Contact Section Mock-up**
+
+El Mock-up de la sección de contacto materializa los canales de atención aplicando el Design System mediante iconografía lineal en color verde esmeralda y tipografía oscura de alta legibilidad sobre un fondo gris neutro. En la versión de escritorio, la información de soporte (hello@reqs.ai) y la dirección corporativa se despliegan con una alineación asimétrica a la izquierda que deja un respiro visual óptimo gracias al uso estratégico del espacio negativo, mientras que en la versión móvil todo el bloque se centraliza en una sola columna para garantizar una lectura directa y un acceso táctil inmediato.
+
+![Reqs-AI Contact Section Mock-up](./assets/ui/landing/mockups/contact-section-mockup.png)
+
+**Final CTA Section Mock-up**
+
+El Mock-up de la sección de cierre consolida la conversión aplicando el Design System mediante un bloque contenedor de color azul noche profundo y bordes suavizados que aísla visualmente el contenido para eliminar elementos distractores. Su estructura centralizada de una sola columna destaca un titular persuasivo de gran escala ("Stop wasting hours post-processing meeting recordings.") y un botón principal (CTA) verde esmeralda con alto contraste tipográfico, garantizando una interacción táctil intuitiva y una accesibilidad óptima tanto en la interfaz de escritorio como en la adaptación móvil.
+
+![Reqs-AI Final CTA Section Mock-up](./assets/ui/landing/mockups/final-cta-section-mockup.png)
+
+**Footer Section Mock-up**
+
+El Mock-up del Footer consolida la navegación secundaria aplicando el Design System mediante una tipografía Sans-Serif oscura de alta legibilidad sobre un fondo blanco limpio. En la versión de escritorio se implementa una cuadrícula asimétrica multicolumna que agrupa de manera lógica y ordenada las secciones del producto (Product, Company, Support y Legal) junto al logotipo, el lema corporativo y los íconos de redes sociales a la izquierda, mientras que en la versión móvil todos los bloques se apilan verticalmente de forma secuencial para maximizar las áreas de interacción táctil.
+
+![Reqs-AI Footer Section Mock-up](./assets/ui/landing/mockups/footer-section-mockup.png)
 
 ## 6.4. Applications UX/UI Design
 
