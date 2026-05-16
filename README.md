@@ -4594,6 +4594,60 @@ Esta sección consolida el cierre de la página aplicando los principios de cons
 
 ### 6.3.2. Landing Page Mock-up
 
+**Hero Section Mock-up**
+
+El Mock-up del Hero Section consolida la identidad visual del producto aplicando el Design System mediante una paleta de colores oscuros de alta fidelidad con acentos morados y una tipografía moderna Sans-Serif de alto contraste (blanco sobre fondo oscuro), garantizando la accesibilidad (WCAG). En la versión de escritorio se plasma la arquitectura de dos columnas donde el texto persuasivo coexiste armónicamente con una maqueta detallada de la interfaz de Reqs-AI, mientras que la versión móvil sintetiza este espacio en una disposición centralizada de una sola columna que optimiza la interacción táctil en los botones principales (Call to Action).
+
+![Reqs-AI Hero Section Mock-up](./assets/ui/landing/mockups/hero-section-mockup.png)
+
+**Benefits Section Mock-up**
+
+El Mock-up de la sección de beneficios consolida visualmente el núcleo de la problemática aplicando el Design System mediante un sofisticado fondo azul noche de baja luminosidad, el cual genera un contraste idóneo con los textos en blanco y los acentos en verde esmeralda para garantizar la conformidad con las pautas de accesibilidad. En la versión de escritorio, las tres tarjetas de problemáticas identificadas (pérdida de información, feedback infinito y costos exponenciales) se organizan en una cuadrícula simétrica de tres columnas equipadas con íconos vectoriales minimalistas que agilizan el reconocimiento visual, mientras que la interfaz móvil las unifica en una secuencia vertical de lectura directa que facilita la interacción táctil y preserva el balance del espacio negativo.
+
+![Reqs-AI Benefits Section Mock-up](./assets/ui/landing/mockups/benefits-section-mockup.png)
+
+**Features Section Mock-up**
+
+El Mock-up de esta sección implementa un fondo claro y limpio que destaca las cuatro funcionalidades principales mediante tarjetas individuales con bordes suavizados, respetando el principio de consistencia técnica del Design System. En la versión de escritorio, se aplica una distribución horizontal de cuatro columnas equipadas con contenedores de íconos en tonalidades pastel que agilizan la navegación visual, mientras que en la interfaz móvil este flujo se transforma en un desplazamiento vertical unificado para asegurar la accesibilidad tipográfica y una cómoda interacción táctil.
+
+![Reqs-AI Features Section Mock-up](./assets/ui/landing/mockups/features-section-mockup.png)
+
+**Target Segments Section Mock-up**
+
+El Mock-up de esta sección segmenta con precisión a los usuarios aplicando el Design System a través de dos grandes contenedores simétricos con sutiles bordes redondeados y tipografía oscura de alta legibilidad sobre un fondo gris claro neutro. En la versión de escritorio, las tarjetas de "Tech Leaders" y "Systems Analysts" se posicionan en paralelo para facilitar una lectura comparativa de sus dolores y beneficios específicos, integrando checkmarks de color verde esmeralda para una rápida asimilación visual; mientras que en la versión móvil se apilan de forma vertical para asegurar un escalado limpio y una óptima accesibilidad táctil.
+
+![Reqs-AI Target Segments Section Mock-up](./assets/ui/landing/mockups/target-segments-section-mockup.png)
+
+**Testimonials Section Mock-up**
+
+El Mock-up de esta sección materializa la prueba social aplicando el Design System mediante tarjetas individuales blancas que incorporan avatares circulares de alta definición y tipografía en cursiva para los testimonios corporativos. En la versión de escritorio, las opiniones se distribuyen horizontalmente en una cuadrícula simétrica de tres columnas que organiza la información de los líderes de la industria de forma limpia, mientras que en la versión móvil se adaptan a un ordenamiento vertical de una sola columna que garantiza la legibilidad tipográfica y una cómoda navegación táctil.
+
+![Reqs-AI Testimonials Section Mock-up](./assets/ui/landing/mockups/testimonials-section-mockup.png)
+
+**Pricing Section Mock-up**
+
+El Mock-up de la sección de precios plasma el modelo de monetización aplicando el Design System mediante tres tarjetas con tipografía limpia de gran escala para las tarifas (como el plan Starter de $49/mo enfocado en startups). En la versión de escritorio, se utiliza el principio de asimetría visual al destacar el plan "Professional" con un fondo azul oscuro profundo y un botón CTA verde esmeralda para atraer la conversión, mientras que en la versión móvil la interfaz se adapta a un apilamiento vertical que resguarda la proporción del espacio y garantiza la accesibilidad en la lectura de las características técnicas.
+
+![Reqs-AI Pricing Section Mock-up](./assets/ui/landing/mockups/pricing-section-mockup.png)
+
+**Contact Section Mock-up**
+
+El Mock-up de la sección de contacto materializa los canales de atención aplicando el Design System mediante iconografía lineal en color verde esmeralda y tipografía oscura de alta legibilidad sobre un fondo gris neutro. En la versión de escritorio, la información de soporte (hello@reqs.ai) y la dirección corporativa se despliegan con una alineación asimétrica a la izquierda que deja un respiro visual óptimo gracias al uso estratégico del espacio negativo, mientras que en la versión móvil todo el bloque se centraliza en una sola columna para garantizar una lectura directa y un acceso táctil inmediato.
+
+![Reqs-AI Contact Section Mock-up](./assets/ui/landing/mockups/contact-section-mockup.png)
+
+**Final CTA Section Mock-up**
+
+El Mock-up de la sección de cierre consolida la conversión aplicando el Design System mediante un bloque contenedor de color azul noche profundo y bordes suavizados que aísla visualmente el contenido para eliminar elementos distractores. Su estructura centralizada de una sola columna destaca un titular persuasivo de gran escala ("Stop wasting hours post-processing meeting recordings.") y un botón principal (CTA) verde esmeralda con alto contraste tipográfico, garantizando una interacción táctil intuitiva y una accesibilidad óptima tanto en la interfaz de escritorio como en la adaptación móvil.
+
+![Reqs-AI Final CTA Section Mock-up](./assets/ui/landing/mockups/final-cta-section-mockup.png)
+
+**Footer Section Mock-up**
+
+El Mock-up del Footer consolida la navegación secundaria aplicando el Design System mediante una tipografía Sans-Serif oscura de alta legibilidad sobre un fondo blanco limpio. En la versión de escritorio se implementa una cuadrícula asimétrica multicolumna que agrupa de manera lógica y ordenada las secciones del producto (Product, Company, Support y Legal) junto al logotipo, el lema corporativo y los íconos de redes sociales a la izquierda, mientras que en la versión móvil todos los bloques se apilan verticalmente de forma secuencial para maximizar las áreas de interacción táctil.
+
+![Reqs-AI Footer Section Mock-up](./assets/ui/landing/mockups/footer-section-mockup.png)
+
 ## 6.4. Applications UX/UI Design
 
 En esta sección se presenta el diseño UX/UI de la aplicación web de Reqs-AI. El objetivo es mostrar cómo la solución organiza la experiencia del usuario dentro de la plataforma, desde el acceso inicial hasta la gestión de workspaces, proyectos, sesiones de descubrimiento, historias generadas por IA, integraciones, facturación y configuración del equipo.
