@@ -4656,6 +4656,8 @@ La propuesta de diseño se centra en validar la navegación, jerarquía visual, 
 
 ### 6.4.1. Applications Wireframes
 
+**Web Application Wireframes**
+
 Los wireframes de la aplicación web representan la versión de baja fidelidad de Reqs-AI. Su finalidad es validar la distribución de los elementos, la navegación interna, la secuencia de pantallas y los estados principales del sistema sin centrarse todavía en colores, estilos visuales o detalles gráficos finales.
 
 Estos wireframes cubren el recorrido principal del usuario: autenticación, creación del workspace, navegación por el dashboard, gestión de proyectos, configuración de sesiones, revisión de historias generadas por IA, integración con Jira, administración de facturación y configuración del equipo.
@@ -4869,6 +4871,72 @@ Estos wireframes cubren el recorrido principal del usuario: autenticación, crea
 **Descripción:** Presenta una variante del mensaje de éxito con mayor detalle. Sirve para validar el cierre del flujo y la confirmación de elementos creados dentro del workspace.
 
 <img src="assets/ui/wireframes/workspace-created-success-details.png" alt="Workspace Created Success Details Wireframe" style="width: 800px">
+
+**Mobile Application Wireframes**
+
+Los wireframes de la aplicación móvil representan la versión de baja fidelidad de Reqs-AI en formato adaptado para dispositivos móviles. Su objetivo es validar la estructura, navegación y flujos principales dentro de una interfaz táctil y de menor tamaño, manteniendo la consistencia funcional con la versión web.
+
+**Login Screen**
+
+**Descripción:** Esta pantalla gestiona el acceso seguro a la aplicación móvil aplicando el principio de simplicidad y reducción de la carga cognitiva mediante un diseño de una sola columna centralizada. El flujo prioriza la accesibilidad táctil ubicando los campos de entrada de texto (Email y Password) y el botón principal de acción (CTA) con dimensiones óptimas para evitar errores de pulsación, mientras que la arquitectura de información organiza los elementos de forma secuencial de arriba hacia abajo, garantizando una navegación intuitiva y directa desde el primer punto de contacto.
+
+<img src="assets/ui/mobile/wireframes/mobile-login-screen.png" alt="Mobile Login Screen Wireframe" style="width: 400px">
+
+**Dashboard Screen**
+
+**Descripción:** Esta pantalla actúa como el centro de control principal de la aplicación, estructurando la arquitectura de información mediante un flujo completamente vertical y modular para pantallas compactas. En la parte superior se integran tarjetas de métricas numéricas con barras de progreso que aplican el principio de consistencia visual para una asimilación inmediata del estado del proyecto, seguidas de una lista secuencial de elementos (Lorem Ipsum List) con contenedores amplios que mitigan el esfuerzo cognitivo. Para asegurar el diseño inclusivo y la accesibilidad táctil en movilidad, la pantalla incorpora un menú de navegación inferior (Bottom Navigation Bar) con etiquetas claras y un botón de acción flotante (FAB) estratégicamente posicionado en la esquina inferior derecha para facilitar el alcance con el pulgar.
+
+<img src="assets/ui/mobile/wireframes/mobile-dashboard-screen.png" alt="Mobile Dashboard Screen Wireframe" style="width: 400px">
+
+**Settings & Profile Screen**
+
+**Descripción:** Esta vista gestiona la configuración de usuario agrupando la información en contenedores independientes que respetan el principio de proximidad y consistencia. La arquitectura de información distribuye verticalmente el perfil del usuario, el resumen de cuenta, las preferencias de apariencia, la seguridad, las notificaciones y las herramientas conectadas (como Jira o Trello); garantizando un diseño inclusivo mediante botones de acción grandes, etiquetas explícitas y un menú de navegación inferior consistente que facilita el control ergonómico con una sola mano.
+
+<img src="assets/ui/mobile/wireframes/mobile-settings-profile-screen.png" alt="Mobile Settings & Profile Screen Wireframe" style="width: 400px">
+
+**Live Assistant Screen**
+
+**Descripción:** Esta pantalla representa el núcleo interactivo en tiempo real de la solución móvil, estructurando un flujo de conversación dinámico optimizado para la escucha activa en juntas de trabajo. La arquitectura de información utiliza un diseño cronológico asimétrico de burbujas de diálogo que diferencia claramente las intervenciones de los participantes (Stakeholder) del procesamiento del sistema (Assistant), reduciendo drásticamente la sobrecarga cognitiva.
+
+Cumpliendo con los principios de diseño inclusivo y accesibilidad táctil en movilidad, la sección inferior integra un carrusel horizontal interactivo de sugerencias estratégicas inteligentes (AI Suggestions) con botones de acción rápida de gran tamaño (Use Suggestion), acompañados por una barra de herramientas de control ergonómico inferior de alta accesibilidad para operaciones inmediatas como silenciar, tomar notas o revisar artefactos generados.
+
+<img src="assets/ui/mobile/wireframes/mobile-live-assistant-screen.png" alt="Mobile Live Assistant Screen Wireframe" style="width: 400px">
+
+**Review & Export Screen**
+
+**Descripción:** Esta pantalla gestiona la revisión exhaustiva y exportación de artefactos mediante una arquitectura de información jerárquica y modular adaptada para entornos móviles. La interfaz implementa un sistema de pestañas superiores (Tabs) para alternar rápidamente entre categorías, seguido de tarjetas con listas de verificación individuales (Checkboxes) que permiten al usuario seleccionar historias de usuario específicas que despliegan su estructura sintáctica detallada. Para mitigar la fricción y asegurar un diseño inclusivo en movilidad, la pantalla superpone un panel emergente inferior (Bottom Sheet) de alta accesibilidad táctil que organiza las opciones de integración (como Jira, Azure, GitHub y Markdown) en una cuadrícula simétrica de botones amplios y fáciles de pulsar con una sola mano, agilizando el flujo de sincronización hacia repositorios externos de gestión.
+
+<img src="assets/ui/mobile/wireframes/mobile-review-export-screen.png" alt="Mobile Review & Export Screen Wireframe" style="width: 400px">
+
+**Projects Archive Screen**
+
+**Descripción:** Esta pantalla gestiona el catálogo de proyectos activos e históricos estructurando la arquitectura de información mediante un patrón jerárquico que facilita la búsqueda y el filtrado rápido en dispositivos móviles. En la parte superior se integra una barra de búsqueda (Search Input) seguida de píldoras de filtrado por estado (All, In Progress, Completed) que respetan el principio de consistencia técnica y proximidad, permitiendo refinar los resultados con un solo toque. El cuerpo principal organiza los proyectos en tarjetas modulares individuales que optimizan la legibilidad tipográfica; cada tarjeta agrupa de forma clara el estado del proyecto, el título, el cliente, la cantidad de historias de usuario y una barra de progreso porcentual. Finalmente, para garantizar el diseño inclusivo y la ergonomía táctil en movilidad, se incluye un botón de acción flotante (FAB) para añadir nuevos proyectos y una barra de navegación inferior (Bottom Navigation Bar) que asegura un control cómodo y libre de fricciones con una sola mano.
+
+<img src="assets/ui/mobile/wireframes/mobile-projects-archive-screen.png" alt="Mobile Projects Archive Screen Wireframe" style="width: 400px">
+
+**Project Settings Screen**
+
+**Descripción:** Esta vista gestiona los parámetros específicos de un proyecto individual organizando la arquitectura de información mediante una estructura puramente vertical que agrupa las configuraciones generales, el backend de sincronización, la gestión de miembros del equipo y los tokens de acceso. El diseño prioriza la accesibilidad y el control inclusivo en movilidad al implementar controles deslizantes (Switches) y menús desplegables con amplias áreas de activación táctil, optimizando la interacción con una sola mano y reduciendo la fatiga cognitiva del usuario.
+
+<img src="assets/ui/mobile/wireframes/mobile-project-settings-screen.png" alt="Mobile Project Settings Screen Wireframe" style="width: 400px">
+
+**Session History Screen**
+
+**Descripción:** Esta pantalla organiza el historial cronológico de las sesiones de elicitación mediante una línea de tiempo vertical dividida por bloques temporales (Today, Yesterday) que reduce la carga cognitiva del usuario. La interfaz aplica los principios de jerarquía visual y diseño inclusivo al estructurar cada sesión en tarjetas independientes con identificadores únicos (#ID), etiquetas de estado y botones de acción de gran tamaño (View Transcript o Resume Session), permitiendo un acceso y control táctil inmediato en movilidad.
+
+<img src="assets/ui/mobile/wireframes/mobile-session-history-screen.png" alt="Mobile Session History Screen Wireframe" style="width: 400px">
+
+**Integrations Directory Screen**
+
+**Descripción:** Esta pantalla centraliza las herramientas externas conectadas organizando la arquitectura de información mediante categorías temáticas horizontales (Project Management, Communication) que simplifican el descubrimiento y la navegación en la interfaz móvil. El diseño fomenta el diseño inclusivo al implementar tarjetas independientes con botones de gran tamaño para conectar (Connect) o gestionar (Manage), complementado con un buscador superior accesible para mitigar el esfuerzo cognitivo y agilizar las tareas táctiles en movilidad.
+
+<img src="assets/ui/mobile/wireframes/mobile-integrations-directory-screen.png" alt="Mobile Integrations Directory Screen Wireframe" style="width: 400px">
+
+**Billing & Subscription Screen**
+
+**Descripción:** Esta pantalla gestiona los detalles de facturación de la aplicación organizando la arquitectura de información de manera lineal y segregada mediante bloques de historial de transacciones, métodos de pago vinculados y tarjetas de suscripción activa. El diseño refuerza los principios de diseño inclusivo al incorporar botones de acción prominentes para la cancelación o actualización de planes, reduciendo la fricción en transacciones críticas y garantizando una interacción táctil transparente, ergonómica y libre de errores en movilidad.
+
+<img src="assets/ui/mobile/wireframes/mobile-billing-subscription-screen.png" alt="Mobile Billing & Subscription Screen Wireframe" style="width: 400px">
 
 ### 6.4.2. Applications Wireflow Diagrams
 
