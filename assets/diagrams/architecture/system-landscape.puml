@@ -26,6 +26,8 @@ System_Ext(videoconf, "Video Conferencing Tool", "Plataforma de videoconferencia
 
 System_Ext(jira,    "Project Management Tool", "Herramienta de gestion de proyectos\n(Jira, Trello, Linear). Recibe las historias\nde usuario aprobadas como issues\ndel backlog del equipo.")
 System_Ext(email,   "Email Service Provider",  "Servicio cloud de correo electronico.\nEnvia verificaciones de cuenta\ne invitaciones a la organizacion.")
+System_Ext(sup,"Customer Support Channel", "Canal para el servicio de atención al cliente\n via correo por los usuarios.")
+
 
 ' ── Servicios tecnologicos de soporte ────────────────────────────────
 System_Ext(payment, "Payment Gateway",  "Pasarela de pagos B2B corporativa\n(Stripe, Culqi). Procesa suscripciones.")
@@ -45,6 +47,10 @@ Rel(analyst,  reqsai, "Administra workspace\ny suscripcion", "HTTPS")
 
 ' ── Landscape effect: videoconf -> ReqsAI ────────────────────────────
 Rel(videoconf, reqsai, "Provee grabaciones de audio\n(subida manual por el usuario)")
+
+' ── Soporte al Cliente ───────────────────────────────────────────────
+Rel(techLead, sup, "Envía consultas y reporta problemas técnicos\nvía correo de soporte")
+Rel(analyst,  sup, "Envía consultas y reporta problemas de facturación\nvía correo de soporte")
 
 ' ── ReqsAI -> sistemas externos ──────────────────────────────────────
 Rel(reqsai, jira,    "Exporta historias\naprobadas automaticamente")
