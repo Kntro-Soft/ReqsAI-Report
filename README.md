@@ -1659,6 +1659,7 @@ A continuación, se presenta la topología del paisaje del sistema:
     *   **Video Conferencing Tool (Google Meet, Zoom, MS Teams):** El *Technical Lead* y el *Enterprise Analyst* realizan sus reuniones de levantamiento de requisitos en estas plataformas. Exportan las grabaciones de audio y las suben manualmente a ReqsAI para su procesamiento. Esta es la fuente upstream del audio que alimenta el pipeline de IA.
     *   **Project Management Tool (Jira, Trello, Linear):** El *Technical Lead* gestiona sus Sprints directamente en la herramienta de su equipo. ReqsAI exporta las historias aprobadas hacia ella, cerrando la brecha entre el levantamiento de requerimientos y la ejecución ágil.
     *   **Email Service Provider:** El *Enterprise Analyst* recibe notificaciones e invitaciones de su organización a través de su proveedor de correo corporativo.
+    *   **Customer Support Channel:** El *Technical Lead* y el *Enterprise Analyst* tienen disponible este canal de atencion via correo electronico para resolver dudas, y reportar problemas.
 
 ### 4.3.2. Software Architecture Context Level Diagrams
 
