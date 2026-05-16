@@ -5452,6 +5452,40 @@ Los siguientes mock-ups presentan la versión de alta fidelidad de la aplicació
 
 ### 6.4.3. Applications User Flow Diagrams
 
+
+
+**Mobile Application User Flow Diagrams**
+
+**Autenticación de Usuario y Configuración de Cuenta**
+
+**Descripción:** Este User Flow mapea el happy path de alta fidelidad para el inicio de sesión exitoso y la navegación inmediata hacia la configuración del perfil mediante el menú inferior. El diagrama integra los Mock-ups finales del producto digital para validar las condiciones visuales del Design System, sirviendo como contraparte directa y consistente del Wireflow funcional previamente establecido.
+
+<img src="assets/ui/mobile/userflows/mobile-authentication-profile-user-flow.png" alt="Mobile Authentication and Profile User Flow" style="width: 400px">
+
+**Activación de Sesión de Elicitación en Live Assistant**
+
+**Descripción:** Este User Flow ilustra la ruta óptima (happy path) de alta fidelidad que recorre el analista al iniciar una sesión de captura de requerimientos desde el Dashboard principal. El diagrama emplea los Mock-ups terminados para validar visualmente la activación inmediata del motor de IA (Analysis engine active) y el despliegue dinámico de sugerencias en tiempo real al cambiar de pantalla.
+
+<img src="assets/ui/mobile/userflows/mobile-live-assistant-user-flow.png" alt="Mobile Live Assistant User Flow" style="width: 400px">
+
+**Sincronización y Exportación de Requerimientos Refinados**
+
+**Descripción:** Este User Flow representa la ruta esperada (happy path) de alta fidelidad para la validación y exportación de artefactos de software directamente a herramientas de gestión desde el Dashboard. El diagrama incorpora los Mock-ups finales para ilustrar la interacción táctil que despliega el panel inferior de sincronización (Ready for Backlog Sync), garantizando la consistencia visual y de comportamiento con su respectivo diagrama de Wireflow.
+
+<img src="assets/ui/mobile/userflows/mobile-review-export-user-flow.png" alt="Mobile Review & Export User Flow" style="width: 400px">
+
+**Administración de Proyectos y Gestión de Historias de Usuario**
+
+**Descripción:** Este User Flow detalla la ruta interactiva (happy path) de alta fidelidad que recorre el usuario para supervisar la configuración y el backlog de un proyecto específico. El diagrama conecta en secuencia los Mock-ups finales del producto digital (Dashboard, Projects Archive, Project Settings y Project User Stories), validando de forma consistente las transiciones visuales de los datos y estados definidos previamente en la estructura funcional del Wireflow.
+
+<img src="assets/ui/mobile/userflows/mobile-project-management-user-flow.png" alt="Mobile Project Management User Flow" style="width: 400px">
+
+**Navegación de Historias de Usuario a Historial, Integraciones y Facturación**
+
+**Descripción:** Este último User Flow consolida el camino operativo (happy path) de alta fidelidad que recorre el analista para transicionar entre la gestión del backlog y los módulos administrativos. El diagrama enlaza secuencialmente los Mock-ups finales (Project User Stories, Session History, Integrations Directory y Billing & Subscription) mediante interacciones en el menú inferior, garantizando una correspondencia estética y funcional exacta con el comportamiento definido en su Wireflow homólogo.
+
+<img src="assets/ui/mobile/userflows/mobile-user-stories-to-history-integrations-billing-user-flow.png" alt="Mobile User Stories to History, Integrations, Billing User Flow" style="width: 400px">
+
 ## 6.5. Applications Prototyping
 
 # Capítulo VII: Product Implementation, Validation & Deployment
