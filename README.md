@@ -5500,6 +5500,12 @@ Los siguientes mock-ups presentan la versión de alta fidelidad de la aplicació
 
 ## 6.5. Applications Prototyping
 
+**Web Application Prototyping**
+En esta sección se presentan el prototipo interactivo de alta fidelidad para la aplicación web de Reqs-AI, construido con Figma. El prototipo integra los Mock-ups finales en una experiencia navegable que simula el comportamiento real del producto digital.
+
+**Enlace al prototipo:**
+
+El prototipo interactivo de la aplicación web de Reqs-AI se encuentra disponible en el siguiente enlace: [Reqs-AI Web Application Prototype](https://www.figma.com/proto/UVAwp3YUbl7HdyW36b40d6/Web-application-prototype?node-id=25-16791&p=f&t=eUjvMWP8QbWcmZbl-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=25%3A16791&show-proto-sidebar=1)
 
 
 **Mobile Application Prototyping**
