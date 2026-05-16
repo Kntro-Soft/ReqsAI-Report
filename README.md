@@ -5158,6 +5158,8 @@ Cada wireflow incluye una flecha que indica la transición principal entre panta
 
 ### 6.4.2. Applications Mock-ups
 
+**Web Application Mock-ups**
+
 Los siguientes mock-ups presentan la versión de alta fidelidad de la aplicación web de Reqs-AI. La secuencia evidencia el recorrido principal del usuario dentro de la plataforma: autenticación, creación del workspace, navegación inicial, gestión de proyectos, sesiones de descubrimiento, revisión de historias generadas por IA, integraciones, facturación y configuración del equipo.
 
 **Autenticación y acceso**
@@ -5377,6 +5379,76 @@ Los siguientes mock-ups presentan la versión de alta fidelidad de la aplicació
 **Descripción:** Este mock-up representa el modal de creación de un nuevo proyecto. Incluye la selección de plantilla o tipo de proyecto para configurar rápidamente un espacio de levantamiento de requisitos.
 
 <img src="assets/ui/mockups/create-new-project-modal-template-selection.png" alt="Create New Project Modal Template Selection" style="width: 800px">
+
+**Mobile Application Mock-ups**
+
+Los siguientes mock-ups presentan la versión de alta fidelidad de la aplicación móvil de Reqs-AI. La secuencia evidencia el recorrido principal del usuario dentro de la plataforma: autenticación, navegación principal, gestión de proyectos, sesiones de descubrimiento, revisión de historias generadas por IA, integraciones, facturación y configuración del equipo.
+
+**Login Screen**
+
+**Descripción:** El Mock-up de la pantalla de inicio de sesión consolida la identidad de marca del producto aplicando el Design System mediante una paleta de colores sobria, donde destaca el verde esmeralda corporativo en el botón principal de acción (CTA) y los acentos interactivos (Sign In, Forgot Password?). La arquitectura de información distribuye verticalmente los elementos clave (campos de texto legibles, opciones de autenticación federada con Google y Okta, y enlaces de asistencia) sobre una tarjeta contenedora blanca con bordes redondeados y sombras sutiles que generan una clara separación de capas visuales, garantizando un alto contraste tipográfico y un diseño inclusivo que minimiza el error táctil en dispositivos móviles.
+
+<img src="assets/ui/mobile/mockups/mobile-login-screen.png" alt="Mobile Login Screen Mockup" style="width: 400px">
+
+**Dashboard Screen**
+
+**Descripción:** El Mock-up del Dashboard implementa el Design System estructurando métricas clave (como los 12 proyectos activos o las 450 historias generadas) en tarjetas modulares blancas de alta visibilidad que optimizan la carga cognitiva. Su arquitectura de información destaca una sección interactiva de "Recent Sessions" y un contenedor asimétrico azul noche para recomendaciones de la IA, complementado con un menú de navegación inferior consistente y un botón flotante de micrófono esmeralda que garantiza una accesibilidad táctil inmediata en movilidad.
+
+<img src="assets/ui/mobile/mockups/mobile-dashboard-screen.png" alt="Mobile Dashboard Screen Mockup" style="width: 400px">
+
+**Settings & Profile Screen**
+
+**Descripción:** El Mock-up de esta vista consolida las configuraciones de la cuenta organizando la arquitectura de información mediante contenedores modulares con esquinas suavizadas sobre un fondo gris claro neutro. La interfaz integra con precisión los elementos de diseño del Design System, destacando el uso de etiquetas de estado en verde esmeralda para suscripciones activas (Enterprise), selectores de apariencia con alto contraste y un botón de cierre de sesión (Log Out) codificado en rojo para mitigar errores de navegación táctil.
+
+<img src="assets/ui/mobile/mockups/mobile-settings-profile-screen.png" alt="Mobile Settings & Profile Screen Mockup" style="width: 400px">
+
+**Live Assistant Screen**
+
+**Descripción:** El Mock-up de esta pantalla operativa plasma la interacción de la IA en tiempo real utilizando el Design System mediante un contenedor blanco de bordes suavizados y un sutil degradado verde esmeralda para el módulo "AI Smart Suggestions". La arquitectura de información prioriza la accesibilidad y ergonomía táctil en movilidad al ubicar los controles de sesión en la parte inferior, destacando el botón principal asimétrico (Finish & Generate Stories) para cerrar el flujo libre de errores.
+
+<img src="assets/ui/mobile/mockups/mobile-live-assistant-screen.png" alt="Mobile Live Assistant Screen Mockup" style="width: 400px">
+
+**Review & Export Screen**
+
+**Descripción:** El Mock-up de esta pantalla aplica el Design System superponiendo un panel emergente inferior (Bottom Sheet) estilizado con sombras suaves para confirmar la sincronización hacia plataformas de gestión de proyectos. La arquitectura de información destaca una cuadrícula de botones para seleccionar servicios externos (como Azure DevOps en verde corporativo) y un botón de acción principal de alto contraste (Sync Backlog), garantizando un diseño inclusivo y un control táctil óptimo sin perder la visibilidad de las historias de usuario de fondo.
+
+<img src="assets/ui/mobile/mockups/mobile-review-export-screen.png" alt="Mobile Review & Export Screen Mockup" style="width: 400px">
+
+**Projects Archive Screen**
+
+**Descripción:** El Mock-up de esta pantalla consolida el catálogo de proyectos empleando tarjetas modulares individuales con bordes suavizados que facilitan la lectura en movilidad. Su arquitectura de información integra un buscador superior intuitivo y píldoras de filtrado por estado, aplicando las pautas de diseño inclusivo del Design System mediante barras de progreso en verde esmeralda y un botón flotante de adición táctil de alta accesibilidad para el pulgar.
+
+<img src="assets/ui/mobile/mockups/mobile-projects-archive-screen.png" alt="Mobile Projects Archive Screen Mockup" style="width: 400px">
+
+**Project Settings Screen**
+
+**Descripción:** El Mock-up de esta pantalla configura los parámetros del proyecto aplicando el Design System mediante un diseño puramente vertical segmentado en bloques funcionales con tipografía de alto contraste. La arquitectura de información destaca controles interactivos táctiles como el switch esmeralda de "AI Auto-Analysis Settings", tarjetas de integración directa (Jira y Azure) y un componente cronológico de "Team Activity", garantizando un diseño inclusivo y un control ergonómico sin errores en movilidad.
+
+<img src="assets/ui/mobile/mockups/mobile-project-settings-screen.png" alt="Mobile Project Settings Screen Mockup" style="width: 400px">
+
+**Project User Stories Screen**
+
+**Descripción:** El Mock-up de esta pantalla presenta el catálogo detallado de historias de usuario bajo una arquitectura de información estructurada en bloques de sintaxis Gherkin (Given-When-Then) de alta legibilidad para el analista. La interfaz consolida el Design System mediante un buscador superior interactivo, píldoras de filtrado por estado (Draft, Review, Approved) codificadas por colores de alto contraste y un botón flotante de adición táctil que optimiza el diseño inclusivo en movilidad.
+
+<img src="assets/ui/mobile/mockups/mobile-project-user-stories-screen.png" alt="Mobile Project User Stories Screen Mockup" style="width: 400px">
+
+**Session History Screen**
+
+**Descripción:** El Mock-up de esta pantalla organiza las grabaciones pasadas aplicando el Design System sobre una línea de tiempo vertical segmentada de manera limpia con indicadores de estado circulares. La arquitectura de información destaca en cada tarjeta métricas críticas como el porcentaje de precisión de la IA (AI Score), la duración y el moderador, integrando un diseño inclusivo mediante botones de reproducción rápida en verde esmeralda y accesos prominentes (View Transcript) para mitigar errores en movilidad.
+
+<img src="assets/ui/mobile/mockups/mobile-session-history-screen.png" alt="Mobile Session History Screen Mockup" style="width: 400px">
+
+**Integrations Directory Screen**
+
+**Descripción:** El Mock-up de esta pantalla consolida el catálogo de extensiones externas aplicando el Design System mediante tarjetas modulares ordenadas bajo íconos de categoría con alto contraste cromático. La arquitectura de información distribuye de forma jerárquica los servicios vinculados (como Jira en estado activo) de los disponibles para conectar (Connect), integrando un diseño inclusivo mediante botones amplios de fácil alcance y un banner asimétrico azul noche para promocionar integraciones destacadas de la IA.
+
+<img src="assets/ui/mobile/mockups/mobile-integrations-directory-screen.png" alt="Mobile Integrations Directory Screen Mockup" style="width: 400px">
+
+**Billing & Subscription Screen**
+
+**Descripción:** El Mock-up de esta pantalla gestiona los datos financieros del usuario aplicando el Design System a través de bloques de información con bordes suavizados sobre un fondo blanco limpio. La arquitectura de información prioriza los datos críticos mediante una barra de progreso esmeralda para el consumo de tokens, una tarjeta asimétrica azul noche para el próximo cobro de $499.00 y una lista vertical de facturas descargables con botones táctiles amplios, logrando un diseño inclusivo que simplifica la administración de la cuenta en movilidad.
+
+<img src="assets/ui/mobile/mockups/mobile-billing-subscription-screen.png" alt="Mobile Billing & Subscription Screen Mockup" style="width: 400px">
 
 ### 6.4.3. Applications User Flow Diagrams
 
