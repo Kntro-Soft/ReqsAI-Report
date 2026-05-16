@@ -4668,6 +4668,8 @@ La propuesta de diseño se centra en validar la navegación, jerarquía visual, 
 
 ### 6.4.1. Applications Wireframes
 
+**Web Application Wireframes**
+
 Los wireframes de la aplicación web representan la versión de baja fidelidad de Reqs-AI. Su finalidad es validar la distribución de los elementos, la navegación interna, la secuencia de pantallas y los estados principales del sistema sin centrarse todavía en colores, estilos visuales o detalles gráficos finales.
 
 Estos wireframes cubren el recorrido principal del usuario: autenticación, creación del workspace, navegación por el dashboard, gestión de proyectos, configuración de sesiones, revisión de historias generadas por IA, integración con Jira, administración de facturación y configuración del equipo.
@@ -4882,7 +4884,75 @@ Estos wireframes cubren el recorrido principal del usuario: autenticación, crea
 
 <img src="assets/ui/wireframes/workspace-created-success-details.png" alt="Workspace Created Success Details Wireframe" style="width: 800px">
 
+**Mobile Application Wireframes**
+
+Los wireframes de la aplicación móvil representan la versión de baja fidelidad de Reqs-AI en formato adaptado para dispositivos móviles. Su objetivo es validar la estructura, navegación y flujos principales dentro de una interfaz táctil y de menor tamaño, manteniendo la consistencia funcional con la versión web.
+
+**Login Screen**
+
+**Descripción:** Esta pantalla gestiona el acceso seguro a la aplicación móvil aplicando el principio de simplicidad y reducción de la carga cognitiva mediante un diseño de una sola columna centralizada. El flujo prioriza la accesibilidad táctil ubicando los campos de entrada de texto (Email y Password) y el botón principal de acción (CTA) con dimensiones óptimas para evitar errores de pulsación, mientras que la arquitectura de información organiza los elementos de forma secuencial de arriba hacia abajo, garantizando una navegación intuitiva y directa desde el primer punto de contacto.
+
+<img src="assets/ui/mobile/wireframes/mobile-login-screen.png" alt="Mobile Login Screen Wireframe" style="width: 400px">
+
+**Dashboard Screen**
+
+**Descripción:** Esta pantalla actúa como el centro de control principal de la aplicación, estructurando la arquitectura de información mediante un flujo completamente vertical y modular para pantallas compactas. En la parte superior se integran tarjetas de métricas numéricas con barras de progreso que aplican el principio de consistencia visual para una asimilación inmediata del estado del proyecto, seguidas de una lista secuencial de elementos (Lorem Ipsum List) con contenedores amplios que mitigan el esfuerzo cognitivo. Para asegurar el diseño inclusivo y la accesibilidad táctil en movilidad, la pantalla incorpora un menú de navegación inferior (Bottom Navigation Bar) con etiquetas claras y un botón de acción flotante (FAB) estratégicamente posicionado en la esquina inferior derecha para facilitar el alcance con el pulgar.
+
+<img src="assets/ui/mobile/wireframes/mobile-dashboard-screen.png" alt="Mobile Dashboard Screen Wireframe" style="width: 400px">
+
+**Settings & Profile Screen**
+
+**Descripción:** Esta vista gestiona la configuración de usuario agrupando la información en contenedores independientes que respetan el principio de proximidad y consistencia. La arquitectura de información distribuye verticalmente el perfil del usuario, el resumen de cuenta, las preferencias de apariencia, la seguridad, las notificaciones y las herramientas conectadas (como Jira o Trello); garantizando un diseño inclusivo mediante botones de acción grandes, etiquetas explícitas y un menú de navegación inferior consistente que facilita el control ergonómico con una sola mano.
+
+<img src="assets/ui/mobile/wireframes/mobile-settings-profile-screen.png" alt="Mobile Settings & Profile Screen Wireframe" style="width: 400px">
+
+**Live Assistant Screen**
+
+**Descripción:** Esta pantalla representa el núcleo interactivo en tiempo real de la solución móvil, estructurando un flujo de conversación dinámico optimizado para la escucha activa en juntas de trabajo. La arquitectura de información utiliza un diseño cronológico asimétrico de burbujas de diálogo que diferencia claramente las intervenciones de los participantes (Stakeholder) del procesamiento del sistema (Assistant), reduciendo drásticamente la sobrecarga cognitiva.
+
+Cumpliendo con los principios de diseño inclusivo y accesibilidad táctil en movilidad, la sección inferior integra un carrusel horizontal interactivo de sugerencias estratégicas inteligentes (AI Suggestions) con botones de acción rápida de gran tamaño (Use Suggestion), acompañados por una barra de herramientas de control ergonómico inferior de alta accesibilidad para operaciones inmediatas como silenciar, tomar notas o revisar artefactos generados.
+
+<img src="assets/ui/mobile/wireframes/mobile-live-assistant-screen.png" alt="Mobile Live Assistant Screen Wireframe" style="width: 400px">
+
+**Review & Export Screen**
+
+**Descripción:** Esta pantalla gestiona la revisión exhaustiva y exportación de artefactos mediante una arquitectura de información jerárquica y modular adaptada para entornos móviles. La interfaz implementa un sistema de pestañas superiores (Tabs) para alternar rápidamente entre categorías, seguido de tarjetas con listas de verificación individuales (Checkboxes) que permiten al usuario seleccionar historias de usuario específicas que despliegan su estructura sintáctica detallada. Para mitigar la fricción y asegurar un diseño inclusivo en movilidad, la pantalla superpone un panel emergente inferior (Bottom Sheet) de alta accesibilidad táctil que organiza las opciones de integración (como Jira, Azure, GitHub y Markdown) en una cuadrícula simétrica de botones amplios y fáciles de pulsar con una sola mano, agilizando el flujo de sincronización hacia repositorios externos de gestión.
+
+<img src="assets/ui/mobile/wireframes/mobile-review-export-screen.png" alt="Mobile Review & Export Screen Wireframe" style="width: 400px">
+
+**Projects Archive Screen**
+
+**Descripción:** Esta pantalla gestiona el catálogo de proyectos activos e históricos estructurando la arquitectura de información mediante un patrón jerárquico que facilita la búsqueda y el filtrado rápido en dispositivos móviles. En la parte superior se integra una barra de búsqueda (Search Input) seguida de píldoras de filtrado por estado (All, In Progress, Completed) que respetan el principio de consistencia técnica y proximidad, permitiendo refinar los resultados con un solo toque. El cuerpo principal organiza los proyectos en tarjetas modulares individuales que optimizan la legibilidad tipográfica; cada tarjeta agrupa de forma clara el estado del proyecto, el título, el cliente, la cantidad de historias de usuario y una barra de progreso porcentual. Finalmente, para garantizar el diseño inclusivo y la ergonomía táctil en movilidad, se incluye un botón de acción flotante (FAB) para añadir nuevos proyectos y una barra de navegación inferior (Bottom Navigation Bar) que asegura un control cómodo y libre de fricciones con una sola mano.
+
+<img src="assets/ui/mobile/wireframes/mobile-projects-archive-screen.png" alt="Mobile Projects Archive Screen Wireframe" style="width: 400px">
+
+**Project Settings Screen**
+
+**Descripción:** Esta vista gestiona los parámetros específicos de un proyecto individual organizando la arquitectura de información mediante una estructura puramente vertical que agrupa las configuraciones generales, el backend de sincronización, la gestión de miembros del equipo y los tokens de acceso. El diseño prioriza la accesibilidad y el control inclusivo en movilidad al implementar controles deslizantes (Switches) y menús desplegables con amplias áreas de activación táctil, optimizando la interacción con una sola mano y reduciendo la fatiga cognitiva del usuario.
+
+<img src="assets/ui/mobile/wireframes/mobile-project-settings-screen.png" alt="Mobile Project Settings Screen Wireframe" style="width: 400px">
+
+**Session History Screen**
+
+**Descripción:** Esta pantalla organiza el historial cronológico de las sesiones de elicitación mediante una línea de tiempo vertical dividida por bloques temporales (Today, Yesterday) que reduce la carga cognitiva del usuario. La interfaz aplica los principios de jerarquía visual y diseño inclusivo al estructurar cada sesión en tarjetas independientes con identificadores únicos (#ID), etiquetas de estado y botones de acción de gran tamaño (View Transcript o Resume Session), permitiendo un acceso y control táctil inmediato en movilidad.
+
+<img src="assets/ui/mobile/wireframes/mobile-session-history-screen.png" alt="Mobile Session History Screen Wireframe" style="width: 400px">
+
+**Integrations Directory Screen**
+
+**Descripción:** Esta pantalla centraliza las herramientas externas conectadas organizando la arquitectura de información mediante categorías temáticas horizontales (Project Management, Communication) que simplifican el descubrimiento y la navegación en la interfaz móvil. El diseño fomenta el diseño inclusivo al implementar tarjetas independientes con botones de gran tamaño para conectar (Connect) o gestionar (Manage), complementado con un buscador superior accesible para mitigar el esfuerzo cognitivo y agilizar las tareas táctiles en movilidad.
+
+<img src="assets/ui/mobile/wireframes/mobile-integrations-directory-screen.png" alt="Mobile Integrations Directory Screen Wireframe" style="width: 400px">
+
+**Billing & Subscription Screen**
+
+**Descripción:** Esta pantalla gestiona los detalles de facturación de la aplicación organizando la arquitectura de información de manera lineal y segregada mediante bloques de historial de transacciones, métodos de pago vinculados y tarjetas de suscripción activa. El diseño refuerza los principios de diseño inclusivo al incorporar botones de acción prominentes para la cancelación o actualización de planes, reduciendo la fricción en transacciones críticas y garantizando una interacción táctil transparente, ergonómica y libre de errores en movilidad.
+
+<img src="assets/ui/mobile/wireframes/mobile-billing-subscription-screen.png" alt="Mobile Billing & Subscription Screen Wireframe" style="width: 400px">
+
 ### 6.4.2. Applications Wireflow Diagrams
+
+**Web Application Wireflow Diagrams**
 
 Los wireflows de la aplicación web de Reqs-AI representan la conexión entre pantallas y estados interactivos del sistema. A diferencia de los wireframes, estos diagramas no solo muestran la estructura visual, sino también cómo el usuario avanza de una acción a otra dentro del flujo: autenticación, creación de workspace, navegación principal, gestión de proyectos, sesiones de descubrimiento, revisión de historias generadas por IA, integraciones, facturación y configuración del equipo.
 
@@ -5066,7 +5136,41 @@ Cada wireflow incluye una flecha que indica la transición principal entre panta
 
 <img src="assets/ui/wireflows/team-management-to-home-notifications.png" alt="Gestión de equipo hacia home con notificaciones" style="width: 800px">
 
+**Mobile Application Wireflow Diagrams**
+
+**Autenticación de usuario y gestión de perfil**
+
+**Descripción:** Este Wireflow detalla el flujo secuencial orientado al objetivo del usuario de iniciar sesión de forma segura y navegar de inmediato hacia la gestión de su cuenta. El diagrama mapea la transición interactiva desde la pantalla de Login centralizada hasta la vista de Settings & Profile, evidenciando la persistencia de la arquitectura de información y la consistencia del menú de navegación inferior durante el desplazamiento ergonómico en la aplicación móvil.
+
+<img src="assets/ui/mobile/wireflows/mobile-login-to-profile-management.png" alt="Mobile Login to Profile Management Wireflow" style="width: 400px">
+
+**Navegación del Dashboard a Live Assistant**
+
+**Descripción:** Este Wireflow ilustra el flujo interactivo diseñado para cumplir con el objetivo del usuario de iniciar o acceder rápidamente a una sesión de elicitación de requerimientos en tiempo real. El diagrama define la transición directa desde el Dashboard principal mediante la barra de navegación inferior hacia la pantalla del Live Assistant, asegurando que el analista pueda monitorear la transcripción y recibir sugerencias inteligentes de la IA de manera inmediata y sin fricciones de navegación.
+
+<img src="assets/ui/mobile/wireflows/mobile-dashboard-to-live-assistant.png" alt="Mobile Dashboard to Live Assistant Wireflow" style="width: 400px">
+
+**Navegación del Dashboard a Review & Export**
+
+**Descripción:** Este Wireflow traza el camino interactivo enfocado en el objetivo del usuario de examinar, validar y exportar los requerimientos generados hacia repositorios externos. El diagrama mapea la navegación desde la vista principal del Dashboard hacia la pantalla de Review & Export, ilustrando cómo la interfaz despliega de forma adaptativa el menú emergente inferior (Bottom Sheet) para facilitar la sincronización táctil con herramientas de gestión de proyectos sin perder el contexto de la aplicación móvil.
+
+<img src="assets/ui/mobile/wireflows/mobile-dashboard-to-review-export.png" alt="Mobile Dashboard to Review & Export Wireflow" style="width: 400px">
+
+**Gestión Integral de Proyectos y Requerimientos**
+
+**Descripción:** Este Wireflow mapea el flujo interactivo de extremo a extremo diseñado para que el analista administre la configuración y los artefactos de un proyecto. El diagrama detalla la ruta secuencial que inicia en el Dashboard, transiciona por el catálogo de Projects Archive mediante la barra de navegación, ingresa a las configuraciones detalladas en Project Settings y culmina en la vista de Project User Stories, demostrando cómo se mantiene la jerarquía visual y la consistencia en el control de estados críticos a través de la aplicación móvil.
+
+<img src="assets/ui/mobile/wireflows/mobile-project-management-flow.png" alt="Mobile Project Management Flow Wireflow" style="width: 400px">
+
+**Navegación de Historias de Usuario a Historial, Integraciones y Facturación**
+
+**Descripción:** Este Wireflow traza el flujo transversal que permite al analista navegar fluidamente entre el control operativo y administrativo del sistema. El diagrama detalla la transición secuencial iniciada en la vista de Project User Stories, pasando secuencialmente a través del menú de navegación inferior hacia Session History para auditar transcripciones previas, luego hacia el Integrations Directory para conectar servicios de comunicación externos, y culminando directamente en Billing & Subscription para la gestión financiera de la cuenta móvil.
+
+<img src="assets/ui/mobile/wireflows/mobile-user-stories-to-history-integrations-billing.png" alt="Mobile User Stories to History, Integrations, Billing Wireflow" style="width: 400px">
+
 ### 6.4.2. Applications Mock-ups
+
+**Web Application Mock-ups**
 
 Los siguientes mock-ups presentan la versión de alta fidelidad de la aplicación web de Reqs-AI. La secuencia evidencia el recorrido principal del usuario dentro de la plataforma: autenticación, creación del workspace, navegación inicial, gestión de proyectos, sesiones de descubrimiento, revisión de historias generadas por IA, integraciones, facturación y configuración del equipo.
 
@@ -5288,9 +5392,127 @@ Los siguientes mock-ups presentan la versión de alta fidelidad de la aplicació
 
 <img src="assets/ui/mockups/create-new-project-modal-template-selection.png" alt="Create New Project Modal Template Selection" style="width: 800px">
 
+**Mobile Application Mock-ups**
+
+Los siguientes mock-ups presentan la versión de alta fidelidad de la aplicación móvil de Reqs-AI. La secuencia evidencia el recorrido principal del usuario dentro de la plataforma: autenticación, navegación principal, gestión de proyectos, sesiones de descubrimiento, revisión de historias generadas por IA, integraciones, facturación y configuración del equipo.
+
+**Login Screen**
+
+**Descripción:** El Mock-up de la pantalla de inicio de sesión consolida la identidad de marca del producto aplicando el Design System mediante una paleta de colores sobria, donde destaca el verde esmeralda corporativo en el botón principal de acción (CTA) y los acentos interactivos (Sign In, Forgot Password?). La arquitectura de información distribuye verticalmente los elementos clave (campos de texto legibles, opciones de autenticación federada con Google y Okta, y enlaces de asistencia) sobre una tarjeta contenedora blanca con bordes redondeados y sombras sutiles que generan una clara separación de capas visuales, garantizando un alto contraste tipográfico y un diseño inclusivo que minimiza el error táctil en dispositivos móviles.
+
+<img src="assets/ui/mobile/mockups/mobile-login-screen.png" alt="Mobile Login Screen Mockup" style="width: 400px">
+
+**Dashboard Screen**
+
+**Descripción:** El Mock-up del Dashboard implementa el Design System estructurando métricas clave (como los 12 proyectos activos o las 450 historias generadas) en tarjetas modulares blancas de alta visibilidad que optimizan la carga cognitiva. Su arquitectura de información destaca una sección interactiva de "Recent Sessions" y un contenedor asimétrico azul noche para recomendaciones de la IA, complementado con un menú de navegación inferior consistente y un botón flotante de micrófono esmeralda que garantiza una accesibilidad táctil inmediata en movilidad.
+
+<img src="assets/ui/mobile/mockups/mobile-dashboard-screen.png" alt="Mobile Dashboard Screen Mockup" style="width: 400px">
+
+**Settings & Profile Screen**
+
+**Descripción:** El Mock-up de esta vista consolida las configuraciones de la cuenta organizando la arquitectura de información mediante contenedores modulares con esquinas suavizadas sobre un fondo gris claro neutro. La interfaz integra con precisión los elementos de diseño del Design System, destacando el uso de etiquetas de estado en verde esmeralda para suscripciones activas (Enterprise), selectores de apariencia con alto contraste y un botón de cierre de sesión (Log Out) codificado en rojo para mitigar errores de navegación táctil.
+
+<img src="assets/ui/mobile/mockups/mobile-settings-profile-screen.png" alt="Mobile Settings & Profile Screen Mockup" style="width: 400px">
+
+**Live Assistant Screen**
+
+**Descripción:** El Mock-up de esta pantalla operativa plasma la interacción de la IA en tiempo real utilizando el Design System mediante un contenedor blanco de bordes suavizados y un sutil degradado verde esmeralda para el módulo "AI Smart Suggestions". La arquitectura de información prioriza la accesibilidad y ergonomía táctil en movilidad al ubicar los controles de sesión en la parte inferior, destacando el botón principal asimétrico (Finish & Generate Stories) para cerrar el flujo libre de errores.
+
+<img src="assets/ui/mobile/mockups/mobile-live-assistant-screen.png" alt="Mobile Live Assistant Screen Mockup" style="width: 400px">
+
+**Review & Export Screen**
+
+**Descripción:** El Mock-up de esta pantalla aplica el Design System superponiendo un panel emergente inferior (Bottom Sheet) estilizado con sombras suaves para confirmar la sincronización hacia plataformas de gestión de proyectos. La arquitectura de información destaca una cuadrícula de botones para seleccionar servicios externos (como Azure DevOps en verde corporativo) y un botón de acción principal de alto contraste (Sync Backlog), garantizando un diseño inclusivo y un control táctil óptimo sin perder la visibilidad de las historias de usuario de fondo.
+
+<img src="assets/ui/mobile/mockups/mobile-review-export-screen.png" alt="Mobile Review & Export Screen Mockup" style="width: 400px">
+
+**Projects Archive Screen**
+
+**Descripción:** El Mock-up de esta pantalla consolida el catálogo de proyectos empleando tarjetas modulares individuales con bordes suavizados que facilitan la lectura en movilidad. Su arquitectura de información integra un buscador superior intuitivo y píldoras de filtrado por estado, aplicando las pautas de diseño inclusivo del Design System mediante barras de progreso en verde esmeralda y un botón flotante de adición táctil de alta accesibilidad para el pulgar.
+
+<img src="assets/ui/mobile/mockups/mobile-projects-archive-screen.png" alt="Mobile Projects Archive Screen Mockup" style="width: 400px">
+
+**Project Settings Screen**
+
+**Descripción:** El Mock-up de esta pantalla configura los parámetros del proyecto aplicando el Design System mediante un diseño puramente vertical segmentado en bloques funcionales con tipografía de alto contraste. La arquitectura de información destaca controles interactivos táctiles como el switch esmeralda de "AI Auto-Analysis Settings", tarjetas de integración directa (Jira y Azure) y un componente cronológico de "Team Activity", garantizando un diseño inclusivo y un control ergonómico sin errores en movilidad.
+
+<img src="assets/ui/mobile/mockups/mobile-project-settings-screen.png" alt="Mobile Project Settings Screen Mockup" style="width: 400px">
+
+**Project User Stories Screen**
+
+**Descripción:** El Mock-up de esta pantalla presenta el catálogo detallado de historias de usuario bajo una arquitectura de información estructurada en bloques de sintaxis Gherkin (Given-When-Then) de alta legibilidad para el analista. La interfaz consolida el Design System mediante un buscador superior interactivo, píldoras de filtrado por estado (Draft, Review, Approved) codificadas por colores de alto contraste y un botón flotante de adición táctil que optimiza el diseño inclusivo en movilidad.
+
+<img src="assets/ui/mobile/mockups/mobile-project-user-stories-screen.png" alt="Mobile Project User Stories Screen Mockup" style="width: 400px">
+
+**Session History Screen**
+
+**Descripción:** El Mock-up de esta pantalla organiza las grabaciones pasadas aplicando el Design System sobre una línea de tiempo vertical segmentada de manera limpia con indicadores de estado circulares. La arquitectura de información destaca en cada tarjeta métricas críticas como el porcentaje de precisión de la IA (AI Score), la duración y el moderador, integrando un diseño inclusivo mediante botones de reproducción rápida en verde esmeralda y accesos prominentes (View Transcript) para mitigar errores en movilidad.
+
+<img src="assets/ui/mobile/mockups/mobile-session-history-screen.png" alt="Mobile Session History Screen Mockup" style="width: 400px">
+
+**Integrations Directory Screen**
+
+**Descripción:** El Mock-up de esta pantalla consolida el catálogo de extensiones externas aplicando el Design System mediante tarjetas modulares ordenadas bajo íconos de categoría con alto contraste cromático. La arquitectura de información distribuye de forma jerárquica los servicios vinculados (como Jira en estado activo) de los disponibles para conectar (Connect), integrando un diseño inclusivo mediante botones amplios de fácil alcance y un banner asimétrico azul noche para promocionar integraciones destacadas de la IA.
+
+<img src="assets/ui/mobile/mockups/mobile-integrations-directory-screen.png" alt="Mobile Integrations Directory Screen Mockup" style="width: 400px">
+
+**Billing & Subscription Screen**
+
+**Descripción:** El Mock-up de esta pantalla gestiona los datos financieros del usuario aplicando el Design System a través de bloques de información con bordes suavizados sobre un fondo blanco limpio. La arquitectura de información prioriza los datos críticos mediante una barra de progreso esmeralda para el consumo de tokens, una tarjeta asimétrica azul noche para el próximo cobro de $499.00 y una lista vertical de facturas descargables con botones táctiles amplios, logrando un diseño inclusivo que simplifica la administración de la cuenta en movilidad.
+
+<img src="assets/ui/mobile/mockups/mobile-billing-subscription-screen.png" alt="Mobile Billing & Subscription Screen Mockup" style="width: 400px">
+
 ### 6.4.3. Applications User Flow Diagrams
 
+
+
+**Mobile Application User Flow Diagrams**
+
+**Autenticación de Usuario y Configuración de Cuenta**
+
+**Descripción:** Este User Flow mapea el happy path de alta fidelidad para el inicio de sesión exitoso y la navegación inmediata hacia la configuración del perfil mediante el menú inferior. El diagrama integra los Mock-ups finales del producto digital para validar las condiciones visuales del Design System, sirviendo como contraparte directa y consistente del Wireflow funcional previamente establecido.
+
+<img src="assets/ui/mobile/userflows/mobile-authentication-profile-user-flow.png" alt="Mobile Authentication and Profile User Flow" style="width: 400px">
+
+**Activación de Sesión de Elicitación en Live Assistant**
+
+**Descripción:** Este User Flow ilustra la ruta óptima (happy path) de alta fidelidad que recorre el analista al iniciar una sesión de captura de requerimientos desde el Dashboard principal. El diagrama emplea los Mock-ups terminados para validar visualmente la activación inmediata del motor de IA (Analysis engine active) y el despliegue dinámico de sugerencias en tiempo real al cambiar de pantalla.
+
+<img src="assets/ui/mobile/userflows/mobile-live-assistant-user-flow.png" alt="Mobile Live Assistant User Flow" style="width: 400px">
+
+**Sincronización y Exportación de Requerimientos Refinados**
+
+**Descripción:** Este User Flow representa la ruta esperada (happy path) de alta fidelidad para la validación y exportación de artefactos de software directamente a herramientas de gestión desde el Dashboard. El diagrama incorpora los Mock-ups finales para ilustrar la interacción táctil que despliega el panel inferior de sincronización (Ready for Backlog Sync), garantizando la consistencia visual y de comportamiento con su respectivo diagrama de Wireflow.
+
+<img src="assets/ui/mobile/userflows/mobile-review-export-user-flow.png" alt="Mobile Review & Export User Flow" style="width: 400px">
+
+**Administración de Proyectos y Gestión de Historias de Usuario**
+
+**Descripción:** Este User Flow detalla la ruta interactiva (happy path) de alta fidelidad que recorre el usuario para supervisar la configuración y el backlog de un proyecto específico. El diagrama conecta en secuencia los Mock-ups finales del producto digital (Dashboard, Projects Archive, Project Settings y Project User Stories), validando de forma consistente las transiciones visuales de los datos y estados definidos previamente en la estructura funcional del Wireflow.
+
+<img src="assets/ui/mobile/userflows/mobile-project-management-user-flow.png" alt="Mobile Project Management User Flow" style="width: 400px">
+
+**Navegación de Historias de Usuario a Historial, Integraciones y Facturación**
+
+**Descripción:** Este último User Flow consolida el camino operativo (happy path) de alta fidelidad que recorre el analista para transicionar entre la gestión del backlog y los módulos administrativos. El diagrama enlaza secuencialmente los Mock-ups finales (Project User Stories, Session History, Integrations Directory y Billing & Subscription) mediante interacciones en el menú inferior, garantizando una correspondencia estética y funcional exacta con el comportamiento definido en su Wireflow homólogo.
+
+<img src="assets/ui/mobile/userflows/mobile-user-stories-to-history-integrations-billing-user-flow.png" alt="Mobile User Stories to History, Integrations, Billing User Flow" style="width: 400px">
+
 ## 6.5. Applications Prototyping
+
+
+
+**Mobile Application Prototyping**
+
+En esta sección se presentan el prototipo interactivo de alta fidelidad para la aplicación móvil de Reqs-AI, construido con Figma. El prototipo integra los Mock-ups finales en una experiencia navegable que simula el comportamiento real del producto digital, permitiendo validar la usabilidad, la consistencia visual y la fluidez de las transiciones entre pantallas.
+
+![Mobile Application Prototype](./assets/ui/mobile/prototype/mobile-application-prototype.png)
+
+**Enlace al prototipo:**
+
+El prototipo interactivo de la aplicación móvil de Reqs-AI se encuentra disponible en el siguiente enlace: [Reqs-AI Mobile Application Prototype](https://www.figma.com/proto/TBYTXyq5REHaJd57XdMFe3/Mobile-App?node-id=10-275&viewport=-1730%2C-1243%2C0.17&t=4JoIIEahuM82Ubyn-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=10%3A275&show-proto-sidebar=1&page-id=0%3A1)
+
+El video del prototipo interactivo se encuentra disponible en el siguiente enlace: [Reqs-AI Mobile Application Prototype Video](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20201e843_upc_edu_pe/IQAQ5aiOb23nSI7phtra3Un_AQX1hqL_qhVPW8CldVvTLv0?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=BmdCkh)
 
 # Capítulo VII: Product Implementation, Validation & Deployment
 
