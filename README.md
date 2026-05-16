@@ -5488,6 +5488,20 @@ Los siguientes mock-ups presentan la versión de alta fidelidad de la aplicació
 
 ## 6.5. Applications Prototyping
 
+
+
+**Mobile Application Prototyping**
+
+En esta sección se presentan el prototipo interactivo de alta fidelidad para la aplicación móvil de Reqs-AI, construido con Figma. El prototipo integra los Mock-ups finales en una experiencia navegable que simula el comportamiento real del producto digital, permitiendo validar la usabilidad, la consistencia visual y la fluidez de las transiciones entre pantallas.
+
+![Mobile Application Prototype](./assets/ui/mobile/prototype/mobile-application-prototype.png)
+
+**Enlace al prototipo:**
+
+El prototipo interactivo de la aplicación móvil de Reqs-AI se encuentra disponible en el siguiente enlace: [Reqs-AI Mobile Application Prototype](https://www.figma.com/proto/TBYTXyq5REHaJd57XdMFe3/Mobile-App?node-id=10-275&viewport=-1730%2C-1243%2C0.17&t=4JoIIEahuM82Ubyn-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=10%3A275&show-proto-sidebar=1&page-id=0%3A1)
+
+El video del prototipo interactivo se encuentra disponible en el siguiente enlace: [Reqs-AI Mobile Application Prototype Video](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20201e843_upc_edu_pe/IQAQ5aiOb23nSI7phtra3Un_AQX1hqL_qhVPW8CldVvTLv0?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=BmdCkh)
+
 # Capítulo VII: Product Implementation, Validation & Deployment
 
 ## 7.1. Software Configuration Management
