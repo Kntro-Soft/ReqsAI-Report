@@ -134,7 +134,7 @@ TB1:
     * [4.3.3. Software Architecture Container Level Diagrams](#433-software-architecture-container-level-diagrams)
     * [4.3.4. Software Architecture Deployment Diagrams](#434-software-architecture-deployment-diagrams)
 * [Capítulo V: Tactical-Level Software Design](#capítulo-v-tactical-level-software-design)
-  * [5.1. Bounded Context: Identity and Access Management](#51-bounded-context-identity-and-access-management)
+  * [5.1. Bounded Context: IAM](#51-bounded-context-iam)
     * [5.1.1. Domain Layer](#511-domain-layer)
     * [5.1.2. Interface Layer](#512-interface-layer)
     * [5.1.3. Application Layer](#513-application-layer)
@@ -1169,6 +1169,12 @@ A continuación, se detallan las Historias de Usuario primarias que tienen el ma
 | **US21**             | Cargar documentos del cliente      | Como miembro, quiero subir documentos del cliente al proyecto, para que las historias generadas reflejen el vocabulario del negocio (RAG).                                                      | **Given** un usuario configurando un proyecto<br>**When** sube un glosario en PDF válido<br>**Then** el sistema debe fragmentar (chunking), vectorizar y persistir el documento en una base de datos vectorial en menos de 10 segundos                                           | EP04                      |
 | **US37**             | Generación automática de historias | Como analista, quiero que el sistema procese el audio en vivo y redacte automáticamente historias de usuario estructuradas con criterios de aceptación, para ahorrar horas de redacción manual. | **Given** una sesión de captura de audio activa<br>**When** el sistema recibe y transcribe el flujo de voz<br>**Then** el motor de IA procesa el texto generado<br>**And** redacta una historia de usuario en formato Gherkin<br>**And** la añade al backlog de la sesión actual | EP06                      |
 
+**Justificación del Impacto Arquitectónico:**
+
+*   **US11 (Crear organización):** Define el modelo base de multi-tenant y la asignación de ownership; requiere aislamiento de datos, provisión de recursos por organización y reglas consistentes para separar el acceso entre organizaciones.
+*   **US21 (Cargar documentos del cliente):** Obliga a definir un pipeline de ingesta asíncrona con chunking, embeddings y almacenamiento vectorial, controlando tiempos de procesamiento, costos y límites por organización.
+*   **US37 (Generación automática de historias):** Exige procesamiento en tiempo real con baja latencia, orquestación de STT y LLM, y manejo de estados de sesión y reintentos sin perder datos durante la captura en vivo.
+
 #### 4.1.2.2. Quality attribute Scenarios
 
 En esta sección se definen los escenarios de atributos de calidad más críticos que guiarán las decisiones arquitectónicas de Reqs-AI. Se ha priorizado el Rendimiento (necesario para el procesamiento de audio en tiempo real), la Seguridad (aislamiento de datos), la Disponibilidad (para tolerar fallas externas) y la Modificabilidad (cambio de proveedores de IA).
@@ -1185,11 +1191,17 @@ En esta sección se definen los escenarios de atributos de calidad más crítico
 
 Esta sección describe las restricciones innegociables impuestas por el modelo de negocio, las capacidades técnicas del equipo y la viabilidad del proyecto. Las principales restricciones incluyen la dependencia de API de LLM externos y el uso del stack tecnológico (Java/Spring Boot y Angular/Vue.js). A continuación, se detallan:
 
-| Constraint ID      | Título                               | Descripción                                                                                                                                                            | Criterios de Aceptación                                                                                                                                                                              | Relacionado con (Epic ID) |
-|:-------------------|:-------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------|
-| **CON-01**         | Stack Tecnológico Backend y Frontend | Como equipo de desarrollo, debemos utilizar Java (Spring Boot) para el backend y Angular o Vue.js para el frontend, debido a la experiencia técnica previa del equipo. | **Given** un nuevo componente a desarrollar<br>**When** el equipo inicie su construcción<br>**Then** el código debe estar escrito en Java 17+ usando Spring Boot o TypeScript usando Angular/Vue.js. | EP01, EP02                |
-| **CON-02**         | Uso de APIs de LLM externas          | Como Arquitecto de Software, debo integrar el sistema con APIs de modelos de terceros (ej. OpenAI, Anthropic), ya que no alojaremos modelos propios.                   | **Given** la necesidad de generar Gherkin<br>**When** el sistema realice una inferencia<br>**Then** la petición debe enrutarse hacia la API REST del proveedor seleccionado.                         | EP04                      |
-| **CON-03**         | Despliegue en Cloud Pública          | Como responsable de infraestructura, debo asegurar que los componentes sean desplegados en la nube (AWS, Azure o GCP), para evitar costos *on-premise*.                | **Given** la liberación de una nueva versión<br>**When** se ejecute el pipeline de despliegue<br>**Then** los artefactos deben aprovisionarse en la nube pública seleccionada.                       | Todas                     |
+| Constraint ID | Título                               | Descripción                                                                                                                                             | Criterios de Aceptación                                                                                                                                                                              | Relacionado con (Epic ID) |
+|:--------------|:-------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------|
+| **CON-01**    | Stack Tecnológico Backend y Frontend | Como equipo de desarrollo, debemos utilizar Java (Spring Boot) para el backend y Angular o Vue.js para el frontend.                                     | **Given** un nuevo componente a desarrollar<br>**When** el equipo inicie su construcción<br>**Then** el código debe estar escrito en Java 17+ usando Spring Boot o TypeScript usando Angular/Vue.js. | EP01, EP02                |
+| **CON-02**    | Uso de APIs de LLM externas          | Como Arquitecto de Software, debo integrar el sistema con APIs de modelos de terceros (ej. OpenAI, Anthropic), ya que no alojaremos modelos propios.    | **Given** la necesidad de generar Gherkin<br>**When** el sistema realice una inferencia<br>**Then** la petición debe enrutarse hacia la API REST del proveedor seleccionado.                         | EP04                      |
+| **CON-03**    | Despliegue en Cloud Pública          | Como responsable de infraestructura, debo asegurar que los componentes sean desplegados en la nube (AWS, Azure o GCP), para evitar costos *on-premise*. | **Given** la liberación de una nueva versión<br>**When** se ejecute el pipeline de despliegue<br>**Then** los artefactos deben aprovisionarse en la nube pública seleccionada.                       | Todas                     |
+
+**Justificación de Restricciones:**
+
+*   **CON-01 (Stack Tecnológico Backend y Frontend):** El equipo tiene experiencia consolidada en Java/Spring y frameworks web, lo que reduce curva de aprendizaje y riesgo de entrega.
+*   **CON-02 (Uso de API de LLM externas):** Los modelos propios no son viables por costos de infraestructura, mantenimiento y talento especializado para entrenamiento y hosting.
+*   **CON-03 (Despliegue en Cloud Pública):** La startup necesita reducir costos de inversión inicial y operar con elasticidad sin invertir en infraestructura propia.
 
 ### 4.1.3. Architectural Drivers Backlog
 
@@ -1645,18 +1657,21 @@ El *System Landscape Diagram* proporciona una vista panorámica del ecosistema t
 
 A continuación, se presenta la topología del paisaje del sistema:
 
-![SystemLandscapeDiagram](assets/architecture/system-landscape.png)
+![SystemLandscapeDiagram](assets/diagrams/architecture/system-landscape.png)
 
 **Análisis de Interacciones en el Ecosistema:**
 
-1.  **Límite Empresarial Kntro-Soft Enterprise:** Agrupa a nuestros actores principales (Technical Lead y Enterprise Analyst) interactuando centralmente con el **ReqsAI System**. Este es el núcleo de valor donde se graban las reuniones, se analizan los requerimientos y se estructuran en historias de usuario.
-2.  **Proveedores de Inteligencia y Procesamiento (Core Dependencies):** En la parte inferior, observamos las dependencias críticas (SaaS) que Reqs-AI delega para cumplir sus objetivos complejos:
-    *   **STT API (Speech-to-Text):** Recibe los fragmentos de audio en tiempo real y devuelve el texto.
-    *   **LLM API (Large Language Model):** Sirve a dos consumidores internos: **Workspace Management** lo usa para generar embeddings vectoriales de los documentos del cliente (base del RAG), y **Requirement Discovery** lo usa para inferir historias en formato Gherkin inyectando la transcripción y el contexto recuperado.
+1.  **Límite Empresarial Kntro-Soft Enterprise:** Agrupa a nuestros actores principales (Technical Lead y Enterprise Analyst) interactuando centralmente con el **ReqsAI System**. Este es el núcleo de valor donde se procesan las transcripciones, se analizan los requerimientos y se estructuran en historias de usuario.
+2.  **Proveedores de Inteligencia y Procesamiento (Core Dependencies):** Las dependencias tecnológicas críticas que Reqs-AI delega para cumplir sus objetivos:
+    *   **STT API (Speech-to-Text):** Recibe los fragmentos de audio en tiempo real y devuelve el texto transcrito.
+    *   **Embedding API:** Convierte texto en vectores numéricos para el índice RAG. Es utilizada por **Workspace Management** (vectorización de documentos y glosario) y por **Requirement Discovery** (vectorización de historias de usuario generadas para búsqueda semántica).
+    *   **LLM API (Large Language Model generativo):** Procesa y genera texto de alto nivel. **Workspace Management** la invoca para extraer y estructurar el contenido de documentos subidos por el cliente, produciendo fragmentos de calidad para el RAG. **Requirement Discovery** la invoca para inferir historias de usuario en formato Gherkin a partir de la transcripción y el contexto recuperado del RAG.
     *   **Payment Gateway:** Procesa las transacciones de las suscripciones B2B corporativas.
-3.  **Herramientas de Ecosistema del Cliente (The Landscape Effect):** La verdadera amplitud del ecosistema se observa en los bordes laterales:
-    *   **Project Management Tool Jira:** El diagrama evidencia que el *Technical Lead* gestiona sus Sprints directamente en Jira. ReqsAI actúa como un puente inteligente que exporta las historias de usuario aprobadas hacia esta herramienta, cerrando la brecha entre el levantamiento de requerimientos y la ejecución ágil.
-    *   **Email Service Provider:** El *Enterprise Analyst* recibe notificaciones de su organización a través de su proveedor de correo, alimentadas por los eventos disparados desde nuestro sistema.
+3.  **Herramientas de Ecosistema del Cliente (The Landscape Effect):** La verdadera amplitud del ecosistema se evidencia en las relaciones laterales entre los usuarios y las herramientas que ya usan **independientemente** de ReqsAI:
+    *   **Video Conferencing Tool (Google Meet, Zoom, MS Teams):** El *Technical Lead* y el *Enterprise Analyst* realizan sus reuniones de levantamiento de requisitos en estas plataformas. Exportan las grabaciones de audio y las suben manualmente a ReqsAI para su procesamiento. Esta es la fuente upstream del audio que alimenta el pipeline de IA.
+    *   **Project Management Tool (Jira, Trello, Linear):** El *Technical Lead* gestiona sus Sprints directamente en la herramienta de su equipo. ReqsAI exporta las historias aprobadas hacia ella, cerrando la brecha entre el levantamiento de requerimientos y la ejecución ágil.
+    *   **Email Service Provider:** El *Enterprise Analyst* recibe notificaciones e invitaciones de su organización a través de su proveedor de correo corporativo.
+    *   **Customer Support Channel:** El *Technical Lead* y el *Enterprise Analyst* tienen disponible este canal de atención via correo electrónico para resolver dudas, y reportar problemas.
 
 ### 4.3.2. Software Architecture Context Level Diagrams
 
@@ -1664,7 +1679,7 @@ Mientras que el Diagrama Landscape nos mostró el panorama del negocio, el **Dia
 
 A nivel de contexto, eliminamos las interacciones directas entre los usuarios y los sistemas de terceros (ej. el Technical Lead consultando Jira por su cuenta) y nos limitamos a mapear cómo nuestro sistema es el único orquestador responsable de comunicarse con el mundo exterior para cumplir sus objetivos.
 
-![System Context Diagram](assets/architecture/system-context.png)
+![System Context Diagram](assets/diagrams/architecture/system-context.png)
 
 **Análisis de Entradas y Salidas del Sistema Central:**
 
@@ -1676,14 +1691,15 @@ A nivel de contexto, eliminamos las interacciones directas entre los usuarios y 
     *   **Email Service Provider:** Recibe peticiones vía REST API para enviar los correos transaccionales de recuperación de contraseña y validación de cuentas.
 *   **Sistemas Core (Outbound Tecnológico):**
     *   **STT API (Speech-to-Text):** Recibe el streaming continuo de audio de las reuniones y retorna texto fragmentado con latencia inferior a 2 segundos.
-    *   **LLM API (Inteligencia Generativa):** Es consumida por dos Bounded Contexts distintos. **Workspace Management** la utiliza para convertir el texto extraído de documentos del cliente en vectores de embeddings que alimentan el RAG. **Requirement Discovery** la invoca para la inferencia generativa, enviando un *prompt* que combina la transcripción de la reunión y el contexto recuperado del RAG, recibiendo como respuesta un bloque JSON estructurado en Gherkin.
+    *   **Embedding API:** Transforma texto en vectores numéricos para el motor RAG. **Workspace Management** la invoca al ingerir documentos y el glosario técnico del cliente, almacenando los vectores en pgvector. **Requirement Discovery** la invoca para vectorizar las historias de usuario generadas, habilitando búsquedas semánticas sobre el historial del proyecto.
+    *   **LLM API (Inteligencia Generativa):** Genera y procesa lenguaje de alto nivel. **Workspace Management** la invoca para extraer y estructurar el contenido significativo de los documentos subidos por el cliente antes de vectorizarlos, mejorando la calidad de recuperación del RAG. **Requirement Discovery** la invoca para la inferencia generativa: envía un *prompt* que combina la transcripción de la reunión con el contexto recuperado del RAG y recibe como respuesta un bloque JSON estructurado en formato Gherkin.
     *   **Project Management Tool:** Recibe las historias de usuario aprobadas y formateadas para crear automáticamente *Issues* en el backlog del equipo (por ejemplo en Jira).
 
 ### 4.3.3. Software Architecture Container Level Diagrams
 
 En esta sección presentamos el diagrama de contenedores para el sistema Reqs-AI. Este nivel hace un enfoque al sistema principal para revelar los contenedores de software que lo componen (aplicaciones móviles, web, API, bases de datos), mostrando cómo se distribuyen las responsabilidades, las decisiones tecnológicas de alto nivel y cómo estos componentes se comunican entre sí y con los sistemas externos.
 
-![Container Diagram](assets/architecture/container-diagram.png)
+![Container Diagram](assets/diagrams/architecture/container-diagram.png)
 
 El sistema Reqs-AI está compuesto por los siguientes contenedores principales:
 
@@ -1692,11 +1708,11 @@ El sistema Reqs-AI está compuesto por los siguientes contenedores principales:
     *   **Mobile App:** Proporciona accesibilidad móvil a los usuarios, permitiéndoles interactuar con el sistema, grabar reuniones o revisar el estado de los requerimientos desde cualquier lugar. Se optó por **Flutter** para asegurar un desarrollo multiplataforma eficiente (iOS y Android) con una base de código unificada.
 
 2.  **Distribución y Enrutamiento Perimetral (Edge):**
-    *   **CDN & Reverse Proxy:** Se posiciona como el intermediario absoluto entre las interfaces de usuario (Internet) y la infraestructura interna. Actúa como proxy inverso interceptando todas las peticiones web y móviles. Su función es servir los archivos estáticos de la Web App a alta velocidad desde ubicaciones globales, almacenar respuestas en caché, mitigar ataques (DDoS) y enrutar las peticiones dinámicas (API) hacia el Gateway. En el entorno AWS, la tecnología elegida es **Amazon CloudFront**.
-    *   **API Gateway:** Actúa como la puerta de entrada para todas las peticiones dinámicas (Requests) enrutadas desde el Reverse Proxy. Su responsabilidad es dirigir estas solicitudes hacia los servicios de backend correspondientes, gestionando el *throttling*, métricas de consumo y terminación SSL.
+    *   **CDN & Reverse Proxy (Amazon CloudFront):** Sirve exclusivamente los activos estáticos del SPA Angular desde Edge Locations globales (HTML, CSS, JS), cachea respuestas, mitiga ataques DDoS y enruta el tráfico dinámico de API hacia el API Gateway. **La app móvil no pasa por CloudFront** — es una aplicación nativa instalada desde el App Store/Google Play que llama directamente la API Gateway.
+    *   **API Gateway (AWS API Gateway):** Punto de entrada unificado para todas las peticiones REST y WebSocket, tanto de la app web (enrutadas desde CloudFront) como de la app móvil (conexión directa). Gestiona throttling, métricas de consumo y terminación SSL.
 
 3.  **Lógica Core (Backend — Monolito Modular):**
-    *   **Reqs-AI Backend Application:** Desarrollado en **Java 25 con Spring Boot 3**, se despliega como una única unidad de ejecución que concentra toda la inteligencia de negocio del producto. Está estructurado internamente como un **Monolito Modular**: los 5 Bounded Contexts operan como módulos independientes con fronteras de acceso estrictas, comunicándose entre sí mediante interfaces públicas y eventos en memoria —sin tráfico de red interno—, lo que elimina la latencia distribuida y garantiza la coherencia transaccional durante las sesiones de elicitación en tiempo real. Esta decisión prioriza la simplicidad operativa y el *Time-to-Market* en la etapa actual, manteniendo la arquitectura preparada para una migración selectiva a servicios independientes si el volumen futuro lo justifica.
+    *   **Reqs-AI Backend Application:** Desarrollado en **Java 25 con Spring Boot 4**, se despliega como un único contenedor Docker que concentra toda la inteligencia de negocio del producto. Está estructurado internamente como un **Monolito Modular** con Spring Modulith: los 5 Bounded Contexts operan como módulos independientes con fronteras de acceso estrictas, comunicándose entre sí mediante interfaces públicas y eventos en memoria —sin tráfico de red interno—, lo que elimina la latencia distribuida y garantiza la coherencia transaccional. Esta decisión prioriza la simplicidad operativa y el *Time-to-Market* en la etapa actual, manteniendo la arquitectura preparada para una migración selectiva si el volumen futuro lo justifica.
 
     | # | Bounded Context        | Responsabilidad principal                                                                                   |
     |---|------------------------|-------------------------------------------------------------------------------------------------------------|
@@ -1706,27 +1722,28 @@ El sistema Reqs-AI está compuesto por los siguientes contenedores principales:
     | 4 | Billing & Subscription | Planes de suscripción, control de cuotas e integración con la pasarela de pagos.                            |
     | 5 | Integration Gateway    | Exportación de historias aprobadas hacia las herramientas de gestión que el cliente ya utiliza.             |
 
-4.  **Almacenamiento de Datos:**
-    *   **Database:** Es la base de datos principal de Reqs-AI. Almacena toda la información del dominio. La elección de **PostgreSQL** con la extensión **pgvector** es una decisión estratégica crítica, ya que permite almacenar y consultar *embeddings* vectoriales, facilitando el procesamiento avanzado de IA (RAG) y las búsquedas semánticas.
+4.  **Almacenamiento de Datos (AWS RDS):**
+    *   **Database:** Base de datos relacional administrada en **AWS RDS** con **PostgreSQL** y la extensión **pgvector**. La elección de pgvector es una decisión estratégica crítica que permite almacenar y consultar *embeddings* vectoriales directamente en la base de datos relacional, habilitando el motor RAG y las búsquedas semánticas sin necesidad de una base de datos vectorial separada.
 
 **Comunicación e Integración de Contenedores**
 
-La arquitectura define un flujo de comunicación moderno y orientado a servicios:
+La arquitectura define un flujo de comunicación diferenciado según el canal:
 
-*   **Comunicación Cliente-Servidor (Internet):** Tanto la aplicación móvil como la web interactúan inicialmente con el **CDN & Reverse Proxy (CloudFront)** a través de **HTTPS**. El proxy inverso sirve la Web App (Angular) y enruta las llamadas de datos hacia el **API Gateway**. Todo el tráfico utiliza conexiones seguras (REST y WebSockets para el streaming de audio).
-*   **Comunicación Interna:** La API Gateway enruta las llamadas procesadas hacia el *Reqs-AI Backend Application*. Internamente, los Bounded Contexts se comunican mediante eventos en memoria (Domain Events) y persisten su estado de manera síncrona en la base de datos compartida (PostgreSQL).
-*   **Integración con Sistemas Externos:** En lugar de centralizar todas las salidas, las integraciones están descentralizadas y asignadas al Bounded Context correspondiente que las necesita:
-    *   **IAM** envía credenciales y alertas a través del **Email Service Provider**.
-    *   **Billing & Subscription** procesa transacciones a través del **Payment Gateway**.
-    *   **Workspace Management** delega al **LLM API** la generación de embeddings vectoriales de los documentos del cliente para construir y mantener el índice RAG del proyecto.
-    *   **Requirement Discovery** envía los audios de las reuniones al **STT API** para convertirlos a texto, y delega al **LLM API** la inferencia generativa para producir las historias en formato Gherkin.
-    *   **Integration Gateway** exporta finalmente las historias de usuario hacia la herramienta de gestión mediante la **Project Management API** (Jira).
+*   **Canal Web:** El navegador carga el SPA Angular desde **CloudFront** (activos estáticos cacheados en el Edge). Las llamadas de API del SPA viajan por CloudFront → API Gateway → Backend.
+*   **Canal Móvil:** La app Flutter (instalada desde App Store/Google Play) realiza llamadas HTTPS directamente la **API Gateway**, sin pasar por CloudFront, ya que no es una aplicación web servida desde un servidor.
+*   **Comunicación Interna:** La API Gateway enruta todas las peticiones hacia el contenedor del backend. Internamente, los Bounded Contexts se comunican mediante Domain Events en memoria y persisten en la base de datos compartida (AWS RDS PostgreSQL).
+*   **Integración con Sistemas Externos:** Las integraciones están descentralizadas, asignadas al Bounded Context que las necesita:
+    *   **IAM** envía correos transaccionales vía **Email Service Provider**.
+    *   **Billing & Subscription** procesa pagos vía **Payment Gateway**.
+    *   **Workspace Management** vectoriza documentos y glosario vía **Embedding API**, y procesa el contenido de documentos para el RAG vía **LLM API**.
+    *   **Requirement Discovery** transcribe audio vía **STT API**, vectoriza historias generadas vía **Embedding API** e infiere historias en Gherkin vía **LLM API**.
+    *   **Integration Gateway** exporta historias aprobadas vía **Project Management API** (Jira, Trello, Linear).
 
 ### 4.3.4. Software Architecture Deployment Diagrams
 
 En esta sección se presenta el diagrama de despliegue, el cual ilustra cómo los contenedores de software de Reqs-AI se mapean a la infraestructura de la nube. Este diagrama detalla los nodos de ejecución, los entornos operativos y la topología de red, priorizando una arquitectura viable, escalable y optimizada en costos.
 
-![Deployment Diagram](assets/architecture/deployment-diagram.png)
+![Deployment Diagram](assets/diagrams/architecture/deployment-diagram.png)
 
 **Nodos de Despliegue y Distribución de Componentes**
 
@@ -1740,112 +1757,2691 @@ La infraestructura de despliegue se divide en los entornos de cliente, la red de
     Para garantizar baja latencia y alta seguridad antes de que el tráfico llegue a los servidores principales, se utilizan los nodos Edge de AWS distribuidos globalmente.
     *   **Amazon CloudFront (CDN & Reverse Proxy):** Actúa como el primer punto de contacto (Proxy Inverso). Almacena en caché los archivos estáticos de la Web App en ubicaciones cercanas al usuario para cargas instantáneas, y enruta de forma segura y eficiente el tráfico dinámico hacia la región principal de AWS.
 
-3.  **Entorno de Nube - Procesamiento (Server-Side - AWS North America):**
-    La lógica de negocio se aloja en AWS North America (us-east-1, Virginia), elegida por su alta disponibilidad y ecosistema completo de servicios.
-    *   **AWS API Gateway:** Recibe el tráfico dinámico enrutado desde CloudFront y funciona como el orquestador de las peticiones REST y WebSockets hacia el backend.
-    *   **AWS Elastic Beanstalk:** Es el entorno PaaS (Platform as a Service) encargado de alojar el **Reqs-AI Backend Application**. Elastic Beanstalk abstrae la complejidad de la infraestructura, aprovisionando servidores EC2 subyacentes, autoescalado y monitoreo, permitiendo al equipo enfocarse únicamente en el código del runtime de Java.
+3.  **Entorno de Nube - Procesamiento (AWS North America — us-east-1, Virginia):**
+    La lógica de negocio se aloja en la región de AWS North America, elegida por su alta disponibilidad y ecosistema completo de servicios administrados.
+    *   **AWS API Gateway:** Recibe el tráfico dinámico desde CloudFront (web) y directamente desde la app móvil, funcionando como orquestador de peticiones REST y WebSocket hacia el backend.
+    *   **ECS Cluster (AWS ECS + Fargate):** El backend se despliega como un contenedor Docker en **AWS ECS con Fargate** (serverless containers). Fargate abstrae completamente la gestión de servidores EC2 subyacentes, provisionando cómputo bajo demanda con autoescalado automático. La task definition del ECS define dos contenedores en la misma unidad de ejecución: el **ReqsAI Backend Service** (Java 25 + Spring Boot 4) y el **Grafana Alloy** como sidecar de observabilidad.
+    *   **Observability Server (AWS EC2 + Docker Compose):** Una instancia EC2 dedicada ejecuta el stack de observabilidad completo mediante Docker Compose: **Prometheus** (almacén de métricas, consultado con PromQL), **Loki** (agregación de logs, consultado con LogQL), **Tempo** (trazas distribuidas, consultado con TraceQL) y **Grafana** (dashboard unificado que visualiza las tres fuentes). Grafana Alloy, corriendo como sidecar en el ECS Cluster, colecta las métricas del endpoint `/actuator/prometheus`, logs del stdout del contenedor y trazas OTLP, enviándolos al servidor de observabilidad mediante push.
 
-4.  **Entorno de Nube - Persistencia (Database as a Service):**
-    *   **Supabase Cloud (PostgreSQL):** Se delegó el almacenamiento a Supabase, una plataforma BaaS (Backend as a Service). Esta decisión permite aprovechar una base de datos PostgreSQL robusta, gestionada y con la extensión **pgvector** nativa (esencial para los *embeddings* y RAG de los requerimientos), reduciendo drásticamente la carga operativa y los costos.
+4.  **Entorno de Nube - Persistencia (AWS RDS):**
+    *   **AWS RDS (PostgreSQL + pgvector):** La base de datos principal se gestiona completamente en **Amazon RDS**, el servicio de base de datos relacional administrado de AWS. Se utiliza **PostgreSQL** con la extensión **pgvector** habilitada, esencial para el almacenamiento de embeddings vectoriales que alimentan el motor RAG. RDS provee backups automáticos, failover multi-AZ y actualizaciones de parches sin downtime.
 
 **Comunicación e Interacción de Nodos**
 
-*   Las aplicaciones (Mobile y Web) se comunican vía internet mediante **HTTPS** con el **Amazon CloudFront** ubicado en el *Edge Location* más cercano.
-*   CloudFront sirve los recursos estáticos web directamente y enruta las solicitudes API hacia el **AWS API Gateway** en la región de AWS North America.
-*   La API Gateway enruta el tráfico internamente hacia el entorno de **AWS Elastic Beanstalk**, donde reside la lógica del Monolito Modular.
-*   El backend de Spring Boot se conecta de manera externa y segura hacia el clúster gestionado en **Supabase Cloud** para realizar operaciones transaccionales (*Reads and writes*) sobre la base de datos compartida.
+*   **App Web:** El navegador carga el SPA Angular desde **CloudFront** (Edge Location más cercano). Las llamadas de API del SPA viajan CloudFront → API Gateway → ECS Backend.
+*   **App Móvil:** La app Flutter instalada en el dispositivo del usuario realiza llamadas HTTPS **directamente la API Gateway**, sin pasar por CloudFront, ya que no es una aplicación web servida desde CDN.
+*   **Observabilidad:** Grafana Alloy (sidecar en ECS) colecta continuamente métricas, logs y trazas del backend y los envía al Observability Server en EC2. Grafana consulta Prometheus, Loki y Tempo para mostrar el estado del sistema en tiempo real.
+*   **Persistencia:** El backend se conecta a **AWS RDS** via JDBC/JPA para todas las operaciones transaccionales de los 5 Bounded Contexts.
 
 # Capítulo V: Tactical-Level Software Design
 
 ## 5.1. Bounded Context: IAM
 
+El BC IAM gestiona la identidad, autenticación y sesiones de los usuarios de Reqs-AI. Es responsable desde el registro de cuenta hasta la emisión y rotación de tokens de acceso, verificación de correo electrónico, actualización de perfil y almacenamiento de preferencias de navegación del usuario. No administra roles ni permisos por organización; esa responsabilidad pertenece al BC Workspace Management.
+
 ### 5.1.1. Domain Layer
+
+Esta capa contiene el núcleo del negocio del BC IAM: reglas de autenticación, ciclo de vida de cuentas y gestión de sesiones mediante tokens. No depende de ningún framework externo a nivel de lógica.
+
+**Aggregate Roots**
+
+**Aggregate: `Account`**
+
+| Campo               | Detalle                                                                                                                                                                                       |
+|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Paquete**         | `com.kntrosoft.reqsai.iam.domain.model.aggregates`                                                                                                                                            |
+| **Extiende**        | `AbstractAggregateRoot<Account>`                                                                                                                                                              |
+| **Propósito**       | Representa las credenciales y el estado del ciclo de vida de una cuenta. Controla las invariantes de autenticación: una cuenta no puede autenticarse si no está verificada o está suspendida. |
+| **Anotaciones JPA** | `@Entity`, `@Table(name = "accounts")`                                                                                                                                                        |
+
+**Atributos:**
+
+| Atributo                    | Tipo            | Columna JPA                    | Descripción                                                    |
+|-----------------------------|-----------------|--------------------------------|----------------------------------------------------------------|
+| `id`                        | `AccountId`     | `id`                           | Identificador único de la cuenta (UUID).                       |
+| `email`                     | `Email`         | `@Embedded`                    | Correo electrónico único de acceso, normalizado a minúsculas.  |
+| `passwordHash`              | `String`        | `password_hash`                | Hash BCrypt de la contraseña.                                  |
+| `status`                    | `AccountStatus` | `status`                       | Estado actual de la cuenta en su ciclo de vida.                |
+| `verificationCode`          | `String?`       | `verification_code`            | Código OTP de verificación de correo. Nulo una vez verificado. |
+| `verificationCodeExpiresAt` | `Instant?`      | `verification_code_expires_at` | Fecha de expiración del OTP.                                   |
+
+**Constructores:**
+
+| Constructor                                 | Visibilidad | Propósito                                                     |
+|---------------------------------------------|-------------|---------------------------------------------------------------|
+| `protected Account()`                       | `protected` | Para JPA. No instanciar directamente.                         |
+| `Account(Email email, String passwordHash)` | `public`    | Crea la cuenta en estado `PENDING_VERIFICATION`. Genera UUID. |
+
+**Métodos de negocio:**
+
+| Método                                                     | Visibilidad | Parámetros                           | Retorna | Descripción                            | Excepciones lanzadas                                                    |
+|------------------------------------------------------------|-------------|--------------------------------------|---------|----------------------------------------|-------------------------------------------------------------------------|
+| `verifyEmail(String code, Instant now)`                    | `public`    | `code: String`, `now: Instant`       | `void`  | Valida el OTP y activa la cuenta.      | `InvalidVerificationCodeException` si el código es incorrecto o expiró. |
+| `changePassword(String newPasswordHash)`                   | `public`    | `newPasswordHash: String`            | `void`  | Reemplaza el hash de contraseña.       | —                                                                       |
+| `suspend()`                                                | `public`    | —                                    | `void`  | Transición a estado `SUSPENDED`.       | `CannotSuspendAccountException` si ya está suspendida o eliminada.      |
+| `activate()`                                               | `public`    | —                                    | `void`  | Transición a estado `ACTIVE`.          | —                                                                       |
+| `delete()`                                                 | `public`    | —                                    | `void`  | Baja lógica: estado `DELETED`.         | —                                                                       |
+| `generateVerificationCode(String code, Instant expiresAt)` | `public`    | `code: String`, `expiresAt: Instant` | `void`  | Almacena nuevo OTP (usado en reenvío). | —                                                                       |
+
+**Métodos de consulta:**
+
+| Método                    | Visibilidad | Retorna   | Descripción                                    |
+|---------------------------|-------------|-----------|------------------------------------------------|
+| `isPendingVerification()` | `public`    | `boolean` | `true` si el status es `PENDING_VERIFICATION`. |
+| `isActive()`              | `public`    | `boolean` | `true` si el status es `ACTIVE`.               |
+| `isSuspended()`           | `public`    | `boolean` | `true` si el status es `SUSPENDED`.            |
+| `isDeleted()`             | `public`    | `boolean` | `true` si el status es `DELETED`.              |
+
+**Relaciones:**
+
+| Relación                   | Tipo              | Multiplicidad | Detalles                                                         |
+|----------------------------|-------------------|---------------|------------------------------------------------------------------|
+| `Account` → `User`         | Referencia por ID | 1..1          | `User` mantiene `accountId: AccountId`. Frontera de aggregate.   |
+| `Account` → `RefreshToken` | Referencia por ID | 1..*          | `RefreshToken` mantiene `userId: UserId`. Frontera de aggregate. |
+
+---
+
+**Aggregate: `User`**
+
+| Campo               | Detalle                                                                                                                             |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| **Paquete**         | `com.kntrosoft.reqsai.iam.domain.model.aggregates`                                                                                  |
+| **Extiende**        | `AbstractAggregateRoot<User>`                                                                                                       |
+| **Propósito**       | Representa el perfil del usuario vinculado a una cuenta. Controla actualizaciones de datos personales y preferencias de navegación. |
+| **Anotaciones JPA** | `@Entity`, `@Table(name = "users")`                                                                                                 |
+
+**Atributos:**
+
+| Atributo      | Tipo              | Columna JPA  | Descripción                             |
+|---------------|-------------------|--------------|-----------------------------------------|
+| `id`          | `UserId`          | `id`         | Identificador único del usuario (UUID). |
+| `accountId`   | `AccountId`       | `account_id` | Referencia a la cuenta asociada.        |
+| `firstName`   | `String`          | `first_name` | Nombres del usuario.                    |
+| `lastName`    | `String`          | `last_name`  | Apellidos del usuario.                  |
+| `avatarUrl`   | `String?`         | `avatar_url` | URL de foto de perfil (opcional).       |
+| `preferences` | `UserPreferences` | `@Embedded`  | Preferencias de navegación del usuario. |
+
+**Constructores:**
+
+| Constructor                                                    | Visibilidad | Propósito                                                                      |
+|----------------------------------------------------------------|-------------|--------------------------------------------------------------------------------|
+| `protected User()`                                             | `protected` | Para JPA. No instanciar directamente.                                          |
+| `User(AccountId accountId, String firstName, String lastName)` | `public`    | Crea perfil asociado a una cuenta. Inicializa `preferences` con valores nulos. |
+
+**Métodos de negocio:**
+
+| Método                                                               | Visibilidad | Parámetros                                                    | Retorna | Descripción                               | Excepciones lanzadas |
+|----------------------------------------------------------------------|-------------|---------------------------------------------------------------|---------|-------------------------------------------|----------------------|
+| `updateProfile(String firstName, String lastName, String avatarUrl)` | `public`    | `firstName: String`, `lastName: String`, `avatarUrl: String?` | `void`  | Actualiza nombre y foto de perfil.        | —                    |
+| `updatePreferences(UserPreferences preferences)`                     | `public`    | `preferences: UserPreferences`                                | `void`  | Reemplaza las preferencias de navegación. | —                    |
+
+**Métodos de consulta:**
+
+| Método          | Visibilidad | Retorna  | Descripción                           |
+|-----------------|-------------|----------|---------------------------------------|
+| `getFullName()` | `public`    | `String` | Retorna `firstName + " " + lastName`. |
+
+**Relaciones:**
+
+| Relación                   | Tipo                      | Multiplicidad | Detalles                                                            |
+|----------------------------|---------------------------|---------------|---------------------------------------------------------------------|
+| `User` → `AccountId`       | Referencia por ID         | 1..1          | Mantiene frontera de aggregate. Nunca el objeto `Account` completo. |
+| `User` → `UserPreferences` | Composición (`@Embedded`) | 1..1          | VO embebido, siempre presente.                                      |
+
+---
+
+**Aggregate: `RefreshToken`**
+
+| Campo               | Detalle                                                                                                                                                                         |
+|---------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Paquete**         | `com.kntrosoft.reqsai.iam.domain.model.aggregates`                                                                                                                              |
+| **Extiende**        | `AbstractAggregateRoot<RefreshToken>`                                                                                                                                           |
+| **Propósito**       | Representa un token de renovación de sesión. Controla su ciclo de vida (emisión, rotación, revocación) y garantiza que el token solo pueda usarse si está activo y no expirado. |
+| **Anotaciones JPA** | `@Entity`, `@Table(name = "refresh_tokens")`                                                                                                                                    |
+
+**Atributos:**
+
+| Atributo    | Tipo             | Columna JPA  | Descripción                                     |
+|-------------|------------------|--------------|-------------------------------------------------|
+| `id`        | `RefreshTokenId` | `id`         | Identificador único del token (UUID).           |
+| `tokenHash` | `String`         | `token_hash` | Hash SHA-256 del token en texto plano.          |
+| `userId`    | `UserId`         | `user_id`    | Usuario propietario del token.                  |
+| `status`    | `TokenStatus`    | `status`     | Estado actual del token.                        |
+| `expiresAt` | `Instant`        | `expires_at` | Fecha de expiración.                            |
+| `revokedAt` | `Instant?`       | `revoked_at` | Fecha de revocación explícita (nulo si activo). |
+
+**Constructores:**
+
+| Constructor                                                        | Visibilidad | Propósito                                |
+|--------------------------------------------------------------------|-------------|------------------------------------------|
+| `protected RefreshToken()`                                         | `protected` | Para JPA. No instanciar directamente.    |
+| `RefreshToken(String tokenHash, UserId userId, Instant expiresAt)` | `public`    | Emite un nuevo token en estado `ACTIVE`. |
+
+**Métodos de negocio:**
+
+| Método                      | Visibilidad | Parámetros           | Retorna | Descripción                                   | Excepciones lanzadas                                           |
+|-----------------------------|-------------|----------------------|---------|-----------------------------------------------|----------------------------------------------------------------|
+| `revoke(Instant revokedAt)` | `public`    | `revokedAt: Instant` | `void`  | Marca el token como `REVOKED`.                | `InvalidRefreshTokenException` si ya está revocado o expirado. |
+| `rotate()`                  | `public`    | —                    | `void`  | Revoca el token actual para emitir uno nuevo. | `InvalidRefreshTokenException` si no está activo.              |
+
+**Métodos de consulta:**
+
+| Método                   | Visibilidad | Retorna   | Descripción                                       |
+|--------------------------|-------------|-----------|---------------------------------------------------|
+| `isValid(Instant now)`   | `public`    | `boolean` | `true` si el status es `ACTIVE` y no ha expirado. |
+| `isExpired(Instant now)` | `public`    | `boolean` | `true` si `expiresAt` es anterior a `now`.        |
+
+**Relaciones:**
+
+| Relación                  | Tipo              | Multiplicidad | Detalles                        |
+|---------------------------|-------------------|---------------|---------------------------------|
+| `RefreshToken` → `UserId` | Referencia por ID | 1..1          | Mantiene frontera de aggregate. |
+
+---
+
+**Value Objects**
+
+**Value Object: `Email`**
+
+| Campo         | Detalle                                                                                                                                                      |
+|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Paquete**   | `com.kntrosoft.reqsai.iam.domain.model.valueobjects`                                                                                                         |
+| **Tipo Java** | `record`                                                                                                                                                     |
+| **Propósito** | Encapsula una dirección de correo electrónico con formato válido y normalización a minúsculas. Garantiza que cualquier instancia es siempre un email válido. |
+
+**Campos:**
+
+| Campo   | Tipo     | Descripción                      |
+|---------|----------|----------------------------------|
+| `value` | `String` | Correo normalizado a minúsculas. |
+
+**Validaciones en compact constructor:**
+
+| Regla                                         | Excepción lanzada       | Error Code      |
+|-----------------------------------------------|-------------------------|-----------------|
+| No puede ser nulo o vacío                     | `InvalidValueException` | `INVALID_EMAIL` |
+| Debe tener formato de email válido (RFC 5322) | `InvalidValueException` | `INVALID_EMAIL` |
+
+**Factory method:**
+
+| Método | Firma                           | Descripción                                             |
+|--------|---------------------------------|---------------------------------------------------------|
+| `of`   | `static Email of(String value)` | Normaliza a minúsculas y llama al constructor compacto. |
+
+---
+
+**Value Object: `UserPreferences`**
+
+| Campo         | Detalle                                                                                                                                                                                               |
+|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Paquete**   | `com.kntrosoft.reqsai.iam.domain.model.valueobjects`                                                                                                                                                  |
+| **Tipo Java** | `record`                                                                                                                                                                                              |
+| **Propósito** | Almacena las preferencias de navegación del usuario. Persiste el último contexto de trabajo para restaurar la sesión al iniciar la aplicación. Respaldado por US13 (seleccionar organización activa). |
+
+**Campos:**
+
+| Campo                  | Tipo      | Descripción                                                                       |
+|------------------------|-----------|-----------------------------------------------------------------------------------|
+| `lastVisitedOrgId`     | `String?` | ID de la última organización visitada. Nulo si el usuario no ha visitado ninguna. |
+| `lastVisitedProjectId` | `String?` | ID del último proyecto visitado. Nulo si el usuario no ha visitado ninguno.       |
+
+**Validaciones en compact constructor:**
+
+| Regla                                                          | Excepción lanzada       | Error Code            |
+|----------------------------------------------------------------|-------------------------|-----------------------|
+| Si se provee `lastVisitedOrgId`, no puede ser cadena vacía     | `InvalidValueException` | `INVALID_PREFERENCES` |
+| Si se provee `lastVisitedProjectId`, no puede ser cadena vacía | `InvalidValueException` | `INVALID_PREFERENCES` |
+
+---
+
+**Value Object: `AccountStatus`**
+
+| Campo         | Detalle                                                      |
+|---------------|--------------------------------------------------------------|
+| **Paquete**   | `com.kntrosoft.reqsai.iam.domain.model.valueobjects`         |
+| **Tipo Java** | `enum`                                                       |
+| **Propósito** | Define los estados posibles del ciclo de vida de una cuenta. |
+
+**Valores:**
+
+| Valor                  | Descripción en el negocio                                                         |
+|------------------------|-----------------------------------------------------------------------------------|
+| `PENDING_VERIFICATION` | La cuenta fue creada pero el correo no ha sido verificado. No puede autenticarse. |
+| `ACTIVE`               | La cuenta está activa y puede operar normalmente.                                 |
+| `SUSPENDED`            | La cuenta fue suspendida administrativamente. No puede autenticarse.              |
+| `DELETED`              | Baja lógica de la cuenta. No puede recuperarse mediante flujos estándar.          |
+
+---
+
+**Value Object: `TokenStatus`**
+
+| Campo         | Detalle                                                            |
+|---------------|--------------------------------------------------------------------|
+| **Paquete**   | `com.kntrosoft.reqsai.iam.domain.model.valueobjects`               |
+| **Tipo Java** | `enum`                                                             |
+| **Propósito** | Define los estados posibles del ciclo de vida de un refresh token. |
+
+**Valores:**
+
+| Valor     | Descripción en el negocio                            |
+|-----------|------------------------------------------------------|
+| `ACTIVE`  | Token vigente, puede usarse para renovar la sesión.  |
+| `REVOKED` | Token revocado explícitamente (sign-out o rotación). |
+| `EXPIRED` | Token expirado por vencimiento de tiempo.            |
+
+---
+
+**Domain Exceptions**
+
+| Clase                              | Extiende                         | HTTP Status | Error Code                  | Cuándo se lanza                                          |
+|------------------------------------|----------------------------------|-------------|-----------------------------|----------------------------------------------------------|
+| `AccountNotFoundException`         | `EntityNotFoundException`        | 404         | `ACCOUNT_NOT_FOUND`         | No se encuentra la cuenta por ID o email.                |
+| `AccountAlreadyExistsException`    | `BusinessRuleViolationException` | 409         | `ACCOUNT_ALREADY_EXISTS`    | Intento de registrar un email ya existente.              |
+| `InvalidCredentialsException`      | `AuthenticationException`        | 401         | `INVALID_CREDENTIALS`       | Email o contraseña incorrectos en sign-in.               |
+| `AccountNotVerifiedException`      | `BusinessRuleViolationException` | 409         | `ACCOUNT_NOT_VERIFIED`      | Intento de autenticarse sin haber verificado el correo.  |
+| `CannotSuspendAccountException`    | `BusinessRuleViolationException` | 409         | `CANNOT_SUSPEND_ACCOUNT`    | La cuenta ya está suspendida o eliminada.                |
+| `InvalidRefreshTokenException`     | `AuthenticationException`        | 401         | `INVALID_REFRESH_TOKEN`     | El refresh token no existe, fue revocado o ya expiró.    |
+| `InvalidVerificationCodeException` | `BusinessRuleViolationException` | 409         | `INVALID_VERIFICATION_CODE` | El OTP es incorrecto o ha expirado.                      |
+| `UserNotFoundException`            | `EntityNotFoundException`        | 404         | `USER_NOT_FOUND`            | No se encuentra el perfil de usuario por ID o accountId. |
+
+---
+
+**Domain Events**
+
+| Clase                             | Paquete                    | Campos clave                                                   | Se publica cuando                                | Consumido por                                             |
+|-----------------------------------|----------------------------|----------------------------------------------------------------|--------------------------------------------------|-----------------------------------------------------------|
+| `AccountCreatedEvent`             | `iam/api/`                 | `accountId`, `userId`, `email`, `occurredAt`                   | Se completa `SignUpCommandHandler` exitosamente. | Interno.                                                  |
+| `EmailVerificationRequestedEvent` | `iam/api/`                 | `email`, `verificationCode`, `expirationMinutes`, `occurredAt` | Se crea una cuenta nueva o se reenvía el OTP.    | `EmailVerificationRequestedEventListener` (envía correo). |
+| `AccountVerifiedEvent`            | `iam/domain/model/events/` | `accountId`, `occurredAt`                                      | La cuenta transiciona a estado `ACTIVE`.         | Interno.                                                  |
+
+---
+
+**Commands**
+
+| Clase                           | Paquete                  | Campos                                                                          | Handler que lo procesa                 |
+|---------------------------------|--------------------------|---------------------------------------------------------------------------------|----------------------------------------|
+| `SignUpCommand`                 | `domain/model/commands/` | `email: String`, `password: String`, `firstName: String`, `lastName: String`    | `SignUpCommandHandler`                 |
+| `SignInCommand`                 | `domain/model/commands/` | `email: String`, `password: String`                                             | `SignInCommandHandler`                 |
+| `VerifyEmailCommand`            | `domain/model/commands/` | `email: String`, `code: String`                                                 | `VerifyEmailCommandHandler`            |
+| `ResendVerificationCodeCommand` | `domain/model/commands/` | `email: String`                                                                 | `ResendVerificationCodeCommandHandler` |
+| `ChangePasswordCommand`         | `domain/model/commands/` | `userId: String`, `currentPassword: String`, `newPassword: String`              | `ChangePasswordCommandHandler`         |
+| `RefreshSessionCommand`         | `domain/model/commands/` | `refreshToken: String`                                                          | `RefreshSessionCommandHandler`         |
+| `RevokeRefreshTokenCommand`     | `domain/model/commands/` | `refreshToken: String`                                                          | `RevokeRefreshTokenCommandHandler`     |
+| `UpdateUserProfileCommand`      | `domain/model/commands/` | `userId: String`, `firstName: String`, `lastName: String`, `avatarUrl: String?` | `UpdateUserProfileCommandHandler`      |
+| `UpdateUserPreferencesCommand`  | `domain/model/commands/` | `userId: String`, `lastVisitedOrgId: String?`, `lastVisitedProjectId: String?`  | `UpdateUserPreferencesCommandHandler`  |
+
+**Queries**
+
+| Clase                       | Paquete                 | Campos              | Handler que lo procesa             |
+|-----------------------------|-------------------------|---------------------|------------------------------------|
+| `GetAuthenticatedUserQuery` | `domain/model/queries/` | —                   | `GetAuthenticatedUserQueryHandler` |
+| `GetUserByIdQuery`          | `domain/model/queries/` | `userId: String`    | `GetUserByIdQueryHandler`          |
+| `GetUserByAccountIdQuery`   | `domain/model/queries/` | `accountId: String` | `GetUserByAccountIdQueryHandler`   |
+
+---
 
 ### 5.1.2. Interface Layer
 
+Esta capa es la puerta de entrada HTTP al BC IAM. Expone los endpoints de autenticación y gestión de perfil siguiendo el patrón de separación entre interfaz Swagger e implementación.
+
+**Controllers**
+
+**`AuthenticationController` (Swagger Interface)**
+
+| Campo           | Detalle                                                                          |
+|-----------------|----------------------------------------------------------------------------------|
+| **Paquete**     | `com.kntrosoft.reqsai.iam.interfaces.rest.swagger`                               |
+| **Base path**   | `ApiVersioning.BASE + "/authentication"` → `/api/v1/authentication`              |
+| **Tag OpenAPI** | `"Authentication"`                                                               |
+| **Propósito**   | Contrato OpenAPI para registro, autenticación y gestión de sesiones. Sin lógica. |
+
+| Método HTTP | Path           | Nombre del método        | Request DTO                     | Response DTO                | Códigos HTTP       |
+|-------------|----------------|--------------------------|---------------------------------|-----------------------------|--------------------|
+| `POST`      | `/sign-up`     | `signUp`                 | `SignUpRequest`                 | `AuthenticatedUserResponse` | 201, 400, 409      |
+| `POST`      | `/sign-in`     | `signIn`                 | `SignInRequest`                 | `AuthenticatedUserResponse` | 200, 400, 401, 409 |
+| `POST`      | `/verify`      | `verifyEmail`            | `VerifyEmailRequest`            | `void`                      | 200, 400, 409      |
+| `POST`      | `/resend-code` | `resendVerificationCode` | `ResendVerificationCodeRequest` | `void`                      | 200, 400, 404      |
+| `POST`      | `/refresh`     | `refreshSession`         | `RefreshSessionRequest`         | `AuthenticatedUserResponse` | 200, 401           |
+| `POST`      | `/sign-out`    | `signOut`                | `RevokeRefreshTokenRequest`     | `void`                      | 204, 401           |
+
+**`AuthenticationControllerImpl` (Implementation)**
+
+| Campo           | Detalle                                                 |
+|-----------------|---------------------------------------------------------|
+| **Paquete**     | `com.kntrosoft.reqsai.iam.interfaces.rest.controllers`  |
+| **Anotaciones** | `@Slf4j`, `@RestController`, `@RequiredArgsConstructor` |
+| **Implementa**  | `AuthenticationController`                              |
+
+| Handler                                | Para qué endpoint   |
+|----------------------------------------|---------------------|
+| `SignUpCommandHandler`                 | `POST /sign-up`     |
+| `SignInCommandHandler`                 | `POST /sign-in`     |
+| `VerifyEmailCommandHandler`            | `POST /verify`      |
+| `ResendVerificationCodeCommandHandler` | `POST /resend-code` |
+| `RefreshSessionCommandHandler`         | `POST /refresh`     |
+| `RevokeRefreshTokenCommandHandler`     | `POST /sign-out`    |
+
+---
+
+**`UserController` (Swagger Interface)**
+
+| Campo           | Detalle                                                                            |
+|-----------------|------------------------------------------------------------------------------------|
+| **Paquete**     | `com.kntrosoft.reqsai.iam.interfaces.rest.swagger`                                 |
+| **Base path**   | `ApiVersioning.BASE + "/users"` → `/api/v1/users`                                  |
+| **Tag OpenAPI** | `"Users"`                                                                          |
+| **Propósito**   | Contrato OpenAPI para consulta y actualización del perfil del usuario autenticado. |
+
+| Método HTTP | Path              | Nombre del método      | Request DTO                | Response DTO   | Códigos HTTP  |
+|-------------|-------------------|------------------------|----------------------------|----------------|---------------|
+| `GET`       | `/me`             | `getAuthenticatedUser` | —                          | `UserResponse` | 200, 401      |
+| `PATCH`     | `/me/profile`     | `updateProfile`        | `UpdateProfileRequest`     | `UserResponse` | 200, 400, 401 |
+| `PATCH`     | `/me/preferences` | `updatePreferences`    | `UpdatePreferencesRequest` | `UserResponse` | 200, 400, 401 |
+
+**`UserControllerImpl` (Implementation)**
+
+| Campo           | Detalle                                                 |
+|-----------------|---------------------------------------------------------|
+| **Paquete**     | `com.kntrosoft.reqsai.iam.interfaces.rest.controllers`  |
+| **Anotaciones** | `@Slf4j`, `@RestController`, `@RequiredArgsConstructor` |
+| **Implementa**  | `UserController`                                        |
+
+| Handler                               | Para qué endpoint       |
+|---------------------------------------|-------------------------|
+| `GetAuthenticatedUserQueryHandler`    | `GET /me`               |
+| `UpdateUserProfileCommandHandler`     | `PATCH /me/profile`     |
+| `UpdateUserPreferencesCommandHandler` | `PATCH /me/preferences` |
+
+---
+
+**Request DTOs**
+
+| Clase                           | Paquete                        | Campos                                                                       | Validaciones Jakarta                                                |
+|---------------------------------|--------------------------------|------------------------------------------------------------------------------|---------------------------------------------------------------------|
+| `SignUpRequest`                 | `interfaces/rest/dto/request/` | `email: String`, `password: String`, `firstName: String`, `lastName: String` | `@NotBlank` en todos, `@Email` en email, `@Size(min=8)` en password |
+| `SignInRequest`                 | `interfaces/rest/dto/request/` | `email: String`, `password: String`                                          | `@NotBlank` en todos                                                |
+| `VerifyEmailRequest`            | `interfaces/rest/dto/request/` | `email: String`, `code: String`                                              | `@NotBlank` en todos                                                |
+| `ResendVerificationCodeRequest` | `interfaces/rest/dto/request/` | `email: String`                                                              | `@NotBlank`, `@Email`                                               |
+| `RefreshSessionRequest`         | `interfaces/rest/dto/request/` | `refreshToken: String`                                                       | `@NotBlank`                                                         |
+| `RevokeRefreshTokenRequest`     | `interfaces/rest/dto/request/` | `refreshToken: String`                                                       | `@NotBlank`                                                         |
+| `UpdateProfileRequest`          | `interfaces/rest/dto/request/` | `firstName: String`, `lastName: String`, `avatarUrl: String?`                | `@NotBlank` en `firstName` y `lastName`                             |
+| `UpdatePreferencesRequest`      | `interfaces/rest/dto/request/` | `lastVisitedOrgId: String?`, `lastVisitedProjectId: String?`                 | Opcionales, sin `@NotBlank`                                         |
+
+---
+
+**Response DTOs**
+
+| Clase                       | Paquete                         | Campos                                                                                                                                                     | Notas                                |
+|-----------------------------|---------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------|
+| `AuthenticatedUserResponse` | `interfaces/rest/dto/response/` | `id: String`, `email: String`, `firstName: String`, `lastName: String`, `accessToken: String`, `refreshToken: String`                                      | `@Builder` + `@Schema` en cada campo |
+| `UserResponse`              | `interfaces/rest/dto/response/` | `id: String`, `email: String`, `firstName: String`, `lastName: String`, `avatarUrl: String?`, `lastVisitedOrgId: String?`, `lastVisitedProjectId: String?` | `@Builder` + `@Schema` en cada campo |
+
+---
+
+**Mappers**
+
+**Request Mappers:**
+
+| Clase                            | Método                                                                                           | Convierte                                            |
+|----------------------------------|--------------------------------------------------------------------------------------------------|------------------------------------------------------|
+| `SignUpRequestMapper`            | `static SignUpCommand toCommand(SignUpRequest request)`                                          | DTO de registro → Command.                           |
+| `SignInRequestMapper`            | `static SignInCommand toCommand(SignInRequest request)`                                          | DTO de autenticación → Command.                      |
+| `UpdateProfileRequestMapper`     | `static UpdateUserProfileCommand toCommand(String userId, UpdateProfileRequest request)`         | Combina userId del contexto de seguridad + body.     |
+| `UpdatePreferencesRequestMapper` | `static UpdateUserPreferencesCommand toCommand(String userId, UpdatePreferencesRequest request)` | Combina userId del contexto + preferencias del body. |
+
+**Response Mappers:**
+
+| Clase                             | Método                                                                                            | Convierte                                |
+|-----------------------------------|---------------------------------------------------------------------------------------------------|------------------------------------------|
+| `AuthenticatedUserResponseMapper` | `static AuthenticatedUserResponse toResponse(User user, String accessToken, String refreshToken)` | User + tokens → DTO de autenticación.    |
+| `UserResponseMapper`              | `static UserResponse toResponse(User user, String email)`                                         | User + email de Account → DTO de perfil. |
+
+---
+
 ### 5.1.3. Application Layer
+
+Esta capa orquesta los casos de uso del BC IAM. No contiene lógica de negocio; conecta la capa de interfaces con el dominio a través de puertos.
+
+**Command Handlers**
+
+**`SignUpCommandHandler`**
+
+| Campo                  | Detalle                                                                                               |
+|------------------------|-------------------------------------------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.iam.application.authentication.signup`                                          |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional`                                    |
+| **Command que recibe** | `SignUpCommand`                                                                                       |
+| **Retorna**            | `AuthenticatedUserResponse`                                                                           |
+| **Propósito**          | Registra una nueva cuenta y perfil de usuario, genera OTP y publica evento de verificación de correo. |
+
+**Dependencias:**
+
+| Puerto                      | Para qué se usa                                    |
+|-----------------------------|----------------------------------------------------|
+| `AccountRepositoryPort`     | Verificar unicidad de email y persistir `Account`. |
+| `UserRepositoryPort`        | Persistir `User`.                                  |
+| `HashingServicePort`        | Hashear la contraseña.                             |
+| `VerificationServicePort`   | Generar OTP y tiempo de expiración.                |
+| `ApplicationEventPublisher` | Publicar `EmailVerificationRequestedEvent`.        |
+
+**Flujo:**
+
+| Paso | Acción                                                                                                  | Excepción lanzada               |
+|------|---------------------------------------------------------------------------------------------------------|---------------------------------|
+| 1    | Verificar que no exista una cuenta con el mismo email.                                                  | `AccountAlreadyExistsException` |
+| 2    | Hashear la contraseña con `HashingServicePort.encode()`.                                                | —                               |
+| 3    | Crear `Account` con `new Account(Email.of(email), passwordHash)`.                                       | —                               |
+| 4    | Generar OTP con `VerificationServicePort` y llamar `account.generateVerificationCode(code, expiresAt)`. | —                               |
+| 5    | Persistir `Account` con `accountRepository.save(account)`.                                              | —                               |
+| 6    | Crear `User` con `new User(account.getId(), firstName, lastName)`.                                      | —                               |
+| 7    | Persistir `User` con `userRepository.save(user)`.                                                       | —                               |
+| 8    | Publicar `EmailVerificationRequestedEvent(email, code, expirationMinutes)`.                             | —                               |
+
+---
+
+**`SignInCommandHandler`**
+
+| Campo                  | Detalle                                                                        |
+|------------------------|--------------------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.iam.application.authentication.signin`                   |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional`             |
+| **Command que recibe** | `SignInCommand`                                                                |
+| **Retorna**            | `AuthenticatedUserResponse`                                                    |
+| **Propósito**          | Valida credenciales, emite access token JWT y persiste un nuevo refresh token. |
+
+**Dependencias:**
+
+| Puerto                       | Para qué se usa                          |
+|------------------------------|------------------------------------------|
+| `AccountRepositoryPort`      | Cargar `Account` por email.              |
+| `UserRepositoryPort`         | Cargar `User` por accountId.             |
+| `HashingServicePort`         | Comparar contraseña con hash almacenado. |
+| `TokenServicePort`           | Emitir JWT (access token).               |
+| `RefreshTokenRepositoryPort` | Persistir el nuevo `RefreshToken`.       |
+
+**Flujo:**
+
+| Paso | Acción                                                   | Excepción lanzada                                            |
+|------|----------------------------------------------------------|--------------------------------------------------------------|
+| 1    | Cargar `Account` por email.                              | `AccountNotFoundException`                                   |
+| 2    | Verificar que la cuenta esté `ACTIVE`.                   | `AccountNotVerifiedException`, `InvalidCredentialsException` |
+| 3    | Comparar contraseña con `HashingServicePort.matches()`.  | `InvalidCredentialsException`                                |
+| 4    | Cargar `User` por `account.getId()`.                     | `UserNotFoundException`                                      |
+| 5    | Emitir JWT con `TokenServicePort.generateToken(userId)`. | —                                                            |
+| 6    | Crear y persistir nuevo `RefreshToken`.                  | —                                                            |
+| 7    | Retornar `AuthenticatedUserResponse` con tokens.         | —                                                            |
+
+---
+
+**`VerifyEmailCommandHandler`**
+
+| Campo                  | Detalle                                                            |
+|------------------------|--------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.iam.application.authentication.verify`       |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional` |
+| **Command que recibe** | `VerifyEmailCommand`                                               |
+| **Retorna**            | `void`                                                             |
+| **Propósito**          | Verifica el OTP de correo y activa la cuenta.                      |
+
+**Flujo:**
+
+| Paso | Acción                                             | Excepción lanzada                  |
+|------|----------------------------------------------------|------------------------------------|
+| 1    | Cargar `Account` por email.                        | `AccountNotFoundException`         |
+| 2    | Llamar `account.verifyEmail(code, Instant.now())`. | `InvalidVerificationCodeException` |
+| 3    | Persistir `Account` actualizado.                   | —                                  |
+
+---
+
+**`ResendVerificationCodeCommandHandler`**
+
+| Campo                  | Detalle                                                                       |
+|------------------------|-------------------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.iam.application.authentication.resend`                  |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional`            |
+| **Command que recibe** | `ResendVerificationCodeCommand`                                               |
+| **Retorna**            | `void`                                                                        |
+| **Propósito**          | Genera un nuevo OTP y publica evento para reenviar el correo de verificación. |
+
+**Flujo:**
+
+| Paso | Acción                                                                  | Excepción lanzada                |
+|------|-------------------------------------------------------------------------|----------------------------------|
+| 1    | Cargar `Account` por email.                                             | `AccountNotFoundException`       |
+| 2    | Verificar que la cuenta esté en estado `PENDING_VERIFICATION`.          | `BusinessRuleViolationException` |
+| 3    | Generar nuevo OTP con `VerificationServicePort`.                        | —                                |
+| 4    | Llamar `account.generateVerificationCode(code, expiresAt)` y persistir. | —                                |
+| 5    | Publicar `EmailVerificationRequestedEvent`.                             | —                                |
+
+---
+
+**`RefreshSessionCommandHandler`**
+
+| Campo                  | Detalle                                                             |
+|------------------------|---------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.iam.application.authentication.refresh`       |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional`  |
+| **Command que recibe** | `RefreshSessionCommand`                                             |
+| **Retorna**            | `AuthenticatedUserResponse`                                         |
+| **Propósito**          | Valida el refresh token, lo rota y emite un nuevo access token JWT. |
+
+**Flujo:**
+
+| Paso | Acción                                                        | Excepción lanzada              |
+|------|---------------------------------------------------------------|--------------------------------|
+| 1    | Cargar `RefreshToken` por hash del token recibido.            | `InvalidRefreshTokenException` |
+| 2    | Verificar validez con `refreshToken.isValid(Instant.now())`.  | `InvalidRefreshTokenException` |
+| 3    | Llamar `refreshToken.rotate()` y persistir el token revocado. | —                              |
+| 4    | Crear nuevo `RefreshToken` y persistir.                       | —                              |
+| 5    | Cargar `User` y emitir JWT con `TokenServicePort`.            | —                              |
+| 6    | Retornar `AuthenticatedUserResponse` con los nuevos tokens.   | —                              |
+
+---
+
+**`RevokeRefreshTokenCommandHandler`**
+
+| Campo                  | Detalle                                                            |
+|------------------------|--------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.iam.application.authentication.signout`      |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional` |
+| **Command que recibe** | `RevokeRefreshTokenCommand`                                        |
+| **Retorna**            | `void`                                                             |
+| **Propósito**          | Revoca el refresh token del usuario (sign-out).                    |
+
+**Flujo:**
+
+| Paso | Acción                                                   | Excepción lanzada              |
+|------|----------------------------------------------------------|--------------------------------|
+| 1    | Cargar `RefreshToken` por hash del token.                | `InvalidRefreshTokenException` |
+| 2    | Llamar `refreshToken.revoke(Instant.now())` y persistir. | —                              |
+
+---
+
+**`UpdateUserProfileCommandHandler`**
+
+| Campo                  | Detalle                                                            |
+|------------------------|--------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.iam.application.user.updateprofile`          |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional` |
+| **Command que recibe** | `UpdateUserProfileCommand`                                         |
+| **Retorna**            | `User`                                                             |
+| **Propósito**          | Actualiza nombre y foto de perfil del usuario autenticado.         |
+
+**Flujo:**
+
+| Paso | Acción                                                       | Excepción lanzada       |
+|------|--------------------------------------------------------------|-------------------------|
+| 1    | Cargar `User` por userId.                                    | `UserNotFoundException` |
+| 2    | Llamar `user.updateProfile(firstName, lastName, avatarUrl)`. | —                       |
+| 3    | Persistir `User` actualizado.                                | —                       |
+
+---
+
+**`UpdateUserPreferencesCommandHandler`**
+
+| Campo                  | Detalle                                                            |
+|------------------------|--------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.iam.application.user.updatepreferences`      |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional` |
+| **Command que recibe** | `UpdateUserPreferencesCommand`                                     |
+| **Retorna**            | `User`                                                             |
+| **Propósito**          | Actualiza las preferencias de navegación del usuario autenticado.  |
+
+**Flujo:**
+
+| Paso | Acción                                                               | Excepción lanzada                                       |
+|------|----------------------------------------------------------------------|---------------------------------------------------------|
+| 1    | Cargar `User` por userId.                                            | `UserNotFoundException`                                 |
+| 2    | Construir `UserPreferences(lastVisitedOrgId, lastVisitedProjectId)`. | `InvalidValueException` si algún campo es cadena vacía. |
+| 3    | Llamar `user.updatePreferences(preferences)` y persistir.            | —                                                       |
+
+---
+
+**Query Handlers**
+
+| Clase                              | Paquete                     | Query que recibe            | Retorna | Notas                                                                                       |
+|------------------------------------|-----------------------------|-----------------------------|---------|---------------------------------------------------------------------------------------------|
+| `GetAuthenticatedUserQueryHandler` | `application/user/queries/` | `GetAuthenticatedUserQuery` | `User`  | Obtiene `userId` del `SecurityContextHolder` y carga `User`. Lanza `UserNotFoundException`. |
+| `GetUserByIdQueryHandler`          | `application/user/queries/` | `GetUserByIdQuery`          | `User`  | Carga `User` por ID. Lanza `UserNotFoundException`.                                         |
+| `GetUserByAccountIdQueryHandler`   | `application/user/queries/` | `GetUserByAccountIdQuery`   | `User`  | Carga `User` por `accountId`. Usado internamente entre handlers.                            |
+
+---
+
+**Event Listeners**
+
+| Clase                                     | Evento que escucha                | Qué hace                                                      | Puertos que usa                |
+|-------------------------------------------|-----------------------------------|---------------------------------------------------------------|--------------------------------|
+| `EmailVerificationRequestedEventListener` | `EmailVerificationRequestedEvent` | Envía correo de verificación con OTP mediante plantilla HTML. | `EmailNotificationServicePort` |
+
+---
+
+**Output Ports**
+
+**Repository Ports** — `application/ports/repositories/`:
+
+| Interfaz                     | Método              | Firma                                                 | Descripción                                |
+|------------------------------|---------------------|-------------------------------------------------------|--------------------------------------------|
+| `AccountRepositoryPort`      | `save`              | `Account save(Account account)`                       | Persiste o actualiza.                      |
+|                              | `findById`          | `Optional<Account> findById(String id)`               | Busca por ID.                              |
+|                              | `findByEmail`       | `Optional<Account> findByEmail(Email email)`          | Busca por email.                           |
+|                              | `existsByEmail`     | `boolean existsByEmail(Email email)`                  | Verifica unicidad de email.                |
+| `UserRepositoryPort`         | `save`              | `User save(User user)`                                | Persiste o actualiza.                      |
+|                              | `findById`          | `Optional<User> findById(String id)`                  | Busca por ID.                              |
+|                              | `findByAccountId`   | `Optional<User> findByAccountId(AccountId accountId)` | Busca por cuenta.                          |
+| `RefreshTokenRepositoryPort` | `save`              | `RefreshToken save(RefreshToken token)`               | Persiste o actualiza.                      |
+|                              | `findByTokenHash`   | `Optional<RefreshToken> findByTokenHash(String hash)` | Busca por hash SHA-256.                    |
+|                              | `deleteAllByUserId` | `void deleteAllByUserId(String userId)`               | Limpieza de tokens al eliminar un usuario. |
+
+**Service Ports** — `application/ports/`:
+
+| Interfaz                       | Paquete               | Métodos clave                                                                                                              | Implementación en infra         |
+|--------------------------------|-----------------------|----------------------------------------------------------------------------------------------------------------------------|---------------------------------|
+| `TokenServicePort`             | `ports/token/`        | `generateToken(String userId): String`, `validateToken(String token): boolean`, `getUserIdFromToken(String token): String` | `JwtTokenServiceAdapter`        |
+| `HashingServicePort`           | `ports/hashing/`      | `encode(String raw): String`, `matches(String raw, String hash): boolean`                                                  | `BCryptHashingServiceAdapter`   |
+| `VerificationServicePort`      | `ports/verification/` | `generateCode(): String`, `generateExpirationMinutes(): int`                                                               | `OtpVerificationServiceAdapter` |
+| `EmailNotificationServicePort` | `ports/email/`        | `sendVerificationEmail(String to, String code, int expirationMinutes): void`                                               | `SmtpEmailNotificationAdapter`  |
+
+---
 
 ### 5.1.4. Infrastructure Layer
 
+Esta capa contiene las implementaciones técnicas de los puertos definidos en la capa de aplicación. El dominio no conoce esta capa.
+
+**JPA Repositories**
+
+| Clase                    | Extiende                              | Implementa                   | Propósito                                                                    |
+|--------------------------|---------------------------------------|------------------------------|------------------------------------------------------------------------------|
+| `AccountRepository`      | `JpaRepository<Account, String>`      | `AccountRepositoryPort`      | Persistencia de cuentas. Spring Data genera queries por VO `Email` embebido. |
+| `UserRepository`         | `JpaRepository<User, String>`         | `UserRepositoryPort`         | Persistencia de perfiles de usuario. Soporta búsqueda por `AccountId`.       |
+| `RefreshTokenRepository` | `JpaRepository<RefreshToken, String>` | `RefreshTokenRepositoryPort` | Persistencia de tokens. Soporta búsqueda por hash y borrado por userId.      |
+
+**Métodos derivados (Spring Data):**
+
+| Repositorio              | Firma                                                      | Descripción                                 |
+|--------------------------|------------------------------------------------------------|---------------------------------------------|
+| `AccountRepository`      | `Optional<Account> findByEmail(Email email)`               | Búsqueda por VO embebido.                   |
+| `AccountRepository`      | `boolean existsByEmail(Email email)`                       | Verificación de unicidad de email.          |
+| `UserRepository`         | `Optional<User> findByAccountId(AccountId accountId)`      | Búsqueda de perfil por referencia a cuenta. |
+| `RefreshTokenRepository` | `Optional<RefreshToken> findByTokenHash(String tokenHash)` | Búsqueda de token por hash SHA-256.         |
+| `RefreshTokenRepository` | `void deleteAllByUserId(String userId)`                    | Limpieza de tokens al eliminar un usuario.  |
+
+---
+
+**Adapters Externos**
+
+| Clase                           | Implementa                     | Servicio externo        | Tecnología                                                    | Propósito                                                       |
+|---------------------------------|--------------------------------|-------------------------|---------------------------------------------------------------|-----------------------------------------------------------------|
+| `JwtTokenServiceAdapter`        | `TokenServicePort`             | —                       | JJWT (HS256, clave y expiración configurables por properties) | Emite y valida JWT. Claims: `sub`, `userId`.                    |
+| `BCryptHashingServiceAdapter`   | `HashingServicePort`           | —                       | Spring Security `BCryptPasswordEncoder`                       | Hashea y verifica contraseñas con BCrypt.                       |
+| `OtpVerificationServiceAdapter` | `VerificationServicePort`      | —                       | `SecureRandom`                                                | Genera códigos OTP numéricos de 6 dígitos con TTL configurable. |
+| `SmtpEmailNotificationAdapter`  | `EmailNotificationServicePort` | SMTP (SendGrid / Gmail) | Spring Mail                                                   | Envía correo de verificación con plantilla HTML.                |
+
+---
+
+**Configuración de Seguridad**
+
+| Clase                                  | Propósito                                                                                                                                                                                                 |
+|----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `WebSecurityConfiguration`             | Define la cadena de filtros Spring Security: CORS habilitado, CSRF deshabilitado, sesión stateless, `permitAll` en `/api/v1/authentication/**` y Swagger UI. Registra `BearerAuthorizationRequestFilter`. |
+| `BearerAuthorizationRequestFilter`     | Intercepta cada request, extrae el Bearer token del header `Authorization`, lo valida con `TokenServicePort` y establece la autenticación en el `SecurityContextHolder`.                                  |
+| `UnauthorizedRequestHandlerEntryPoint` | Responde con `401 Unauthorized` ante cualquier acceso sin token válido.                                                                                                                                   |
+| `UserDetailsServiceImpl`               | Implementa `UserDetailsService` de Spring Security. Carga `Account` por email para el proceso de autenticación del filtro.                                                                                |
+
+**JWT (Access Token):**
+- Claims incluidos: `sub` (email), `userId`.
+- No incluye `orgId` ni permisos de organización; la autorización por organización se resuelve en el BC Workspace Management.
+- Expiración configurable por properties de entorno.
+
 ### 5.1.6. Bounded Context Software Architecture Component Level Diagrams
+
+En esta sección se presenta el diagrama de componentes C4 (Nivel 3) del BC IAM. El container es el módulo Spring Modulith completo. Los componentes reflejan la descomposición por capas y sus interacciones principales.
+
+![IAM Component Diagram](assets/diagrams/iam/iam-component.png)
 
 ### 5.1.7. Bounded Context Software Architecture Code Level Diagrams
 
 #### 5.1.7.1. Bounded Context Domain Layer Class Diagrams
 
+En esta sección se presenta el diagrama de clases UML del Domain Layer del BC IAM. Incluye los tres Aggregate Roots, los Value Objects, las enumeraciones y los Domain Events, con visibilidades completas, multiplicidades y relaciones de herencia, composición y dependencia.
+
+![IAM Domain Class Diagram](assets/diagrams/iam/iam-class.png)
+
 #### 5.1.7.2. Bounded Context Database Design Diagram
+
+En esta sección se presenta el diagrama de base de datos del BC IAM. Incluye las tres tablas que persisten los Aggregate Roots, con sus columnas, constraints y relaciones. El VO `Email` se persiste como columna embebida en `accounts`. El VO `UserPreferences` se persiste como columnas embebidas en `users`.
+
+![IAM Database Diagram](assets/diagrams/iam/iam-database.png)
 
 ## 5.2. Bounded Context: Billing and Subscriptions
 
+El BC Billing and Subscriptions gestiona el ciclo de vida de las suscripciones de las organizaciones en Reqs-AI. Es responsable desde la asignación del plan gratuito hasta las transiciones de plan, cancelaciones y seguimiento del consumo de tokens. Implementa el patrón `PaymentProviderRef` para mantenerse desacoplado del proveedor de pagos concreto (Stripe, culqi, etc.).
+
 ### 5.2.1. Domain Layer
+
+Esta capa contiene las reglas de negocio de suscripciones, cuotas de uso y ciclo de vida de planes, sin dependencia de frameworks externos.
+
+**Aggregate Roots**
+
+**Aggregate: `Subscription`**
+
+| Campo               | Detalle                                                                                                                                                                                   |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Paquete**         | `com.kntrosoft.reqsai.billing.domain.model.aggregates`                                                                                                                                    |
+| **Extiende**        | `AbstractAggregateRoot<Subscription>`                                                                                                                                                     |
+| **Propósito**       | Representa la suscripción de una organización a un plan. Controla las transiciones de plan, cancelaciones, reactivaciones y el seguimiento del consumo de tokens contra la cuota mensual. |
+| **Anotaciones JPA** | `@Entity`, `@Table(name = "subscriptions")`                                                                                                                                               |
+
+**Atributos:**
+
+| Atributo             | Tipo                  | Columna JPA            | Descripción                                                  |
+|----------------------|-----------------------|------------------------|--------------------------------------------------------------|
+| `id`                 | `SubscriptionId`      | `id`                   | Identificador único de la suscripción (UUID).                |
+| `organizationId`     | `OrganizationId`      | `organization_id`      | Referencia a la organización propietaria.                    |
+| `planType`           | `PlanType`            | `plan_type`            | Plan actual: FREE, PRO o ENTERPRISE.                         |
+| `status`             | `SubscriptionStatus`  | `status`               | Estado actual de la suscripción en su ciclo de vida.         |
+| `providerRef`        | `PaymentProviderRef?` | `@Embedded`            | Referencia al proveedor de pagos externo. Nulo en plan FREE. |
+| `currentPeriodStart` | `Instant`             | `current_period_start` | Inicio del período de facturación vigente.                   |
+| `currentPeriodEnd`   | `Instant`             | `current_period_end`   | Fin del período de facturación vigente.                      |
+| `tokenQuotaUsed`     | `Long`                | `token_quota_used`     | Tokens consumidos en el período actual.                      |
+| `cancelledAt`        | `Instant?`            | `cancelled_at`         | Fecha de cancelación. Nulo si no ha sido cancelada.          |
+
+**Constructores:**
+
+| Constructor                                   | Visibilidad | Propósito                                                                       |
+|-----------------------------------------------|-------------|---------------------------------------------------------------------------------|
+| `protected Subscription()`                    | `protected` | Para JPA. No instanciar directamente.                                           |
+| `Subscription(OrganizationId organizationId)` | `public`    | Crea suscripción gratuita en estado `ACTIVE`. Inicializa `tokenQuotaUsed` en 0. |
+
+**Métodos de negocio:**
+
+| Método                                                                                                 | Visibilidad | Parámetros                                            | Retorna | Descripción                                                            | Excepciones lanzadas                                                        |
+|--------------------------------------------------------------------------------------------------------|-------------|-------------------------------------------------------|---------|------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| `upgradeTo(PlanType planType, PaymentProviderRef providerRef, Instant periodStart, Instant periodEnd)` | `public`    | `planType`, `providerRef`, `periodStart`, `periodEnd` | `void`  | Transiciona a un plan superior y registra la referencia del proveedor. | `CannotUpgradeSubscriptionException` si está cancelada o ya tiene ese plan. |
+| `cancel(Instant cancelledAt)`                                                                          | `public`    | `cancelledAt: Instant`                                | `void`  | Cancela la suscripción.                                                | `CannotCancelSubscriptionException` si ya está cancelada.                   |
+| `reactivate(Instant periodStart, Instant periodEnd)`                                                   | `public`    | `periodStart`, `periodEnd: Instant`                   | `void`  | Reactiva la suscripción cancelada.                                     | `CannotReactivateSubscriptionException` si no está en estado `CANCELLED`.   |
+| `incrementTokenUsage(Long tokens)`                                                                     | `public`    | `tokens: Long`                                        | `void`  | Suma tokens al consumo del período actual.                             | —                                                                           |
+| `resetQuota()`                                                                                         | `public`    | —                                                     | `void`  | Reinicia `tokenQuotaUsed` a 0 al inicio de nuevo período.              | —                                                                           |
+| `applyProviderRef(PaymentProviderRef providerRef)`                                                     | `public`    | `providerRef: PaymentProviderRef`                     | `void`  | Actualiza la referencia del proveedor externo.                         | —                                                                           |
+
+**Métodos de consulta:**
+
+| Método                            | Visibilidad | Retorna   | Descripción                              |
+|-----------------------------------|-------------|-----------|------------------------------------------|
+| `isActive()`                      | `public`    | `boolean` | `true` si el status es `ACTIVE`.         |
+| `isCancelled()`                   | `public`    | `boolean` | `true` si el status es `CANCELLED`.      |
+| `isPastDue()`                     | `public`    | `boolean` | `true` si el status es `PAST_DUE`.       |
+| `isQuotaExceeded(Long maxTokens)` | `public`    | `boolean` | `true` si `tokenQuotaUsed >= maxTokens`. |
+| `isFree()`                        | `public`    | `boolean` | `true` si `planType` es `FREE`.          |
+
+**Relaciones:**
+
+| Relación                              | Tipo                      | Multiplicidad | Detalles                        |
+|---------------------------------------|---------------------------|---------------|---------------------------------|
+| `Subscription` → `OrganizationId`     | Referencia por ID         | 1..1          | Mantiene frontera de aggregate. |
+| `Subscription` → `PaymentProviderRef` | Composición (`@Embedded`) | 0..1          | VO embebido, nulo en plan FREE. |
+
+---
+
+**Value Objects**
+
+**Value Object: `PaymentProviderRef`**
+
+| Campo         | Detalle                                                                                                                                           |
+|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Paquete**   | `com.kntrosoft.reqsai.billing.domain.model.valueobjects`                                                                                          |
+| **Tipo Java** | `record`                                                                                                                                          |
+| **Propósito** | Encapsula la referencia a un proveedor de pagos externo. Permite cambiar de proveedor (Stripe → Culqi) sin modificar el aggregate `Subscription`. |
+
+**Campos:**
+
+| Campo        | Tipo              | Descripción                                       |
+|--------------|-------------------|---------------------------------------------------|
+| `provider`   | `PaymentProvider` | Proveedor que emitió la suscripción externa.      |
+| `externalId` | `String`          | ID de la suscripción en el sistema del proveedor. |
+
+**Validaciones en compact constructor:**
+
+| Regla                                  | Excepción lanzada       | Error Code                     |
+|----------------------------------------|-------------------------|--------------------------------|
+| `provider` no puede ser nulo           | `InvalidValueException` | `INVALID_PAYMENT_PROVIDER_REF` |
+| `externalId` no puede ser nulo o vacío | `InvalidValueException` | `INVALID_PAYMENT_PROVIDER_REF` |
+
+---
+
+**Value Object: `PaymentProvider`**
+
+| Campo         | Detalle                                                                         |
+|---------------|---------------------------------------------------------------------------------|
+| **Paquete**   | `com.kntrosoft.reqsai.billing.domain.model.valueobjects`                        |
+| **Tipo Java** | `enum`                                                                          |
+| **Propósito** | Identifica el proveedor de pagos externo con el que se gestiona la suscripción. |
+
+**Valores:**
+
+| Valor          | Descripción en el negocio                  |
+|----------------|--------------------------------------------|
+| `STRIPE`       | Proveedor Stripe (mercado internacional).  |
+| `CULQI`        | Proveedor Culqi (mercado latinoamericano). |
+| `PAYPAL`       | Proveedor PayPal.                          |
+| `MERCADO_PAGO` | Proveedor Mercado Pago.                    |
+
+---
+
+**Value Object: `PlanType`**
+
+| Campo         | Detalle                                                  |
+|---------------|----------------------------------------------------------|
+| **Paquete**   | `com.kntrosoft.reqsai.billing.domain.model.valueobjects` |
+| **Tipo Java** | `enum`                                                   |
+| **Propósito** | Define los tipos de plan disponibles en Reqs-AI.         |
+
+**Valores:**
+
+| Valor        | Descripción en el negocio                                           |
+|--------------|---------------------------------------------------------------------|
+| `FREE`       | Plan gratuito con cuotas reducidas. Sin proveedor de pagos externo. |
+| `PRO`        | Plan de pago mensual con cuotas ampliadas.                          |
+| `ENTERPRISE` | Plan corporativo con cuotas máximas y soporte dedicado.             |
+
+---
+
+**Value Object: `SubscriptionStatus`**
+
+| Campo         | Detalle                                                           |
+|---------------|-------------------------------------------------------------------|
+| **Paquete**   | `com.kntrosoft.reqsai.billing.domain.model.valueobjects`          |
+| **Tipo Java** | `enum`                                                            |
+| **Propósito** | Define los estados posibles del ciclo de vida de una suscripción. |
+
+**Valores:**
+
+| Valor       | Descripción en el negocio                                            |
+|-------------|----------------------------------------------------------------------|
+| `ACTIVE`    | Suscripción activa y vigente.                                        |
+| `CANCELLED` | Suscripción cancelada. Acceso puede mantenerse hasta fin de período. |
+| `PAST_DUE`  | Pago fallido. Acceso restringido hasta regularizar.                  |
+| `TRIALING`  | En período de prueba.                                                |
+
+---
+
+**Domain Exceptions**
+
+| Clase                                   | Extiende                         | HTTP Status | Error Code                       | Cuándo se lanza                                              |
+|-----------------------------------------|----------------------------------|-------------|----------------------------------|--------------------------------------------------------------|
+| `SubscriptionNotFoundException`         | `EntityNotFoundException`        | 404         | `SUBSCRIPTION_NOT_FOUND`         | No se encuentra la suscripción por ID u organizationId.      |
+| `SubscriptionAlreadyExistsException`    | `BusinessRuleViolationException` | 409         | `SUBSCRIPTION_ALREADY_EXISTS`    | La organización ya tiene una suscripción activa.             |
+| `CannotUpgradeSubscriptionException`    | `BusinessRuleViolationException` | 409         | `CANNOT_UPGRADE_SUBSCRIPTION`    | La suscripción está cancelada o ya tiene el plan solicitado. |
+| `CannotCancelSubscriptionException`     | `BusinessRuleViolationException` | 409         | `CANNOT_CANCEL_SUBSCRIPTION`     | La suscripción ya está cancelada.                            |
+| `CannotReactivateSubscriptionException` | `BusinessRuleViolationException` | 409         | `CANNOT_REACTIVATE_SUBSCRIPTION` | La suscripción no está en estado `CANCELLED`.                |
+| `TokenQuotaExceededException`           | `BusinessRuleViolationException` | 409         | `TOKEN_QUOTA_EXCEEDED`           | El consumo de tokens supera la cuota del plan.               |
+
+---
+
+**Domain Events**
+
+| Clase                        | Paquete                        | Campos clave                                                           | Se publica cuando                                | Consumido por                                                |
+|------------------------------|--------------------------------|------------------------------------------------------------------------|--------------------------------------------------|--------------------------------------------------------------|
+| `SubscriptionAssignedEvent`  | `billing/api/`                 | `subscriptionId`, `organizationId`, `planType`, `occurredAt`           | Se asigna el plan FREE a una organización nueva. | BC Workspace (aplica `PlanLimits` a la organización).        |
+| `SubscriptionUpgradedEvent`  | `billing/api/`                 | `subscriptionId`, `organizationId`, `oldPlan`, `newPlan`, `occurredAt` | Se completa `UpgradeSubscriptionCommandHandler`. | BC Workspace (actualiza `PlanLimits`).                       |
+| `SubscriptionCancelledEvent` | `billing/domain/model/events/` | `subscriptionId`, `organizationId`, `occurredAt`                       | La suscripción pasa a estado `CANCELLED`.        | Interno.                                                     |
+| `TokenQuotaExceededEvent`    | `billing/api/`                 | `subscriptionId`, `organizationId`, `quotaUsed`, `occurredAt`          | `tokenQuotaUsed` alcanza el máximo del plan.     | BC Req Discovery (bloquea procesamiento de nuevas sesiones). |
+
+---
+
+**Commands**
+
+| Clase                           | Paquete                  | Campos                                                                                         | Handler que lo procesa                 |
+|---------------------------------|--------------------------|------------------------------------------------------------------------------------------------|----------------------------------------|
+| `AssignFreeSubscriptionCommand` | `domain/model/commands/` | `organizationId: String`                                                                       | `AssignFreeSubscriptionCommandHandler` |
+| `UpgradeSubscriptionCommand`    | `domain/model/commands/` | `subscriptionId: String`, `planType: String`, `providerExternalId: String`, `provider: String` | `UpgradeSubscriptionCommandHandler`    |
+| `CancelSubscriptionCommand`     | `domain/model/commands/` | `subscriptionId: String`                                                                       | `CancelSubscriptionCommandHandler`     |
+| `ReactivateSubscriptionCommand` | `domain/model/commands/` | `subscriptionId: String`                                                                       | `ReactivateSubscriptionCommandHandler` |
+| `IncrementTokenUsageCommand`    | `domain/model/commands/` | `organizationId: String`, `tokens: Long`                                                       | `IncrementTokenUsageCommandHandler`    |
+| `ResetQuotaCommand`             | `domain/model/commands/` | `subscriptionId: String`                                                                       | `ResetQuotaCommandHandler`             |
+
+**Queries**
+
+| Clase                                | Paquete                 | Campos                   | Handler que lo procesa                      |
+|--------------------------------------|-------------------------|--------------------------|---------------------------------------------|
+| `GetSubscriptionByOrganizationQuery` | `domain/model/queries/` | `organizationId: String` | `GetSubscriptionByOrganizationQueryHandler` |
+| `GetSubscriptionByIdQuery`           | `domain/model/queries/` | `subscriptionId: String` | `GetSubscriptionByIdQueryHandler`           |
+
+---
 
 ### 5.2.2. Interface Layer
 
+Esta capa expone los endpoints REST del BC Billing para consulta y gestión de suscripciones, y recibe webhooks de proveedores de pago.
+
+**Controllers**
+
+**`SubscriptionController` (Swagger Interface)**
+
+| Campo           | Detalle                                                                      |
+|-----------------|------------------------------------------------------------------------------|
+| **Paquete**     | `com.kntrosoft.reqsai.billing.interfaces.rest.swagger`                       |
+| **Base path**   | `ApiVersioning.BASE + "/subscriptions"` → `/api/v1/subscriptions`            |
+| **Tag OpenAPI** | `"Subscriptions"`                                                            |
+| **Propósito**   | Contrato OpenAPI para consulta y gestión del ciclo de vida de suscripciones. |
+
+| Método HTTP | Path                             | Nombre del método               | Request DTO                     | Response DTO           | Códigos HTTP            |
+|-------------|----------------------------------|---------------------------------|---------------------------------|------------------------|-------------------------|
+| `GET`       | `/organization/{organizationId}` | `getSubscriptionByOrganization` | — (path variable)               | `SubscriptionResponse` | 200, 401, 404           |
+| `POST`      | `/`                              | `assignFreeSubscription`        | `AssignFreeSubscriptionRequest` | `SubscriptionResponse` | 201, 400, 401, 409      |
+| `PUT`       | `/{id}/upgrade`                  | `upgradeSubscription`           | `UpgradeSubscriptionRequest`    | `SubscriptionResponse` | 200, 400, 401, 404, 409 |
+| `PUT`       | `/{id}/cancel`                   | `cancelSubscription`            | —                               | `SubscriptionResponse` | 200, 401, 404, 409      |
+| `PUT`       | `/{id}/reactivate`               | `reactivateSubscription`        | —                               | `SubscriptionResponse` | 200, 401, 404, 409      |
+
+**`SubscriptionControllerImpl` (Implementation)**
+
+| Campo           | Detalle                                                    |
+|-----------------|------------------------------------------------------------|
+| **Paquete**     | `com.kntrosoft.reqsai.billing.interfaces.rest.controllers` |
+| **Anotaciones** | `@Slf4j`, `@RestController`, `@RequiredArgsConstructor`    |
+| **Implementa**  | `SubscriptionController`                                   |
+
+| Handler                                     | Para qué endpoint                    |
+|---------------------------------------------|--------------------------------------|
+| `GetSubscriptionByOrganizationQueryHandler` | `GET /organization/{organizationId}` |
+| `AssignFreeSubscriptionCommandHandler`      | `POST /`                             |
+| `UpgradeSubscriptionCommandHandler`         | `PUT /{id}/upgrade`                  |
+| `CancelSubscriptionCommandHandler`          | `PUT /{id}/cancel`                   |
+| `ReactivateSubscriptionCommandHandler`      | `PUT /{id}/reactivate`               |
+
+---
+
+**`BillingWebhookController` (Swagger Interface)**
+
+| Campo           | Detalle                                                                                         |
+|-----------------|-------------------------------------------------------------------------------------------------|
+| **Paquete**     | `com.kntrosoft.reqsai.billing.interfaces.rest.swagger`                                          |
+| **Base path**   | `ApiVersioning.BASE + "/billing/webhooks"` → `/api/v1/billing/webhooks`                         |
+| **Tag OpenAPI** | `"Billing Webhooks"`                                                                            |
+| **Propósito**   | Recibe notificaciones de eventos de proveedores de pago (pagos exitosos, fallos, renovaciones). |
+
+| Método HTTP | Path      | Nombre del método     | Request DTO            | Response DTO | Códigos HTTP |
+|-------------|-----------|-----------------------|------------------------|--------------|--------------|
+| `POST`      | `/stripe` | `handleStripeWebhook` | `String` (payload raw) | `void`       | 200, 400     |
+| `POST`      | `/culqi`  | `handleCulqiWebhook`  | `String` (payload raw) | `void`       | 200, 400     |
+
+**`BillingWebhookControllerImpl` (Implementation)**
+
+| Campo           | Detalle                                                    |
+|-----------------|------------------------------------------------------------|
+| **Paquete**     | `com.kntrosoft.reqsai.billing.interfaces.rest.controllers` |
+| **Anotaciones** | `@Slf4j`, `@RestController`, `@RequiredArgsConstructor`    |
+| **Implementa**  | `BillingWebhookController`                                 |
+
+| Handler                                                                  | Para qué endpoint                  |
+|--------------------------------------------------------------------------|------------------------------------|
+| `PaymentProviderPort`                                                    | Verificación de firma del webhook. |
+| `UpgradeSubscriptionCommandHandler` / `CancelSubscriptionCommandHandler` | Según evento del proveedor.        |
+
+---
+
+**Request DTOs**
+
+| Clase                           | Paquete                        | Campos                                                               | Validaciones Jakarta |
+|---------------------------------|--------------------------------|----------------------------------------------------------------------|----------------------|
+| `AssignFreeSubscriptionRequest` | `interfaces/rest/dto/request/` | `organizationId: String`                                             | `@NotBlank`          |
+| `UpgradeSubscriptionRequest`    | `interfaces/rest/dto/request/` | `planType: String`, `provider: String`, `providerExternalId: String` | `@NotBlank` en todos |
+
+**Response DTOs**
+
+| Clase                  | Paquete                         | Campos                                                                                                                                                                                                                                        | Notas                  |
+|------------------------|---------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------|
+| `SubscriptionResponse` | `interfaces/rest/dto/response/` | `id: String`, `organizationId: String`, `planType: String`, `status: String`, `provider: String?`, `providerExternalId: String?`, `currentPeriodStart: Instant`, `currentPeriodEnd: Instant`, `tokenQuotaUsed: Long`, `cancelledAt: Instant?` | `@Builder` + `@Schema` |
+
+**Mappers**
+
+**Request Mappers:**
+
+| Clase                                 | Método                                                                                       | Convierte                                                                   |
+|---------------------------------------|----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| `AssignFreeSubscriptionRequestMapper` | `static AssignFreeSubscriptionCommand toCommand(AssignFreeSubscriptionRequest request)`      | DTO → Command.                                                              |
+| `UpgradeSubscriptionRequestMapper`    | `static UpgradeSubscriptionCommand toCommand(String id, UpgradeSubscriptionRequest request)` | Combina path variable + body en el Command. Construye `PaymentProviderRef`. |
+
+**Response Mappers:**
+
+| Clase                        | Método                                                              | Convierte                                                                 |
+|------------------------------|---------------------------------------------------------------------|---------------------------------------------------------------------------|
+| `SubscriptionResponseMapper` | `static SubscriptionResponse toResponse(Subscription subscription)` | Aggregate → DTO. Extrae `provider.name()` y `externalId` del VO embebido. |
+
+---
+
 ### 5.2.3. Application Layer
+
+Esta capa orquesta los casos de uso de Billing. Coordina la validación de negocio, la persistencia y la publicación de eventos sin contener lógica de dominio.
+
+**Command Handlers**
+
+**`AssignFreeSubscriptionCommandHandler`**
+
+| Campo                  | Detalle                                                                                                                    |
+|------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.billing.application.subscription.assignfree`                                                         |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional`                                                         |
+| **Command que recibe** | `AssignFreeSubscriptionCommand`                                                                                            |
+| **Retorna**            | `Subscription`                                                                                                             |
+| **Propósito**          | Asigna el plan FREE a una organización recién creada. Generalmente invocado por el BC Workspace al crear una organización. |
+
+**Dependencias:**
+
+| Puerto                       | Para qué se usa                                |
+|------------------------------|------------------------------------------------|
+| `SubscriptionRepositoryPort` | Verificar unicidad y persistir `Subscription`. |
+| `ApplicationEventPublisher`  | Publicar `SubscriptionAssignedEvent`.          |
+
+**Flujo:**
+
+| Paso | Acción                                                       | Excepción lanzada                    |
+|------|--------------------------------------------------------------|--------------------------------------|
+| 1    | Verificar que la organización no tenga ya una suscripción.   | `SubscriptionAlreadyExistsException` |
+| 2    | Crear `Subscription` con `new Subscription(organizationId)`. | —                                    |
+| 3    | Persistir con `subscriptionRepository.save(subscription)`.   | —                                    |
+| 4    | Publicar `SubscriptionAssignedEvent`.                        | —                                    |
+
+---
+
+**`UpgradeSubscriptionCommandHandler`**
+
+| Campo                  | Detalle                                                                                     |
+|------------------------|---------------------------------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.billing.application.subscription.upgrade`                             |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional`                          |
+| **Command que recibe** | `UpgradeSubscriptionCommand`                                                                |
+| **Retorna**            | `Subscription`                                                                              |
+| **Propósito**          | Actualiza la suscripción a un plan superior y registra la referencia del proveedor externo. |
+
+**Dependencias:**
+
+| Puerto                       | Para qué se usa                             |
+|------------------------------|---------------------------------------------|
+| `SubscriptionRepositoryPort` | Cargar y persistir `Subscription`.          |
+| `PaymentProviderPort`        | Confirmar el pago con el proveedor externo. |
+| `ApplicationEventPublisher`  | Publicar `SubscriptionUpgradedEvent`.       |
+
+**Flujo:**
+
+| Paso | Acción                                                                          | Excepción lanzada                    |
+|------|---------------------------------------------------------------------------------|--------------------------------------|
+| 1    | Cargar `Subscription` por ID.                                                   | `SubscriptionNotFoundException`      |
+| 2    | Confirmar pago con `PaymentProviderPort.confirmUpgrade()`.                      | `PaymentProviderException`           |
+| 3    | Construir `PaymentProviderRef(provider, externalId)`.                           | —                                    |
+| 4    | Llamar `subscription.upgradeTo(planType, providerRef, periodStart, periodEnd)`. | `CannotUpgradeSubscriptionException` |
+| 5    | Persistir y publicar `SubscriptionUpgradedEvent`.                               | —                                    |
+
+---
+
+**`CancelSubscriptionCommandHandler`**
+
+| Campo                  | Detalle                                                            |
+|------------------------|--------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.billing.application.subscription.cancel`     |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional` |
+| **Command que recibe** | `CancelSubscriptionCommand`                                        |
+| **Retorna**            | `void`                                                             |
+| **Propósito**          | Cancela la suscripción activa.                                     |
+
+**Flujo:**
+
+| Paso | Acción                                             | Excepción lanzada                   |
+|------|----------------------------------------------------|-------------------------------------|
+| 1    | Cargar `Subscription` por ID.                      | `SubscriptionNotFoundException`     |
+| 2    | Llamar `subscription.cancel(Instant.now())`.       | `CannotCancelSubscriptionException` |
+| 3    | Persistir y publicar `SubscriptionCancelledEvent`. | —                                   |
+
+---
+
+**`ReactivateSubscriptionCommandHandler`**
+
+| Campo                  | Detalle                                                            |
+|------------------------|--------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.billing.application.subscription.reactivate` |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional` |
+| **Command que recibe** | `ReactivateSubscriptionCommand`                                    |
+| **Retorna**            | `Subscription`                                                     |
+| **Propósito**          | Reactiva una suscripción previamente cancelada.                    |
+
+**Flujo:**
+
+| Paso | Acción                                                    | Excepción lanzada                       |
+|------|-----------------------------------------------------------|-----------------------------------------|
+| 1    | Cargar `Subscription` por ID.                             | `SubscriptionNotFoundException`         |
+| 2    | Llamar `subscription.reactivate(periodStart, periodEnd)`. | `CannotReactivateSubscriptionException` |
+| 3    | Persistir `Subscription` actualizado.                     | —                                       |
+
+---
+
+**`IncrementTokenUsageCommandHandler`**
+
+| Campo                  | Detalle                                                                                                                                     |
+|------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.billing.application.subscription.tokenusage`                                                                          |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional`                                                                          |
+| **Command que recibe** | `IncrementTokenUsageCommand`                                                                                                                |
+| **Retorna**            | `void`                                                                                                                                      |
+| **Propósito**          | Incrementa el consumo de tokens de la organización. Publica evento si se alcanza la cuota. Invocado internamente desde el BC Req Discovery. |
+
+**Flujo:**
+
+| Paso | Acción                                                                            | Excepción lanzada               |
+|------|-----------------------------------------------------------------------------------|---------------------------------|
+| 1    | Cargar `Subscription` por `organizationId`.                                       | `SubscriptionNotFoundException` |
+| 2    | Llamar `subscription.incrementTokenUsage(tokens)`.                                | —                               |
+| 3    | Persistir `Subscription`.                                                         | —                               |
+| 4    | Si `subscription.isQuotaExceeded(maxTokens)`, publicar `TokenQuotaExceededEvent`. | —                               |
+
+---
+
+**`ResetQuotaCommandHandler`**
+
+| Campo                  | Detalle                                                                                                                             |
+|------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| **Paquete**            | `com.kntrosoft.reqsai.billing.application.subscription.resetquota`                                                                  |
+| **Anotaciones**        | `@Slf4j`, `@Service`, `@RequiredArgsConstructor`, `@Transactional`                                                                  |
+| **Command que recibe** | `ResetQuotaCommand`                                                                                                                 |
+| **Retorna**            | `void`                                                                                                                              |
+| **Propósito**          | Reinicia el contador de tokens al inicio de cada período de facturación. Invocado por un scheduler mensual o webhook del proveedor. |
+
+**Flujo:**
+
+| Paso | Acción                                          | Excepción lanzada               |
+|------|-------------------------------------------------|---------------------------------|
+| 1    | Cargar `Subscription` por ID.                   | `SubscriptionNotFoundException` |
+| 2    | Llamar `subscription.resetQuota()` y persistir. | —                               |
+
+---
+
+**Query Handlers**
+
+| Clase                                       | Paquete                             | Query que recibe                     | Retorna        | Notas                                               |
+|---------------------------------------------|-------------------------------------|--------------------------------------|----------------|-----------------------------------------------------|
+| `GetSubscriptionByOrganizationQueryHandler` | `application/subscription/queries/` | `GetSubscriptionByOrganizationQuery` | `Subscription` | Lanza `SubscriptionNotFoundException` si no existe. |
+| `GetSubscriptionByIdQueryHandler`           | `application/subscription/queries/` | `GetSubscriptionByIdQuery`           | `Subscription` | Lanza `SubscriptionNotFoundException` si no existe. |
+
+---
+
+**Event Listeners**
+
+| Clase                               | Evento que escucha          | Qué hace                                                                              | Puertos que usa                    |
+|-------------------------------------|-----------------------------|---------------------------------------------------------------------------------------|------------------------------------|
+| `SubscriptionAssignedEventListener` | `SubscriptionAssignedEvent` | Notifica al BC Workspace para aplicar los `PlanLimits` correspondientes al plan FREE. | `WorkspaceModuleApi` (in-process). |
+| `SubscriptionUpgradedEventListener` | `SubscriptionUpgradedEvent` | Notifica al BC Workspace para actualizar los `PlanLimits` al nuevo plan.              | `WorkspaceModuleApi` (in-process). |
+
+---
+
+**Output Ports**
+
+**Repository Ports** — `application/ports/repositories/`:
+
+| Interfaz                     | Método                   | Firma                                                                | Descripción                         |
+|------------------------------|--------------------------|----------------------------------------------------------------------|-------------------------------------|
+| `SubscriptionRepositoryPort` | `save`                   | `Subscription save(Subscription subscription)`                       | Persiste o actualiza.               |
+|                              | `findById`               | `Optional<Subscription> findById(String id)`                         | Busca por ID.                       |
+|                              | `findByOrganizationId`   | `Optional<Subscription> findByOrganizationId(String organizationId)` | Busca por organización.             |
+|                              | `existsByOrganizationId` | `boolean existsByOrganizationId(String organizationId)`              | Verifica unicidad por organización. |
+
+**Service Ports** — `application/ports/`:
+
+| Interfaz              | Paquete          | Métodos clave                                                                                                          | Implementación en infra                                       |
+|-----------------------|------------------|------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|
+| `PaymentProviderPort` | `ports/payment/` | `confirmUpgrade(String externalId, PaymentProvider provider): boolean`, `cancelExternal(PaymentProviderRef ref): void` | `StripePaymentProviderAdapter`, `CulqiPaymentProviderAdapter` |
+
+---
 
 ### 5.2.4. Infrastructure Layer
 
+Esta capa contiene las implementaciones técnicas de los puertos definidos en Billing. El dominio no conoce esta capa.
+
+**JPA Repositories**
+
+| Clase                    | Extiende                              | Implementa                   | Propósito                                                                       |
+|--------------------------|---------------------------------------|------------------------------|---------------------------------------------------------------------------------|
+| `SubscriptionRepository` | `JpaRepository<Subscription, String>` | `SubscriptionRepositoryPort` | Persistencia de suscripciones. Spring Data genera queries por `organizationId`. |
+
+**Métodos derivados (Spring Data):**
+
+| Repositorio              | Firma                                                                | Descripción                                          |
+|--------------------------|----------------------------------------------------------------------|------------------------------------------------------|
+| `SubscriptionRepository` | `Optional<Subscription> findByOrganizationId(String organizationId)` | Búsqueda de la suscripción vigente por organización. |
+| `SubscriptionRepository` | `boolean existsByOrganizationId(String organizationId)`              | Verificación de unicidad.                            |
+
+---
+
+**Adapters Externos**
+
+| Clase                          | Implementa            | Servicio externo | Tecnología                   | Propósito                                                                                                  |
+|--------------------------------|-----------------------|------------------|------------------------------|------------------------------------------------------------------------------------------------------------|
+| `StripePaymentProviderAdapter` | `PaymentProviderPort` | Stripe API       | Stripe Java SDK              | Confirma pagos, crea y cancela suscripciones en Stripe. Verifica firma de webhooks con `Stripe-Signature`. |
+| `CulqiPaymentProviderAdapter`  | `PaymentProviderPort` | Culqi API        | Culqi Java SDK / HTTP client | Confirma pagos y gestiona suscripciones en Culqi para el mercado latinoamericano.                          |
+
+**Configuración de infraestructura:**
+
+| Clase                           | Propósito                                                                                                                                                 |
+|---------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `BillingSchedulerConfiguration` | Define el scheduler mensual (`@Scheduled`) que dispara `ResetQuotaCommand` para todas las suscripciones activas al inicio de cada período de facturación. |
+
 ### 5.2.6. Bounded Context Software Architecture Component Level Diagrams
+
+En esta sección se presenta el diagrama de componentes C4 (Nivel 3) del BC Billing and Subscriptions. El container es el módulo Spring Modulith completo. Los componentes reflejan la descomposición por capas y sus interacciones, incluyendo el scheduler de reset de cuota y la integración con proveedores de pago externos.
+
+![Billing Component Diagram](assets/diagrams/billing/billing-component.png)
 
 ### 5.2.7. Bounded Context Software Architecture Code Level Diagrams
 
 #### 5.2.7.1. Bounded Context Domain Layer Class Diagrams
 
+En esta sección se presenta el diagrama de clases UML del Domain Layer del BC Billing. Incluye el Aggregate Root `Subscription`, los Value Objects (`PaymentProviderRef`, `SubscriptionId`, `OrganizationId`), las enumeraciones (`PlanType`, `SubscriptionStatus`, `PaymentProvider`), los Domain Events publicados al Api package y las excepciones de dominio con su jerarquía de herencia desde el Shared Kernel.
+
+![Billing Domain Class Diagram](assets/diagrams/billing/billing-class.png)
+
 #### 5.2.7.2. Bounded Context Database Design Diagram
+
+En esta sección se presenta el diagrama de base de datos del BC Billing. La persistencia se reduce a una única tabla `subscriptions`, que almacena el ciclo de vida de la suscripción de cada organización. El VO `PaymentProviderRef` se persiste como columnas embebidas (`payment_provider`, `payment_external_id`). La columna `token_quota_used` acumula el consumo de tokens del período actual y se reinicia vía scheduler mensual.
+
+![Billing Database Diagram](assets/diagrams/billing/billing-database.png)
 
 ## 5.3. Bounded Context: Workspace Management
 
 ### 5.3.1. Domain Layer
 
+El Bounded Context de Workspace Management gestiona las organizaciones, miembros, proyectos, roles, documentos y glosarios. Es el núcleo estructural de la plataforma: todo el trabajo de elicitación de requisitos ocurre dentro de un proyecto, que a su vez pertenece a una organización. Este BC también aplica los límites de plan definidos por Billing sobre cada organización.
+
+**Aggregate Roots**
+
+---
+
+**`Organization`** — tabla: `organizations`
+
+Representa la unidad raíz de tenencia multi-organizacional. Contiene los límites de plan activos que controlan los recursos disponibles.
+
+| Campo        | Tipo             | Descripción                                              |
+|--------------|------------------|----------------------------------------------------------|
+| `id`         | `OrganizationId` | Identificador único de la organización                   |
+| `name`       | `String`         | Nombre visible de la organización                        |
+| `slug`       | `String`         | Identificador URL único (inmutable tras creación)        |
+| `ownerId`    | `UserId`         | Referencia al usuario propietario                        |
+| `status`     | `OrgStatus`      | Estado: `ACTIVE`, `INACTIVE`, `DELETED`                  |
+| `planLimits` | `PlanLimits`     | Límites operativos actuales según el plan de facturación |
+
+| Método                         | Descripción                                             |
+|--------------------------------|---------------------------------------------------------|
+| `rename(name)`                 | Actualiza el nombre de la organización                  |
+| `updateLimits(limits)`         | Reemplaza los límites de plan tras un evento de Billing |
+| `deactivate()`                 | Cambia el estado a `INACTIVE`                           |
+| `reactivate()`                 | Cambia el estado a `ACTIVE`                             |
+| `delete()`                     | Cambia el estado a `DELETED`                            |
+
+| Excepción lanzada                        | Condición de disparo            |
+|------------------------------------------|---------------------------------|
+| `OrganizationSlugAlreadyExistsException` | El slug ya existe en el sistema |
+
+---
+
+**`Member`** — tabla: `members`
+
+Representa la pertenencia de un usuario a una organización. Los fundadores tienen `invitedBy` e `invitedAt` en `null`; los invitados siempre los tienen definidos.
+
+| Campo            | Tipo             | Descripción                                                |
+|------------------|------------------|------------------------------------------------------------|
+| `id`             | `MemberId`       | Identificador único de membresía                           |
+| `organizationId` | `OrganizationId` | Organización a la que pertenece                            |
+| `userId`         | `UserId`         | Usuario representado                                       |
+| `role`           | `OrgRole`        | Rol en la organización: `OWNER`, `ADMIN`, `MEMBER`         |
+| `status`         | `MemberStatus`   | Estado: `ACTIVE`, `PENDING`, `INACTIVE`                    |
+| `invitedBy`      | `UserId?`        | Usuario que realizó la invitación (`null` para fundadores) |
+| `invitedAt`      | `Instant?`       | Momento de la invitación (`null` para fundadores)          |
+
+| Método                  | Descripción                                               |
+|-------------------------|-----------------------------------------------------------|
+| `changeRole(role)`      | Cambia el rol del miembro dentro de la organización       |
+| `accept()`              | Cambia el estado de `PENDING` a `ACTIVE`                  |
+| `deactivate()`          | Cambia el estado a `INACTIVE`                             |
+| `reactivate()`          | Cambia el estado a `ACTIVE`                               |
+
+| Excepción lanzada                  | Condición de disparo                               |
+|------------------------------------|----------------------------------------------------|
+| `MemberAlreadyExistsException`     | El usuario ya es miembro de la organización        |
+| `MemberPlanLimitExceededException` | Se alcanzó el límite `maxMembers` del plan         |
+
+---
+
+**`Project`** — tabla: `projects`
+
+Agrupa todo el trabajo de elicitación de requisitos. Contiene el perfil técnico del proyecto y las restricciones definidas por el equipo. El `descriptionEmbedding` permite búsqueda semántica entre proyectos.
+
+| Campo                  | Tipo                      | Descripción                                                     |
+|------------------------|---------------------------|-----------------------------------------------------------------|
+| `id`                   | `ProjectId`               | Identificador único del proyecto                                |
+| `organizationId`       | `OrganizationId`          | Organización propietaria                                        |
+| `name`                 | `String`                  | Nombre del proyecto (único dentro de la organización)           |
+| `description`          | `String`                  | Descripción del alcance del proyecto                            |
+| `technicalProfile`     | `TechnicalProfile`        | Perfil técnico: lenguajes, frameworks, arquitectura, dominio    |
+| `status`               | `ProjectStatus`           | Estado: `ACTIVE`, `ARCHIVED`                                    |
+| `descriptionEmbedding` | `List<Float>?`            | Vector embedding de la descripción para búsqueda semántica      |
+| `constraints`          | `List<ProjectConstraint>` | Restricciones técnicas del proyecto (entidades compuestas)      |
+
+| Método                                               | Descripción                                        |
+|------------------------------------------------------|----------------------------------------------------|
+| `updateDetails(name, description, technicalProfile)` | Actualiza metadatos del proyecto                   |
+| `updateEmbedding(embedding)`                         | Reemplaza el vector de embedding de la descripción |
+| `addConstraint(description)`                         | Agrega una nueva restricción técnica               |
+| `removeConstraint(constraintId)`                     | Elimina una restricción existente                  |
+| `archive()`                                          | Cambia el estado a `ARCHIVED`                      |
+| `restore()`                                          | Cambia el estado a `ACTIVE`                        |
+
+| Excepción lanzada                     | Condición de disparo                                    |
+|---------------------------------------|---------------------------------------------------------|
+| `ProjectNameAlreadyExistsException`   | El nombre ya existe dentro de la misma organización     |
+| `ProjectPlanLimitExceededException`   | Se alcanzó el límite `maxProjects` del plan             |
+
+---
+
+**`ProjectRole`** — tabla: `project_roles`
+
+Define un conjunto de permisos asignables a los miembros de un proyecto. Cada proyecto puede tener múltiples roles personalizados.
+
+| Campo         | Tipo              | Descripción                                |
+|---------------|-------------------|--------------------------------------------|
+| `id`          | `ProjectRoleId`   | Identificador único del rol                |
+| `projectId`   | `ProjectId`       | Proyecto al que pertenece el rol           |
+| `name`        | `String`          | Nombre del rol (único dentro del proyecto) |
+| `permissions` | `Set<Permission>` | Conjunto de permisos asignados             |
+
+| Método                           | Descripción                       |
+|----------------------------------|-----------------------------------|
+| `rename(name)`                   | Cambia el nombre del rol          |
+| `updatePermissions(permissions)` | Reemplaza el conjunto de permisos |
+
+| Excepción lanzada                       | Condición de disparo                          |
+|-----------------------------------------|-----------------------------------------------|
+| `ProjectRoleNameAlreadyExistsException` | El nombre del rol ya existe en el proyecto    |
+
+---
+
+**`ProjectMember`** — tabla: `project_members`
+
+Relaciona un miembro de la organización con un proyecto y le asigna un rol. Los campos `assignedBy` y `assignedAt` son campos de dominio propios (no campos de auditoría heredados).
+
+| Campo          | Tipo              | Descripción                                              |
+|----------------|-------------------|----------------------------------------------------------|
+| `id`           | `ProjectMemberId` | Identificador único de la membresía de proyecto          |
+| `projectId`    | `ProjectId`       | Proyecto al que pertenece                                |
+| `memberId`     | `MemberId`        | Miembro de la organización asignado                      |
+| `roleId`       | `ProjectRoleId`   | Rol asignado dentro del proyecto                         |
+| `assignedBy`   | `UserId`          | Usuario que realizó la asignación                        |
+| `assignedAt`   | `Instant`         | Momento de la asignación                                 |
+
+| Método                  | Descripción                                             |
+|-------------------------|---------------------------------------------------------|
+| `changeRole(roleId)`    | Reasigna el rol del miembro dentro del proyecto         |
+
+| Excepción lanzada                      | Condición de disparo                            |
+|----------------------------------------|-------------------------------------------------|
+| `ProjectMemberAlreadyExistsException`  | El miembro ya está asignado al proyecto         |
+
+---
+
+**`ProjectDocument`** — tabla: `project_documents`
+
+Representa un documento cargado en el contexto de un proyecto (especificaciones, manuales, contratos). El responsable de carga se obtiene de `createdBy` heredado de `AbstractAggregateRoot`.
+
+| Campo       | Tipo                  | Descripción                                              |
+|-------------|-----------------------|----------------------------------------------------------|
+| `id`        | `ProjectDocumentId`   | Identificador único del documento                        |
+| `projectId` | `ProjectId`           | Proyecto al que pertenece                                |
+| `name`      | `String`              | Nombre descriptivo del documento                         |
+| `url`       | `String`              | URL de almacenamiento (S3 o equivalente)                 |
+| `mimeType`  | `String`              | Tipo MIME del archivo                                    |
+| `status`    | `DocumentStatus`      | Estado: `ACTIVE`, `ARCHIVED`                             |
+
+| Método      | Descripción                         |
+|-------------|-------------------------------------|
+| `archive()` | Cambia el estado a `ARCHIVED`       |
+| `restore()` | Cambia el estado a `ACTIVE`         |
+
+| Excepción lanzada                      | Condición de disparo                               |
+|----------------------------------------|----------------------------------------------------|
+| `DocumentPlanLimitExceededException`   | Se alcanzó el límite `maxDocumentsPerProject`      |
+
+---
+
+**`Glossary`** — tabla: `glossaries`
+
+Glosario de términos técnicos de un proyecto. Se crea automáticamente al crear el proyecto. Gestiona la composición de `GlossaryTerm` como entidades internas.
+
+| Campo       | Tipo                 | Descripción                       |
+|-------------|----------------------|-----------------------------------|
+| `id`        | `GlossaryId`         | Identificador único del glosario  |
+| `projectId` | `ProjectId`          | Proyecto al que pertenece (1:1)   |
+| `terms`     | `List<GlossaryTerm>` | Términos del glosario (entidades) |
+
+| Método                                         | Descripción                                           |
+|------------------------------------------------|-------------------------------------------------------|
+| `addTerm(term, definition, synonyms, addedBy)` | Agrega un nuevo término al glosario                   |
+| `removeTerm(termId)`                           | Elimina un término existente                          |
+| `updateTerm(termId, definition, synonyms)`     | Actualiza la definición y sinónimos de un término     |
+
+| Excepción lanzada                        | Condición de disparo                                  |
+|------------------------------------------|-------------------------------------------------------|
+| `GlossaryTermPlanLimitExceededException` | Se alcanzó el límite `maxGlossaryTermsPerProject`     |
+| `GlossaryTermNotFoundException`          | El término solicitado no existe en el glosario        |
+
+---
+
+**Entities**
+
+**`ProjectConstraint`** — tabla: `project_constraints`
+
+Restricción técnica o de negocio definido para un proyecto. El `embedding` permite que Requirement Discovery pueda consultarlas semánticamente.
+
+| Campo         | Tipo                    | Descripción                                              |
+|---------------|-------------------------|----------------------------------------------------------|
+| `id`          | `ProjectConstraintId`   | Identificador único de la restricción                    |
+| `projectId`   | `ProjectId`             | Proyecto al que pertenece                                |
+| `description` | `String`                | Descripción textual de la restricción                    |
+| `embedding`   | `List<Float>?`          | Vector embedding para búsqueda semántica                 |
+
+| Método                            | Descripción                                          |
+|-----------------------------------|------------------------------------------------------|
+| `updateDescription(description)`  | Actualiza el texto de la restricción                 |
+| `updateEmbedding(embedding)`      | Reemplaza el vector embedding                        |
+
+---
+
+**`GlossaryTerm`** — tabla: `glossary_terms`
+
+Término técnico con definición y sinónimos. El `embedding` permite búsqueda semántica desde Requirement Discovery durante la generación de historias de usuario.
+
+| Campo        | Tipo             | Descripción                                               |
+|--------------|------------------|-----------------------------------------------------------|
+| `id`         | `GlossaryTermId` | Identificador único del término                           |
+| `glossaryId` | `GlossaryId`     | Glosario al que pertenece                                 |
+| `term`       | `String`         | Término técnico o de dominio                              |
+| `definition` | `String`         | Definición del término                                    |
+| `synonyms`   | `List<String>`   | Lista de sinónimos o variantes                            |
+| `addedBy`    | `UserId`         | Usuario que agregó el término                             |
+| `addedAt`    | `Instant`        | Momento en que fue agregado                               |
+| `embedding`  | `List<Float>?`   | Vector embedding de la definición para búsqueda semántica |
+
+| Método                              | Descripción                                          |
+|-------------------------------------|------------------------------------------------------|
+| `update(definition, synonyms)`      | Actualiza la definición y los sinónimos              |
+| `updateEmbedding(embedding)`        | Reemplaza el vector embedding                        |
+
+---
+
+**Value Objects**
+
+**`PlanLimits`** — `com.kntrosoft.reqsai.workspace.domain.model.valueobjects`
+
+Value Object inmutable que encapsula los límites operativos de un plan de facturación. Definido como `record` de Java.
+
+| Campo                        | Tipo   | Descripción                                           |
+|------------------------------|--------|-------------------------------------------------------|
+| `maxMembers`                 | `Int`  | Número máximo de miembros en la organización          |
+| `maxProjects`                | `Int`  | Número máximo de proyectos en la organización         |
+| `maxDocumentsPerProject`     | `Int`  | Número máximo de documentos por proyecto              |
+| `maxTokensPerMonth`          | `Long` | Cuota mensual de tokens de IA                         |
+| `maxGlossaryTermsPerProject` | `Int`  | Número máximo de términos de glosario por proyecto    |
+
+---
+
+**`TechnicalProfile`** — `com.kntrosoft.reqsai.workspace.domain.model.valueobjects`
+
+Value Object inmutable que describe el contexto técnico de un proyecto. Utilizado para enriquecer el contexto de la IA durante la elicitación de requisitos.
+
+| Campo                  | Tipo           | Descripción                                    |
+|------------------------|----------------|------------------------------------------------|
+| `programmingLanguages` | `List<String>` | Lenguajes de programación usados               |
+| `frameworks`           | `List<String>` | Frameworks y bibliotecas relevantes            |
+| `architecture`         | `String`       | Estilo arquitectónico (ej. "microservicios")   |
+| `domain`               | `String`       | Dominio del negocio (ej. "fintech", "salud")   |
+
+---
+
+**Enumeraciones**
+
+| Enumeración      | Valores                                                                                                                                                            |
+|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `OrgStatus`      | `ACTIVE`, `INACTIVE`, `DELETED`                                                                                                                                    |
+| `MemberStatus`   | `ACTIVE`, `PENDING`, `INACTIVE`                                                                                                                                    |
+| `OrgRole`        | `OWNER`, `ADMIN`, `MEMBER`                                                                                                                                         |
+| `ProjectStatus`  | `ACTIVE`, `ARCHIVED`                                                                                                                                               |
+| `DocumentStatus` | `ACTIVE`, `ARCHIVED`                                                                                                                                               |
+| `Permission`     | `READ_PROJECT`, `WRITE_PROJECT`, `DELETE_PROJECT`, `MANAGE_MEMBERS`, `MANAGE_ROLES`, `UPLOAD_DOCUMENTS`, `MANAGE_GLOSSARY`, `RUN_DISCOVERY`, `MANAGE_INTEGRATIONS` |
+
+---
+
+**Domain Exceptions**
+
+Todas las excepciones se ubican en `com.kntrosoft.reqsai.workspace.domain.model.exceptions` y extienden `RuntimeException`.
+
+| Excepción                                | Mensaje representativo                                   |
+|------------------------------------------|----------------------------------------------------------|
+| `OrganizationNotFoundException`          | `"Organization not found: {id}"`                         |
+| `OrganizationSlugAlreadyExistsException` | `"Slug already in use: {slug}"`                          |
+| `MemberNotFoundException`                | `"Member not found: {id}"`                               |
+| `MemberAlreadyExistsException`           | `"User is already a member of this organization"`        |
+| `MemberPlanLimitExceededException`       | `"Member limit reached for this plan"`                   |
+| `InsufficientPermissionsException`       | `"User does not have required permission: {permission}"` |
+| `ProjectNotFoundException`               | `"Project not found: {id}"`                              |
+| `ProjectNameAlreadyExistsException`      | `"Project name already exists in this organization"`     |
+| `ProjectPlanLimitExceededException`      | `"Project limit reached for this plan"`                  |
+| `ProjectRoleNotFoundException`           | `"Project role not found: {id}"`                         |
+| `ProjectRoleNameAlreadyExistsException`  | `"Role name already exists in this project"`             |
+| `ProjectMemberNotFoundException`         | `"Project member not found: {id}"`                       |
+| `ProjectMemberAlreadyExistsException`    | `"Member is already assigned to this project"`           |
+| `ProjectDocumentNotFoundException`       | `"Document not found: {id}"`                             |
+| `DocumentPlanLimitExceededException`     | `"Document limit reached for this project"`              |
+| `GlossaryNotFoundException`              | `"Glossary not found for project: {projectId}"`          |
+| `GlossaryTermNotFoundException`          | `"Glossary term not found: {id}"`                        |
+| `GlossaryTermPlanLimitExceededException` | `"Glossary term limit reached for this project"`         |
+
+---
+
+**Domain Events**
+
+Todos los eventos se ubican en `com.kntrosoft.reqsai.workspace.domain.events`.
+
+| Evento                       | Campos principales                              | Consumidor                                      |
+|------------------------------|-------------------------------------------------|-------------------------------------------------|
+| `OrganizationCreatedEvent`   | `organizationId`, `ownerId`, `planLimits`       | Billing BC → `AssignFreeSubscriptionCommand`    |
+| `MemberInvitedEvent`         | `memberId`, `organizationId`, `email`, `role`   | Infraestructura → envío de email de invitación  |
+| `ProjectCreatedEvent`        | `projectId`, `organizationId`, `createdBy`      | Interno → creación automática de `Glossary`     |
+| `PlanLimitsUpdatedEvent`     | `organizationId`, `newLimits`                   | Interno → refresco de límites en Organization   |
+
 ### 5.3.2. Interface Layer
+
+**Controladores REST**
+
+El paquete raíz de la capa de interfaz es `com.kntrosoft.reqsai.workspace.interfaces.rest`. Cada recurso define una interfaz Swagger (`*Controller`) y una implementación (`*ControllerImpl`). Todos los endpoints requieren el header `Authorization: Bearer <token>` salvo indicación contraria.
+
+---
+
+**`OrganizationController`** — `/api/v1/organizations`
+
+| Método   | Ruta       | Descripción                                                 |
+|----------|------------|-------------------------------------------------------------|
+| `POST`   | `/`        | Crea una nueva organización y el miembro fundador (`OWNER`) |
+| `GET`    | `/{orgId}` | Obtiene los datos de una organización                       |
+| `PATCH`  | `/{orgId}` | Renombra la organización                                    |
+| `DELETE` | `/{orgId}` | Elimina lógicamente la organización (estado `DELETED`)      |
+
+---
+
+**`MemberController`** — `/api/v1/organizations/{orgId}/members`
+
+| Método   | Ruta                 | Descripción                                                      |
+|----------|----------------------|------------------------------------------------------------------|
+| `POST`   | `/invite`            | Invita a un usuario por email; crea `Member` en estado `PENDING` |
+| `POST`   | `/{memberId}/accept` | El usuario invitado acepta la invitación                         |
+| `GET`    | `/`                  | Lista los miembros de la organización                            |
+| `PATCH`  | `/{memberId}/role`   | Cambia el rol de un miembro                                      |
+| `DELETE` | `/{memberId}`        | Desactiva a un miembro de la organización                        |
+
+---
+
+**`ProjectController`** — `/api/v1/organizations/{orgId}/projects`
+
+| Método  | Ruta                   | Descripción                                    |
+|---------|------------------------|------------------------------------------------|
+| `POST`  | `/`                    | Crea un proyecto y su glosario vacío asociado  |
+| `GET`   | `/`                    | Lista los proyectos de la organización         |
+| `GET`   | `/{projectId}`         | Obtiene los datos de un proyecto               |
+| `PATCH` | `/{projectId}`         | Actualiza nombre, descripción y perfil técnico |
+| `POST`  | `/{projectId}/archive` | Archiva el proyecto                            |
+| `POST`  | `/{projectId}/restore` | Reactiva el proyecto archivado                 |
+
+---
+
+**`ProjectRoleController`** — `/api/v1/projects/{projectId}/roles`
+
+| Método   | Ruta          | Descripción                                    |
+|----------|---------------|------------------------------------------------|
+| `POST`   | `/`           | Crea un rol personalizado en el proyecto       |
+| `GET`    | `/`           | Lista los roles del proyecto                   |
+| `PATCH`  | `/{roleId}`   | Actualiza nombre y permisos del rol            |
+| `DELETE` | `/{roleId}`   | Elimina un rol del proyecto                    |
+
+---
+
+**`ProjectMemberController`** — `/api/v1/projects/{projectId}/members`
+
+| Método   | Ruta                      | Descripción                                      |
+|----------|---------------------------|--------------------------------------------------|
+| `POST`   | `/`                       | Asigna un miembro de la organización al proyecto |
+| `GET`    | `/`                       | Lista los miembros del proyecto                  |
+| `PATCH`  | `/{projectMemberId}/role` | Cambia el rol de un miembro dentro del proyecto  |
+| `DELETE` | `/{projectMemberId}`      | Elimina a un miembro del proyecto                |
+
+---
+
+**`ProjectDocumentController`** — `/api/v1/projects/{projectId}/documents`
+
+| Método | Ruta               | Descripción                                     |
+|--------|--------------------|-------------------------------------------------|
+| `POST` | `/`                | Registra un documento cargado (URL + metadatos) |
+| `GET`  | `/`                | Lista los documentos del proyecto               |
+| `POST` | `/{docId}/archive` | Archiva un documento                            |
+| `POST` | `/{docId}/restore` | Reactiva un documento archivado                 |
+
+---
+
+**`GlossaryController`** — `/api/v1/projects/{projectId}/glossary`
+
+| Método   | Ruta              | Descripción                                               |
+|----------|-------------------|-----------------------------------------------------------|
+| `GET`    | `/`               | Obtiene el glosario del proyecto con todos sus términos   |
+| `POST`   | `/terms`          | Agrega un término al glosario                             |
+| `PATCH`  | `/terms/{termId}` | Actualiza la definición y sinónimos de un término         |
+| `DELETE` | `/terms/{termId}` | Elimina un término del glosario                           |
+
+**Request/Response DTOs**
+
+Los DTO se ubican en `com.kntrosoft.reqsai.workspace.interfaces.rest.dto`. Las anotaciones de validación Jakarta (`@NotBlank`, `@Size`, `@Valid`) se aplican únicamente sobre los request DTO. Las respuestas DTO proyectan los datos necesarios para cada caso de uso.
+
+| DTO                         | Tipo     | Campos principales                                                                |
+|-----------------------------|----------|-----------------------------------------------------------------------------------|
+| `CreateOrganizationRequest` | Request  | `name: String`, `slug: String`                                                    |
+| `InviteMemberRequest`       | Request  | `email: String`, `role: OrgRole`                                                  |
+| `CreateProjectRequest`      | Request  | `name: String`, `description: String`, `technicalProfile: TechnicalProfileDto`    |
+| `UpdateProjectRequest`      | Request  | `name: String?`, `description: String?`, `technicalProfile: TechnicalProfileDto?` |
+| `CreateProjectRoleRequest`  | Request  | `name: String`, `permissions: Set<Permission>`                                    |
+| `AddProjectMemberRequest`   | Request  | `memberId: String`, `roleId: String`                                              |
+| `UploadDocumentRequest`     | Request  | `name: String`, `url: String`, `mimeType: String`                                 |
+| `AddGlossaryTermRequest`    | Request  | `term: String`, `definition: String`, `synonyms: List<String>`                    |
+| `OrganizationResponse`      | Response | `id`, `name`, `slug`, `status`, `planLimits`                                      |
+| `ProjectResponse`           | Response | `id`, `name`, `description`, `technicalProfile`, `status`, `constraints`          |
+| `GlossaryResponse`          | Response | `id`, `projectId`, `terms: List<GlossaryTermResponse>`                            |
 
 ### 5.3.3. Application Layer
 
+**Commands**
+
+Los comandos se ubican en `com.kntrosoft.reqsai.workspace.application.commands`.
+
+**Comandos de organización:**
+
+| Comando                         | Campos                                  |
+|---------------------------------|-----------------------------------------|
+| `CreateOrganizationCommand`     | `name`, `slug`, `ownerId`               |
+| `RenameOrganizationCommand`     | `organizationId`, `name`, `requestedBy` |
+| `DeactivateOrganizationCommand` | `organizationId`, `requestedBy`         |
+| `DeleteOrganizationCommand`     | `organizationId`, `requestedBy`         |
+| `ApplyPlanLimitsCommand`        | `organizationId`, `planLimits`          |
+
+**Comandos de miembro:**
+
+| Comando                   | Campos                                            |
+|---------------------------|---------------------------------------------------|
+| `InviteMemberCommand`     | `organizationId`, `email`, `role`, `requestedBy`  |
+| `AcceptInvitationCommand` | `memberId`                                        |
+| `ChangeMemberRoleCommand` | `memberId`, `role`, `requestedBy`                 |
+| `DeactivateMemberCommand` | `memberId`, `requestedBy`                         |
+
+**Comandos de proyecto:**
+
+| Comando                         | Campos                                                                     |
+|---------------------------------|----------------------------------------------------------------------------|
+| `CreateProjectCommand`          | `organizationId`, `name`, `description`, `technicalProfile`, `requestedBy` |
+| `UpdateProjectCommand`          | `projectId`, `name`, `description`, `technicalProfile`, `requestedBy`      |
+| `UpdateProjectEmbeddingCommand` | `projectId`, `embedding`                                                   |
+| `ArchiveProjectCommand`         | `projectId`, `requestedBy`                                                 |
+| `RestoreProjectCommand`         | `projectId`, `requestedBy`                                                 |
+
+**Comandos de rol de proyecto:**
+
+| Comando                    | Campos                                            |
+|----------------------------|---------------------------------------------------|
+| `CreateProjectRoleCommand` | `projectId`, `name`, `permissions`, `requestedBy` |
+| `UpdateProjectRoleCommand` | `roleId`, `name`, `permissions`, `requestedBy`    |
+| `DeleteProjectRoleCommand` | `roleId`, `requestedBy`                           |
+
+**Comandos de miembro de proyecto:**
+
+| Comando                          | Campos                                          |
+|----------------------------------|-------------------------------------------------|
+| `AddProjectMemberCommand`        | `projectId`, `memberId`, `roleId`, `assignedBy` |
+| `ChangeProjectMemberRoleCommand` | `projectMemberId`, `roleId`, `requestedBy`      |
+| `RemoveProjectMemberCommand`     | `projectMemberId`, `requestedBy`                |
+
+**Comandos de documento:**
+
+| Comando                         | Campos                                                |
+|---------------------------------|-------------------------------------------------------|
+| `UploadProjectDocumentCommand`  | `projectId`, `name`, `url`, `mimeType`, `requestedBy` |
+| `ArchiveProjectDocumentCommand` | `documentId`, `requestedBy`                           |
+| `RestoreProjectDocumentCommand` | `documentId`, `requestedBy`                           |
+
+**Comandos de glosario:**
+
+| Comando                              | Campos                                                    |
+|--------------------------------------|-----------------------------------------------------------|
+| `AddGlossaryTermCommand`             | `glossaryId`, `term`, `definition`, `synonyms`, `addedBy` |
+| `UpdateGlossaryTermCommand`          | `termId`, `definition`, `synonyms`, `requestedBy`         |
+| `RemoveGlossaryTermCommand`          | `termId`, `requestedBy`                                   |
+| `UpdateGlossaryTermEmbeddingCommand` | `termId`, `embedding`                                     |
+
+---
+
+**Queries**
+
+Los queries se ubican en `com.kntrosoft.reqsai.workspace.application.queries`.
+
+| Query                          | Campos           | Descripción                                |
+|--------------------------------|------------------|--------------------------------------------|
+| `GetOrganizationQuery`         | `organizationId` | Obtiene los datos de una organización      |
+| `ListOrganizationMembersQuery` | `organizationId` | Lista los miembros de la organización      |
+| `GetProjectQuery`              | `projectId`      | Obtiene los datos completos de un proyecto |
+| `ListProjectsQuery`            | `organizationId` | Lista los proyectos de la organización     |
+| `GetProjectRolesQuery`         | `projectId`      | Lista los roles de un proyecto             |
+| `ListProjectMembersQuery`      | `projectId`      | Lista los miembros asignados al proyecto   |
+| `GetGlossaryQuery`             | `projectId`      | Obtiene el glosario con todos sus términos |
+| `ListProjectDocumentsQuery`    | `projectId`      | Lista los documentos de un proyecto        |
+
+---
+
+**Command Handlers**
+
+Los handlers se ubican en `com.kntrosoft.reqsai.workspace.application.handlers`. Todos son `@Component` con inyección de dependencias y los que modifican estado son `@Transactional`.
+
+---
+
+**`CreateOrganizationCommandHandler`**
+
+Crea la organización y el miembro fundador en una única transacción, luego publica el evento de creación para que Billing asigne el plan gratuito.
+
+| Paso | Acción                                                                                                |
+|------|-------------------------------------------------------------------------------------------------------|
+| 1    | Verifica que el slug no exista; lanza `OrganizationSlugAlreadyExistsException` si falla               |
+| 2    | Crea `Organization` con `PlanLimits` del plan `FREE` (valores por defecto)                            |
+| 3    | Persiste la organización con `OrganizationRepository`                                                 |
+| 4    | Crea `Member` para el `ownerId` con `role=OWNER`, `status=ACTIVE`, `invitedBy=null`, `invitedAt=null` |
+| 5    | Persiste el miembro con `MemberRepository`                                                            |
+| 6    | Publica `OrganizationCreatedEvent`                                                                    |
+
+---
+
+**`InviteMemberCommandHandler`**
+
+Invita a un nuevo miembro validando que no se supere el límite del plan.
+
+| Paso | Acción                                                                                     |
+|------|--------------------------------------------------------------------------------------------|
+| 1    | Recupera la organización; lanza `OrganizationNotFoundException` si no existe               |
+| 2    | Cuenta miembros activos; lanza `MemberPlanLimitExceededException` si se alcanzó el límite  |
+| 3    | Verifica que el usuario no sea ya miembro; lanza `MemberAlreadyExistsException` si existe  |
+| 4    | Crea `Member` con `status=PENDING`, `invitedBy=requestedBy`, `invitedAt=now()`             |
+| 5    | Persiste el miembro con `MemberRepository`                                                 |
+| 6    | Publica `MemberInvitedEvent` para disparar el email de invitación                          |
+
+---
+
+**`CreateProjectCommandHandler`**
+
+Crea el proyecto validando los límites del plan y luego crea automáticamente su glosario vacío.
+
+| Paso | Acción                                                                                      |
+|------|---------------------------------------------------------------------------------------------|
+| 1    | Recupera la organización; lanza `OrganizationNotFoundException` si no existe                |
+| 2    | Cuenta proyectos activos; lanza `ProjectPlanLimitExceededException` si se alcanzó el límite |
+| 3    | Verifica unicidad del nombre en la organización; lanza `ProjectNameAlreadyExistsException`  |
+| 4    | Crea y persiste el `Project` con `ProjectRepository`                                        |
+| 5    | Crea y persiste un `Glossary` vacío asociado al proyecto                                    |
+| 6    | Publica `ProjectCreatedEvent`                                                               |
+| 7    | Despacha `UpdateProjectEmbeddingCommand` (asíncrono) para generar el embedding con IA       |
+
+---
+
+**`ApplyPlanLimitsCommandHandler`**
+
+Escucha los eventos de Billing y actualiza los límites de plan de la organización.
+
+| Paso | Acción                                                                                        |
+|------|-----------------------------------------------------------------------------------------------|
+| 1    | Recupera la organización; lanza `OrganizationNotFoundException` si no existe                  |
+| 2    | Llama a `organization.updateLimits(planLimits)`                                               |
+| 3    | Persiste los cambios con `OrganizationRepository`                                             |
+| 4    | Publica `PlanLimitsUpdatedEvent`                                                              |
+
+---
+
+**`UploadProjectDocumentCommandHandler`**
+
+Registra un documento verificando que no se supere el límite del plan.
+
+| Paso | Acción                                                                                        |
+|------|-----------------------------------------------------------------------------------------------|
+| 1    | Recupera el proyecto; lanza `ProjectNotFoundException` si no existe                           |
+| 2    | Cuenta documentos activos; lanza `DocumentPlanLimitExceededException` si se alcanzó el límite |
+| 3    | Crea y persiste `ProjectDocument` con `ProjectDocumentRepository`                             |
+
+---
+
+**`AddGlossaryTermCommandHandler`**
+
+Agrega un término al glosario verificando el límite del plan y generando el embedding del término.
+
+| Paso | Acción                                                                                     |
+|------|--------------------------------------------------------------------------------------------|
+| 1    | Recupera el `Glossary`; lanza `GlossaryNotFoundException` si no existe                     |
+| 2    | Valida el límite de términos; lanza `GlossaryTermPlanLimitExceededException` si se alcanzó |
+| 3    | Llama a `glossary.addTerm(term, definition, synonyms, addedBy)`                            |
+| 4    | Persiste el glosario con `GlossaryRepository`                                              |
+| 5    | Despacha `UpdateGlossaryTermEmbeddingCommand` (asíncrono) para generar el embedding con IA |
+
+---
+
+**Query Handlers**
+
+La query handlers son `@Transactional(readOnly = true)` y retornan respuestas DTO directamente desde los repositorios JPA.
+
+| Query Handler                         | Descripción                                                               |
+|---------------------------------------|---------------------------------------------------------------------------|
+| `GetOrganizationQueryHandler`         | Busca la organización y mapea a `OrganizationResponse`                    |
+| `ListOrganizationMembersQueryHandler` | Lista los miembros activos y mapea a `List<MemberResponse>`               |
+| `GetProjectQueryHandler`              | Busca el proyecto con sus restricciones y mapea a `ProjectResponse`       |
+| `ListProjectsQueryHandler`            | Lista los proyectos de la organización y mapea a `List<ProjectResponse>`  |
+| `GetProjectRolesQueryHandler`         | Lista los roles del proyecto y mapea a `List<ProjectRoleResponse>`        |
+| `ListProjectMembersQueryHandler`      | Lista los miembros del proyecto y mapea a `List<ProjectMemberResponse>`   |
+| `GetGlossaryQueryHandler`             | Obtiene el glosario con todos sus términos y mapea a `GlossaryResponse`   |
+| `ListProjectDocumentsQueryHandler`    | Lista los documentos activos del proyecto                                 |
+
+---
+
+**Output Ports**
+
+Los puertos de salida se ubican en `com.kntrosoft.reqsai.workspace.application.ports`.
+
+**Repository Ports:**
+
+| Puerto                       | Método principal                                                         |
+|------------------------------|--------------------------------------------------------------------------|
+| `OrganizationRepository`     | `save`, `findById`, `findBySlug`, `countActiveByPlan`                    |
+| `MemberRepository`           | `save`, `findById`, `findByOrganizationIdAndUserId`, `countActiveByOrg`  |
+| `ProjectRepository`          | `save`, `findById`, `findByOrganizationId`, `countActiveByOrg`           |
+| `ProjectRoleRepository`      | `save`, `findById`, `findByProjectId`, `existsByProjectIdAndName`        |
+| `ProjectMemberRepository`    | `save`, `findById`, `findByProjectId`, `existsByProjectIdAndMemberId`    |
+| `ProjectDocumentRepository`  | `save`, `findById`, `findByProjectId`, `countActiveByProject`            |
+| `GlossaryRepository`         | `save`, `findById`, `findByProjectId`, `countTermsByGlossary`            |
+
+**Service Ports:**
+
+| Puerto                         | Método                                      | Descripción                                      |
+|--------------------------------|---------------------------------------------|--------------------------------------------------|
+| `EmbeddingServicePort`         | `generateEmbedding(text): List<Float>`      | Genera el vector embedding de un texto usando IA |
+| `EmailNotificationServicePort` | `sendInvitationEmail(email, orgName, role)` | Envía el email de invitación a un miembro        |
+
 ### 5.3.4. Infrastructure Layer
 
+**JPA Repositories**
+
+Los repositorios JPA se ubican en `com.kntrosoft.reqsai.workspace.infrastructure.persistence.jpa` e implementan las interfaces de puerto mediante Spring Data JPA directamente sobre las entidades de dominio.
+
+| Repositorio JPA                    | Interfaz de dominio implementada    |
+|------------------------------------|-------------------------------------|
+| `OrganizationJpaRepository`        | `OrganizationRepository`            |
+| `MemberJpaRepository`              | `MemberRepository`                  |
+| `ProjectJpaRepository`             | `ProjectRepository`                 |
+| `ProjectRoleJpaRepository`         | `ProjectRoleRepository`             |
+| `ProjectMemberJpaRepository`       | `ProjectMemberRepository`           |
+| `ProjectDocumentJpaRepository`     | `ProjectDocumentRepository`         |
+| `GlossaryJpaRepository`            | `GlossaryRepository`                |
+
+---
+
+**Adapters**
+
+Los adaptadores se ubican en `com.kntrosoft.reqsai.workspace.infrastructure.adapters`.
+
+**`OpenAiEmbeddingAdapter`** — implementa `EmbeddingServicePort`
+
+Genera vectores de embedding usando el modelo `text-embedding-3-small` de OpenAI. Se utiliza para indexar descripciones de proyectos, restricciones técnicas y definiciones de términos del glosario.
+
+| Método                    | Descripción                                                           |
+|---------------------------|-----------------------------------------------------------------------|
+| `generateEmbedding(text)` | Invoca la API de OpenAI Embeddings y retorna `List<Float>` (1536 dim) |
+
+**`SmtpEmailNotificationAdapter`** — implementa `EmailNotificationServicePort`
+
+Envía correos de invitación usando JavaMailSender de Spring. Reutiliza la misma interfaz de puerto definida en IAM BC.
+
+| Método                                      | Descripción                                                    |
+|---------------------------------------------|----------------------------------------------------------------|
+| `sendInvitationEmail(email, orgName, role)` | Construye y envía el correo de invitación a la organización    |
+
+---
+
+**Event Listeners**
+
+Los listeners se ubican en `com.kntrosoft.reqsai.workspace.infrastructure.events` y están anotados con `@ApplicationModuleListener` para procesamiento asíncrono intermódulo.
+
+| Listener                              | Evento escuchado             | Acción despachada                  |
+|---------------------------------------|------------------------------|------------------------------------|
+| `SubscriptionAssignedEventListener`   | `SubscriptionAssignedEvent`  | `ApplyPlanLimitsCommand`           |
+| `SubscriptionUpgradedEventListener`   | `SubscriptionUpgradedEvent`  | `ApplyPlanLimitsCommand`           |
+
+Ambos listeners extraen el `organizationId` y los nuevos `PlanLimits` del evento de Billing y los despachan al `ApplyPlanLimitsCommandHandler` para actualizar la organización correspondiente.
+
 ### 5.3.6. Bounded Context Software Architecture Component Level Diagrams
+
+En esta sección se presenta el diagrama de componentes C4 (Nivel 3) del BC Workspace Management. El container es el módulo Spring Modulith completo. Los componentes reflejan la descomposición por capas, incluyendo los handlers de comandos y consultas para organizaciones, miembros, proyectos, roles, documentos y glosarios, así como los listeners de eventos de Billing para actualización de límites de plan.
+
+![Workspace Component Diagram](assets/diagrams/workspace/workspace-component.png)
 
 ### 5.3.7. Bounded Context Software Architecture Code Level Diagrams
 
 #### 5.3.7.1. Bounded Context Domain Layer Class Diagrams
 
+En esta sección se presenta el diagrama de clases UML del Domain Layer del BC Workspace Management. Incluye los siete Aggregate Roots (`Organization`, `Member`, `Project`, `ProjectRole`, `ProjectMember`, `ProjectDocument`, `Glossary`), los Value Objects (`PlanLimits`, `TechnicalProfile` y sus ID correspondientes), las enumeraciones (`OrgStatus`, `OrgRole`, `MemberStatus`, `ProjectStatus`, `DocumentStatus`, `Permission`), los Domain Events y las dieciocho excepciones de dominio organizadas por jerarquía.
+
+![Workspace Domain Class Diagram](assets/diagrams/workspace/workspace-class.png)
+
 #### 5.3.7.2. Bounded Context Database Design Diagram
+
+En esta sección se presenta el diagrama de base de datos del BC Workspace Management. Incluye nueve tablas relacionadas: `organizations`, `members`, `projects`, `project_constraints`, `project_roles`, `project_members`, `project_documents`, `glossaries` y `glossary_terms`. El VO `PlanLimits` se persiste como columnas embebidas `max_*` en `organizations`. El VO `TechnicalProfile` se persiste como columnas embebidas en `projects`. El glosario mantiene una relación 1:1 con el proyecto y se crea automáticamente al crear el proyecto.
+
+![Workspace Database Diagram](assets/diagrams/workspace/workspace-database.png)
 
 ## 5.4. Bounded Context: Requirement Discovery
 
 ### 5.4.1. Domain Layer
 
+El Bounded Context de Requirement Discovery es el núcleo de inteligencia de la plataforma. Gestiona las sesiones de elicitación (reuniones transcritas), el procesamiento con IA para extraer historias de usuario y criterios de aceptación, y el flujo de revisión por parte del equipo. Consume contexto de Workspace Management (perfil técnico, restricciones, glosario) para enriquecer la generación automática de artefactos.
+
+**Aggregate Roots**
+
+---
+
+**`DiscoverySession`** — tabla: `discovery_sessions`
+
+Representa una sesión de levantamiento de requisitos. Encapsula el ciclo de vida desde la creación de la sesión, la carga del transcript, el procesamiento con IA y la finalización.
+
+| Campo             | Tipo                  | Descripción                                                       |
+|-------------------|-----------------------|-------------------------------------------------------------------|
+| `id`              | `DiscoverySessionId`  | Identificador único de la sesión                                  |
+| `projectId`       | `ProjectId`           | Proyecto al que pertenece la sesión                               |
+| `title`           | `String`              | Título descriptivo de la sesión                                   |
+| `transcript`      | `String?`             | Texto transcrito de la reunión (`null` hasta que se cargue)       |
+| `status`          | `SessionStatus`       | Estado del ciclo de vida de la sesión                             |
+| `processingError` | `String?`             | Mensaje de error cuando `status = FAILED`                         |
+
+| Método                         | Descripción                                                     |
+|--------------------------------|-----------------------------------------------------------------|
+| `uploadTranscript(transcript)` | Carga el texto del transcript; solo permitido en estado `DRAFT` |
+| `startProcessing()`            | Cambia el estado a `PROCESSING`; requiere transcript no nulo    |
+| `complete()`                   | Cambia el estado a `COMPLETED` tras generación exitosa          |
+| `fail(error)`                  | Cambia el estado a `FAILED` y registra el mensaje de error      |
+| `reset()`                      | Regresa al estado `DRAFT` para reprocesar                       |
+
+| Excepción lanzada                    | Condición de disparo                                         |
+|--------------------------------------|--------------------------------------------------------------|
+| `SessionAlreadyProcessingException`  | Se intenta iniciar procesamiento en una sesión ya en proceso |
+| `TranscriptRequiredException`        | Se intenta procesar sin transcript cargado                   |
+
+---
+
+**`UserStory`** — tabla: `user_stories`
+
+Historia de usuario generada por IA a partir de una sesión. El equipo la revisa y puede aprobarla, rechazarla o editar su prioridad y puntos de historia. Compone internamente los criterios de aceptación.
+
+| Campo                | Tipo                        | Descripción                                                     |
+|----------------------|-----------------------------|-----------------------------------------------------------------|
+| `id`                 | `UserStoryId`               | Identificador único de la historia                              |
+| `sessionId`          | `DiscoverySessionId`        | Sesión de origen                                                |
+| `projectId`          | `ProjectId`                 | Proyecto al que pertenece                                       |
+| `title`              | `String`                    | Título breve de la historia                                     |
+| `role`               | `String`                    | Actor beneficiado (ej. "desarrollador", "administrador")        |
+| `action`             | `String`                    | Acción que desea realizar el actor                              |
+| `benefit`            | `String`                    | Beneficio esperado de la acción                                 |
+| `priority`           | `Priority`                  | Prioridad: `LOW`, `MEDIUM`, `HIGH`, `CRITICAL`                  |
+| `storyPoints`        | `Int?`                      | Estimación de esfuerzo en puntos de historia                    |
+| `status`             | `StoryStatus`               | Estado: `DRAFT`, `APPROVED`, `REJECTED`                         |
+| `acceptanceCriteria` | `List<AcceptanceCriterion>` | Criterios de aceptación (entidades compuestas)                  |
+
+| Método                             | Descripción                                                      |
+|------------------------------------|------------------------------------------------------------------|
+| `approve()`                        | Cambia el estado a `APPROVED`; solo desde `DRAFT`                |
+| `reject()`                         | Cambia el estado a `REJECTED`; solo desde `DRAFT`                |
+| `updatePriority(priority)`         | Actualiza la prioridad de la historia                            |
+| `updateStoryPoints(points)`        | Actualiza los puntos de historia estimados                       |
+| `addCriterion(description, type)`  | Agrega un criterio de aceptación                                 |
+| `removeCriterion(criterionId)`     | Elimina un criterio de aceptación existente                      |
+
+| Excepción lanzada                   | Condición de disparo                                             |
+|-------------------------------------|------------------------------------------------------------------|
+| `InvalidStoryTransitionException`   | Se intenta una transición de estado no válida                    |
+
+---
+
+**Entities**
+
+**`AcceptanceCriterion`** — tabla: `acceptance_criteria`
+
+Criterio de aceptación asociado a una historia de usuario. Puede expresarse en formato Gherkin (`GIVEN_WHEN_THEN`) o como ítem de checklist (`CHECKLIST`).
+
+| Campo         | Tipo                    | Descripción                             |
+|---------------|-------------------------|-----------------------------------------|
+| `id`          | `AcceptanceCriterionId` | Identificador único del criterio        |
+| `storyId`     | `UserStoryId`           | Historia de usuario a la que pertenece  |
+| `description` | `String`                | Descripción del criterio de aceptación  |
+| `type`        | `CriterionType`         | Formato: `GIVEN_WHEN_THEN`, `CHECKLIST` |
+
+| Método                      | Descripción                        |
+|-----------------------------|------------------------------------|
+| `update(description, type)` | Actualiza la descripción y el tipo |
+
+---
+
+**Value Objects & Enumeraciones**
+
+| Enumeración     | Valores                                      | Descripción                                     |
+|-----------------|----------------------------------------------|-------------------------------------------------|
+| `SessionStatus` | `DRAFT`, `PROCESSING`, `COMPLETED`, `FAILED` | Ciclo de vida de una sesión de descubrimiento   |
+| `StoryStatus`   | `DRAFT`, `APPROVED`, `REJECTED`              | Estado de revisión de una historia de usuario   |
+| `Priority`      | `LOW`, `MEDIUM`, `HIGH`, `CRITICAL`          | Prioridad de una historia en el backlog         |
+| `CriterionType` | `GIVEN_WHEN_THEN`, `CHECKLIST`               | Formato de expresión del criterio de aceptación |
+
+---
+
+**Domain Exceptions**
+
+Todas las excepciones se ubican en `com.kntrosoft.reqsai.discovery.domain.model.exceptions` y extienden `RuntimeException`.
+
+| Excepción                              | Mensaje representativo                                          |
+|----------------------------------------|-----------------------------------------------------------------|
+| `DiscoverySessionNotFoundException`    | `"Discovery session not found: {id}"`                           |
+| `SessionAlreadyProcessingException`    | `"Session is already being processed"`                          |
+| `TranscriptRequiredException`          | `"A transcript must be uploaded before processing can start"`   |
+| `TokenQuotaExceededException`          | `"Monthly token quota has been exceeded for this organization"` |
+| `UserStoryNotFoundException`           | `"User story not found: {id}"`                                  |
+| `AcceptanceCriterionNotFoundException` | `"Acceptance criterion not found: {id}"`                        |
+| `InvalidStoryTransitionException`      | `"Cannot transition story from {current} to {target}"`          |
+
+---
+
+**Domain Events**
+
+Todos los eventos se ubican en `com.kntrosoft.reqsai.discovery.domain.events`.
+
+| Evento                          | Campos principales                     | Consumidor                                                 |
+|---------------------------------|----------------------------------------|------------------------------------------------------------|
+| `SessionProcessingStartedEvent` | `sessionId`, `projectId`               | Infraestructura → disparo asíncrono de la extracción       |
+| `UserStoriesGeneratedEvent`     | `sessionId`, `projectId`, `storyCount` | Infraestructura → notificación a los miembros del proyecto |
+| `AiTokensConsumedEvent`         | `organizationId`, `tokensConsumed`     | Billing BC → `IncrementTokenUsageCommand`                  |
+
 ### 5.4.2. Interface Layer
+
+**Controladores REST**
+
+El paquete raíz de la capa de interfaz es `com.kntrosoft.reqsai.discovery.interfaces.rest`. Todos los endpoints requieren el header `Authorization: Bearer <token>`.
+
+---
+
+**`DiscoverySessionController`** — `/api/v1/projects/{projectId}/sessions`
+
+| Método   | Ruta                          | Descripción                                                               |
+|----------|-------------------------------|---------------------------------------------------------------------------|
+| `POST`   | `/`                           | Crea una nueva sesión de descubrimiento en estado `DRAFT`                 |
+| `GET`    | `/`                           | Lista las sesiones del proyecto                                           |
+| `GET`    | `/{sessionId}`                | Obtiene los datos de una sesión                                           |
+| `POST`   | `/{sessionId}/transcript`     | Carga o reemplaza el transcript de la sesión                              |
+| `POST`   | `/{sessionId}/process`        | Inicia el procesamiento con IA para generar historias de usuario          |
+| `POST`   | `/{sessionId}/reset`          | Regresa la sesión a estado `DRAFT` para reprocesar                        |
+
+---
+
+**`UserStoryController`** — `/api/v1/sessions/{sessionId}/stories`
+
+| Método   | Ruta                         | Descripción                                                              |
+|----------|------------------------------|--------------------------------------------------------------------------|
+| `GET`    | `/`                          | Lista las historias de usuario de la sesión                              |
+| `GET`    | `/{storyId}`                 | Obtiene una historia de usuario con sus criterios de aceptación          |
+| `POST`   | `/{storyId}/approve`         | Aprueba una historia de usuario                                          |
+| `POST`   | `/{storyId}/reject`          | Rechaza una historia de usuario                                          |
+| `PATCH`  | `/{storyId}/priority`        | Actualiza la prioridad de la historia                                    |
+| `PATCH`  | `/{storyId}/story-points`    | Actualiza los puntos de historia estimados                               |
+| `POST`   | `/{storyId}/criteria`        | Agrega un criterio de aceptación a la historia                           |
+| `PATCH`  | `/{storyId}/criteria/{id}`   | Actualiza un criterio de aceptación                                      |
+| `DELETE` | `/{storyId}/criteria/{id}`   | Elimina un criterio de aceptación                                        |
+
+**Request/Response DTOs**
+
+Los DTOs se ubican en `com.kntrosoft.reqsai.discovery.interfaces.rest.dto`.
+
+| DTO                             | Tipo     | Campos principales                                                                                    |
+|---------------------------------|----------|-------------------------------------------------------------------------------------------------------|
+| `CreateSessionRequest`          | Request  | `title: String`                                                                                       |
+| `UploadTranscriptRequest`       | Request  | `transcript: String`                                                                                  |
+| `UpdatePriorityRequest`         | Request  | `priority: Priority`                                                                                  |
+| `UpdateStoryPointsRequest`      | Request  | `storyPoints: Int`                                                                                    |
+| `AddAcceptanceCriterionRequest` | Request  | `description: String`, `type: CriterionType`                                                          |
+| `DiscoverySessionResponse`      | Response | `id`, `projectId`, `title`, `status`, `processingError`                                               |
+| `UserStoryResponse`             | Response | `id`, `title`, `role`, `action`, `benefit`, `priority`, `storyPoints`, `status`, `acceptanceCriteria` |
 
 ### 5.4.3. Application Layer
 
+**Commands**
+
+Los comandos se ubican en `com.kntrosoft.reqsai.discovery.application.commands`.
+
+| Comando                              | Campos                                                |
+|--------------------------------------|-------------------------------------------------------|
+| `CreateDiscoverySessionCommand`      | `projectId`, `title`, `requestedBy`                   |
+| `UploadSessionTranscriptCommand`     | `sessionId`, `transcript`, `requestedBy`              |
+| `StartDiscoveryProcessingCommand`    | `sessionId`, `requestedBy`                            |
+| `ResetDiscoverySessionCommand`       | `sessionId`, `requestedBy`                            |
+| `ApproveUserStoryCommand`            | `storyId`, `requestedBy`                              |
+| `RejectUserStoryCommand`             | `storyId`, `requestedBy`                              |
+| `UpdateUserStoryPriorityCommand`     | `storyId`, `priority`, `requestedBy`                  |
+| `UpdateStoryPointsCommand`           | `storyId`, `storyPoints`, `requestedBy`               |
+| `AddAcceptanceCriterionCommand`      | `storyId`, `description`, `type`, `requestedBy`       |
+| `UpdateAcceptanceCriterionCommand`   | `criterionId`, `description`, `type`, `requestedBy`   |
+| `RemoveAcceptanceCriterionCommand`   | `criterionId`, `requestedBy`                          |
+
+---
+
+**Queries**
+
+Los queries se ubican en `com.kntrosoft.reqsai.discovery.application.queries`.
+
+| Query                         | Campos          | Descripción                                                         |
+|-------------------------------|-----------------|---------------------------------------------------------------------|
+| `ListDiscoverySessionsQuery`  | `projectId`     | Lista todas las sesiones de un proyecto                             |
+| `GetDiscoverySessionQuery`    | `sessionId`     | Obtiene los datos completos de una sesión                           |
+| `ListUserStoriesQuery`        | `sessionId`     | Lista las historias de usuario generadas en una sesión              |
+| `GetUserStoryQuery`           | `storyId`       | Obtiene una historia con sus criterios de aceptación                |
+
+---
+
+**Command Handlers**
+
+Los handlers se ubican en `com.kntrosoft.reqsai.discovery.application.handlers`.
+
+---
+
+**`StartDiscoveryProcessingCommandHandler`**
+
+Orquesta el procesamiento con IA: válida el estado de la sesión, enriquece el prompt con contexto del proyecto, invoca la extracción y persiste las historias generadas.
+
+| Paso | Acción                                                                                                     |
+|------|------------------------------------------------------------------------------------------------------------|
+| 1    | Recupera la sesión; lanza `DiscoverySessionNotFoundException` si no existe                                 |
+| 2    | Verifica que `transcript != null`; lanza `TranscriptRequiredException` si está vacío                       |
+| 3    | Llama a `session.startProcessing()`; lanza `SessionAlreadyProcessingException` si aplica                   |
+| 4    | Persiste el estado `PROCESSING` con `DiscoverySessionRepository`                                           |
+| 5    | Recupera el contexto del proyecto vía `ProjectContextPort` (perfil técnico, restricciones, glosario)       |
+| 6    | Invoca `RequirementExtractionPort.extract(transcript, projectContext)`; obtiene `ExtractionResult`         |
+| 7    | Por cada historia en `ExtractionResult.stories`: crea `UserStory` con sus `AcceptanceCriterion` y persiste |
+| 8    | Publica `AiTokensConsumedEvent` con los tokens consumidos según `ExtractionResult.tokensUsed`              |
+| 9    | Llama a `session.complete()` y persiste el estado final                                                    |
+| 10   | Publica `UserStoriesGeneratedEvent`                                                                        |
+
+Si el paso 6 lanza `TokenQuotaExceededException`: llama a `session.fail("Token quota exceeded")`, persiste y propaga la excepción.
+
+---
+
+**`CreateDiscoverySessionCommandHandler`**
+
+| Paso | Acción                                                                                     |
+|------|--------------------------------------------------------------------------------------------|
+| 1    | Crea `DiscoverySession` con `status=DRAFT` y `transcript=null`                             |
+| 2    | Persiste con `DiscoverySessionRepository`                                                  |
+
+---
+
+**`ApproveUserStoryCommandHandler`**
+
+| Paso | Acción                                                                                     |
+|------|--------------------------------------------------------------------------------------------|
+| 1    | Recupera la historia; lanza `UserStoryNotFoundException` si no existe                      |
+| 2    | Llama a `story.approve()`; lanza `InvalidStoryTransitionException` si no está en `DRAFT`   |
+| 3    | Persiste con `UserStoryRepository`                                                         |
+
+---
+
+**Query Handlers**
+
+Los query handlers son `@Transactional(readOnly = true)`.
+
+| Query Handler                       | Descripción                                                                  |
+|-------------------------------------|------------------------------------------------------------------------------|
+| `ListDiscoverySessionsQueryHandler` | Lista las sesiones de un proyecto y mapea a `List<DiscoverySessionResponse>` |
+| `GetDiscoverySessionQueryHandler`   | Obtiene una sesión y mapea a `DiscoverySessionResponse`                      |
+| `ListUserStoriesQueryHandler`       | Lista las historias de una sesión y mapea a `List<UserStoryResponse>`        |
+| `GetUserStoryQueryHandler`          | Obtiene una historia con sus criterios y mapea a `UserStoryResponse`         |
+
+---
+
+**Output Ports**
+
+Los puertos de salida se ubican en `com.kntrosoft.reqsai.discovery.application.ports`.
+
+**Repository Ports:**
+
+| Puerto                       | Métodos principales                                                 |
+|------------------------------|---------------------------------------------------------------------|
+| `DiscoverySessionRepository` | `save`, `findById`, `findByProjectId`                               |
+| `UserStoryRepository`        | `save`, `findById`, `findBySessionId`, `saveAll`                    |
+
+**Service Ports:**
+
+| Puerto                      | Método                                           | Descripción                                                         |
+|-----------------------------|--------------------------------------------------|---------------------------------------------------------------------|
+| `RequirementExtractionPort` | `extract(transcript, context): ExtractionResult` | Envía el transcript y contexto a la IA y retorna historias + tokens |
+| `ProjectContextPort`        | `getContext(projectId): ProjectContext`          | Obtiene perfil técnico, restricciones y términos del glosario       |
+
+`ExtractionResult` es un record con `stories: List<GeneratedStory>` y `tokensUsed: Long`. `GeneratedStory` contiene título, rol, acción, beneficio y criterios de aceptación en texto plano. `ProjectContext` es un record con `TechnicalProfile`, `List<String>` de restricciones y `Map<String, String>` de términos del glosario (término → definición).
+
 ### 5.4.4. Infrastructure Layer
 
+**JPA Repositories**
+
+Los repositorios JPA se ubican en `com.kntrosoft.reqsai.discovery.infrastructure.persistence.jpa`.
+
+| Repositorio JPA                   | Interfaz de dominio implementada  |
+|-----------------------------------|-----------------------------------|
+| `DiscoverySessionJpaRepository`   | `DiscoverySessionRepository`      |
+| `UserStoryJpaRepository`          | `UserStoryRepository`             |
+
+---
+
+**Adapters**
+
+Los adaptadores se ubican en `com.kntrosoft.reqsai.discovery.infrastructure.adapters`.
+
+**`OpenAiRequirementExtractionAdapter`** — implementa `RequirementExtractionPort`
+
+Invoca la API de OpenAI (modelo GPT-4o) con un prompt estructurado que incluye el transcript y el contexto del proyecto. El prompt instruye al modelo para que devuelva las historias en formato JSON estructurado con título, rol, acción, beneficio y criterios de aceptación.
+
+| Método                         | Descripción                                                                    |
+|--------------------------------|--------------------------------------------------------------------------------|
+| `extract(transcript, context)` | Construye el prompt, invoca OpenAI Chat Completions y parsea el JSON retornado |
+
+La respuesta JSON del modelo se parsea a `ExtractionResult`. Los tokens utilizados se extraen del campo `usage.total_tokens` de la respuesta de la API.
+
+**`WorkspaceContextAdapter`** — implementa `ProjectContextPort`
+
+Consulta directamente los repositorios JPA de Workspace Management para obtener el contexto del proyecto. Al ser módulos del mismo servicio Spring, el acceso es directo sin llamada HTTP.
+
+| Método                  | Descripción                                                                        |
+|-------------------------|------------------------------------------------------------------------------------|
+| `getContext(projectId)` | Obtiene `TechnicalProfile` del proyecto, sus restricciones y términos del glosario |
+
+---
+
+**Event Listeners**
+
+Los listeners se ubican en `com.kntrosoft.reqsai.discovery.infrastructure.events` y están anotados con `@ApplicationModuleListener`.
+
+| Listener                          | Evento escuchado          | Acción                                                                                                  |
+|-----------------------------------|---------------------------|---------------------------------------------------------------------------------------------------------|
+| `TokenQuotaExceededEventListener` | `TokenQuotaExceededEvent` | Falla todas las sesiones en estado `PROCESSING` de la organización con mensaje `"Token quota exceeded"` |
+| `AiTokensConsumedEventListener`   | `AiTokensConsumedEvent`   | Despacha `IncrementTokenUsageCommand` al handler de Billing BC                                          |
+
 ### 5.4.6. Bounded Context Software Architecture Component Level Diagrams
+
+En esta sección se presenta el diagrama de componentes C4 (Nivel 3) del BC Requirement Discovery. El container es el módulo Spring Modulith completo. Los componentes reflejan la descomposición por capas, incluyendo el pipeline de procesamiento con IA (transcripción → generación de historias → criterios de aceptación), los ports de integración con el LLM/STT y los listeners de eventos de Billing para control de cuota de tokens.
+
+![Discovery Component Diagram](assets/diagrams/discovery/discovery-component.png)
 
 ### 5.4.7. Bounded Context Software Architecture Code Level Diagrams
 
 #### 5.4.7.1. Bounded Context Domain Layer Class Diagrams
 
+En esta sección se presenta el diagrama de clases UML del Domain Layer del BC Requirement Discovery. Incluye los dos Aggregate Roots (`DiscoverySession`, `UserStory`), la entidad `AcceptanceCriterion` (pertenece a `UserStory`), los Value Objects de identidad, las enumeraciones (`SessionStatus`, `StoryStatus`, `Priority`, `CriterionType`), los Domain Events internos y el evento `AiTokensConsumedEvent` publicado al Api package para que Billing BC actualice el consumo de tokens.
+
+![Discovery Domain Class Diagram](assets/diagrams/discovery/discovery-class.png)
+
 #### 5.4.7.2. Bounded Context Database Design Diagram
+
+En esta sección se presenta el diagrama de base de datos del BC Requirement Discovery. Incluye tres tablas relacionadas: `discovery_sessions`, `user_stories` y `acceptance_criteria`. La tabla `project_id` en `discovery_sessions` es una referencia lógica al BC Workspace (sin FK física, BC aislados). Los criterios de aceptación se almacenan como filas en su propia tabla con su tipo (`GIVEN_WHEN_THEN` o `CHECKLIST`), en lugar de JSON embebido.
+
+![Discovery Database Diagram](assets/diagrams/discovery/discovery-database.png)
 
 ## 5.5. Bounded Context: Integration Gateway
 
 ### 5.5.1. Domain Layer
 
+El Bounded Context de Integration Gateway gestiona las integraciones de Reqs-AI con herramientas externas de gestión de proyectos, principalmente Jira. Permite exportar las historias de usuario aprobadas como issues al backlog del equipo y sincronizar el estado de dichos issues de vuelta a la plataforma. Este BC actúa como anticorruption layer entre el dominio de Reqs-AI y los modelos de datos de herramientas externas.
+
+**Aggregate Roots**
+
+---
+
+**`Integration`** — tabla: `integrations`
+
+Representa la conexión configurada entre un proyecto de Reqs-AI y una herramienta externa. Almacena las credenciales de acceso de forma encriptada y el mapeo de configuración necesario para la exportación.
+
+| Campo            | Tipo                  | Descripción                                               |
+|------------------|-----------------------|-----------------------------------------------------------|
+| `id`             | `IntegrationId`       | Identificador único de la integración                     |
+| `projectId`      | `ProjectId`           | Proyecto de Reqs-AI asociado                              |
+| `provider`       | `IntegrationProvider` | Proveedor externo: `JIRA`, `TRELLO`, `LINEAR`             |
+| `status`         | `IntegrationStatus`   | Estado: `ACTIVE`, `INACTIVE`, `ERROR`                     |
+| `config`         | `IntegrationConfig`   | Configuración de conexión (URL, proyecto destino, mapeos) |
+| `encryptedToken` | `String`              | Token de acceso OAuth encriptado con AES                  |
+
+| Método                        | Descripción                                     |
+|-------------------------------|-------------------------------------------------|
+| `activate()`                  | Cambia el estado a `ACTIVE`                     |
+| `deactivate()`                | Cambia el estado a `INACTIVE`                   |
+| `markError(reason)`           | Cambia el estado a `ERROR` y registra el motivo |
+| `updateConfig(config)`        | Actualiza la configuración de conexión          |
+| `rotateToken(encryptedToken)` | Rota el token de acceso almacenado              |
+
+| Excepción lanzada                   | Condición de disparo                                          |
+|-------------------------------------|---------------------------------------------------------------|
+| `IntegrationAlreadyExistsException` | Ya existe una integración activa para el proveedor y proyecto |
+| `IntegrationInactiveException`      | Se intenta exportar con una integración desactivada           |
+
+---
+
+**`ExportRecord`** — tabla: `export_records`
+
+Registra cada exportación de una historia de usuario hacia la herramienta externa. Mantiene la referencia al issue externo creado para permitir sincronización posterior.
+
+| Campo             | Tipo             | Descripción                                                     |
+|-------------------|------------------|-----------------------------------------------------------------|
+| `id`              | `ExportRecordId` | Identificador único del registro de exportación                 |
+| `integrationId`   | `IntegrationId`  | Integración usada para la exportación                           |
+| `storyId`         | `UserStoryId`    | Historia de usuario exportada                                   |
+| `externalIssueId` | `String`         | ID del issue en la herramienta externa (ej. `PROJ-123` en Jira) |
+| `externalUrl`     | `String`         | URL pública del issue externo                                   |
+| `status`          | `ExportStatus`   | Estado: `PENDING`, `EXPORTED`, `SYNCED`, `FAILED`               |
+| `failureReason`   | `String?`        | Motivo del fallo cuando `status = FAILED`                       |
+
+| Método                       | Descripción                                                |
+|------------------------------|------------------------------------------------------------|
+| `markExported(issueId, url)` | Registra el ID y URL del issue creado, cambia a `EXPORTED` |
+| `markSynced()`               | Cambia el estado a `SYNCED` tras sincronización exitosa    |
+| `markFailed(reason)`         | Cambia el estado a `FAILED` y registra el motivo           |
+
+| Excepción lanzada                  | Condición de disparo                                           |
+|------------------------------------|----------------------------------------------------------------|
+| `StoryAlreadyExportedException`    | La historia ya tiene un registro de exportación exitoso        |
+
+---
+
+**Value Objects & Enumeraciones**
+
+**`IntegrationConfig`** — `com.kntrosoft.reqsai.gateway.domain.model.valueobjects`
+
+Value Object inmutable que encapsula la configuración específica de cada integración.
+
+| Campo              | Tipo                  | Descripción                                                              |
+|--------------------|-----------------------|--------------------------------------------------------------------------|
+| `baseUrl`          | `String`              | URL base de la instancia del proveedor (ej. `https://org.atlassian.net`) |
+| `projectKey`       | `String`              | Clave del proyecto destino en la herramienta externa                     |
+| `issueTypeMapping` | `Map<String, String>` | Mapeo de tipos de historia a tipos de issue del proveedor                |
+
+| Enumeración           | Valores                                   | Descripción                           |
+|-----------------------|-------------------------------------------|---------------------------------------|
+| `IntegrationProvider` | `JIRA`, `TRELLO`, `LINEAR`                | Proveedores de integración soportados |
+| `IntegrationStatus`   | `ACTIVE`, `INACTIVE`, `ERROR`             | Estado operativo de la integración    |
+| `ExportStatus`        | `PENDING`, `EXPORTED`, `SYNCED`, `FAILED` | Estado del ciclo de exportación       |
+
+---
+
+**Domain Exceptions**
+
+Todas las excepciones se ubican en `com.kntrosoft.reqsai.gateway.domain.model.exceptions` y extienden `RuntimeException`.
+
+| Excepción                           | Mensaje representativo                                                                  |
+|-------------------------------------|-----------------------------------------------------------------------------------------|
+| `IntegrationNotFoundException`      | `"Integration not found: {id}"`                                                         |
+| `IntegrationAlreadyExistsException` | `"An active integration already exists for provider {provider} in project {projectId}"` |
+| `IntegrationInactiveException`      | `"Integration is not active"`                                                           |
+| `ExportRecordNotFoundException`     | `"Export record not found: {id}"`                                                       |
+| `StoryAlreadyExportedException`     | `"Story {storyId} has already been exported"`                                           |
+| `ExternalProviderException`         | `"External provider returned error: {message}"`                                         |
+
+---
+
+**Domain Events**
+
+Todos los eventos se ubican en `com.kntrosoft.reqsai.gateway.domain.events`.
+
+| Evento                      | Campos principales                               | Consumidor                                         |
+|-----------------------------|--------------------------------------------------|----------------------------------------------------|
+| `StoryExportedEvent`        | `exportRecordId`, `storyId`, `externalIssueId`   | Infraestructura → notificación al usuario          |
+| `ExportFailedEvent`         | `exportRecordId`, `storyId`, `reason`            | Infraestructura → alerta al usuario del fallo      |
+
 ### 5.5.2. Interface Layer
+
+**Controladores REST**
+
+El paquete raíz de la capa de interfaz es `com.kntrosoft.reqsai.gateway.interfaces.rest`. Todos los endpoints requieren el header `Authorization: Bearer <token>`.
+
+---
+
+**`IntegrationController`** — `/api/v1/projects/{projectId}/integrations`
+
+| Método   | Ruta                          | Descripción                                                  |
+|----------|-------------------------------|--------------------------------------------------------------|
+| `POST`   | `/`                           | Configura una nueva integración para el proyecto             |
+| `GET`    | `/`                           | Lista las integraciones del proyecto                         |
+| `GET`    | `/{integrationId}`            | Obtiene los datos de una integración                         |
+| `PATCH`  | `/{integrationId}`            | Actualiza la configuración o rota el token de la integración |
+| `POST`   | `/{integrationId}/activate`   | Activa una integración desactivada                           |
+| `POST`   | `/{integrationId}/deactivate` | Desactiva una integración activa                             |
+| `DELETE` | `/{integrationId}`            | Elimina la integración                                       |
+
+---
+
+**`ExportController`** — `/api/v1/integrations/{integrationId}/exports`
+
+| Método   | Ruta                   | Descripción                                                              |
+|----------|------------------------|--------------------------------------------------------------------------|
+| `POST`   | `/`                    | Exporta una o varias historias aprobadas al proveedor externo            |
+| `GET`    | `/`                    | Lista los registros de exportación de la integración                     |
+| `GET`    | `/{exportId}`          | Obtiene los detalles de un registro de exportación                       |
+| `POST`   | `/{exportId}/sync`     | Sincroniza el estado del issue externo con el registro local             |
+
+---
+
+**`WebhookController`** — `/api/v1/webhooks/integrations`
+
+Recibe notificaciones entrantes de los proveedores externos (ej. cambio de estado de un issue en Jira). No requiere autenticación Bearer; válida la firma del webhook del proveedor.
+
+| Método | Ruta    | Descripción                                                                         |
+|--------|---------|-------------------------------------------------------------------------------------|
+| `POST` | `/jira` | Recibe eventos de Jira (issue updated, issue deleted) y actualiza el `ExportRecord` |
+
+**Request/Response DTOs**
+
+Los DTOs se ubican en `com.kntrosoft.reqsai.gateway.interfaces.rest.dto`.
+
+| DTO                        | Tipo     | Campos principales                                                               |
+|----------------------------|----------|----------------------------------------------------------------------------------|
+| `CreateIntegrationRequest` | Request  | `provider: IntegrationProvider`, `config: IntegrationConfigDto`, `token: String` |
+| `UpdateIntegrationRequest` | Request  | `config: IntegrationConfigDto?`, `token: String?`                                |
+| `ExportStoriesRequest`     | Request  | `storyIds: List<String>`                                                         |
+| `IntegrationResponse`      | Response | `id`, `projectId`, `provider`, `status`, `config`                                |
+| `ExportRecordResponse`     | Response | `id`, `storyId`, `externalIssueId`, `externalUrl`, `status`                      |
 
 ### 5.5.3. Application Layer
 
+**Commands**
+
+Los comandos se ubican en `com.kntrosoft.reqsai.gateway.application.commands`.
+
+| Comando                          | Campos                                                             |
+|----------------------------------|--------------------------------------------------------------------|
+| `CreateIntegrationCommand`       | `projectId`, `provider`, `config`, `encryptedToken`, `requestedBy` |
+| `UpdateIntegrationCommand`       | `integrationId`, `config?`, `encryptedToken?`, `requestedBy`       |
+| `ActivateIntegrationCommand`     | `integrationId`, `requestedBy`                                     |
+| `DeactivateIntegrationCommand`   | `integrationId`, `requestedBy`                                     |
+| `DeleteIntegrationCommand`       | `integrationId`, `requestedBy`                                     |
+| `ExportStoriesToProviderCommand` | `integrationId`, `storyIds`, `requestedBy`                         |
+| `SyncExportRecordCommand`        | `exportRecordId`                                                   |
+
+---
+
+**Queries**
+
+Los queries se ubican en `com.kntrosoft.reqsai.gateway.application.queries`.
+
+| Query                    | Campos           | Descripción                                           |
+|--------------------------|------------------|-------------------------------------------------------|
+| `ListIntegrationsQuery`  | `projectId`      | Lista las integraciones de un proyecto                |
+| `GetIntegrationQuery`    | `integrationId`  | Obtiene los datos de una integración                  |
+| `ListExportRecordsQuery` | `integrationId`  | Lista los registros de exportación de una integración |
+| `GetExportRecordQuery`   | `exportRecordId` | Obtiene los detalles de un registro de exportación    |
+
+---
+
+**Command Handlers**
+
+Los handlers se ubican en `com.kntrosoft.reqsai.gateway.application.handlers`.
+
+---
+
+**`CreateIntegrationCommandHandler`**
+
+| Paso | Acción                                                                                                       |
+|------|--------------------------------------------------------------------------------------------------------------|
+| 1    | Verifica que no exista una integración activa del mismo proveedor; lanza `IntegrationAlreadyExistsException` |
+| 2    | Encripta el token con `TokenEncryptionPort.encrypt(token)`                                                   |
+| 3    | Crea y persiste `Integration` con `status=ACTIVE`                                                            |
+
+---
+
+**`ExportStoriesToProviderCommandHandler`**
+
+Orquesta la exportación de un conjunto de historias aprobadas al proveedor externo. Cada historia genera un `ExportRecord` individual.
+
+| Paso | Acción                                                                                                             |
+|------|--------------------------------------------------------------------------------------------------------------------|
+| 1    | Recupera la integración; lanza `IntegrationNotFoundException` si no existe                                         |
+| 2    | Verifica `status=ACTIVE`; lanza `IntegrationInactiveException` si aplica                                           |
+| 3    | Desencripta el token con `TokenEncryptionPort.decrypt(encryptedToken)`                                             |
+| 4    | Por cada `storyId`: verifica que no exista `ExportRecord` exitoso; lanza `StoryAlreadyExportedException` si aplica |
+| 5    | Recupera los datos de la historia vía `UserStoryPort.getStory(storyId)`                                            |
+| 6    | Invoca `ExternalProviderPort.createIssue(story, integration)` para crear el issue                                  |
+| 7    | Crea y persiste `ExportRecord` con `status=EXPORTED` y el `externalIssueId` retornado                              |
+| 8    | Publica `StoryExportedEvent`                                                                                       |
+
+Si el paso 6 lanza error: persiste `ExportRecord` con `status=FAILED` y pública `ExportFailedEvent`.
+
+---
+
+**`SyncExportRecordCommandHandler`**
+
+| Paso | Acción                                                                                           |
+|------|--------------------------------------------------------------------------------------------------|
+| 1    | Recupera el `ExportRecord`; lanza `ExportRecordNotFoundException` si no existe                   |
+| 2    | Invoca `ExternalProviderPort.getIssueStatus(externalIssueId, integration)`                       |
+| 3    | Actualiza el estado del `ExportRecord` a `SYNCED`                                                |
+
+---
+
+**Query Handlers**
+
+Los query handlers son `@Transactional(readOnly = true)`.
+
+| Query Handler                   | Descripción                                                                |
+|---------------------------------|----------------------------------------------------------------------------|
+| `ListIntegrationsQueryHandler`  | Lista las integraciones del proyecto y mapea a `List<IntegrationResponse>` |
+| `GetIntegrationQueryHandler`    | Obtiene una integración y mapea a `IntegrationResponse`                    |
+| `ListExportRecordsQueryHandler` | Lista los registros de exportación y mapea a `List<ExportRecordResponse>`  |
+| `GetExportRecordQueryHandler`   | Obtiene un registro y mapea a `ExportRecordResponse`                       |
+
+---
+
+**Output Ports**
+
+Los puertos de salida se ubican en `com.kntrosoft.reqsai.gateway.application.ports`.
+
+**Repository Ports:**
+
+| Puerto                   | Métodos principales                                                    |
+|--------------------------|------------------------------------------------------------------------|
+| `IntegrationRepository`  | `save`, `findById`, `findByProjectId`, `existsByProjectAndProvider`    |
+| `ExportRecordRepository` | `save`, `findById`, `findByIntegrationId`, `existsByStoryIdAndSuccess` |
+
+**Service Ports:**
+
+| Puerto                 | Método                                         | Descripción                                                     |
+|------------------------|------------------------------------------------|-----------------------------------------------------------------|
+| `ExternalProviderPort` | `createIssue(story, integration): String`      | Crea un issue en el proveedor externo y retorna el ID externo   |
+| `ExternalProviderPort` | `getIssueStatus(issueId, integration): String` | Consulta el estado actual de un issue en el proveedor           |
+| `TokenEncryptionPort`  | `encrypt(token): String`                       | Encripta el token de acceso con AES antes de persistir          |
+| `TokenEncryptionPort`  | `decrypt(encryptedToken): String`              | Desencripta el token para usarlo en llamadas al proveedor       |
+| `UserStoryPort`        | `getStory(storyId): StoryDto`                  | Obtiene los datos de una historia de usuario desde Discovery BC |
+
 ### 5.5.4. Infrastructure Layer
 
+**JPA Repositories**
+
+Los repositorios JPA se ubican en `com.kntrosoft.reqsai.gateway.infrastructure.persistence.jpa`.
+
+| Repositorio JPA                | Interfaz de dominio implementada |
+|--------------------------------|----------------------------------|
+| `IntegrationJpaRepository`     | `IntegrationRepository`          |
+| `ExportRecordJpaRepository`    | `ExportRecordRepository`         |
+
+---
+
+**Adapters**
+
+Los adaptadores se ubican en `com.kntrosoft.reqsai.gateway.infrastructure.adapters`.
+
+**`JiraProviderAdapter`** — implementa `ExternalProviderPort` para `provider=JIRA`
+
+Utiliza la API REST de Jira Cloud para crear issues y consultar su estado. El anticorruption layer traduce el modelo de `UserStory` de Reqs-AI al modelo de issue de Jira.
+
+| Método                                 | Descripción                                                                 |
+|----------------------------------------|-----------------------------------------------------------------------------|
+| `createIssue(story, integration)`      | Mapea la historia al formato de Jira y llama a `POST /rest/api/3/issue`     |
+| `getIssueStatus(issueId, integration)` | Consulta `GET /rest/api/3/issue/{issueId}` y retorna el campo `status.name` |
+
+**`AesTokenEncryptionAdapter`** — implementa `TokenEncryptionPort`
+
+Encripta y desencripta tokens OAuth usando AES-256-GCM. La clave de encriptación se inyecta desde configuración de entorno (`ENCRYPTION_KEY`).
+
+| Método                    | Descripción                                                    |
+|---------------------------|----------------------------------------------------------------|
+| `encrypt(token)`          | Encripta el token y retorna el ciphertext en Base64            |
+| `decrypt(encryptedToken)` | Desencripta el ciphertext y retorna el token original          |
+
+**`DiscoveryUserStoryAdapter`** — implementa `UserStoryPort`
+
+Accede directamente a los repositorios JPA de Requirement Discovery para obtener los datos de una historia sin llamada HTTP, aprovechando la co-ubicación en el mismo servicio Spring.
+
+| Método                  | Descripción                                                          |
+|-------------------------|----------------------------------------------------------------------|
+| `getStory(storyId)`     | Busca la historia y sus criterios de aceptación y mapea a `StoryDto` |
+
+---
+
+**Configuración de infraestructura:**
+
+| Clase                        | Propósito                                                                                           |
+|------------------------------|-----------------------------------------------------------------------------------------------------|
+| `JiraWebhookSecurityFilter`  | Valida la firma HMAC-SHA256 del header `X-Hub-Signature` en las notificaciones entrantes de Jira    |
+| `IntegrationProviderFactory` | Fábrica que retorna el `ExternalProviderPort` correcto según el `IntegrationProvider` del aggregate |
+
 ### 5.5.6. Bounded Context Software Architecture Component Level Diagrams
+
+En esta sección se presenta el diagrama de componentes C4 (Nivel 3) del BC Integration Gateway. El container es el módulo Spring Modulith completo. Los componentes reflejan la descomposición por capas, incluyendo los handlers de comandos para crear y gestionar integraciones y exportaciones, el `IntegrationProviderFactory` que abstrae los proveedores externos (Jira, Trello, Linear) y los adapters de infraestructura para comunicación con las API externas.
+
+![Gateway Component Diagram](assets/diagrams/gateway/gateway-component.png)
 
 ### 5.5.7. Bounded Context Software Architecture Code Level Diagrams
 
 #### 5.5.7.1. Bounded Context Domain Layer Class Diagrams
 
+En esta sección se presenta el diagrama de clases UML del Domain Layer del BC Integration Gateway. Incluye los dos Aggregate Roots (`Integration`, `ExportRecord`), el Value Object `IntegrationConfig` (con `baseUrl`, `projectKey` e `issueTypeMapping`), las enumeraciones (`IntegrationProvider` con JIRA/TRELLO/LINEAR, `IntegrationStatus`, `ExportStatus`), los Domain Events y las excepciones de dominio. El BC es agnóstico al proveedor concreto gracias al patrón Strategy implementado via `IntegrationProvider`.
+
+![Gateway Domain Class Diagram](assets/diagrams/gateway/gateway-class.png)
+
 #### 5.5.7.2. Bounded Context Database Design Diagram
+
+En esta sección se presenta el diagrama de base de datos del BC Integration Gateway. Incluye dos tablas: `integrations` y `export_records`. El VO `IntegrationConfig` se persiste como columnas embebidas (`base_url`, `project_key`, `issue_type_mapping`). El token de autenticación se almacena cifrado en reposo (AES-256) en la columna `encrypted_token`. Las referencias a proyectos (Workspace BC) y a historias (Discovery BC) son lógicas, sin FK físicas entre BC.
+
+![Gateway Database Diagram](assets/diagrams/gateway/gateway-database.png)
 
 # Capítulo VI: Solution UX Design
 
@@ -1950,9 +4546,119 @@ Este sistema de navegación busca mantener continuidad entre los flujos. El usua
 
 ## 6.3. Landing Page UI Design
 
+El diseño de la interfaz de usuario (UI) para la Landing Page de Reqs-AI ha sido estructurado como el puente directo entre la propuesta de valor técnica de Kntro-Soft y las necesidades cognitivas de nuestros segmentos objetivos. Para lograrlo, traducimos los hallazgos del proceso de Need Finding y la arquitectura de información en una disposición visual que prioriza la claridad, la accesibilidad y el profesionalismo. Cada componente de la interfaz responde a decisiones estratégicas de diseño inclusivo: desde el uso de contrastes tipográficos que guían el flujo de lectura del usuario, hasta una jerarquía visual rigurosa que destaca de inmediato soluciones clave como la documentación instantánea en Gherkin y el asistente consultivo en tiempo real. Así, transformamos los requisitos funcionales de la plataforma en una experiencia digital intuitiva, limpia y optimizada para mitigar la fricción desde el primer punto de contacto.
+
 ### 6.3.1. Landing Page Wireframe
 
+**Hero Section Wireframe**
+
+El Hero Section se posiciona en la parte superior de la página aplicando el principio de proximidad y foco visual, donde un titular de alto contraste comunica instantáneamente la propuesta de valor de Reqs-AI ("Documentación de requisitos asistida por IA en tiempo real"), acompañada de un subtítulo persuasivo y un botón de Call to Action (CTA) altamente accesible. Su disposición está optimizada arquitectónicamente mediante una estructura de una sola columna central en dispositivos móviles para facilitar el scrolling vertical, y un diseño de dos columnas en formato desktop que equilibra el texto con una captura intuitiva de la plataforma, guiando de forma fluida el recorrido visual del usuario sin generar sobrecarga cognitiva.
+
+![Reqs-AI Hero Section Wireframe](./assets/ui/landing/wireframes/hero-section-wireframe.png)
+
+**Benefits Section Wireframe**
+
+Esta sección presenta las funcionalidades clave mediante un diseño modular y limpio que respeta el principio de simplicidad, agrupando cada beneficio (documentación instantánea, asistencia en vivo y contexto inteligente) con un ícono descriptivo para agilizar la consistencia y el reconocimiento visual. En la versión web de escritorio se despliega una cuadrícula horizontal de tres columnas para una lectura comparativa rápida, mientras que en la versión móvil se adapta a una lista vertical de una sola columna que garantiza la adaptabilidad y una navegación táctil cómoda y fluida.
+
+![Reqs-AI Benefits Section Wireframe](./assets/ui/landing/wireframes/benefits-section-wireframe.png)
+
+**Features Section Wireframe**
+
+Esta sección expone el funcionamiento técnico de la plataforma mediante un flujo visual continuo que aplica el principio de secuencia lógica y continuidad. En la versión de escritorio, el proceso se divide en un diseño asimétrico de dos columnas alternadas que guían el recorrido del usuario paso a paso, mientras que la versión móvil lo consolida en una sola columna vertical con espaciados optimizados, asegurando una asimilación intuitiva y una alta legibilidad en pantallas táctiles.
+
+![Reqs-AI Features Section Wireframe](./assets/ui/landing/wireframes/features-section-wireframe.png)
+
+**Target Segments Section Wireframe**
+
+Esta sección expone los públicos objetivos aplicando el principio de contraste y segmentación clara de la información para diferenciar ambos perfiles. En la interfaz de escritorio se despliegan dos tarjetas simétricas en paralelo que permiten una comparativa directa e inmediata, mientras que en la versión móvil se apilan verticalmente para mantener una lectura limpia, un scroll cómodo y una correcta accesibilidad táctil.
+
+![Reqs-AI Target Segments Section Wireframe](./assets/ui/landing/wireframes/target-segments-section-wireframe.png)
+
+**Testimonials Section Wireframe**
+
+Esta sección refuerza la confianza de la plataforma aplicando el principio de prueba social mediante un diseño modular y limpio. En la versión de escritorio, los testimonios se organizan en una cuadrícula horizontal de tres columnas que permite una lectura rápida de las experiencias de los usuarios, mientras que en la versión móvil se adaptan a un carrusel o lista vertical de una sola columna que optimiza el espacio y facilita la navegación táctil.
+
+![Reqs-AI Testimonials Section Wireframe](./assets/ui/landing/wireframes/testimonials-section-wireframe.png)
+
+**Pricing Section Wireframe**
+
+Esta sección presenta los planes de suscripción de la plataforma aplicando el principio de contraste e incentivo visual para guiar la conversión de los distintos segmentos. En la versión de escritorio se despliega una estructura de tres columnas en paralelo destacando el plan "Professional" con una inversión de color (tarjeta negra), mientras que en la versión móvil las tarjetas se apilan verticalmente, manteniendo botones de acción (CTA) amplios y accesibles para una óptima interacción táctil.
+
+![Reqs-AI Pricing Section Wireframe](./assets/ui/landing/wireframes/pricing-section-wireframe.png)
+
+**Contact Section Wireframe**
+
+Esta sección facilita la conversión y el soporte directo aplicando los principios de claridad y accesibilidad en los canales de comunicación. En la interfaz de escritorio, los datos de contacto corporativo (correo electrónico y dirección física) se distribuyen de forma asimétrica junto a una descripción concisa para optimizar el espacio en pantalla, mientras que en la versión móvil los elementos se unifican en un flujo vertical de una sola columna que garantiza un acceso táctil inmediato y libre de fricciones.
+
+![Reqs-AI Contact Section Wireframe](./assets/ui/landing/wireframes/contact-section-wireframe.png)
+
+**Final CTA Section Wireframe**
+
+Esta sección actúa como el cierre de conversión de la página aplicando el principio de foco absoluto y aislamiento visual mediante un fondo oscuro de alto contraste. Su estructura simétrica de una sola columna centralizada, idéntica tanto en la versión de escritorio como en la móvil, elimina cualquier distracción secundaria para dirigir toda la atención del usuario hacia el botón principal de registro ("Get Started Now"), maximizando la accesibilidad y la intención de clic.
+
+![Reqs-AI Final CTA Section Wireframe](./assets/ui/landing/wireframes/final-cta-section-wireframe.png)
+
+**Footer Section Wireframe**
+
+Esta sección consolida el cierre de la página aplicando los principios de consistencia y arquitectura de información estructurada para la navegación secundaria. En la interfaz de escritorio se organiza mediante un diseño de cuadrícula asimétrica multicolumna que separa los derechos de autor y enlaces de redes sociales a la izquierda, distribuyendo de forma limpia las columnas temáticas de enlaces (Producto, Empresa, Soporte y Legal) a la derecha; mientras que en la versión móvil se unifica en una única columna de bloques apilados secuencialmente que optimiza el área táctil y la legibilidad en pantallas compactas.
+
+![Reqs-AI Footer Section Wireframe](./assets/ui/landing/wireframes/footer-section-wireframe.png)
+
 ### 6.3.2. Landing Page Mock-up
+
+**Hero Section Mock-up**
+
+El Mock-up del Hero Section consolida la identidad visual del producto aplicando el Design System mediante una paleta de colores oscuros de alta fidelidad con acentos morados y una tipografía moderna Sans-Serif de alto contraste (blanco sobre fondo oscuro), garantizando la accesibilidad (WCAG). En la versión de escritorio se plasma la arquitectura de dos columnas donde el texto persuasivo coexiste armónicamente con una maqueta detallada de la interfaz de Reqs-AI, mientras que la versión móvil sintetiza este espacio en una disposición centralizada de una sola columna que optimiza la interacción táctil en los botones principales (Call to Action).
+
+![Reqs-AI Hero Section Mock-up](./assets/ui/landing/mockups/hero-section-mockup.png)
+
+**Benefits Section Mock-up**
+
+El Mock-up de la sección de beneficios consolida visualmente el núcleo de la problemática aplicando el Design System mediante un sofisticado fondo azul noche de baja luminosidad, el cual genera un contraste idóneo con los textos en blanco y los acentos en verde esmeralda para garantizar la conformidad con las pautas de accesibilidad. En la versión de escritorio, las tres tarjetas de problemáticas identificadas (pérdida de información, feedback infinito y costos exponenciales) se organizan en una cuadrícula simétrica de tres columnas equipadas con íconos vectoriales minimalistas que agilizan el reconocimiento visual, mientras que la interfaz móvil las unifica en una secuencia vertical de lectura directa que facilita la interacción táctil y preserva el balance del espacio negativo.
+
+![Reqs-AI Benefits Section Mock-up](./assets/ui/landing/mockups/benefits-section-mockup.png)
+
+**Features Section Mock-up**
+
+El Mock-up de esta sección implementa un fondo claro y limpio que destaca las cuatro funcionalidades principales mediante tarjetas individuales con bordes suavizados, respetando el principio de consistencia técnica del Design System. En la versión de escritorio, se aplica una distribución horizontal de cuatro columnas equipadas con contenedores de íconos en tonalidades pastel que agilizan la navegación visual, mientras que en la interfaz móvil este flujo se transforma en un desplazamiento vertical unificado para asegurar la accesibilidad tipográfica y una cómoda interacción táctil.
+
+![Reqs-AI Features Section Mock-up](./assets/ui/landing/mockups/features-section-mockup.png)
+
+**Target Segments Section Mock-up**
+
+El Mock-up de esta sección segmenta con precisión a los usuarios aplicando el Design System a través de dos grandes contenedores simétricos con sutiles bordes redondeados y tipografía oscura de alta legibilidad sobre un fondo gris claro neutro. En la versión de escritorio, las tarjetas de "Tech Leaders" y "Systems Analysts" se posicionan en paralelo para facilitar una lectura comparativa de sus dolores y beneficios específicos, integrando checkmarks de color verde esmeralda para una rápida asimilación visual; mientras que en la versión móvil se apilan de forma vertical para asegurar un escalado limpio y una óptima accesibilidad táctil.
+
+![Reqs-AI Target Segments Section Mock-up](./assets/ui/landing/mockups/target-segments-section-mockup.png)
+
+**Testimonials Section Mock-up**
+
+El Mock-up de esta sección materializa la prueba social aplicando el Design System mediante tarjetas individuales blancas que incorporan avatares circulares de alta definición y tipografía en cursiva para los testimonios corporativos. En la versión de escritorio, las opiniones se distribuyen horizontalmente en una cuadrícula simétrica de tres columnas que organiza la información de los líderes de la industria de forma limpia, mientras que en la versión móvil se adaptan a un ordenamiento vertical de una sola columna que garantiza la legibilidad tipográfica y una cómoda navegación táctil.
+
+![Reqs-AI Testimonials Section Mock-up](./assets/ui/landing/mockups/testimonials-section-mockup.png)
+
+**Pricing Section Mock-up**
+
+El Mock-up de la sección de precios plasma el modelo de monetización aplicando el Design System mediante tres tarjetas con tipografía limpia de gran escala para las tarifas (como el plan Starter de $49/mo enfocado en startups). En la versión de escritorio, se utiliza el principio de asimetría visual al destacar el plan "Professional" con un fondo azul oscuro profundo y un botón CTA verde esmeralda para atraer la conversión, mientras que en la versión móvil la interfaz se adapta a un apilamiento vertical que resguarda la proporción del espacio y garantiza la accesibilidad en la lectura de las características técnicas.
+
+![Reqs-AI Pricing Section Mock-up](./assets/ui/landing/mockups/pricing-section-mockup.png)
+
+**Contact Section Mock-up**
+
+El Mock-up de la sección de contacto materializa los canales de atención aplicando el Design System mediante iconografía lineal en color verde esmeralda y tipografía oscura de alta legibilidad sobre un fondo gris neutro. En la versión de escritorio, la información de soporte (hello@reqs.ai) y la dirección corporativa se despliegan con una alineación asimétrica a la izquierda que deja un respiro visual óptimo gracias al uso estratégico del espacio negativo, mientras que en la versión móvil todo el bloque se centraliza en una sola columna para garantizar una lectura directa y un acceso táctil inmediato.
+
+![Reqs-AI Contact Section Mock-up](./assets/ui/landing/mockups/contact-section-mockup.png)
+
+**Final CTA Section Mock-up**
+
+El Mock-up de la sección de cierre consolida la conversión aplicando el Design System mediante un bloque contenedor de color azul noche profundo y bordes suavizados que aísla visualmente el contenido para eliminar elementos distractores. Su estructura centralizada de una sola columna destaca un titular persuasivo de gran escala ("Stop wasting hours post-processing meeting recordings.") y un botón principal (CTA) verde esmeralda con alto contraste tipográfico, garantizando una interacción táctil intuitiva y una accesibilidad óptima tanto en la interfaz de escritorio como en la adaptación móvil.
+
+![Reqs-AI Final CTA Section Mock-up](./assets/ui/landing/mockups/final-cta-section-mockup.png)
+
+**Footer Section Mock-up**
+
+El Mock-up del Footer consolida la navegación secundaria aplicando el Design System mediante una tipografía Sans-Serif oscura de alta legibilidad sobre un fondo blanco limpio. En la versión de escritorio se implementa una cuadrícula asimétrica multicolumna que agrupa de manera lógica y ordenada las secciones del producto (Product, Company, Support y Legal) junto al logotipo, el lema corporativo y los íconos de redes sociales a la izquierda, mientras que en la versión móvil todos los bloques se apilan verticalmente de forma secuencial para maximizar las áreas de interacción táctil.
+
+![Reqs-AI Footer Section Mock-up](./assets/ui/landing/mockups/footer-section-mockup.png)
 
 ## 6.4. Applications UX/UI Design
 
@@ -1961,6 +4667,8 @@ En esta sección se presenta el diseño UX/UI de la aplicación web de Reqs-AI. 
 La propuesta de diseño se centra en validar la navegación, jerarquía visual, consistencia entre módulos y claridad de los flujos principales antes de pasar a la versión final de alta fidelidad. De esta manera, los wireframes permiten revisar la estructura funcional de la aplicación y los mock-ups permiten representar la apariencia final del producto.
 
 ### 6.4.1. Applications Wireframes
+
+**Web Application Wireframes**
 
 Los wireframes de la aplicación web representan la versión de baja fidelidad de Reqs-AI. Su finalidad es validar la distribución de los elementos, la navegación interna, la secuencia de pantallas y los estados principales del sistema sin centrarse todavía en colores, estilos visuales o detalles gráficos finales.
 
@@ -2176,7 +4884,75 @@ Estos wireframes cubren el recorrido principal del usuario: autenticación, crea
 
 <img src="assets/ui/wireframes/workspace-created-success-details.png" alt="Workspace Created Success Details Wireframe" style="width: 800px">
 
+**Mobile Application Wireframes**
+
+Los wireframes de la aplicación móvil representan la versión de baja fidelidad de Reqs-AI en formato adaptado para dispositivos móviles. Su objetivo es validar la estructura, navegación y flujos principales dentro de una interfaz táctil y de menor tamaño, manteniendo la consistencia funcional con la versión web.
+
+**Login Screen**
+
+**Descripción:** Esta pantalla gestiona el acceso seguro a la aplicación móvil aplicando el principio de simplicidad y reducción de la carga cognitiva mediante un diseño de una sola columna centralizada. El flujo prioriza la accesibilidad táctil ubicando los campos de entrada de texto (Email y Password) y el botón principal de acción (CTA) con dimensiones óptimas para evitar errores de pulsación, mientras que la arquitectura de información organiza los elementos de forma secuencial de arriba hacia abajo, garantizando una navegación intuitiva y directa desde el primer punto de contacto.
+
+<img src="assets/ui/mobile/wireframes/mobile-login-screen.png" alt="Mobile Login Screen Wireframe" style="width: 400px">
+
+**Dashboard Screen**
+
+**Descripción:** Esta pantalla actúa como el centro de control principal de la aplicación, estructurando la arquitectura de información mediante un flujo completamente vertical y modular para pantallas compactas. En la parte superior se integran tarjetas de métricas numéricas con barras de progreso que aplican el principio de consistencia visual para una asimilación inmediata del estado del proyecto, seguidas de una lista secuencial de elementos (Lorem Ipsum List) con contenedores amplios que mitigan el esfuerzo cognitivo. Para asegurar el diseño inclusivo y la accesibilidad táctil en movilidad, la pantalla incorpora un menú de navegación inferior (Bottom Navigation Bar) con etiquetas claras y un botón de acción flotante (FAB) estratégicamente posicionado en la esquina inferior derecha para facilitar el alcance con el pulgar.
+
+<img src="assets/ui/mobile/wireframes/mobile-dashboard-screen.png" alt="Mobile Dashboard Screen Wireframe" style="width: 400px">
+
+**Settings & Profile Screen**
+
+**Descripción:** Esta vista gestiona la configuración de usuario agrupando la información en contenedores independientes que respetan el principio de proximidad y consistencia. La arquitectura de información distribuye verticalmente el perfil del usuario, el resumen de cuenta, las preferencias de apariencia, la seguridad, las notificaciones y las herramientas conectadas (como Jira o Trello); garantizando un diseño inclusivo mediante botones de acción grandes, etiquetas explícitas y un menú de navegación inferior consistente que facilita el control ergonómico con una sola mano.
+
+<img src="assets/ui/mobile/wireframes/mobile-settings-profile-screen.png" alt="Mobile Settings & Profile Screen Wireframe" style="width: 400px">
+
+**Live Assistant Screen**
+
+**Descripción:** Esta pantalla representa el núcleo interactivo en tiempo real de la solución móvil, estructurando un flujo de conversación dinámico optimizado para la escucha activa en juntas de trabajo. La arquitectura de información utiliza un diseño cronológico asimétrico de burbujas de diálogo que diferencia claramente las intervenciones de los participantes (Stakeholder) del procesamiento del sistema (Assistant), reduciendo drásticamente la sobrecarga cognitiva.
+
+Cumpliendo con los principios de diseño inclusivo y accesibilidad táctil en movilidad, la sección inferior integra un carrusel horizontal interactivo de sugerencias estratégicas inteligentes (AI Suggestions) con botones de acción rápida de gran tamaño (Use Suggestion), acompañados por una barra de herramientas de control ergonómico inferior de alta accesibilidad para operaciones inmediatas como silenciar, tomar notas o revisar artefactos generados.
+
+<img src="assets/ui/mobile/wireframes/mobile-live-assistant-screen.png" alt="Mobile Live Assistant Screen Wireframe" style="width: 400px">
+
+**Review & Export Screen**
+
+**Descripción:** Esta pantalla gestiona la revisión exhaustiva y exportación de artefactos mediante una arquitectura de información jerárquica y modular adaptada para entornos móviles. La interfaz implementa un sistema de pestañas superiores (Tabs) para alternar rápidamente entre categorías, seguido de tarjetas con listas de verificación individuales (Checkboxes) que permiten al usuario seleccionar historias de usuario específicas que despliegan su estructura sintáctica detallada. Para mitigar la fricción y asegurar un diseño inclusivo en movilidad, la pantalla superpone un panel emergente inferior (Bottom Sheet) de alta accesibilidad táctil que organiza las opciones de integración (como Jira, Azure, GitHub y Markdown) en una cuadrícula simétrica de botones amplios y fáciles de pulsar con una sola mano, agilizando el flujo de sincronización hacia repositorios externos de gestión.
+
+<img src="assets/ui/mobile/wireframes/mobile-review-export-screen.png" alt="Mobile Review & Export Screen Wireframe" style="width: 400px">
+
+**Projects Archive Screen**
+
+**Descripción:** Esta pantalla gestiona el catálogo de proyectos activos e históricos estructurando la arquitectura de información mediante un patrón jerárquico que facilita la búsqueda y el filtrado rápido en dispositivos móviles. En la parte superior se integra una barra de búsqueda (Search Input) seguida de píldoras de filtrado por estado (All, In Progress, Completed) que respetan el principio de consistencia técnica y proximidad, permitiendo refinar los resultados con un solo toque. El cuerpo principal organiza los proyectos en tarjetas modulares individuales que optimizan la legibilidad tipográfica; cada tarjeta agrupa de forma clara el estado del proyecto, el título, el cliente, la cantidad de historias de usuario y una barra de progreso porcentual. Finalmente, para garantizar el diseño inclusivo y la ergonomía táctil en movilidad, se incluye un botón de acción flotante (FAB) para añadir nuevos proyectos y una barra de navegación inferior (Bottom Navigation Bar) que asegura un control cómodo y libre de fricciones con una sola mano.
+
+<img src="assets/ui/mobile/wireframes/mobile-projects-archive-screen.png" alt="Mobile Projects Archive Screen Wireframe" style="width: 400px">
+
+**Project Settings Screen**
+
+**Descripción:** Esta vista gestiona los parámetros específicos de un proyecto individual organizando la arquitectura de información mediante una estructura puramente vertical que agrupa las configuraciones generales, el backend de sincronización, la gestión de miembros del equipo y los tokens de acceso. El diseño prioriza la accesibilidad y el control inclusivo en movilidad al implementar controles deslizantes (Switches) y menús desplegables con amplias áreas de activación táctil, optimizando la interacción con una sola mano y reduciendo la fatiga cognitiva del usuario.
+
+<img src="assets/ui/mobile/wireframes/mobile-project-settings-screen.png" alt="Mobile Project Settings Screen Wireframe" style="width: 400px">
+
+**Session History Screen**
+
+**Descripción:** Esta pantalla organiza el historial cronológico de las sesiones de elicitación mediante una línea de tiempo vertical dividida por bloques temporales (Today, Yesterday) que reduce la carga cognitiva del usuario. La interfaz aplica los principios de jerarquía visual y diseño inclusivo al estructurar cada sesión en tarjetas independientes con identificadores únicos (#ID), etiquetas de estado y botones de acción de gran tamaño (View Transcript o Resume Session), permitiendo un acceso y control táctil inmediato en movilidad.
+
+<img src="assets/ui/mobile/wireframes/mobile-session-history-screen.png" alt="Mobile Session History Screen Wireframe" style="width: 400px">
+
+**Integrations Directory Screen**
+
+**Descripción:** Esta pantalla centraliza las herramientas externas conectadas organizando la arquitectura de información mediante categorías temáticas horizontales (Project Management, Communication) que simplifican el descubrimiento y la navegación en la interfaz móvil. El diseño fomenta el diseño inclusivo al implementar tarjetas independientes con botones de gran tamaño para conectar (Connect) o gestionar (Manage), complementado con un buscador superior accesible para mitigar el esfuerzo cognitivo y agilizar las tareas táctiles en movilidad.
+
+<img src="assets/ui/mobile/wireframes/mobile-integrations-directory-screen.png" alt="Mobile Integrations Directory Screen Wireframe" style="width: 400px">
+
+**Billing & Subscription Screen**
+
+**Descripción:** Esta pantalla gestiona los detalles de facturación de la aplicación organizando la arquitectura de información de manera lineal y segregada mediante bloques de historial de transacciones, métodos de pago vinculados y tarjetas de suscripción activa. El diseño refuerza los principios de diseño inclusivo al incorporar botones de acción prominentes para la cancelación o actualización de planes, reduciendo la fricción en transacciones críticas y garantizando una interacción táctil transparente, ergonómica y libre de errores en movilidad.
+
+<img src="assets/ui/mobile/wireframes/mobile-billing-subscription-screen.png" alt="Mobile Billing & Subscription Screen Wireframe" style="width: 400px">
+
 ### 6.4.2. Applications Wireflow Diagrams
+
+**Web Application Wireflow Diagrams**
 
 Los wireflows de la aplicación web de Reqs-AI representan la conexión entre pantallas y estados interactivos del sistema. A diferencia de los wireframes, estos diagramas no solo muestran la estructura visual, sino también cómo el usuario avanza de una acción a otra dentro del flujo: autenticación, creación de workspace, navegación principal, gestión de proyectos, sesiones de descubrimiento, revisión de historias generadas por IA, integraciones, facturación y configuración del equipo.
 
@@ -2360,7 +5136,41 @@ Cada wireflow incluye una flecha que indica la transición principal entre panta
 
 <img src="assets/ui/wireflows/team-management-to-home-notifications.png" alt="Gestión de equipo hacia home con notificaciones" style="width: 800px">
 
+**Mobile Application Wireflow Diagrams**
+
+**Autenticación de usuario y gestión de perfil**
+
+**Descripción:** Este Wireflow detalla el flujo secuencial orientado al objetivo del usuario de iniciar sesión de forma segura y navegar de inmediato hacia la gestión de su cuenta. El diagrama mapea la transición interactiva desde la pantalla de Login centralizada hasta la vista de Settings & Profile, evidenciando la persistencia de la arquitectura de información y la consistencia del menú de navegación inferior durante el desplazamiento ergonómico en la aplicación móvil.
+
+<img src="assets/ui/mobile/wireflows/mobile-login-to-profile-management.png" alt="Mobile Login to Profile Management Wireflow" style="width: 400px">
+
+**Navegación del Dashboard a Live Assistant**
+
+**Descripción:** Este Wireflow ilustra el flujo interactivo diseñado para cumplir con el objetivo del usuario de iniciar o acceder rápidamente a una sesión de elicitación de requerimientos en tiempo real. El diagrama define la transición directa desde el Dashboard principal mediante la barra de navegación inferior hacia la pantalla del Live Assistant, asegurando que el analista pueda monitorear la transcripción y recibir sugerencias inteligentes de la IA de manera inmediata y sin fricciones de navegación.
+
+<img src="assets/ui/mobile/wireflows/mobile-dashboard-to-live-assistant.png" alt="Mobile Dashboard to Live Assistant Wireflow" style="width: 400px">
+
+**Navegación del Dashboard a Review & Export**
+
+**Descripción:** Este Wireflow traza el camino interactivo enfocado en el objetivo del usuario de examinar, validar y exportar los requerimientos generados hacia repositorios externos. El diagrama mapea la navegación desde la vista principal del Dashboard hacia la pantalla de Review & Export, ilustrando cómo la interfaz despliega de forma adaptativa el menú emergente inferior (Bottom Sheet) para facilitar la sincronización táctil con herramientas de gestión de proyectos sin perder el contexto de la aplicación móvil.
+
+<img src="assets/ui/mobile/wireflows/mobile-dashboard-to-review-export.png" alt="Mobile Dashboard to Review & Export Wireflow" style="width: 400px">
+
+**Gestión Integral de Proyectos y Requerimientos**
+
+**Descripción:** Este Wireflow mapea el flujo interactivo de extremo a extremo diseñado para que el analista administre la configuración y los artefactos de un proyecto. El diagrama detalla la ruta secuencial que inicia en el Dashboard, transiciona por el catálogo de Projects Archive mediante la barra de navegación, ingresa a las configuraciones detalladas en Project Settings y culmina en la vista de Project User Stories, demostrando cómo se mantiene la jerarquía visual y la consistencia en el control de estados críticos a través de la aplicación móvil.
+
+<img src="assets/ui/mobile/wireflows/mobile-project-management-flow.png" alt="Mobile Project Management Flow Wireflow" style="width: 400px">
+
+**Navegación de Historias de Usuario a Historial, Integraciones y Facturación**
+
+**Descripción:** Este Wireflow traza el flujo transversal que permite al analista navegar fluidamente entre el control operativo y administrativo del sistema. El diagrama detalla la transición secuencial iniciada en la vista de Project User Stories, pasando secuencialmente a través del menú de navegación inferior hacia Session History para auditar transcripciones previas, luego hacia el Integrations Directory para conectar servicios de comunicación externos, y culminando directamente en Billing & Subscription para la gestión financiera de la cuenta móvil.
+
+<img src="assets/ui/mobile/wireflows/mobile-user-stories-to-history-integrations-billing.png" alt="Mobile User Stories to History, Integrations, Billing Wireflow" style="width: 400px">
+
 ### 6.4.2. Applications Mock-ups
+
+**Web Application Mock-ups**
 
 Los siguientes mock-ups presentan la versión de alta fidelidad de la aplicación web de Reqs-AI. La secuencia evidencia el recorrido principal del usuario dentro de la plataforma: autenticación, creación del workspace, navegación inicial, gestión de proyectos, sesiones de descubrimiento, revisión de historias generadas por IA, integraciones, facturación y configuración del equipo.
 
@@ -2582,9 +5392,127 @@ Los siguientes mock-ups presentan la versión de alta fidelidad de la aplicació
 
 <img src="assets/ui/mockups/create-new-project-modal-template-selection.png" alt="Create New Project Modal Template Selection" style="width: 800px">
 
+**Mobile Application Mock-ups**
+
+Los siguientes mock-ups presentan la versión de alta fidelidad de la aplicación móvil de Reqs-AI. La secuencia evidencia el recorrido principal del usuario dentro de la plataforma: autenticación, navegación principal, gestión de proyectos, sesiones de descubrimiento, revisión de historias generadas por IA, integraciones, facturación y configuración del equipo.
+
+**Login Screen**
+
+**Descripción:** El Mock-up de la pantalla de inicio de sesión consolida la identidad de marca del producto aplicando el Design System mediante una paleta de colores sobria, donde destaca el verde esmeralda corporativo en el botón principal de acción (CTA) y los acentos interactivos (Sign In, Forgot Password?). La arquitectura de información distribuye verticalmente los elementos clave (campos de texto legibles, opciones de autenticación federada con Google y Okta, y enlaces de asistencia) sobre una tarjeta contenedora blanca con bordes redondeados y sombras sutiles que generan una clara separación de capas visuales, garantizando un alto contraste tipográfico y un diseño inclusivo que minimiza el error táctil en dispositivos móviles.
+
+<img src="assets/ui/mobile/mockups/mobile-login-screen.png" alt="Mobile Login Screen Mockup" style="width: 400px">
+
+**Dashboard Screen**
+
+**Descripción:** El Mock-up del Dashboard implementa el Design System estructurando métricas clave (como los 12 proyectos activos o las 450 historias generadas) en tarjetas modulares blancas de alta visibilidad que optimizan la carga cognitiva. Su arquitectura de información destaca una sección interactiva de "Recent Sessions" y un contenedor asimétrico azul noche para recomendaciones de la IA, complementado con un menú de navegación inferior consistente y un botón flotante de micrófono esmeralda que garantiza una accesibilidad táctil inmediata en movilidad.
+
+<img src="assets/ui/mobile/mockups/mobile-dashboard-screen.png" alt="Mobile Dashboard Screen Mockup" style="width: 400px">
+
+**Settings & Profile Screen**
+
+**Descripción:** El Mock-up de esta vista consolida las configuraciones de la cuenta organizando la arquitectura de información mediante contenedores modulares con esquinas suavizadas sobre un fondo gris claro neutro. La interfaz integra con precisión los elementos de diseño del Design System, destacando el uso de etiquetas de estado en verde esmeralda para suscripciones activas (Enterprise), selectores de apariencia con alto contraste y un botón de cierre de sesión (Log Out) codificado en rojo para mitigar errores de navegación táctil.
+
+<img src="assets/ui/mobile/mockups/mobile-settings-profile-screen.png" alt="Mobile Settings & Profile Screen Mockup" style="width: 400px">
+
+**Live Assistant Screen**
+
+**Descripción:** El Mock-up de esta pantalla operativa plasma la interacción de la IA en tiempo real utilizando el Design System mediante un contenedor blanco de bordes suavizados y un sutil degradado verde esmeralda para el módulo "AI Smart Suggestions". La arquitectura de información prioriza la accesibilidad y ergonomía táctil en movilidad al ubicar los controles de sesión en la parte inferior, destacando el botón principal asimétrico (Finish & Generate Stories) para cerrar el flujo libre de errores.
+
+<img src="assets/ui/mobile/mockups/mobile-live-assistant-screen.png" alt="Mobile Live Assistant Screen Mockup" style="width: 400px">
+
+**Review & Export Screen**
+
+**Descripción:** El Mock-up de esta pantalla aplica el Design System superponiendo un panel emergente inferior (Bottom Sheet) estilizado con sombras suaves para confirmar la sincronización hacia plataformas de gestión de proyectos. La arquitectura de información destaca una cuadrícula de botones para seleccionar servicios externos (como Azure DevOps en verde corporativo) y un botón de acción principal de alto contraste (Sync Backlog), garantizando un diseño inclusivo y un control táctil óptimo sin perder la visibilidad de las historias de usuario de fondo.
+
+<img src="assets/ui/mobile/mockups/mobile-review-export-screen.png" alt="Mobile Review & Export Screen Mockup" style="width: 400px">
+
+**Projects Archive Screen**
+
+**Descripción:** El Mock-up de esta pantalla consolida el catálogo de proyectos empleando tarjetas modulares individuales con bordes suavizados que facilitan la lectura en movilidad. Su arquitectura de información integra un buscador superior intuitivo y píldoras de filtrado por estado, aplicando las pautas de diseño inclusivo del Design System mediante barras de progreso en verde esmeralda y un botón flotante de adición táctil de alta accesibilidad para el pulgar.
+
+<img src="assets/ui/mobile/mockups/mobile-projects-archive-screen.png" alt="Mobile Projects Archive Screen Mockup" style="width: 400px">
+
+**Project Settings Screen**
+
+**Descripción:** El Mock-up de esta pantalla configura los parámetros del proyecto aplicando el Design System mediante un diseño puramente vertical segmentado en bloques funcionales con tipografía de alto contraste. La arquitectura de información destaca controles interactivos táctiles como el switch esmeralda de "AI Auto-Analysis Settings", tarjetas de integración directa (Jira y Azure) y un componente cronológico de "Team Activity", garantizando un diseño inclusivo y un control ergonómico sin errores en movilidad.
+
+<img src="assets/ui/mobile/mockups/mobile-project-settings-screen.png" alt="Mobile Project Settings Screen Mockup" style="width: 400px">
+
+**Project User Stories Screen**
+
+**Descripción:** El Mock-up de esta pantalla presenta el catálogo detallado de historias de usuario bajo una arquitectura de información estructurada en bloques de sintaxis Gherkin (Given-When-Then) de alta legibilidad para el analista. La interfaz consolida el Design System mediante un buscador superior interactivo, píldoras de filtrado por estado (Draft, Review, Approved) codificadas por colores de alto contraste y un botón flotante de adición táctil que optimiza el diseño inclusivo en movilidad.
+
+<img src="assets/ui/mobile/mockups/mobile-project-user-stories-screen.png" alt="Mobile Project User Stories Screen Mockup" style="width: 400px">
+
+**Session History Screen**
+
+**Descripción:** El Mock-up de esta pantalla organiza las grabaciones pasadas aplicando el Design System sobre una línea de tiempo vertical segmentada de manera limpia con indicadores de estado circulares. La arquitectura de información destaca en cada tarjeta métricas críticas como el porcentaje de precisión de la IA (AI Score), la duración y el moderador, integrando un diseño inclusivo mediante botones de reproducción rápida en verde esmeralda y accesos prominentes (View Transcript) para mitigar errores en movilidad.
+
+<img src="assets/ui/mobile/mockups/mobile-session-history-screen.png" alt="Mobile Session History Screen Mockup" style="width: 400px">
+
+**Integrations Directory Screen**
+
+**Descripción:** El Mock-up de esta pantalla consolida el catálogo de extensiones externas aplicando el Design System mediante tarjetas modulares ordenadas bajo íconos de categoría con alto contraste cromático. La arquitectura de información distribuye de forma jerárquica los servicios vinculados (como Jira en estado activo) de los disponibles para conectar (Connect), integrando un diseño inclusivo mediante botones amplios de fácil alcance y un banner asimétrico azul noche para promocionar integraciones destacadas de la IA.
+
+<img src="assets/ui/mobile/mockups/mobile-integrations-directory-screen.png" alt="Mobile Integrations Directory Screen Mockup" style="width: 400px">
+
+**Billing & Subscription Screen**
+
+**Descripción:** El Mock-up de esta pantalla gestiona los datos financieros del usuario aplicando el Design System a través de bloques de información con bordes suavizados sobre un fondo blanco limpio. La arquitectura de información prioriza los datos críticos mediante una barra de progreso esmeralda para el consumo de tokens, una tarjeta asimétrica azul noche para el próximo cobro de $499.00 y una lista vertical de facturas descargables con botones táctiles amplios, logrando un diseño inclusivo que simplifica la administración de la cuenta en movilidad.
+
+<img src="assets/ui/mobile/mockups/mobile-billing-subscription-screen.png" alt="Mobile Billing & Subscription Screen Mockup" style="width: 400px">
+
 ### 6.4.3. Applications User Flow Diagrams
 
+
+
+**Mobile Application User Flow Diagrams**
+
+**Autenticación de Usuario y Configuración de Cuenta**
+
+**Descripción:** Este User Flow mapea el happy path de alta fidelidad para el inicio de sesión exitoso y la navegación inmediata hacia la configuración del perfil mediante el menú inferior. El diagrama integra los Mock-ups finales del producto digital para validar las condiciones visuales del Design System, sirviendo como contraparte directa y consistente del Wireflow funcional previamente establecido.
+
+<img src="assets/ui/mobile/userflows/mobile-authentication-profile-user-flow.png" alt="Mobile Authentication and Profile User Flow" style="width: 400px">
+
+**Activación de Sesión de Elicitación en Live Assistant**
+
+**Descripción:** Este User Flow ilustra la ruta óptima (happy path) de alta fidelidad que recorre el analista al iniciar una sesión de captura de requerimientos desde el Dashboard principal. El diagrama emplea los Mock-ups terminados para validar visualmente la activación inmediata del motor de IA (Analysis engine active) y el despliegue dinámico de sugerencias en tiempo real al cambiar de pantalla.
+
+<img src="assets/ui/mobile/userflows/mobile-live-assistant-user-flow.png" alt="Mobile Live Assistant User Flow" style="width: 400px">
+
+**Sincronización y Exportación de Requerimientos Refinados**
+
+**Descripción:** Este User Flow representa la ruta esperada (happy path) de alta fidelidad para la validación y exportación de artefactos de software directamente a herramientas de gestión desde el Dashboard. El diagrama incorpora los Mock-ups finales para ilustrar la interacción táctil que despliega el panel inferior de sincronización (Ready for Backlog Sync), garantizando la consistencia visual y de comportamiento con su respectivo diagrama de Wireflow.
+
+<img src="assets/ui/mobile/userflows/mobile-review-export-user-flow.png" alt="Mobile Review & Export User Flow" style="width: 400px">
+
+**Administración de Proyectos y Gestión de Historias de Usuario**
+
+**Descripción:** Este User Flow detalla la ruta interactiva (happy path) de alta fidelidad que recorre el usuario para supervisar la configuración y el backlog de un proyecto específico. El diagrama conecta en secuencia los Mock-ups finales del producto digital (Dashboard, Projects Archive, Project Settings y Project User Stories), validando de forma consistente las transiciones visuales de los datos y estados definidos previamente en la estructura funcional del Wireflow.
+
+<img src="assets/ui/mobile/userflows/mobile-project-management-user-flow.png" alt="Mobile Project Management User Flow" style="width: 400px">
+
+**Navegación de Historias de Usuario a Historial, Integraciones y Facturación**
+
+**Descripción:** Este último User Flow consolida el camino operativo (happy path) de alta fidelidad que recorre el analista para transicionar entre la gestión del backlog y los módulos administrativos. El diagrama enlaza secuencialmente los Mock-ups finales (Project User Stories, Session History, Integrations Directory y Billing & Subscription) mediante interacciones en el menú inferior, garantizando una correspondencia estética y funcional exacta con el comportamiento definido en su Wireflow homólogo.
+
+<img src="assets/ui/mobile/userflows/mobile-user-stories-to-history-integrations-billing-user-flow.png" alt="Mobile User Stories to History, Integrations, Billing User Flow" style="width: 400px">
+
 ## 6.5. Applications Prototyping
+
+
+
+**Mobile Application Prototyping**
+
+En esta sección se presentan el prototipo interactivo de alta fidelidad para la aplicación móvil de Reqs-AI, construido con Figma. El prototipo integra los Mock-ups finales en una experiencia navegable que simula el comportamiento real del producto digital, permitiendo validar la usabilidad, la consistencia visual y la fluidez de las transiciones entre pantallas.
+
+![Mobile Application Prototype](./assets/ui/mobile/prototype/mobile-application-prototype.png)
+
+**Enlace al prototipo:**
+
+El prototipo interactivo de la aplicación móvil de Reqs-AI se encuentra disponible en el siguiente enlace: [Reqs-AI Mobile Application Prototype](https://www.figma.com/proto/TBYTXyq5REHaJd57XdMFe3/Mobile-App?node-id=10-275&viewport=-1730%2C-1243%2C0.17&t=4JoIIEahuM82Ubyn-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=10%3A275&show-proto-sidebar=1&page-id=0%3A1)
+
+El video del prototipo interactivo se encuentra disponible en el siguiente enlace: [Reqs-AI Mobile Application Prototype Video](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20201e843_upc_edu_pe/IQAQ5aiOb23nSI7phtra3Un_AQX1hqL_qhVPW8CldVvTLv0?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=BmdCkh)
 
 # Capítulo VII: Product Implementation, Validation & Deployment
 
