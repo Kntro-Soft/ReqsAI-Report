@@ -75,6 +75,10 @@ TB1:
 
 ![InsightsTB1](assets/insights/insights-tb1.png)
 
+TP:
+
+![InsightsTP](assets/insights/insights-tp.png)
+
 <div style="page-break-before: always"></div>
 
 # Contenido
